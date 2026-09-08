@@ -88,11 +88,20 @@ export const attributeSchema = z.discriminatedUnion("type", [
     sort: z.boolean().optional(),
     default: z.number().int().optional(),
   }),
-  /** No `default`: the upstream documents ListMany as not accepting one. */
+  /**
+   * No `default`: the upstream documents ListMany as not accepting one.
+   *
+   * `options` is optional here, unlike ListOne. The Foundry configs of Masks,
+   * Urban Shadows and Monsterhearts each declare ListMany attributes carrying
+   * no options at all — advancements, inventions, doom marks — whose entries
+   * are added at play time. An absent key says that; an empty array stays a
+   * mistake, so the `min(1)` still applies when the key is written. A ListOne
+   * with nothing to pick has no such reading, so its options stay required.
+   */
   z.strictObject({
     ...attributeBase,
     type: z.literal("ListMany"),
-    options: optionList,
+    options: optionList.optional(),
     sort: z.boolean().optional(),
     condition: z.boolean().optional(),
   }),

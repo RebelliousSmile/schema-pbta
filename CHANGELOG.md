@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- `ListMany` no longer requires `options`. The Foundry sheet configurations of
+  Masks (`philote/masks-newgeneration-unofficial`), Urban Shadows
+  (`philote/urban-shadows-pbta`) and Monsterhearts
+  (`YanKlInnomme/FoundryVTT-monsterhearts`) each declare `ListMany` attributes
+  carrying no options at all — advancements, inventions, doom marks — whose
+  entries are added at play time, and all three were rejected for it. An absent
+  key now says that; an empty array stays a mistake, the `min(1)` still applying
+  when the key is written. `ListOne` keeps `options` required: a list with
+  nothing to pick has no such reading. Measured against the three configurations
+  transcribed and run through Ajv: Monsterhearts drops from three rejects to one,
+  Masks loses four of nine.
+
 ### Changed
 
 - The French terminology gap is downgraded from blocker to major and reframed as

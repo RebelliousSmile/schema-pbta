@@ -591,8 +591,7 @@
                 },
                 "required": [
                   "label",
-                  "type",
-                  "options"
+                  "type"
                 ],
                 "additionalProperties": false
               },
@@ -1286,8 +1285,7 @@
                 },
                 "required": [
                   "label",
-                  "type",
-                  "options"
+                  "type"
                 ],
                 "additionalProperties": false
               },
