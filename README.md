@@ -77,6 +77,14 @@ was copied.
 
 - **Docs:** CC BY 4.0 (see [here](./LICENSES/DOCS-LICENSE.md))
 
+- **Masks game definition:** `examples/masks/game-definition/masks.toml` is
+  derived from the Masks sheet preset published by Asacolips for the Foundry
+  `pbta` system, available under
+  [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). *Masks: A New
+  Generation* is by Brendan Conway, published by Magpie Games; the game itself
+  is neither reproduced nor licensed here, only the mechanical vocabulary a tool
+  needs to render a sheet.
+
 - **Trademark / community content notice:** to be written once the games this
   repository covers are settled. Apocalypse World is published under its own
   terms and several PbtA games carry their own licences; none of them is covered

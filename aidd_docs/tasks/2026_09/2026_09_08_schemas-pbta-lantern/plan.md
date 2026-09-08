@@ -1,6 +1,6 @@
 ---
 objective: "Le dépôt publie des schémas JSON canoniques pour le contenu PbtA — définition de jeu, move, livret, PNJ, front — validés sur des exemples Masks puis éprouvés sur Monster of the Week."
-status: pending
+status: in-progress
 ---
 
 # Plan: Schémas PbtA pour une Lantern multi-systèmes

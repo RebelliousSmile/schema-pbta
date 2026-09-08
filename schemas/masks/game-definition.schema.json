@@ -1,0 +1,1442 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "game": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "string"
+    },
+    "rollFormula": {
+      "type": "string",
+      "minLength": 1
+    },
+    "minMod": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "maxMod": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "rollResults": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "range": {
+            "type": "string",
+            "minLength": 1
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "range",
+          "label"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "character": {
+      "type": "object",
+      "properties": {
+        "stats": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "attributes": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "Number"
+                  },
+                  "default": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "Text"
+                  },
+                  "default": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "LongText"
+                  },
+                  "default": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "Resource"
+                  },
+                  "max": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "default": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "Clock"
+                  },
+                  "max": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "default": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "Xp"
+                  },
+                  "max": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "default": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "Checkbox"
+                  },
+                  "checkboxLabel": {
+                    "type": "string"
+                  },
+                  "default": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "ListOne"
+                  },
+                  "options": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "sort": {
+                    "type": "boolean"
+                  },
+                  "default": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "label",
+                  "type",
+                  "options"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "ListMany"
+                  },
+                  "options": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "sort": {
+                    "type": "boolean"
+                  },
+                  "condition": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type",
+                  "options"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "Roll"
+                  },
+                  "default": {
+                    "type": "string"
+                  },
+                  "showResults": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "Track"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": {}
+              }
+            ]
+          }
+        },
+        "statToggle": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "modifier": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "label",
+                "modifier"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "moveTypes": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "equipmentTypes": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "stats",
+        "moveTypes"
+      ],
+      "additionalProperties": false
+    },
+    "npc": {
+      "type": "object",
+      "properties": {
+        "attributes": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "Number"
+                  },
+                  "default": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "Text"
+                  },
+                  "default": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "LongText"
+                  },
+                  "default": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "Resource"
+                  },
+                  "max": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "default": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "Clock"
+                  },
+                  "max": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "default": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "Xp"
+                  },
+                  "max": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "default": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "Checkbox"
+                  },
+                  "checkboxLabel": {
+                    "type": "string"
+                  },
+                  "default": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "ListOne"
+                  },
+                  "options": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "sort": {
+                    "type": "boolean"
+                  },
+                  "default": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "label",
+                  "type",
+                  "options"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "ListMany"
+                  },
+                  "options": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "sort": {
+                    "type": "boolean"
+                  },
+                  "condition": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type",
+                  "options"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "Roll"
+                  },
+                  "default": {
+                    "type": "string"
+                  },
+                  "showResults": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "Track"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": {}
+              }
+            ]
+          }
+        },
+        "moveTypes": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "equipmentTypes": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "moveTypes"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "game",
+    "name",
+    "version",
+    "rollFormula",
+    "rollResults",
+    "character"
+  ],
+  "additionalProperties": false
+}

@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Game definition schema, covering the eleven attribute types of the Foundry
+  `pbta` system, plus the first target and the first example: Masks.
 - Repository skeleton: Zod → JSON Schema generation, example validation and a
   TOML-to-JSON helper, derived from `4rtamis/schema-in-the-mist` under MIT. No
   schema target is declared yet.
