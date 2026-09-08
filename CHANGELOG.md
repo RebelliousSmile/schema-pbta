@@ -7,8 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-09-08
+
 ### Added
 
+- Verification of the delivered schemas against nine published character sheets,
+  transcribed to TOML and run through Ajv: the game definitions hold, the
+  playbook schema fails in five places traced to four causes, and the findings
+  carry a shadow-areas report of 19 gaps. Documented under
+  `aidd_docs/tasks/2026_09/2026_09_08_schemas-pbta-lantern/`.
 - Monster of the Week, second game through the chain: five schemas, a game
   definition whose `harm` is a Clock for hunters and a Resource for adversaries,
   the six-step countdown as a clock preset, and an invented mystery, playbook,
