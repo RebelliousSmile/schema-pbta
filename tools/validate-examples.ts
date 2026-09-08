@@ -2,36 +2,10 @@ import fs from "node:fs";
 import path from "node:path";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
-import TOML from "@iarna/toml";
 import { TARGETS } from "../src/zod/constants";
+import { listDataFiles, loadData } from "./read-data";
 
 type Result = { file: string; ok: boolean; errors?: unknown };
-
-function isJson(p: string) {
-  return p.toLowerCase().endsWith(".json");
-}
-function isToml(p: string) {
-  return p.toLowerCase().endsWith(".toml");
-}
-function isDataFile(p: string) {
-  return isJson(p) || isToml(p);
-}
-
-function loadData(filePath: string): unknown {
-  const raw = fs.readFileSync(filePath, "utf8");
-  if (isJson(filePath)) return JSON.parse(raw);
-  if (isToml(filePath)) return TOML.parse(raw);
-  throw new Error(`Unsupported file type: ${filePath}`);
-}
-
-function listExampleFiles(baseDir: string): string[] {
-  if (!fs.existsSync(baseDir)) return [];
-  return fs
-    .readdirSync(baseDir)
-    .map((name) => path.join(baseDir, name))
-    .filter((p) => fs.statSync(p).isFile())
-    .filter(isDataFile);
-}
 
 async function run() {
   let failures = 0;
@@ -55,7 +29,7 @@ async function run() {
     addFormats(ajv);
     const validate = ajv.compile(schema);
 
-    const files = listExampleFiles(examplesDir);
+    const files = listDataFiles(examplesDir);
     if (files.length === 0) {
       console.warn(`⚠️  No example files found in: ${examplesDir}`);
       continue;

@@ -61,6 +61,25 @@ Do **not** add a `"$schema"` key inside a data file that lives in `examples/`:
 the generated schemas carry `"additionalProperties": false` at the root, so that
 key makes `npm run validate` fail on the file.
 
+## Two validation passes
+
+`npm run validate` checks each example file against its JSON Schema, one file at
+a time. That is all Ajv can do: a schema knows nothing of the game a file claims
+to belong to, nor of the other files beside it.
+
+`npm run validate:refs` is the second pass. It reads the corpus instead of the
+schemas, and checks what the first pass cannot see: that a stat or attribute key
+of a playbook exists in the game definition, that every `moveType` and
+`equipmentType` is declared, that a `ref` resolves to a real file of the right
+kind, that slugs are unique per game and per content type, that a `game` field
+matches the folder the file sits in, and that two fields of the same document
+agree — a move with no roll carrying no results, a clock not filled past its
+segments. A move naming a result outside the game's tiers is a warning, not an
+error.
+
+`npm run check` runs generation and then both passes; either one failing fails
+the chain.
+
 ## Derived work
 
 This repository is derived from

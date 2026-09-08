@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Reference validator, a second validation pass over the corpus: vocabulary,
+  reference resolution, slug uniqueness and cross-field agreement, chained into
+  `npm run check`.
 - Playbook schema, with `moveEntry` shared from the move module: a move is
   either cited by slug or written inline, never both; an invented Masks playbook
   exercises both branches.
