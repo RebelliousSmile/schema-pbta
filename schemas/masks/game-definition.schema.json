@@ -1428,6 +1428,66 @@
         "moveTypes"
       ],
       "additionalProperties": false
+    },
+    "fronts": {
+      "type": "object",
+      "properties": {
+        "threatTypes": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "impulses": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "clockPresets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "minLength": 1
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "segments": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "key",
+              "label",
+              "segments"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "threatTypes",
+        "impulses"
+      ],
+      "additionalProperties": false
     }
   },
   "required": [

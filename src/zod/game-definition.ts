@@ -166,6 +166,31 @@ const npcSchema = z.strictObject({
   description: z.string().optional(),
 });
 
+/**
+ * A clock preset, named by the game rather than by the front that uses it.
+ *
+ * `segments` lists ordered labels, which is what lets Monster of the Week's
+ * countdown land here without the front schema changing.
+ */
+const clockPresetSchema = z.strictObject({
+  key: nonEmptyString,
+  label: nonEmptyString,
+  segments: z.array(nonEmptyString).min(1),
+});
+
+/**
+ * What a front needs from the game: its vocabularies.
+ *
+ * The front schema is generic; what varies game to game lives here. Optional,
+ * because a game definition written for character sheets alone declares none of
+ * it.
+ */
+const frontsSchema = z.strictObject({
+  threatTypes: labelDictionary,
+  impulses: labelDictionary,
+  clockPresets: z.array(clockPresetSchema).optional(),
+});
+
 export const gameDefinitionSchema = z.strictObject({
   game: gameRefSchema,
   name: nonEmptyString,
@@ -184,4 +209,5 @@ export const gameDefinitionSchema = z.strictObject({
 
   character: characterSchema,
   npc: npcSchema.optional(),
+  fronts: frontsSchema.optional(),
 });

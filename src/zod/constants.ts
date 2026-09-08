@@ -1,4 +1,5 @@
 import { ZodObject } from "zod";
+import { frontSchema } from "./front";
 import { gameDefinitionSchema } from "./game-definition";
 import { moveSchema } from "./move";
 import { npcSchema } from "./npc";
@@ -75,6 +76,11 @@ export const TARGETS: Array<SchemaTarget> = [
   {
     name: "npc",
     zod: npcSchema,
+    game: GAMES.masks,
+  },
+  {
+    name: "front",
+    zod: frontSchema,
     game: GAMES.masks,
   },
 ];

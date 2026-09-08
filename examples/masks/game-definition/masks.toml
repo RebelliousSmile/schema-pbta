@@ -112,3 +112,37 @@ options = ["Afraid", "Angry", "Guilty", "Hopeless", "Insecure"]
 type = "Text"
 label = "Drive"
 position = "top"
+
+# Vocabularies the generic front draws on. Invented for this repository: the
+# published game does not print a threat-type list, and these names are the
+# ones a tool needs, not the ones the book uses.
+
+[fronts.threatTypes]
+villain = "Villain"
+organization = "Organization"
+disaster = "Disaster"
+authority = "Mundane Authority"
+rivalTeam = "Rival Team"
+
+[fronts.impulses]
+toDominate = "To dominate"
+toCorrupt = "To corrupt"
+toExpose = "To expose"
+toConsume = "To consume"
+toEscalate = "To escalate"
+
+[[fronts.clockPresets]]
+key = "fiveStep"
+label = "Five steps to doom"
+segments = [
+  "First sign",
+  "Rumour spreads",
+  "Public break",
+  "Point of no return",
+  "Doom",
+]
+
+[[fronts.clockPresets]]
+key = "threeStep"
+label = "Three steps to doom"
+segments = ["Warning", "Escalation", "Doom"]

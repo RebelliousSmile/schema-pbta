@@ -181,7 +181,21 @@ function checkGame(game: Game) {
   ];
   const rollResults = keysOf(definition.rollResults);
   const fronts = isDict(definition.fronts) ? definition.fronts : {};
-  const clockPresets = isDict(fronts.clockPresets) ? fronts.clockPresets : {};
+  const threatTypes = keysOf(fronts.threatTypes);
+  const impulses = keysOf(fronts.impulses);
+  // `clockPresets` is a list, not a dictionary: a preset carries its own `key`
+  // alongside a label and its ordered segments. Indexed here by that key, with
+  // the number of segments a clock inherits when it names the preset.
+  const clockSegments = new Map<string, number>();
+  const presetList = Array.isArray(fronts.clockPresets) ? fronts.clockPresets : [];
+  for (const preset of presetList) {
+    if (!isDict(preset)) continue;
+    if (typeof preset.key !== "string") continue;
+    clockSegments.set(
+      preset.key,
+      Array.isArray(preset.segments) ? preset.segments.length : 0
+    );
+  }
 
   // Content of the game, by target name. The definition is loaded above.
   const contents: ContentFile[] = [];
@@ -319,14 +333,52 @@ function checkGame(game: Game) {
         );
       }
 
-      // Rule 9: a clock whose `filled` runs past its segments, preset resolved.
-      if (typeof node.filled === "number") {
-        let segments: unknown = node.segments;
-        if (segments === undefined && typeof node.preset === "string") {
-          const preset = clockPresets[node.preset];
-          segments = isDict(preset) ? preset.segments : undefined;
+      // Rules 11 and 12: a threat takes its category and its impulse from the
+      // vocabularies of the game, the same way a move takes its type.
+      if (/(^|\.)threats\[\d+\]$/.test(keyPath)) {
+        if (typeof node.type === "string" && !threatTypes.includes(node.type)) {
+          error(
+            file,
+            `${prefix}type`,
+            `unknown threat type "${node.type}"; the game declares: ${list(
+              threatTypes
+            )}`
+          );
         }
-        if (typeof segments === "number" && node.filled > segments) {
+        if (
+          typeof node.impulse === "string" &&
+          !impulses.includes(node.impulse)
+        ) {
+          error(
+            file,
+            `${prefix}impulse`,
+            `unknown impulse "${node.impulse}"; the game declares: ${list(
+              impulses
+            )}`
+          );
+        }
+      }
+
+      // Rule 10: a clock naming a preset names one the game declares.
+      if (typeof node.preset === "string" && !clockSegments.has(node.preset)) {
+        error(
+          file,
+          `${prefix}preset`,
+          `unknown clock preset "${node.preset}"; the game declares: ${list([
+            ...clockSegments.keys(),
+          ])}`
+        );
+      }
+
+      // Rule 9: a clock whose `filled` runs past its segments. Segments written
+      // on the spot are counted here; a preset lends the length of its own.
+      if (typeof node.filled === "number") {
+        const segments = Array.isArray(node.segments)
+          ? node.segments.length
+          : typeof node.preset === "string"
+            ? clockSegments.get(node.preset)
+            : undefined;
+        if (segments !== undefined && node.filled > segments) {
           error(
             file,
             `${prefix}filled`,

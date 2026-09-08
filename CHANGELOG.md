@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Front schema, generic across games: threat categories, impulses and clock
+  presets are declared in the game definition, which the reference pass now
+  checks a front against. An invented Masks front exercises both clock shapes.
 - NPC schema, reusing the shared move entry, with an invented Masks adversary.
 - Reference validator, a second validation pass over the corpus: vocabulary,
   reference resolution, slug uniqueness and cross-field agreement, chained into
