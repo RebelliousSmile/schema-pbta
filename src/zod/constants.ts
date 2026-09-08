@@ -1,6 +1,7 @@
 import { ZodObject } from "zod";
 import { gameDefinitionSchema } from "./game-definition";
 import { moveSchema } from "./move";
+import { npcSchema } from "./npc";
 import { playbookSchema } from "./playbook";
 
 type Game = {
@@ -69,6 +70,11 @@ export const TARGETS: Array<SchemaTarget> = [
   {
     name: "playbook",
     zod: playbookSchema,
+    game: GAMES.masks,
+  },
+  {
+    name: "npc",
+    zod: npcSchema,
     game: GAMES.masks,
   },
 ];

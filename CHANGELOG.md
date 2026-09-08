@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- NPC schema, reusing the shared move entry, with an invented Masks adversary.
 - Reference validator, a second validation pass over the corpus: vocabulary,
   reference resolution, slug uniqueness and cross-field agreement, chained into
   `npm run check`.
