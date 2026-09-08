@@ -116,6 +116,11 @@ Les trois éditions ne partagent donc pas un vocabulaire commun : une manœuvre 
 une action chez Monsterhearts, un livret est une mue, et une caractéristique se
 dit étiquette chez Masks.
 
+Le concept, lui, est unique : l'amont anglais dit `move` partout, et les éditeurs
+français tranchent entre le littéral (« manœuvre ») et le fonctionnel
+(« action »). La divergence est donc éditoriale, pas conceptuelle : elle ne
+touche que les libellés d'affichage, jamais la clé ni la forme du schéma.
+
 « Étiquette » entre même en collision d'un jeu à l'autre : chez Masks il nomme
 les caractéristiques (DANGEREUX, DIFFÉRENT, SAUVEUR, SUPÉRIEUR, NORMAL), chez
 The Sprawl il nomme les tags (`+voyant`, `+douloureux`, `+crypté`).

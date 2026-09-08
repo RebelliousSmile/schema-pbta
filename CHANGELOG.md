@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- The French terminology gap is downgraded from blocker to major and reframed as
+  a localization question. The upstream concept is single — English says `move`
+  everywhere — and French publishers pick either the literal rendering
+  ("manœuvre") or the functional one ("action"), so the divergence touches
+  display labels only, never a key or a schema shape. The shadow report now
+  counts 3 blockers, 13 majors, 3 minors.
+
 ## [0.1.0] - 2026-09-08
 
 ### Added

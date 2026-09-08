@@ -8,7 +8,7 @@ generated_at: 2026-09-08
 Source : `aidd_docs/tasks/2026_09/2026_09_08_schemas-pbta-lantern/sheet-verification.md`
 Généré : `2026-09-08`
 
-Total : 19 | Bloquant : 4 | Majeur : 12 | Mineur : 3
+Total : 19 | Bloquant : 3 | Majeur : 13 | Mineur : 3
 
 ---
 
@@ -35,11 +35,11 @@ Total : 19 | Bloquant : 4 | Majeur : 12 | Mineur : 3
 
 ### hypothèse tacite
 
-**[bloquant]** Quelle langue portent les valeurs de `labelDictionary` quand un jeu est publié en plusieurs ?
-> Neuf pages fournies : *L'Enthousiaste* (Masks), *The Chosen* (Monster of the Week), *The Wizard* (Urban Shadows), *Le Fantôme* (Monsterhearts), *Le Fixeur* (The Sprawl).
-
 **[bloquant]** Un fichier livret décrit-il une fiche vierge ou un personnage déjà rempli ?
 > « Choisis-en deux », « coche quatre pulsions », « choisis trois étiquettes » sont inexprimables.
+
+**[majeur]** Une définition de jeu porte-t-elle un `labelDictionary` par édition, ou un dictionnaire indexé par locale ?
+> Neuf pages fournies : *L'Enthousiaste* (Masks), *The Chosen* (Monster of the Week), *The Wizard* (Urban Shadows), *Le Fantôme* (Monsterhearts), *Le Fixeur* (The Sprawl).
 
 **[majeur]** Le contenu d'exemple inventé doit-il suivre les conventions des fiches imprimées ?
 > `examples/monster-of-the-week/playbook/the-lightkeeper.toml` invente un écart fixe, ce qu'aucun livret MotW n'imprime.
