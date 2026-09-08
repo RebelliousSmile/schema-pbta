@@ -1,0 +1,25 @@
+# Invented move. Neither the name nor the text comes from the published game;
+# only the mechanical vocabulary — stats, move types, roll tiers — is Masks'.
+
+slug = "hold-the-line"
+name = "Hold the Line"
+game = "masks"
+moveType = "basic"
+description = "Standing your ground is a claim about who you are, and the city will test it.\n\nWhen you hold the line you are not attacking, and you are not hiding. You are telling everyone watching where the edge of the fight is."
+trigger = "When you plant yourself between danger and someone who cannot take the hit, roll + Danger."
+tags = ["defense", "team"]
+
+[roll]
+rollType = "danger"
+
+[results.failure]
+label = "Miss"
+text = "The line breaks somewhere you were not looking. Mark a condition, and the GM says who got through."
+
+[results.partial]
+label = "Mixed success"
+text = "You hold, but only by giving something up. Choose one: you take the blow meant for them and mark a condition, or the line holds and something behind you is wrecked."
+
+[results.success]
+label = "Full success"
+text = "Nothing gets past you. Take Influence over anyone who watched you do it, and clear a condition if this is the person you swore to protect."

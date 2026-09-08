@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Move schema, plain text rather than the HTML upstream stores, with an optional
+  roll block and a free-keyed `results` table; two invented Masks moves.
 - Game definition schema, covering the eleven attribute types of the Foundry
   `pbta` system, plus the first target and the first example: Masks.
 - Repository skeleton: Zod → JSON Schema generation, example validation and a
