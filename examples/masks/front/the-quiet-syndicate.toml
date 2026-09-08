@@ -1,0 +1,65 @@
+# Invented front. Nothing here comes from the published game: the syndicate, the
+# threats, the portents and the doom are original. Only the vocabularies —
+# threat types, impulses, clock presets, move types — come from the game
+# definition.
+
+slug = "the-quiet-syndicate"
+name = "The Quiet Syndicate"
+game = "masks"
+concept = "Someone has been buying the city's small favours, one at a time, for years."
+description = "No manifesto, no costume, no name anyone will say out loud. The Syndicate does not want the city afraid. It wants the city grateful, and then it wants the city quiet.\n\nEvery adult the heroes trust has taken one call they will not talk about."
+stakes = [
+  "Which adult in the heroes' lives has already said yes?",
+  "What does the Syndicate offer a teenager that the team cannot?",
+  "Who finds out first, and who do they tell?",
+]
+doom = "The city stops calling the heroes. Not out of fear — out of paperwork. Every emergency has a number to ring, and it is not theirs."
+
+[[cast]]
+name = "The Glasswright"
+role = "The one who broke ranks, loudly"
+ref = "the-glasswright"
+
+[[cast]]
+name = "Auditor Vance"
+role = "Signs the favours, never appears"
+
+[[threats]]
+name = "The Favour Ledger"
+type = "organization"
+impulse = "toDominate"
+description = "A book of small debts, none of them illegal, all of them owed by someone the heroes love."
+
+[[threats.moves]]
+name = "Call In a Small Favour"
+moveType = "custom"
+description = "Nothing dramatic is ever asked. A door left unlocked, a name spelled wrong, a shift swapped.\n\nThe favour is always smaller than the refusal would be."
+trigger = "When the heroes need an adult to act, the GM may say the adult has already promised otherwise."
+tags = ["hard move"]
+
+[threats.clock]
+label = "The ledger closes"
+preset = "fiveStep"
+filled = 2
+
+[[threats]]
+name = "The Grateful District"
+type = "disaster"
+impulse = "toCorrupt"
+description = "Six blocks where the streetlights work, the buses run, and nobody wants to hear what it cost."
+
+[threats.clock]
+label = "The district votes itself away"
+segments = ["Petition", "Referendum", "Handover"]
+filled = 1
+
+[[portents]]
+text = "An adult the heroes trust cancels on them, politely, twice."
+done = true
+
+[[portents]]
+text = "A rival team is seen taking a call and not saying who from."
+done = false
+
+[[portents]]
+text = "The Glasswright puts a window in the Syndicate's own wall."

@@ -1,5 +1,5 @@
 ---
-status: pending
+status: done
 ---
 
 # Instruction: Valideur croisé
@@ -31,7 +31,7 @@ status: pending
 > Ce que JSON Schema laisse passer. Écrire les neuf règles maintenant, pour tous les types de contenu, y compris ceux que les phases 5 et 6 n'ont pas encore introduits : une règle dont le corpus ne porte pas encore la matière ne fait rien et ne risque rien, et l'écrire ici évite de rouvrir le fichier à chaque phase suivante.
 
 1. Toute clé de `stats` d'un livret existe dans `character.stats` de la définition du jeu, et toute clé d'`attributes` existe dans le bloc d'attributs correspondant au type de contenu : `character.attributes` pour un livret, `npc.attributes` pour un PNJ.
-2. Tout `moveType` d'un move existe dans les `moveTypes` du jeu, côté personnage ou côté PNJ.
+2. Tout `moveType` d'un move existe dans les `moveTypes` du jeu, côté personnage ou côté PNJ. Descendre aussi dans les moves inline : la branche inline de `moveEntry` ne perd que `game` et `slug`, elle garde `moveType`, et un move écrit sur place dans un livret ou un PNJ doit donc citer un type déclaré. Trois règles descendent ainsi dans les moves inline : celle-ci, la 7 et la 8. La 3 porte sur le `gear` d'un livret et non sur un move ; les 4 et 5 reposent sur un `slug`, qu'un move inline n'a pas.
 3. Tout `equipmentType` cité existe dans les `equipmentTypes` du jeu.
 4. Tout slug de référence pointe sur un fichier existant du même jeu et du type attendu. Traiter tous les champs de référence de la même façon plutôt qu'au cas par cas : `ref` d'un move de livret, `ref` d'un choix de `choiceSets`, `startingMoves`, `playbook` d'un move, `ref` d'une entrée de `cast`. Les deux derniers pointent respectivement sur un livret et sur un PNJ, pas sur un move.
 5. Les slugs sont uniques par jeu et par type de contenu. Ne compter que les fichiers de contenu : un move inline n'a pas de `slug`, il ne participe ni à cette règle ni à la précédente.
@@ -53,7 +53,7 @@ Neuf règles, et non toutes : la phase 6 en ajoute trois, sur les `threatTypes`,
 
 | Task | Acceptance criteria                                                                                                                     |
 | ---- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| 1    | Sur un jeu déclaré sans fichier de définition, la commande avertit et sort en succès.                                                     |
+| 1    | Sur un jeu visé par une cible mais dont le fichier de définition manque, la commande avertit et sort en succès. Le provoquer en renommant temporairement `examples/masks/game-definition/masks.toml` : un jeu simplement déclaré dans `GAMES` sans cible n'est jamais visité par la passe, l'avertissement ne peut donc pas venir de là. |
 | 1    | Déposer un second fichier dans `examples/masks/game-definition/` fait échouer la passe, les deux fichiers nommés.                         |
 | 2    | Remplacer une clé de stat d'un livret par un nom inexistant fait échouer la passe, avec le fichier et la clé nommés.                      |
 | 2    | Remplacer le `game` d'un fichier de contenu par un slug absent de `GAMES` fait échouer la passe.                                          |

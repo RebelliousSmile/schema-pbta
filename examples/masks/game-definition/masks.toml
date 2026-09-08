@@ -1,0 +1,148 @@
+# Masks: A New Generation — game definition.
+#
+# Derived from the sheet preset published by Asacolips for the Foundry `pbta`
+# system, under CC BY 4.0. See the README for the attribution.
+#
+# No `$schema` key: the generated schemas carry `additionalProperties: false`
+# at the root, and the key would fail validation.
+
+game = "masks"
+name = "Masks: A New Generation"
+version = "1.0.0"
+source = "Sheet preset for the Foundry `pbta` system, CC BY 4.0"
+rollFormula = "2d6"
+minMod = -3
+maxMod = 4
+
+[rollResults.failure]
+range = "0-6"
+label = "Miss"
+
+[rollResults.partial]
+range = "7-9"
+label = "Mixed success"
+
+[rollResults.success]
+range = "10+"
+label = "Full success"
+
+[character]
+statToggle = "Locked"
+description = "A teenage superhero, defined as much by what others expect as by what they can do."
+
+[character.stats]
+danger = "Danger"
+freak = "Freak"
+savior = "Savior"
+superior = "Superior"
+mundane = "Mundane"
+
+[character.moveTypes]
+basic = "Basic Moves"
+playbook = "Playbook Moves"
+team = "Team Moves"
+adult = "Adult Moves"
+
+[character.equipmentTypes]
+gear = "Gear"
+
+[character.attributes.heroName]
+type = "Text"
+label = "Hero Name"
+position = "top"
+
+[character.attributes.xp]
+type = "Xp"
+label = "Potential"
+position = "top"
+max = 5
+
+[character.attributes.momentUnlocked]
+type = "Checkbox"
+label = "Moment of Truth unlocked"
+position = "top"
+checkboxLabel = "Unlocked"
+
+[character.attributes.conditions]
+type = "ListMany"
+label = "Conditions"
+position = "left"
+condition = true
+options = ["Afraid", "Angry", "Guilty", "Hopeless", "Insecure"]
+
+[character.attributes.look]
+type = "LongText"
+label = "Look"
+position = "left"
+
+[character.attributes.abilities]
+type = "LongText"
+label = "Abilities"
+position = "left"
+
+[character.attributes.influence]
+type = "LongText"
+label = "Influence"
+position = "left"
+description = "Who holds Influence over you, and over whom you hold it."
+
+# No `position`: the upstream preset leaves this one out of both columns.
+[character.attributes.moment]
+type = "LongText"
+label = "Moment of Truth"
+
+[npc]
+description = "Anyone the heroes face, from a rival teen to a city-levelling threat."
+
+[npc.moveTypes]
+basic = "Basic Moves"
+custom = "Custom Moves"
+
+[npc.equipmentTypes]
+gear = "Gear"
+
+[npc.attributes.condition]
+type = "ListMany"
+label = "Conditions"
+position = "left"
+condition = true
+options = ["Afraid", "Angry", "Guilty", "Hopeless", "Insecure"]
+
+[npc.attributes.drive]
+type = "Text"
+label = "Drive"
+position = "top"
+
+# Vocabularies the generic front draws on. Invented for this repository: the
+# published game does not print a threat-type list, and these names are the
+# ones a tool needs, not the ones the book uses.
+
+[fronts.threatTypes]
+villain = "Villain"
+organization = "Organization"
+disaster = "Disaster"
+authority = "Mundane Authority"
+rivalTeam = "Rival Team"
+
+[fronts.impulses]
+toDominate = "To dominate"
+toCorrupt = "To corrupt"
+toExpose = "To expose"
+toConsume = "To consume"
+toEscalate = "To escalate"
+
+[[fronts.clockPresets]]
+key = "fiveStep"
+label = "Five steps to doom"
+segments = [
+  "First sign",
+  "Rumour spreads",
+  "Public break",
+  "Point of no return",
+  "Doom",
+]
+
+[[fronts.clockPresets]]
+key = "threeStep"
+label = "Three steps to doom"
+segments = ["Warning", "Escalation", "Doom"]

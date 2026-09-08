@@ -1,0 +1,12 @@
+# Invented playbook move, no roll. Original name and text.
+
+slug = "borrowed-nerve"
+name = "Borrowed Nerve"
+game = "masks"
+moveType = "playbook"
+playbook = "the-ember"
+description = "You are braver on someone else's behalf than you have ever been on your own.\n\nThis is not courage you own. It is lent, and the lender can call it back."
+trigger = "When you act on a promise you made to someone who holds Influence over you, take +1 forward."
+uses = 3
+choices = "Choose who lent you the nerve:\n\n- someone who has Influence over you, and gets to say later whether you spent it well;\n- someone who does not, in which case you spend a condition instead of a use."
+tags = ["playbook", "influence"]

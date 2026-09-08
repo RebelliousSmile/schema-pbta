@@ -1,0 +1,88 @@
+# Invented playbook. The Ember does not exist in the published game; the name,
+# the text and every option below are original. Only the mechanical vocabulary
+# — stats, attribute keys, move types — comes from the game definition.
+#
+# Exercises both branches of `moveEntry`: one move cited by slug, one written
+# on the spot.
+
+slug = "the-ember"
+name = "The Ember"
+game = "masks"
+actorType = "character"
+description = "Something burned in your house and you were the only one who walked out warm.\n\nYou are the last heat of a thing that ended. People treat you as a memorial, and you are trying very hard to be a person instead."
+statsDetail = "Choose one spread, or move one point from any stat to another."
+startingMoves = ["borrowed-nerve"]
+advancement = [
+  "Take another move from your playbook.",
+  "Take a move from another playbook.",
+  "Unlock your Moment of Truth.",
+  "Change your hero name and your look.",
+]
+
+[stats]
+danger = 1
+freak = 2
+savior = 0
+superior = 1
+mundane = -1
+
+[attributes]
+look = "Warm to the touch, dressed for a colder season, always slightly out of breath."
+abilities = "You give off heat you cannot switch off, and you can pull it back into yourself for a moment at a cost."
+influence = "The person who pulled you out of the fire holds Influence over you."
+
+[[moves]]
+ref = "hold-the-line"
+
+[[moves]]
+name = "Bank the Coals"
+moveType = "playbook"
+description = "You can put yourself out, briefly, and nobody likes what is underneath.\n\nGoing cold is not rest. It is a debt taken against the next time you need to be warm."
+trigger = "When you deliberately go cold to pass for ordinary, you may hold your heat until the end of the scene."
+choices = "While you are cold, choose one:\n\n- nobody reads you as powered, and you take -1 to Freak;\n- you keep your powers, and someone present notices exactly what you are."
+tags = ["playbook", "identity"]
+
+[[creation]]
+label = "What did the fire take?"
+options = [
+  "A building everyone in the city can name.",
+  "A person only you remember.",
+  "The version of you that had plans.",
+]
+
+[[creation]]
+label = "Who pulled you out?"
+options = [
+  "A stranger who never gave a name.",
+  "Someone on your team, who will not talk about it.",
+  "Nobody. You walked.",
+]
+
+[[gear]]
+name = "Coat that never quite dries"
+equipmentType = "gear"
+description = "Heavy, scorched at the hem, the only thing you kept."
+tags = ["signature"]
+
+[[gear]]
+name = "Thermometer, cracked"
+
+[[choiceSets]]
+title = "Starting moves"
+description = "Choose two, and note which one you would give back first."
+type = "multi"
+repeatable = false
+grantOn = "creation"
+
+[[choiceSets.choices]]
+ref = "borrowed-nerve"
+granted = 1
+advancement = 0
+
+[[choiceSets.choices]]
+name = "Read the Room by Its Heat"
+moveType = "playbook"
+description = "Warmth tells you who has been arguing and who has been waiting.\n\nIt does not tell you which of them is lying."
+trigger = "When you enter a room and take a breath before speaking, ask the GM one question about who was here recently."
+granted = 0
+advancement = 1

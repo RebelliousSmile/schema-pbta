@@ -1,0 +1,106 @@
+# Invented playbook, written for this repository. No published Monster of the
+# Week hunter is transcribed here.
+
+slug = "the-lightkeeper"
+name = "The Lightkeeper"
+game = "monster-of-the-week"
+description = "You keep a light that has not been needed for shipping in forty years, and every night you keep it anyway. Something in the channel counts on the dark, and you are the reason it does not get it."
+statsDetail = "Charm +0, Cool +2, Sharp +1, Tough +1, Weird -1 — or swap Cool and Weird."
+startingMoves = ["read-the-water"]
+advancement = [
+  "Take another Lightkeeper move.",
+  "Take a move from another playbook.",
+  "Raise a stat by +1 (max +3).",
+  "Get a haven, or add a wing to the one you keep.",
+  "Mark two Luck.",
+]
+
+[stats]
+charm = 0
+cool = 2
+sharp = 1
+tough = 1
+weird = -1
+
+[attributes]
+armour = 1
+luck = 0
+harm = 0
+xp = 0
+unstable = false
+look = "Salt-stiff coat, a torch you never turn on, hands that have been cold since 1998."
+luckSpecial = "When you mark your last Luck, the light goes out for good and you know it happened."
+improvements = "Name the hunter you called first, the night the light went out."
+
+[[moves]]
+ref = "read-the-water"
+
+[[moves]]
+name = "Sightline"
+moveType = "class"
+description = "The beam of your light is the one thing in the county nothing can stand in front of and stay hidden."
+trigger = "When you sweep your light across a place, name what you are looking for; the Keeper tells you whether it is there."
+
+[[moves]]
+name = "Fog Sense"
+moveType = "class"
+description = "You always know how long you have before the fog closes the road. Not to the minute, but close enough to decide."
+
+[[choiceSets]]
+title = "Lightkeeper Moves"
+description = "Choose two at creation. Read the Water is already yours."
+type = "multi"
+grantOn = "creation"
+
+[[choiceSets.choices]]
+ref = "stand-the-watch"
+granted = 0
+advancement = 1
+
+[[choiceSets.choices]]
+name = "The Lamp Room"
+moveType = "class"
+description = "Nothing supernatural crosses the threshold of the lamp room while the light is burning. Getting it burning is your problem."
+granted = 1
+advancement = 0
+
+[[choiceSets.choices]]
+name = "Salt Line"
+moveType = "class"
+description = "You can lay a line no minion will cross, once per mystery, using what you have on you."
+trigger = "When you lay a salt line across a doorway, roll +Weird."
+granted = 0
+advancement = 1
+
+[[creation]]
+label = "Why did you take the light?"
+options = [
+  "It was my parent's, and they did not finish the job.",
+  "The county pays badly and asks nothing.",
+  "Something asked me not to.",
+]
+
+[[creation]]
+label = "What is in the logbook you never show anyone?"
+options = [
+  "Every night the beam caught something that was not a boat.",
+  "Names, in a hand that is not mine.",
+  "Nothing. That is the problem.",
+]
+
+[[gear]]
+name = "Signal lamp"
+equipmentType = "gear"
+description = "Hand-held, ninety minutes of battery, blinding at close range."
+tags = ["light", "unreliable"]
+
+[[gear]]
+name = "Boarding axe"
+equipmentType = "weapon"
+quantity = 1
+tags = ["2-harm", "hand", "heavy"]
+
+[[gear]]
+name = "Bag of coarse salt"
+equipmentType = "gear"
+quantity = 2

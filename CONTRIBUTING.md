@@ -46,6 +46,7 @@ Thanks for helping make Powered by the Apocalypse tools interoperate!
 ```bash
 npm ci
 npm run gen            # generate JSON Schemas
-npm run validate       # validate example files
-npm run check          # generate + validate
+npm run validate       # validate example files against the schemas
+npm run validate:refs  # check what the schemas cannot see: references, vocabularies
+npm run check          # generate + validate + check references
 ```

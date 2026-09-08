@@ -1,0 +1,23 @@
+# Invented NPC. The name, the drive and every line of text are original; only
+# the vocabulary — move types, attribute keys — comes from the game definition.
+
+slug = "the-glasswright"
+name = "The Glasswright"
+game = "masks"
+description = "She builds windows nobody asked for, in walls that were load-bearing.\n\nEveryone in the district has seen their own face in her work, and nobody agrees on what it was doing."
+drive = "Make the city look at itself until it flinches."
+tags = ["villain", "solo", "downtown"]
+
+[attributes]
+condition = ["Angry"]
+drive = "Show them"
+
+[[moves]]
+ref = "hold-the-line"
+
+[[moves]]
+name = "Put a Window Where a Wall Was"
+moveType = "custom"
+description = "A surface she has touched becomes glass, and stays glass until she is somewhere else.\n\nShe does not break the wall. She makes it honest."
+trigger = "When the heroes take cover, the GM may say what the cover has become."
+tags = ["hard move"]
