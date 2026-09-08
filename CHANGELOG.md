@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Monster of the Week, second game through the chain: five schemas, a game
+  definition whose `harm` is a Clock for hunters and a Resource for adversaries,
+  the six-step countdown as a clock preset, and an invented mystery, playbook,
+  monster and two moves. No schema needed a change to take it.
 - Front schema, generic across games: threat categories, impulses and clock
   presets are declared in the game definition, which the reference pass now
   checks a front against. An invented Masks front exercises both clock shapes.

@@ -1,0 +1,27 @@
+# Invented monster, written for this repository.
+
+slug = "the-tallow-choir"
+name = "The Tallow Choir"
+game = "monster-of-the-week"
+description = "Nine voices that were nine people, rendered down and poured into one shape. It sings the channel's shipping forecast in a dead woman's voice, and boats answer it."
+drive = "To possess and control"
+tags = ["monster", "amorphous", "sings"]
+
+[attributes]
+harm = 10
+armour = 1
+motivation = "To possess and control"
+weakness = "A name read aloud from the lighthouse logbook — the right one, in the right order."
+
+[[moves]]
+name = "Sing the Forecast"
+moveType = "custom"
+description = "Anyone who hears the broadcast and believes it steers where the Choir wants them."
+
+[[moves]]
+name = "Take a Voice"
+moveType = "custom"
+description = "It speaks in the voice of someone it has drowned, and whoever loved them believes it once."
+
+[[moves]]
+ref = "stand-the-watch"

@@ -83,4 +83,29 @@ export const TARGETS: Array<SchemaTarget> = [
     zod: frontSchema,
     game: GAMES.masks,
   },
+  {
+    name: "game-definition",
+    zod: gameDefinitionSchema,
+    game: GAMES.motw,
+  },
+  {
+    name: "move",
+    zod: moveSchema,
+    game: GAMES.motw,
+  },
+  {
+    name: "playbook",
+    zod: playbookSchema,
+    game: GAMES.motw,
+  },
+  {
+    name: "npc",
+    zod: npcSchema,
+    game: GAMES.motw,
+  },
+  {
+    name: "front",
+    zod: frontSchema,
+    game: GAMES.motw,
+  },
 ];

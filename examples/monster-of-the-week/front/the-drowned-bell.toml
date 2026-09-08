@@ -1,0 +1,69 @@
+# Invented mystery, written for this repository. The threat types, motivations
+# and countdown steps come from the game's own vocabulary, declared in
+# examples/monster-of-the-week/game-definition/monster-of-the-week.toml.
+
+slug = "the-drowned-bell"
+name = "The Drowned Bell"
+game = "monster-of-the-week"
+concept = "A bell buoy that has not been in the water since 1998 has started ringing again, and the coastguard log says nine names it should not know."
+description = "The channel took a ferry in 1998, nine crew, no passengers. The wreck was cut up and sold. The bell was not: it sat in a council yard for twenty-six years, and last month it went back in the water without anyone signing for it.\n\nSince then the shipping forecast comes early, in a voice the older locals recognise, and small boats keep turning towards the rocks as though the channel had moved."
+stakes = [
+  "Who put the bell back in the water, and what were they promised?",
+  "Which of the nine names does a hunter already know?",
+  "Does the Lightkeeper's logbook hold the order, or only the names?",
+]
+doom = "The Choir finishes learning the ninth voice, comes ashore wearing it, and the county stops believing anything it hears on the radio — including the hunters."
+
+[[cast]]
+name = "The Tallow Choir"
+role = "The thing in the channel"
+ref = "the-tallow-choir"
+
+[[cast]]
+name = "Deputy Harrow"
+role = "Signed the yard release, remembers signing nothing"
+
+[[threats]]
+name = "The Tallow Choir"
+type = "queen"
+impulse = "toPossess"
+description = "Nine drowned voices in one body of rendered fat, learning to speak as a county rather than as a person."
+
+[[threats.moves]]
+name = "Broadcast Early"
+moveType = "custom"
+description = "The forecast arrives twenty minutes before the hour, and it is wrong in a way that sounds like care.\n\nAnyone who acts on it goes where the Choir wants them."
+trigger = "When the hunters rely on information they did not verify themselves."
+
+[threats.clock]
+label = "The Choir learns the ninth voice"
+preset = "countdown"
+filled = 2
+
+[[threats]]
+name = "The Council Yard"
+type = "den"
+impulse = "toHarbourMonsters"
+description = "Twenty-six years of salvage nobody catalogued, and a rectangle of dry ground where the bell used to sit."
+
+[threats.clock]
+label = "The yard is cleared and the paperwork with it"
+segments = ["Notice posted", "Skips arrive", "Yard empty"]
+filled = 0
+
+[[threats]]
+name = "Deputy Harrow"
+type = "official"
+impulse = "toBeSuspicious"
+description = "Certain that the hunters moved the bell, and increasingly certain in writing."
+
+[[portents]]
+text = "The forecast names a boat that has not launched yet."
+done = true
+
+[[portents]]
+text = "A hunter hears their own voice in the broadcast, reading a name."
+done = false
+
+[[portents]]
+text = "The lighthouse logbook is found open at a page nobody turned."

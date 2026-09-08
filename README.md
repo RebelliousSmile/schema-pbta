@@ -104,6 +104,15 @@ was copied.
   is neither reproduced nor licensed here, only the mechanical vocabulary a tool
   needs to render a sheet.
 
+- **Monster of the Week game definition:**
+  `examples/monster-of-the-week/game-definition/monster-of-the-week.toml`
+  transcribes the Monster of the Week sheet preset published by Asacolips on the
+  `pbta` system wiki, which is itself based on the rules written by Michael
+  Sands and published by Evil Hat Productions. Its `fronts` block has no
+  upstream counterpart: the countdown steps and the threat vocabularies are read
+  off the publisher's freely distributed mystery worksheet and Keeper reference
+  sheets. The game itself is neither reproduced nor licensed here.
+
 - **Trademark / community content notice:** to be written once the games this
   repository covers are settled. Apocalypse World is published under its own
   terms and several PbtA games carry their own licences; none of them is covered

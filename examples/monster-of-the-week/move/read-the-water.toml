@@ -1,0 +1,25 @@
+# Invented move, written for this repository.
+
+slug = "read-the-water"
+name = "Read the Water"
+game = "monster-of-the-week"
+moveType = "class"
+playbook = "the-lightkeeper"
+description = "You have spent enough nights watching the channel to know when it is lying to you. Standing water, wet footprints, a puddle that ripples with no wind: they all answer, if you ask in the dark."
+trigger = "When you question still water about what has passed through it, roll +Weird."
+tags = ["lightkeeper", "ritual"]
+
+[roll]
+rollType = "weird"
+
+[results.success]
+label = "10+"
+text = "Ask two of: what came through here, where did it go, what does it want, who else has asked me this? On a 12, the water shows you rather than telling you."
+
+[results.partial]
+label = "7-9"
+text = "Ask one of those questions. Whatever you asked about learns that you asked."
+
+[results.failure]
+label = "Miss"
+text = "The water answers something you did not ask, and it is about you."
