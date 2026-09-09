@@ -26,6 +26,9 @@ Thanks for helping make Powered by the Apocalypse tools interoperate!
      ```
    - At least **one example** in `examples/<game>/<object>/...`, directly in that
      directory: the validator lists one level and skips subdirectories silently.
+   - A complete accepted witness in `corpus/temoins/<game>/<object>/` and a
+     focused rejected document in `corpus/refus/<game>/<object>/`, named after
+     its single intentional defect.
    - Passing validation
      ```sh
        npm run check
@@ -36,6 +39,9 @@ Thanks for helping make Powered by the Apocalypse tools interoperate!
 - **Canonical source is Zod** (we generate JSON Schema from it).
 - **Backward compatibility:** try as much as possible to avoid breaking changes.
 - **Metadata:** add concise descriptions and examples to your fields. With Zod, make use of `.meta({ description, examples })`
+- **Numeric domains:** every numeric schema needs a finite upper bound. Use a
+  rule-derived bound when one exists; otherwise use the documented signed
+  32-bit transport range (or its non-negative half for counts).
 - **`.default()` vs `.optional()`:** generation runs in the *output* view, so a
   field carrying `.default()` lands in the schema's `required` list — exactly like
   a bare field. Use `.optional()` for a genuinely optional field, and reach for
@@ -48,5 +54,7 @@ npm ci
 npm run gen            # generate JSON Schemas
 npm run validate       # validate example files against the schemas
 npm run validate:refs  # check what the schemas cannot see: references, vocabularies
-npm run check          # generate + validate + check references
+npm run audit          # audit identities, descriptions, bounds, witnesses and refusals
+npm run typecheck      # statically check all TypeScript sources
+npm run check          # typecheck + generate + validate + references + audit
 ```

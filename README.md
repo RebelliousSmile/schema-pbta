@@ -9,15 +9,18 @@ for their specific needs.
 
 ## Status
 
-Early. `src/zod/constants.ts` declares no schema target yet, so `schemas/` and
-`examples/` are empty and `npm run check` passes trivially. The toolchain is in
-place and ready for the first schema.
+Early, but usable. Masks and Monster of the Week each publish a game definition,
+move, playbook, NPC and front schema. Twelve TOML examples exercise the content
+pipeline, while a separate positive and negative corpus audits all ten generated
+schemas.
 
 ## What's in here
 
 - `src/zod/` contains the source Zod v4 definitions
 - `schemas/` contains the generated JSON Schemas
 - `examples/` contains JSON/TOML examples per schema
+- `corpus/temoins/` contains legitimate JSON documents that every target must accept
+- `corpus/refus/` contains intentionally malformed JSON documents, one named defect per file
 - `tools/` provides generation and validation scripts
 
 ## Using the schemas in your tool
@@ -77,8 +80,27 @@ agree — a move with no roll carrying no results, a clock not filled past its
 segments. A move naming a result outside the game's tiers is a warning, not an
 error.
 
-`npm run check` runs generation and then both passes; either one failing fails
-the chain.
+`npm run check` type-checks the sources, generates the schemas, runs both
+validation passes and finishes with the schema audit described below. Any
+failing step fails the chain.
+
+## Audited guarantees
+
+`npm run audit` measures the generated artifacts rather than trusting claims
+about them. For every entry of `TARGETS`, it requires:
+
+- a valid draft-7 schema that Ajv can compile;
+- a canonical `$id` matching the schema's raw GitHub URL;
+- a non-empty description on every named property;
+- a finite upper bound on every numeric value;
+- at least one accepted witness and one rejected malformed document under
+  `corpus/<camp>/<game>/<target>/`.
+
+The audit also parses `src/zod/` and rejects executable `.refine()` or
+`.default()` calls, because those constraints or invented values do not belong
+in the generated interchange format. Comments and data keys with those names
+are ignored. Cross-file vocabulary and reference checks remain the separate
+responsibility of `npm run validate:refs`.
 
 ## Derived work
 
