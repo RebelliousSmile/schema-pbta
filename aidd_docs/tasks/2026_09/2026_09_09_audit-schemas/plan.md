@@ -1,6 +1,6 @@
 ---
 objective: "Chaque schéma PbtA généré est audité automatiquement sur sa validité, son identité, sa documentation, ses bornes numériques et son comportement face à un corpus positif et négatif."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Porter l’audit des schémas
