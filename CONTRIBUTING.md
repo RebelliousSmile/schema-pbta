@@ -37,6 +37,10 @@ Thanks for helping make Powered by the Apocalypse tools interoperate!
 ## Ground rules
 
 - **Canonical source is Zod** (we generate JSON Schema from it).
+- **Schema identity belongs to generation:** the five Zod schemas are shared by
+  every game in `TARGETS`, so do not attach a game-specific `$id` to them.
+  `tools/gen-schemas.ts` derives the canonical raw-GitHub `$id` from the target's
+  game folder and schema name.
 - **Backward compatibility:** try as much as possible to avoid breaking changes.
 - **Metadata:** add concise descriptions and examples to your fields. With Zod, make use of `.meta({ description, examples })`
 - **Numeric domains:** every numeric schema needs a finite upper bound. Use a
