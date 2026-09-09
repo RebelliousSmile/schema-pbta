@@ -1,0 +1,18 @@
+{
+  "slug": "the-lightkeeper",
+  "name": "The Lightkeeper",
+  "game": "monster-of-the-week",
+  "actorType": "character",
+  "description": "You keep watch where the dark meets the shore.",
+  "playbookImage": "the-lightkeeper.webp",
+  "stats": { "cool": 1, "sharp": 2, "weird": -1 },
+  "statsDetail": "Choose one rating line.",
+  "attributes": { "luck": 7, "harm": 0 },
+  "moves": [{ "ref": "read-the-water" }],
+  "startingMoves": ["read-the-water"],
+  "choiceSets": [{ "title": "Keeper moves", "type": "multi", "choices": [{ "ref": "read-the-water", "granted": 1, "advancement": 0 }] }],
+  "advancement": ["Take another move."],
+  "creation": [{ "label": "What did you see offshore?", "options": ["A light", "A shape"] }],
+  "gear": [{ "name": "Signal lamp", "equipmentType": "weapon", "quantity": 1, "tags": ["bright"] }]
+}
+

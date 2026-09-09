@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- A blocking schema audit for every declared game/target pair: draft-7 validity,
+  Ajv compilation, canonical `$id`, complete property descriptions, finite
+  numeric bounds, executable `.refine()` / `.default()` detection, and a
+  positive/negative JSON corpus. `npm run check` now begins with TypeScript
+  checking and ends with this audit.
+
 ### Fixed
 
 - `ListMany` no longer requires `options`. The Foundry sheet configurations of
@@ -23,6 +31,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- All generated schemas now publish canonical raw-GitHub identities and field
+  descriptions. Numeric values use rule-derived limits where available and an
+  explicit 32-bit transport range otherwise; values outside those ranges that
+  were previously accepted are now rejected.
 - The French terminology gap is downgraded from blocker to major and reframed as
   a localization question. The upstream concept is single — English says `move`
   everywhere — and French publishers pick either the literal rendering

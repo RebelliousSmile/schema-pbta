@@ -1,0 +1,13 @@
+{
+  "game": "monster-of-the-week",
+  "name": "Monster of the Week",
+  "version": "1",
+  "rollFormula": "2d6",
+  "rollResults": { "success": { "range": "10+", "label": "Hit" } },
+  "character": {
+    "stats": { "cool": "Cool" },
+    "attributes": { "luck": { "label": "Luck", "type": "Unknown" } },
+    "moveTypes": { "basic": "Basic" }
+  }
+}
+

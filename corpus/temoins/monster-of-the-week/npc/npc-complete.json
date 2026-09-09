@@ -1,0 +1,11 @@
+{
+  "slug": "the-tallow-choir",
+  "name": "The Tallow Choir",
+  "game": "monster-of-the-week",
+  "description": "Voices speaking from candles left in empty houses.",
+  "tags": ["monster", "phenomenon"],
+  "attributes": { "harm": 7, "armour": "1-armour" },
+  "moves": [{ "name": "Sing Through Flame", "moveType": "keeper", "description": "Every candle repeats the warning." }],
+  "drive": "Consume every remembered name."
+}
+

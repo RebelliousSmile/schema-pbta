@@ -1,0 +1,28 @@
+{
+  "slug": "the-ember",
+  "name": "The Ember",
+  "game": "masks",
+  "actorType": "character",
+  "description": "The last heat of something that ended.",
+  "playbookImage": "the-ember.webp",
+  "stats": { "danger": 1, "freak": 2 },
+  "statsDetail": "Choose one spread.",
+  "attributes": { "look": "Warm to the touch", "potential": 0 },
+  "moves": [
+    { "ref": "hold-the-line" },
+    { "name": "Bank the Coals", "moveType": "playbook", "description": "Go cold for a moment." }
+  ],
+  "startingMoves": ["hold-the-line"],
+  "choiceSets": [{
+    "title": "Starting moves",
+    "description": "Choose one.",
+    "type": "single",
+    "repeatable": false,
+    "grantOn": "creation",
+    "choices": [{ "ref": "hold-the-line", "granted": 1, "advancement": 0 }]
+  }],
+  "advancement": ["Take another move."],
+  "creation": [{ "label": "What did the fire take?", "options": ["A home", "A name"] }],
+  "gear": [{ "name": "Scorched coat", "equipmentType": "gear", "description": "Warm and heavy.", "quantity": 1, "tags": ["signature"] }]
+}
+

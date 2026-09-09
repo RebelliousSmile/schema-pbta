@@ -1,0 +1,14 @@
+{
+  "slug": "the-glasswright",
+  "name": "The Glasswright",
+  "game": "masks",
+  "description": "She puts windows where walls used to be.",
+  "tags": ["villain", "solo"],
+  "attributes": { "condition": ["Angry"], "danger": 2 },
+  "moves": [
+    { "ref": "hold-the-line" },
+    { "name": "Turn a Wall to Glass", "moveType": "custom", "description": "Cover becomes transparent." }
+  ],
+  "drive": "Make the city look at itself."
+}
+

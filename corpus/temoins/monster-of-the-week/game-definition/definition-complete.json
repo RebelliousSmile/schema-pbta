@@ -1,0 +1,31 @@
+{
+  "game": "monster-of-the-week",
+  "name": "Monster of the Week",
+  "version": "1.0.0",
+  "source": "Published sheet vocabulary",
+  "rollFormula": "2d6",
+  "minMod": -1,
+  "maxMod": 3,
+  "rollResults": {
+    "success": { "range": "10+", "label": "Full success" },
+    "partial": { "range": "7-9", "label": "Mixed success" },
+    "failure": { "range": "6-", "label": "Miss" }
+  },
+  "character": {
+    "stats": { "cool": "Cool", "sharp": "Sharp" },
+    "attributes": {
+      "luck": { "label": "Luck", "type": "Resource", "max": 7, "default": 7 },
+      "harm": { "label": "Harm", "type": "Clock", "max": 7, "default": 0 }
+    },
+    "statToggle": "Weird",
+    "moveTypes": { "basic": "Basic move", "playbook": "Playbook move" },
+    "equipmentTypes": { "weapon": "Weapon" }
+  },
+  "npc": { "moveTypes": { "keeper": "Keeper move" } },
+  "fronts": {
+    "threatTypes": { "monster": "Monster" },
+    "impulses": { "consume": "To consume people" },
+    "clockPresets": [{ "key": "mystery", "label": "Mystery countdown", "segments": ["Day", "Shadows", "Sunset", "Dusk", "Nightfall", "Midnight"] }]
+  }
+}
+

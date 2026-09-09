@@ -1,0 +1,18 @@
+{
+  "slug": "hold-the-line",
+  "name": "Hold the Line",
+  "game": "masks",
+  "moveType": "basic",
+  "playbook": "the-ember",
+  "description": "Stand between danger and somebody vulnerable.",
+  "trigger": "When you plant yourself in danger's path.",
+  "roll": { "rollType": "danger", "rollFormula": "2d6+danger", "rollMod": 0 },
+  "results": {
+    "success": { "label": "Hit", "text": "You hold the line." },
+    "failure": { "label": "Miss", "text": "The line breaks." }
+  },
+  "uses": 1,
+  "choices": "Choose who you protect.",
+  "tags": ["defense", "team"]
+}
+

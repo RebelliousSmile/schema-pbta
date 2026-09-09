@@ -1,0 +1,15 @@
+{
+  "slug": "the-drowned-bell",
+  "name": "The Drowned Bell",
+  "game": "monster-of-the-week",
+  "concept": "A bell beneath the water.",
+  "threats": [{
+    "name": "The Bell",
+    "type": "monster",
+    "impulse": "consume",
+    "description": "It keeps ringing.",
+    "clock": { "label": "Final toll", "preset": "mystery", "segments": ["First", "Last"] }
+  }],
+  "doom": "The reservoir empties."
+}
+

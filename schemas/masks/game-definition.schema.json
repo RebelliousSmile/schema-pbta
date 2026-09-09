@@ -4,32 +4,39 @@
   "properties": {
     "game": {
       "type": "string",
-      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Folder slug identifying the game."
     },
     "name": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "description": "Human-readable game name."
     },
     "version": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "description": "Version of this game definition's vocabulary."
     },
     "source": {
+      "description": "Optional provenance for the game definition.",
       "type": "string"
     },
     "rollFormula": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "description": "Default dice formula used by the game."
     },
     "minMod": {
+      "description": "Lowest signed 32-bit modifier displayed by the sheet.",
       "type": "integer",
-      "minimum": -9007199254740991,
-      "maximum": 9007199254740991
+      "minimum": -2147483648,
+      "maximum": 2147483647
     },
     "maxMod": {
+      "description": "Highest signed 32-bit modifier displayed by the sheet.",
       "type": "integer",
-      "minimum": -9007199254740991,
-      "maximum": 9007199254740991
+      "minimum": -2147483648,
+      "maximum": 2147483647
     },
     "rollResults": {
       "type": "object",
@@ -41,19 +48,23 @@
         "properties": {
           "range": {
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "description": "Inclusive roll range written in the game's source notation."
           },
           "label": {
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "description": "Human-readable label for this roll outcome."
           }
         },
         "required": [
           "range",
           "label"
         ],
-        "additionalProperties": false
-      }
+        "additionalProperties": false,
+        "description": "One tier of the game's roll outcome ladder."
+      },
+      "description": "Roll outcome tiers keyed by stable result identifiers."
     },
     "character": {
       "type": "object",
@@ -66,9 +77,11 @@
           "additionalProperties": {
             "type": "string",
             "minLength": 1
-          }
+          },
+          "description": "Character stat keys mapped to their labels."
         },
         "attributes": {
+          "description": "Character attributes keyed by their stable identifiers.",
           "type": "object",
           "propertyNames": {
             "type": "string"
@@ -80,12 +93,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -93,12 +109,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -116,10 +135,14 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "Number"
+                    "const": "Number",
+                    "description": "Numeric attribute discriminator."
                   },
                   "default": {
-                    "type": "number"
+                    "description": "Default signed 32-bit numeric value.",
+                    "type": "number",
+                    "minimum": -2147483648,
+                    "maximum": 2147483647
                   }
                 },
                 "required": [
@@ -133,12 +156,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -146,12 +172,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -169,62 +198,11 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "Text"
+                    "const": "Text",
+                    "description": "Single-line text attribute discriminator."
                   },
                   "default": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "label",
-                  "type"
-                ],
-                "additionalProperties": false
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "label": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "position": {
-                    "type": "string",
-                    "enum": [
-                      "top",
-                      "left"
-                    ]
-                  },
-                  "customLabel": {
-                    "type": "boolean"
-                  },
-                  "limited": {
-                    "type": "boolean"
-                  },
-                  "visibleFor": {
-                    "anyOf": [
-                      {
-                        "type": "boolean"
-                      },
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      }
-                    ]
-                  },
-                  "type": {
-                    "type": "string",
-                    "const": "LongText"
-                  },
-                  "default": {
+                    "description": "Default single-line text value.",
                     "type": "string"
                   }
                 },
@@ -239,12 +217,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -252,12 +233,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -275,15 +259,81 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "Resource"
+                    "const": "LongText",
+                    "description": "Long-text attribute discriminator."
+                  },
+                  "default": {
+                    "description": "Default long-text value.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
+                  },
+                  "description": {
+                    "description": "Optional explanation shown with the attribute.",
+                    "type": "string"
+                  },
+                  "position": {
+                    "description": "Column in which the sheet displays the attribute.",
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "Resource",
+                    "description": "Resource attribute discriminator."
                   },
                   "max": {
+                    "description": "Maximum resource value as an unsigned 32-bit count.",
                     "type": "integer",
-                    "minimum": -9007199254740991,
-                    "maximum": 9007199254740991
+                    "minimum": 0,
+                    "maximum": 2147483647
                   },
                   "default": {
-                    "type": "number"
+                    "description": "Default signed 32-bit resource value.",
+                    "type": "number",
+                    "minimum": -2147483648,
+                    "maximum": 2147483647
                   }
                 },
                 "required": [
@@ -297,12 +347,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -310,12 +363,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -333,15 +389,20 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "Clock"
+                    "const": "Clock",
+                    "description": "Clock attribute discriminator."
                   },
                   "max": {
+                    "description": "Maximum clock value as an unsigned 32-bit count.",
                     "type": "integer",
-                    "minimum": -9007199254740991,
-                    "maximum": 9007199254740991
+                    "minimum": 0,
+                    "maximum": 2147483647
                   },
                   "default": {
-                    "type": "number"
+                    "description": "Default signed 32-bit clock value.",
+                    "type": "number",
+                    "minimum": -2147483648,
+                    "maximum": 2147483647
                   }
                 },
                 "required": [
@@ -355,12 +416,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -368,12 +432,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -391,15 +458,20 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "Xp"
+                    "const": "Xp",
+                    "description": "Experience attribute discriminator."
                   },
                   "max": {
+                    "description": "Maximum experience value as an unsigned 32-bit count.",
                     "type": "integer",
-                    "minimum": -9007199254740991,
-                    "maximum": 9007199254740991
+                    "minimum": 0,
+                    "maximum": 2147483647
                   },
                   "default": {
-                    "type": "number"
+                    "description": "Default signed 32-bit experience value.",
+                    "type": "number",
+                    "minimum": -2147483648,
+                    "maximum": 2147483647
                   }
                 },
                 "required": [
@@ -413,12 +485,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -426,12 +501,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -449,12 +527,15 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "Checkbox"
+                    "const": "Checkbox",
+                    "description": "Checkbox attribute discriminator."
                   },
                   "checkboxLabel": {
+                    "description": "Text displayed beside the checkbox.",
                     "type": "string"
                   },
                   "default": {
+                    "description": "Default checked state.",
                     "type": "boolean"
                   }
                 },
@@ -469,12 +550,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -482,12 +566,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -505,7 +592,8 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "ListOne"
+                    "const": "ListOne",
+                    "description": "Single-choice list attribute discriminator."
                   },
                   "options": {
                     "minItems": 1,
@@ -513,15 +601,18 @@
                     "items": {
                       "type": "string",
                       "minLength": 1
-                    }
+                    },
+                    "description": "Non-empty ordered list of labels offered by the attribute."
                   },
                   "sort": {
+                    "description": "Whether the sheet sorts option labels.",
                     "type": "boolean"
                   },
                   "default": {
+                    "description": "Zero-based index of the default option.",
                     "type": "integer",
-                    "minimum": -9007199254740991,
-                    "maximum": 9007199254740991
+                    "minimum": 0,
+                    "maximum": 2147483647
                   }
                 },
                 "required": [
@@ -536,12 +627,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -549,12 +643,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -572,9 +669,11 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "ListMany"
+                    "const": "ListMany",
+                    "description": "Multiple-choice list attribute discriminator."
                   },
                   "options": {
+                    "description": "Optional non-empty list of initial choices.",
                     "minItems": 1,
                     "type": "array",
                     "items": {
@@ -583,9 +682,11 @@
                     }
                   },
                   "sort": {
+                    "description": "Whether the sheet sorts option labels.",
                     "type": "boolean"
                   },
                   "condition": {
+                    "description": "Whether entries carry a condition toggle.",
                     "type": "boolean"
                   }
                 },
@@ -600,12 +701,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -613,12 +717,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -636,12 +743,15 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "Roll"
+                    "const": "Roll",
+                    "description": "Roll button attribute discriminator."
                   },
                   "default": {
+                    "description": "Default formula or stat key rolled by the attribute.",
                     "type": "string"
                   },
                   "showResults": {
+                    "description": "Whether roll outcomes are displayed.",
                     "type": "boolean"
                   }
                 },
@@ -656,12 +766,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -669,12 +782,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -692,7 +808,8 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "Track"
+                    "const": "Track",
+                    "description": "Open-ended track attribute discriminator."
                   }
                 },
                 "required": [
@@ -701,10 +818,12 @@
                 ],
                 "additionalProperties": {}
               }
-            ]
+            ],
+            "description": "One supported PbtA sheet attribute configuration."
           }
         },
         "statToggle": {
+          "description": "Optional toggle applied to the character stat block.",
           "anyOf": [
             {
               "type": "string",
@@ -715,17 +834,22 @@
               "properties": {
                 "label": {
                   "type": "string",
-                  "minLength": 1
+                  "minLength": 1,
+                  "description": "Human-readable toggle label."
                 },
                 "modifier": {
-                  "type": "number"
+                  "type": "number",
+                  "minimum": -2147483648,
+                  "maximum": 2147483647,
+                  "description": "Signed 32-bit modifier applied when the toggle is active."
                 }
               },
               "required": [
                 "label",
                 "modifier"
               ],
-              "additionalProperties": false
+              "additionalProperties": false,
+              "description": "A labeled stat toggle with a numeric modifier."
             }
           ]
         },
@@ -737,9 +861,11 @@
           "additionalProperties": {
             "type": "string",
             "minLength": 1
-          }
+          },
+          "description": "Character move type keys mapped to labels."
         },
         "equipmentTypes": {
+          "description": "Character equipment type keys mapped to labels.",
           "type": "object",
           "propertyNames": {
             "type": "string"
@@ -750,6 +876,7 @@
           }
         },
         "description": {
+          "description": "Optional explanation of the character sheet configuration.",
           "type": "string"
         }
       },
@@ -757,12 +884,15 @@
         "stats",
         "moveTypes"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "description": "Character-side vocabularies and sheet configuration."
     },
     "npc": {
+      "description": "Optional NPC-side vocabularies and sheet configuration.",
       "type": "object",
       "properties": {
         "attributes": {
+          "description": "NPC attributes keyed by their stable identifiers.",
           "type": "object",
           "propertyNames": {
             "type": "string"
@@ -774,12 +904,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -787,12 +920,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -810,10 +946,14 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "Number"
+                    "const": "Number",
+                    "description": "Numeric attribute discriminator."
                   },
                   "default": {
-                    "type": "number"
+                    "description": "Default signed 32-bit numeric value.",
+                    "type": "number",
+                    "minimum": -2147483648,
+                    "maximum": 2147483647
                   }
                 },
                 "required": [
@@ -827,12 +967,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -840,12 +983,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -863,62 +1009,11 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "Text"
+                    "const": "Text",
+                    "description": "Single-line text attribute discriminator."
                   },
                   "default": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "label",
-                  "type"
-                ],
-                "additionalProperties": false
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "label": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "position": {
-                    "type": "string",
-                    "enum": [
-                      "top",
-                      "left"
-                    ]
-                  },
-                  "customLabel": {
-                    "type": "boolean"
-                  },
-                  "limited": {
-                    "type": "boolean"
-                  },
-                  "visibleFor": {
-                    "anyOf": [
-                      {
-                        "type": "boolean"
-                      },
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      }
-                    ]
-                  },
-                  "type": {
-                    "type": "string",
-                    "const": "LongText"
-                  },
-                  "default": {
+                    "description": "Default single-line text value.",
                     "type": "string"
                   }
                 },
@@ -933,12 +1028,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -946,12 +1044,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -969,15 +1070,81 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "Resource"
+                    "const": "LongText",
+                    "description": "Long-text attribute discriminator."
+                  },
+                  "default": {
+                    "description": "Default long-text value.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "label",
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
+                  },
+                  "description": {
+                    "description": "Optional explanation shown with the attribute.",
+                    "type": "string"
+                  },
+                  "position": {
+                    "description": "Column in which the sheet displays the attribute.",
+                    "type": "string",
+                    "enum": [
+                      "top",
+                      "left"
+                    ]
+                  },
+                  "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
+                    "type": "boolean"
+                  },
+                  "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
+                    "type": "boolean"
+                  },
+                  "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "Resource",
+                    "description": "Resource attribute discriminator."
                   },
                   "max": {
+                    "description": "Maximum resource value as an unsigned 32-bit count.",
                     "type": "integer",
-                    "minimum": -9007199254740991,
-                    "maximum": 9007199254740991
+                    "minimum": 0,
+                    "maximum": 2147483647
                   },
                   "default": {
-                    "type": "number"
+                    "description": "Default signed 32-bit resource value.",
+                    "type": "number",
+                    "minimum": -2147483648,
+                    "maximum": 2147483647
                   }
                 },
                 "required": [
@@ -991,12 +1158,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -1004,12 +1174,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -1027,15 +1200,20 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "Clock"
+                    "const": "Clock",
+                    "description": "Clock attribute discriminator."
                   },
                   "max": {
+                    "description": "Maximum clock value as an unsigned 32-bit count.",
                     "type": "integer",
-                    "minimum": -9007199254740991,
-                    "maximum": 9007199254740991
+                    "minimum": 0,
+                    "maximum": 2147483647
                   },
                   "default": {
-                    "type": "number"
+                    "description": "Default signed 32-bit clock value.",
+                    "type": "number",
+                    "minimum": -2147483648,
+                    "maximum": 2147483647
                   }
                 },
                 "required": [
@@ -1049,12 +1227,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -1062,12 +1243,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -1085,15 +1269,20 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "Xp"
+                    "const": "Xp",
+                    "description": "Experience attribute discriminator."
                   },
                   "max": {
+                    "description": "Maximum experience value as an unsigned 32-bit count.",
                     "type": "integer",
-                    "minimum": -9007199254740991,
-                    "maximum": 9007199254740991
+                    "minimum": 0,
+                    "maximum": 2147483647
                   },
                   "default": {
-                    "type": "number"
+                    "description": "Default signed 32-bit experience value.",
+                    "type": "number",
+                    "minimum": -2147483648,
+                    "maximum": 2147483647
                   }
                 },
                 "required": [
@@ -1107,12 +1296,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -1120,12 +1312,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -1143,12 +1338,15 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "Checkbox"
+                    "const": "Checkbox",
+                    "description": "Checkbox attribute discriminator."
                   },
                   "checkboxLabel": {
+                    "description": "Text displayed beside the checkbox.",
                     "type": "string"
                   },
                   "default": {
+                    "description": "Default checked state.",
                     "type": "boolean"
                   }
                 },
@@ -1163,12 +1361,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -1176,12 +1377,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -1199,7 +1403,8 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "ListOne"
+                    "const": "ListOne",
+                    "description": "Single-choice list attribute discriminator."
                   },
                   "options": {
                     "minItems": 1,
@@ -1207,15 +1412,18 @@
                     "items": {
                       "type": "string",
                       "minLength": 1
-                    }
+                    },
+                    "description": "Non-empty ordered list of labels offered by the attribute."
                   },
                   "sort": {
+                    "description": "Whether the sheet sorts option labels.",
                     "type": "boolean"
                   },
                   "default": {
+                    "description": "Zero-based index of the default option.",
                     "type": "integer",
-                    "minimum": -9007199254740991,
-                    "maximum": 9007199254740991
+                    "minimum": 0,
+                    "maximum": 2147483647
                   }
                 },
                 "required": [
@@ -1230,12 +1438,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -1243,12 +1454,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -1266,9 +1480,11 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "ListMany"
+                    "const": "ListMany",
+                    "description": "Multiple-choice list attribute discriminator."
                   },
                   "options": {
+                    "description": "Optional non-empty list of initial choices.",
                     "minItems": 1,
                     "type": "array",
                     "items": {
@@ -1277,9 +1493,11 @@
                     }
                   },
                   "sort": {
+                    "description": "Whether the sheet sorts option labels.",
                     "type": "boolean"
                   },
                   "condition": {
+                    "description": "Whether entries carry a condition toggle.",
                     "type": "boolean"
                   }
                 },
@@ -1294,12 +1512,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -1307,12 +1528,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -1330,12 +1554,15 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "Roll"
+                    "const": "Roll",
+                    "description": "Roll button attribute discriminator."
                   },
                   "default": {
+                    "description": "Default formula or stat key rolled by the attribute.",
                     "type": "string"
                   },
                   "showResults": {
+                    "description": "Whether roll outcomes are displayed.",
                     "type": "boolean"
                   }
                 },
@@ -1350,12 +1577,15 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Human-readable attribute label."
                   },
                   "description": {
+                    "description": "Optional explanation shown with the attribute.",
                     "type": "string"
                   },
                   "position": {
+                    "description": "Column in which the sheet displays the attribute.",
                     "type": "string",
                     "enum": [
                       "top",
@@ -1363,12 +1593,15 @@
                     ]
                   },
                   "customLabel": {
+                    "description": "Whether a user may replace the attribute label.",
                     "type": "boolean"
                   },
                   "limited": {
+                    "description": "Whether the sheet limits the attribute's display or use.",
                     "type": "boolean"
                   },
                   "visibleFor": {
+                    "description": "All playbooks, one playbook slug, or a list of visible playbooks.",
                     "anyOf": [
                       {
                         "type": "boolean"
@@ -1386,7 +1619,8 @@
                   },
                   "type": {
                     "type": "string",
-                    "const": "Track"
+                    "const": "Track",
+                    "description": "Open-ended track attribute discriminator."
                   }
                 },
                 "required": [
@@ -1395,7 +1629,8 @@
                 ],
                 "additionalProperties": {}
               }
-            ]
+            ],
+            "description": "One supported PbtA sheet attribute configuration."
           }
         },
         "moveTypes": {
@@ -1406,9 +1641,11 @@
           "additionalProperties": {
             "type": "string",
             "minLength": 1
-          }
+          },
+          "description": "NPC move type keys mapped to labels."
         },
         "equipmentTypes": {
+          "description": "NPC equipment type keys mapped to labels.",
           "type": "object",
           "propertyNames": {
             "type": "string"
@@ -1419,6 +1656,7 @@
           }
         },
         "description": {
+          "description": "Optional explanation of the NPC sheet configuration.",
           "type": "string"
         }
       },
@@ -1428,6 +1666,7 @@
       "additionalProperties": false
     },
     "fronts": {
+      "description": "Optional vocabularies used by fronts.",
       "type": "object",
       "properties": {
         "threatTypes": {
@@ -1438,7 +1677,8 @@
           "additionalProperties": {
             "type": "string",
             "minLength": 1
-          }
+          },
+          "description": "Threat type keys mapped to labels."
         },
         "impulses": {
           "type": "object",
@@ -1448,20 +1688,24 @@
           "additionalProperties": {
             "type": "string",
             "minLength": 1
-          }
+          },
+          "description": "Threat impulse keys mapped to labels."
         },
         "clockPresets": {
+          "description": "Reusable clocks available to fronts.",
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
               "key": {
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "description": "Stable key used by fronts to select this preset."
               },
               "label": {
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "description": "Human-readable clock preset label."
               },
               "segments": {
                 "minItems": 1,
@@ -1469,7 +1713,8 @@
                 "items": {
                   "type": "string",
                   "minLength": 1
-                }
+                },
+                "description": "Ordered non-empty labels of the clock segments."
               }
             },
             "required": [
@@ -1477,7 +1722,8 @@
               "label",
               "segments"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "description": "A reusable clock shape declared by the game."
           }
         }
       },
@@ -1496,5 +1742,8 @@
     "rollResults",
     "character"
   ],
-  "additionalProperties": false
+  "additionalProperties": false,
+  "title": "PbtA game definition",
+  "description": "Portable game vocabulary shared by PbtA content files and digital tools.",
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/main/schemas/masks/game-definition.schema.json"
 }
