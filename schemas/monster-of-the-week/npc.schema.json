@@ -4,21 +4,26 @@
   "properties": {
     "slug": {
       "type": "string",
-      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Stable kebab-case identifier of the NPC."
     },
     "name": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "description": "Human-readable NPC name."
     },
     "game": {
       "type": "string",
-      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Folder slug of the game this NPC belongs to."
     },
     "description": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "description": "Plain-text presentation of the NPC."
     },
     "tags": {
+      "description": "Free-form tags attached to the NPC.",
       "type": "array",
       "items": {
         "type": "string",
@@ -26,6 +31,7 @@
       }
     },
     "attributes": {
+      "description": "Values keyed by the game's NPC attributes.",
       "type": "object",
       "propertyNames": {
         "type": "string"
@@ -36,7 +42,9 @@
             "type": "string"
           },
           {
-            "type": "number"
+            "type": "number",
+            "minimum": -2147483648,
+            "maximum": 2147483647
           },
           {
             "type": "boolean"
@@ -60,52 +68,63 @@
             "properties": {
               "ref": {
                 "type": "string",
-                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                "description": "Slug of a standalone move in the same game."
               }
             },
             "required": [
               "ref"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "description": "Reference to a standalone move."
           },
           {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "description": "Human-readable move name."
               },
               "moveType": {
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "description": "Key declared in the game's move type vocabulary."
               },
               "playbook": {
+                "description": "Playbook slug when the move belongs to one.",
                 "type": "string",
                 "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
               },
               "description": {
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "description": "Plain-text explanation of the move."
               },
               "trigger": {
+                "description": "Situation that triggers the move.",
                 "type": "string",
                 "minLength": 1
               },
               "roll": {
+                "description": "Optional roll configuration.",
                 "type": "object",
                 "properties": {
                   "rollType": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Game stat key, `formula`, or `none` describing how the move rolls."
                   },
                   "rollFormula": {
+                    "description": "Explicit roll formula when rollType is `formula`.",
                     "type": "string",
                     "minLength": 1
                   },
                   "rollMod": {
+                    "description": "Signed 32-bit modifier added to the roll.",
                     "type": "integer",
-                    "minimum": -9007199254740991,
-                    "maximum": 9007199254740991
+                    "minimum": -2147483648,
+                    "maximum": 2147483647
                   }
                 },
                 "required": [
@@ -114,6 +133,7 @@
                 "additionalProperties": false
               },
               "results": {
+                "description": "Outcome entries keyed by the game's roll result vocabulary.",
                 "type": "object",
                 "propertyNames": {
                   "type": "string"
@@ -123,30 +143,36 @@
                   "properties": {
                     "label": {
                       "type": "string",
-                      "minLength": 1
+                      "minLength": 1,
+                      "description": "Human-readable label for this result tier."
                     },
                     "text": {
                       "type": "string",
-                      "minLength": 1
+                      "minLength": 1,
+                      "description": "Plain-text outcome for this result tier."
                     }
                   },
                   "required": [
                     "label",
                     "text"
                   ],
-                  "additionalProperties": false
+                  "additionalProperties": false,
+                  "description": "One possible outcome of a move roll."
                 }
               },
               "uses": {
+                "description": "Available uses, stored as an unsigned 32-bit count.",
                 "type": "integer",
-                "minimum": -9007199254740991,
-                "maximum": 9007199254740991
+                "minimum": 0,
+                "maximum": 2147483647
               },
               "choices": {
+                "description": "Choice instructions attached to the move.",
                 "type": "string",
                 "minLength": 1
               },
               "tags": {
+                "description": "Free-form tags attached to the move.",
                 "type": "array",
                 "items": {
                   "type": "string",
@@ -161,10 +187,13 @@
             ],
             "additionalProperties": false
           }
-        ]
-      }
+        ],
+        "description": "A move reference or a complete inline move."
+      },
+      "description": "Moves cited by slug or written inline for this NPC."
     },
     "drive": {
+      "description": "Drive, impulse, or agenda guiding the NPC.",
       "type": "string",
       "minLength": 1
     }
@@ -176,5 +205,8 @@
     "description",
     "moves"
   ],
-  "additionalProperties": false
+  "additionalProperties": false,
+  "title": "PbtA NPC",
+  "description": "Portable representation of a Powered by the Apocalypse non-player character.",
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/main/schemas/monster-of-the-week/npc.schema.json"
 }

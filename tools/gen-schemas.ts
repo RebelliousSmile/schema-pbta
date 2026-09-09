@@ -3,7 +3,11 @@ import { z } from "zod";
 import { TARGETS } from "../src/zod/constants";
 
 for (const t of TARGETS) {
-  const json = z.toJSONSchema(t.zod, { target: "draft-7" });
+  const json = z.toJSONSchema(t.zod, { target: "draft-7" }) as Record<
+    string,
+    unknown
+  >;
+  json.$id = `https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/main/schemas/${t.game.folder}/${t.name}.schema.json`;
   fs.mkdirSync(`schemas/${t.game.folder}`, {
     recursive: true,
   });

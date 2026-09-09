@@ -41,3 +41,15 @@ export const nonEmptyString = z.string().min(1);
 
 /** Free-form label vocabulary: key to human-readable label. */
 export const labelDictionary = z.record(z.string(), nonEmptyString);
+
+/**
+ * Portable numeric ranges for values whose game-specific domain is deliberately
+ * open. The schemas target interoperable tools, so signed 32-bit storage is the
+ * widest baseline we can assume without inventing a PbtA rule.
+ */
+export const INT32_MIN = -2_147_483_648;
+export const INT32_MAX = 2_147_483_647;
+
+export const portableNumber = z.number().min(INT32_MIN).max(INT32_MAX);
+export const portableInteger = z.number().int().min(INT32_MIN).max(INT32_MAX);
+export const portableCount = z.number().int().min(0).max(INT32_MAX);

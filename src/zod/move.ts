@@ -1,5 +1,11 @@
 import { z } from "zod";
-import { gameRefSchema, nonEmptyString, slugSchema } from "./shared";
+import {
+  gameRefSchema,
+  nonEmptyString,
+  portableCount,
+  portableInteger,
+  slugSchema,
+} from "./shared";
 
 /**
  * A move, canonical form.
@@ -17,9 +23,9 @@ import { gameRefSchema, nonEmptyString, slugSchema } from "./shared";
  * HTML into text is the import adapter's job, not the schema's.
  */
 const moveResultSchema = z.strictObject({
-  label: nonEmptyString,
-  text: nonEmptyString,
-});
+  label: nonEmptyString.meta({ description: "Human-readable label for this result tier." }),
+  text: nonEmptyString.meta({ description: "Plain-text outcome for this result tier." }),
+}).meta({ description: "One possible outcome of a move roll." });
 
 /**
  * The roll of a move.
@@ -30,32 +36,43 @@ const moveResultSchema = z.strictObject({
  * between two fields, hence checked by the reference validator.
  */
 const moveRollSchema = z.strictObject({
-  rollType: nonEmptyString,
-  rollFormula: nonEmptyString.optional(),
-  rollMod: z.number().int().optional(),
-});
+  rollType: nonEmptyString.meta({
+    description: "Game stat key, `formula`, or `none` describing how the move rolls.",
+  }),
+  rollFormula: nonEmptyString.optional().meta({
+    description: "Explicit roll formula when rollType is `formula`.",
+  }),
+  rollMod: portableInteger.optional().meta({
+    description: "Signed 32-bit modifier added to the roll.",
+  }),
+}).meta({ description: "Roll configuration for a move." });
 
 export const moveSchema = z.strictObject({
-  slug: slugSchema,
-  name: nonEmptyString,
-  game: gameRefSchema,
+  slug: slugSchema.meta({ description: "Stable kebab-case identifier of the move." }),
+  name: nonEmptyString.meta({ description: "Human-readable move name." }),
+  game: gameRefSchema.meta({ description: "Folder slug of the game this move belongs to." }),
   /** A key of the game's `moveTypes`, character side or NPC side. */
-  moveType: nonEmptyString,
+  moveType: nonEmptyString.meta({ description: "Key declared in the game's move type vocabulary." }),
   /** The playbook this move belongs to, when it belongs to one. */
-  playbook: slugSchema.optional(),
+  playbook: slugSchema.optional().meta({ description: "Playbook slug when the move belongs to one." }),
   /** Plain text, deliberately: upstream stores an `HTMLField`. */
-  description: nonEmptyString,
+  description: nonEmptyString.meta({ description: "Plain-text explanation of the move." }),
   /**
    * The trigger sentence. Foundry buries it in the description; a printed sheet
    * sets it apart, so it gets its own field.
    */
-  trigger: nonEmptyString.optional(),
-  roll: moveRollSchema.optional(),
+  trigger: nonEmptyString.optional().meta({ description: "Situation that triggers the move." }),
+  roll: moveRollSchema.optional().meta({ description: "Optional roll configuration." }),
   /** Free keys, expected to follow the game's `rollResults`. */
-  results: z.record(z.string(), moveResultSchema).optional(),
-  uses: z.number().int().optional(),
-  choices: nonEmptyString.optional(),
-  tags: z.array(nonEmptyString).optional(),
+  results: z.record(z.string(), moveResultSchema).optional().meta({
+    description: "Outcome entries keyed by the game's roll result vocabulary.",
+  }),
+  uses: portableCount.optional().meta({ description: "Available uses, stored as an unsigned 32-bit count." }),
+  choices: nonEmptyString.optional().meta({ description: "Choice instructions attached to the move." }),
+  tags: z.array(nonEmptyString).optional().meta({ description: "Free-form tags attached to the move." }),
+}).meta({
+  title: "PbtA move",
+  description: "Portable representation of a Powered by the Apocalypse move.",
 });
 
 /**
@@ -76,9 +93,11 @@ export const moveSchema = z.strictObject({
  * `.extend()`, and `playbook.ts` needs to extend each branch on its own.
  */
 export const moveRefEntry = z.strictObject({
-  ref: slugSchema,
-});
+  ref: slugSchema.meta({ description: "Slug of a standalone move in the same game." }),
+}).meta({ description: "Reference to a standalone move." });
 
 export const moveInlineEntry = moveSchema.omit({ game: true, slug: true });
 
-export const moveEntry = z.union([moveRefEntry, moveInlineEntry]);
+export const moveEntry = z.union([moveRefEntry, moveInlineEntry]).meta({
+  description: "A move reference or a complete inline move.",
+});
