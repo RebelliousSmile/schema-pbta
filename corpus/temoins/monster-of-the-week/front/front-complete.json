@@ -1,0 +1,20 @@
+{
+  "slug": "the-drowned-bell",
+  "name": "The Drowned Bell",
+  "game": "monster-of-the-week",
+  "concept": "A bell rings beneath the reservoir.",
+  "description": "Each toll calls something closer.",
+  "stakes": ["Who hears the final toll?"],
+  "cast": [{ "name": "Mara Vale", "role": "Witness" }],
+  "threats": [{
+    "name": "The Bell Below",
+    "type": "monster",
+    "impulse": "consume",
+    "description": "An appetite wearing a sound.",
+    "moves": [{ "ref": "read-the-water" }],
+    "clock": { "label": "The final toll", "segments": ["First", "Second", "Third"], "filled": 1 }
+  }],
+  "portents": [{ "text": "Fish gather at the old road.", "done": false }],
+  "doom": "The reservoir gives back everything it took."
+}
+

@@ -1,0 +1,35 @@
+{
+  "game": "masks",
+  "name": "Masks: A New Generation",
+  "version": "1.0.0",
+  "source": "Published sheet vocabulary",
+  "rollFormula": "2d6",
+  "minMod": -3,
+  "maxMod": 4,
+  "rollResults": {
+    "success": { "range": "10+", "label": "Full success" },
+    "partial": { "range": "7-9", "label": "Mixed success" },
+    "failure": { "range": "6-", "label": "Miss" }
+  },
+  "character": {
+    "stats": { "danger": "Danger", "freak": "Freak" },
+    "attributes": {
+      "potential": { "label": "Potential", "type": "Xp", "max": 5, "default": 0 },
+      "conditions": { "label": "Conditions", "type": "ListMany", "options": ["Afraid", "Angry"] }
+    },
+    "statToggle": { "label": "Adult move", "modifier": 1 },
+    "moveTypes": { "basic": "Basic move", "playbook": "Playbook move" },
+    "equipmentTypes": { "gear": "Gear" },
+    "description": "Character sheet vocabulary."
+  },
+  "npc": {
+    "moveTypes": { "custom": "Custom move" },
+    "equipmentTypes": { "gear": "Gear" }
+  },
+  "fronts": {
+    "threatTypes": { "organization": "Organization" },
+    "impulses": { "toDominate": "To dominate" },
+    "clockPresets": [{ "key": "fiveStep", "label": "Five steps", "segments": ["1", "2", "3", "4", "5"] }]
+  }
+}
+

@@ -1,0 +1,20 @@
+{
+  "slug": "the-quiet-syndicate",
+  "name": "The Quiet Syndicate",
+  "game": "masks",
+  "concept": "A network built from small favours.",
+  "description": "It wants the city grateful and quiet.",
+  "stakes": ["Who has already said yes?"],
+  "cast": [{ "name": "The Glasswright", "role": "Defector", "ref": "the-glasswright" }],
+  "threats": [{
+    "name": "The Favour Ledger",
+    "type": "organization",
+    "impulse": "toDominate",
+    "description": "A book of debts.",
+    "moves": [{ "name": "Call In a Favour", "moveType": "custom", "description": "Ask for something small." }],
+    "clock": { "label": "The ledger closes", "preset": "fiveStep", "filled": 2 }
+  }],
+  "portents": [{ "text": "A trusted adult cancels twice.", "done": true }],
+  "doom": "The city stops calling the heroes."
+}
+

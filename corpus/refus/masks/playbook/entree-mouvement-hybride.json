@@ -1,0 +1,9 @@
+{
+  "slug": "the-ember",
+  "name": "The Ember",
+  "game": "masks",
+  "description": "A playbook.",
+  "stats": { "danger": 1 },
+  "moves": [{ "ref": "hold-the-line", "name": "Inline too", "moveType": "basic", "description": "Two shapes at once." }]
+}
+

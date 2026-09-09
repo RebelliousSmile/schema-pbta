@@ -1,0 +1,8 @@
+{
+  "game": "masks",
+  "name": "Masks",
+  "version": "1",
+  "rollResults": { "success": { "range": "10+", "label": "Hit" } },
+  "character": { "stats": { "danger": "Danger" }, "moveTypes": { "basic": "Basic" } }
+}
+

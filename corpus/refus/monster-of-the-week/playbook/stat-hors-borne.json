@@ -1,0 +1,9 @@
+{
+  "slug": "the-lightkeeper",
+  "name": "The Lightkeeper",
+  "game": "monster-of-the-week",
+  "description": "A playbook.",
+  "stats": { "cool": 2147483648 },
+  "moves": []
+}
+

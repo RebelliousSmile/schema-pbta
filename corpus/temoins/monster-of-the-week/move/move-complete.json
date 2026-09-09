@@ -1,0 +1,14 @@
+{
+  "slug": "read-the-water",
+  "name": "Read the Water",
+  "game": "monster-of-the-week",
+  "moveType": "basic",
+  "description": "Read the signs left by the creature.",
+  "trigger": "When you study a disturbed place.",
+  "roll": { "rollType": "sharp", "rollMod": 1 },
+  "results": { "success": { "label": "Hit", "text": "Ask two questions." } },
+  "uses": 2,
+  "choices": "Choose questions from the investigation list.",
+  "tags": ["investigation"]
+}
+
