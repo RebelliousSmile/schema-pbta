@@ -61,6 +61,21 @@ export const TARGETS: Array<SchemaTarget> = [
   {
     name: "game-definition",
     zod: gameDefinitionSchema,
+    game: GAMES.monsterhearts,
+  },
+  {
+    name: "game-definition",
+    zod: gameDefinitionSchema,
+    game: GAMES["urban-shadows"],
+  },
+  {
+    name: "game-definition",
+    zod: gameDefinitionSchema,
+    game: GAMES["the-sprawl"],
+  },
+  {
+    name: "game-definition",
+    zod: gameDefinitionSchema,
     game: GAMES.masks,
   },
   {

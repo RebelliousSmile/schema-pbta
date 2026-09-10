@@ -1,0 +1,12 @@
+{
+  "game": "urban-shadows",
+  "name": "Urban Shadows 2e",
+  "version": "1.0.0",
+  "rollFormula": "2d6",
+  "rollResults": { "success": { "range": "10+", "label": "Strong hit" } },
+  "character": {
+    "stats": { "blood": "Blood", "heart": "Heart", "mind": "Mind", "spirit": "Spirit", "mortalis": "Mortalis", "night": "Night", "power": "Power", "wild": "Wild" },
+    "moveTypes": { "basic": "Basic Moves", "circle": "Circle Moves" }
+  },
+  "mc": { "moveTypes": { "mc": "MC Moves" } }
+}

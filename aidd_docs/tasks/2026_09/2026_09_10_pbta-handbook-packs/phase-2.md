@@ -1,5 +1,5 @@
 ---
-status: pending
+status: done
 ---
 
 # Instruction: Définitions de jeu des trois corpus en attente
@@ -72,4 +72,3 @@ journey
 | --- | --- |
 | 1 | Chaque nouveau jeu possède une source, une édition et une liste de données retenues explicitement distinguées des suppléments exclus. |
 | 2 | Les trois définitions passent la génération, la validation, la passe croisée et l’audit avec leurs témoins et refus dédiés. |
-

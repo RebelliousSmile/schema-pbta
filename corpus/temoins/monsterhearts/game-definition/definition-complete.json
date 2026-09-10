@@ -1,0 +1,12 @@
+{
+  "game": "monsterhearts",
+  "name": "Monsterhearts 2",
+  "version": "1.0.0",
+  "rollFormula": "2d6",
+  "rollResults": { "success": { "range": "10+", "label": "Réussite" } },
+  "character": {
+    "stats": { "hot": "Sexy", "cold": "Glacial", "volatile": "Impulsif", "dark": "Ténébreux" },
+    "moveTypes": { "basic": "Actions de base", "skin": "Actions de mue" }
+  },
+  "mc": { "moveTypes": { "reaction": "Réactions de MC" } }
+}

@@ -1,0 +1,9 @@
+{
+  "game": "the-sprawl",
+  "name": "The Sprawl",
+  "version": "1.0.0",
+  "rollFormula": "2d6",
+  "minMod": -2147483649,
+  "rollResults": {},
+  "character": { "stats": {}, "moveTypes": {} }
+}
