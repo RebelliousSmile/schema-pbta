@@ -1,6 +1,6 @@
 ---
 objective: "schema-pbta publie cinq packs de présentation v1 qu’Handbook 2.7.1 peut installer et mettre à jour ensemble depuis une source unique, sans télécharger de contenu exécutable."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Catalogue Handbook multi-pack de schema-pbta
