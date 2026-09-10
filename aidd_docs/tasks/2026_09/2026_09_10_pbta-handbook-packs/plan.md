@@ -1,6 +1,6 @@
 ---
 objective: "Les cinq jeux PbtA publient des données canoniques compatibles avec Lantern et des aperçus Handbook visuellement distincts, sans dupliquer ni le modèle ni le contenu entre les deux."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Corpus PbtA et packs visuels Handbook
