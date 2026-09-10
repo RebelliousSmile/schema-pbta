@@ -13,6 +13,7 @@ html[data-game="monsterhearts"][data-variant="drowned-lake"] body { background-c
 html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-sheet { filter: contrast(1.06); box-shadow: 1.2rem 1.4rem 0 #09090c; }
 html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-game { border: .22rem solid var(--hb-ink); border-block-end: .65rem solid var(--hb-accent); background-size: 23rem; }
 html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-game h1 { color: #f0eee6; background: var(--hb-ink); padding: .1em .2em; text-shadow: .06em .05em 0 var(--hb-accent); transform: rotate(-1deg); }
+html[data-game="monsterhearts"][data-variant="drowned-lake"] h2 { color: var(--hb-accent); }
 html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-panel { border: .18rem solid var(--hb-ink); box-shadow: .45rem .45rem 0 #17171d; background-image: repeating-linear-gradient(0deg, transparent 0 18px, #0000000b 19px); }
 html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-layout > :nth-child(1) { transform: rotate(.35deg); }
 html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-layout > :nth-child(2) { transform: rotate(-.25deg); }

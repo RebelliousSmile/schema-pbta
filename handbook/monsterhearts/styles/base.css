@@ -1,23 +1,25 @@
 @import url("../../shared/theme-tokens.css");
 
 html[data-game="monsterhearts"] {
-  --hb-paper: #f3eee7;
-  --hb-paper-alt: #e7ddd5;
-  --hb-ink: #241e25;
-  --hb-muted: #6f626c;
-  --hb-accent: #7a2944;
-  --hb-accent-2: #b38a76;
+  --hb-paper: #171315;
+  --hb-paper-alt: #261a1b;
+  --hb-ink: #c5a7a0;
+  --hb-muted: #896e6b;
+  --hb-accent: #702a24;
+  --hb-accent-2: #9b5549;
+  --hb-line: #5b302f;
   --hb-radius: .1rem;
   --hb-display: Garamond, Georgia, serif;
   --hb-texture: url("../assets/images/thorn-heart.svg");
 }
 
-html[data-game="monsterhearts"] body { background: #292129; background-image: radial-gradient(circle at 50% 0, #684251 0, transparent 48%); }
-html[data-game="monsterhearts"] .handbook-sheet { box-shadow: 0 2rem 7rem #0008; }
+html[data-game="monsterhearts"] body { background: #080708; background-image: radial-gradient(circle at 50% 0, #3a1717 0, transparent 48%); }
+html[data-game="monsterhearts"] .handbook-sheet { box-shadow: 0 2rem 7rem #000c; }
 html[data-game="monsterhearts"] .handbook-game { min-height: 17rem; background: var(--hb-paper) var(--hb-texture) 92% 50% / 13rem no-repeat; border-block: 1px solid var(--hb-accent); }
 html[data-game="monsterhearts"] h1, html[data-game="monsterhearts"] h2, html[data-game="monsterhearts"] h3 { font-family: var(--hb-display); font-weight: 500; }
 html[data-game="monsterhearts"] h1 { font-size: clamp(3rem, 8vw, 6.8rem); font-style: italic; letter-spacing: -.06em; }
-html[data-game="monsterhearts"] .handbook-kicker { color: var(--hb-accent); }
+html[data-game="monsterhearts"] h1, html[data-game="monsterhearts"] h2 { color: #8b3a32; }
+html[data-game="monsterhearts"] .handbook-kicker { color: #a35a4e; }
 html[data-game="monsterhearts"] .handbook-panel { border-color: color-mix(in srgb, var(--hb-accent), transparent 55%); }
 html[data-game="monsterhearts"] .handbook-move h3::after { content: " ◆"; color: var(--hb-accent); font-size: .55em; }
 html[data-game="monsterhearts"] .handbook-result { --line: var(--hb-accent); }
