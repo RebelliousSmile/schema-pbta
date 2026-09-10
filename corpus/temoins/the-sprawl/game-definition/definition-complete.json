@@ -1,0 +1,12 @@
+{
+  "game": "the-sprawl",
+  "name": "The Sprawl",
+  "version": "1.0.0",
+  "rollFormula": "2d6",
+  "rollResults": { "success": { "range": "10+", "label": "Strong hit" } },
+  "character": {
+    "stats": { "cool": "Cool", "edge": "Edge", "meat": "Meat", "mind": "Mind", "style": "Style", "synth": "Synth" },
+    "moveTypes": { "basic": "Basic Moves", "playbook": "Playbook Moves" }
+  },
+  "mc": { "moveTypes": { "mc": "MC Moves" } }
+}

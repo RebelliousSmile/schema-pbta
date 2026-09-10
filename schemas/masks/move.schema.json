@@ -22,6 +22,15 @@
       "minLength": 1,
       "description": "Key declared in the game's move type vocabulary."
     },
+    "audience": {
+      "description": "Optional audience that owns this move; MC moves use `mc`.",
+      "type": "string",
+      "enum": [
+        "character",
+        "npc",
+        "mc"
+      ]
+    },
     "playbook": {
       "description": "Playbook slug when the move belongs to one.",
       "type": "string",

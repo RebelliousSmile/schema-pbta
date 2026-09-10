@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="fr" data-game="the-sprawl" data-variant="base">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Sprawl — Handbook preview</title>
+  <link rel="stylesheet" href="../../shared/preview.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link data-variant-stylesheet rel="stylesheet" disabled>
+</head>
+<body>
+  <main class="handbook-sheet" data-handbook-preview>
+    <header class="handbook-game" data-region="game-identity">
+      <div><span class="handbook-kicker">Handbook preview</span><h1>The Sprawl</h1><p>The Sprawl 1.1, VO rules and VF character playbooks</p></div>
+      <label class="handbook-variant">Variante<select data-variant-picker><option value="base" selected>base</option></select></label>
+    </header>
+    <div class="handbook-layout">
+      <section class="handbook-panel handbook-identity" data-region="character-identity">
+        <span class="handbook-kicker">Livret</span><h2>Le Veilleur</h2><p>Tu repères les sorties, les caméras et les mensonges avant que le reste de l’équipe entre.</p>
+        <p class="handbook-stats-detail">Cran +1, Pro +2, Chair +0, Esprit +1, Style -1, Synth +0.</p>
+        <div class="handbook-creation"><div class="handbook-creation__item"><h3>Qui t’a appris à surveiller les issues ?</h3><ul class="handbook-options"><li>Une équipe disparue</li><li>Une corpo</li><li>Une personne que tu protèges encore</li></ul></div></div>
+      </section>
+      <section class="handbook-panel handbook-playbook" data-region="playbook-moves">
+        <span class="handbook-kicker">Actions</span><h2>Moves du livret</h2>
+        <article class="handbook-move" data-move="evaluer-la-zone" data-move-type="basic" data-audience="character">
+    <header><span class="handbook-kicker">basic</span><h3>Évaluer la zone</h3></header>
+    <p>Identifier les points de contrôle et les angles morts avant que l’équipe ne s’engage.</p><p class="handbook-move__trigger">Quand tu observes une zone sous pression, lance avec Pro.</p>
+    <div class="handbook-results"><div class="handbook-result" data-result="success"><strong>10+</strong><p>Gagne trois retenues pour exploiter les détails repérés.</p></div><div class="handbook-result" data-result="partial"><strong>7-9</strong><p>Gagne une retenue et attire une attention indésirable.</p></div></div>
+  </article>
+<article class="handbook-move" data-move="embedded-toujours-une-sortie" data-move-type="playbook" data-audience="character">
+    <header><span class="handbook-kicker">playbook</span><h3>Toujours une sortie</h3></header>
+    <p>Quand la situation bascule, tu sais quel passage est encore praticable.</p>
+    
+  </article>
+        <ul class="handbook-advancement"><li>Choisis une autre Manœuvre de ton Livret.</li><li>Augmente une stat de +1.</li></ul>
+      </section>
+      <aside class="handbook-panel handbook-state" data-region="character-state">
+        <span class="handbook-kicker">État</span><h2>Caractéristiques</h2><dl class="handbook-stats">
+    <div class="handbook-stat" data-stat="cool">
+      <dt>Cran</dt><dd>1</dd>
+    </div>
+    <div class="handbook-stat" data-stat="edge">
+      <dt>Pro</dt><dd>2</dd>
+    </div>
+    <div class="handbook-stat" data-stat="meat">
+      <dt>Chair</dt><dd>0</dd>
+    </div>
+    <div class="handbook-stat" data-stat="mind">
+      <dt>Esprit</dt><dd>1</dd>
+    </div>
+    <div class="handbook-stat" data-stat="style">
+      <dt>Style</dt><dd>-1</dd>
+    </div>
+    <div class="handbook-stat" data-stat="synth">
+      <dt>Synth</dt><dd>0</dd>
+    </div>
+  </dl>
+        <h2>Attributs</h2><dl class="handbook-attributes">
+    <div class="handbook-attribute" data-attribute="harm" data-attribute-type="Clock">
+      <dt>Horloge de dégâts</dt><dd>0</dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="xp" data-attribute-type="Xp">
+      <dt>XP</dt><dd>0</dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="armour" data-attribute-type="Number">
+      <dt>Armure</dt><dd>0</dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="intel" data-attribute-type="Resource">
+      <dt>Info</dt><dd>0</dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="gear" data-attribute-type="Resource">
+      <dt>Matos</dt><dd>0</dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="cred" data-attribute-type="Resource">
+      <dt>Cred</dt><dd>5</dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="directives" data-attribute-type="ListMany">
+      <dt>Directives</dt><dd>Ne laisse personne derrière toi.</dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="cyberware" data-attribute-type="LongText">
+      <dt>Cybernétique</dt><dd>Optiques à spectre variable et liaison tactique.</dd>
+    </div>
+  </dl>
+      </aside>
+    </div>
+    <footer class="handbook-panel handbook-mc" data-region="mc-actions">
+      <span class="handbook-kicker">Référence MC</span><h2>Actions de MC</h2><article class="handbook-move" data-move="fermer-la-nasse" data-move-type="mc" data-audience="mc">
+    <header><span class="handbook-kicker">mc</span><h3>Fermer la nasse</h3></header>
+    <p>Fais converger une menace corporatiste et un problème déjà établi.</p>
+    
+  </article>
+    </footer>
+  </main>
+  <script>
+    const picker = document.querySelector("[data-variant-picker]");
+    const variantLink = document.querySelector("[data-variant-stylesheet]");
+    picker?.addEventListener("change", () => {
+      document.documentElement.dataset.variant = picker.value;
+      if (picker.value === "base") {
+        variantLink.disabled = true;
+        variantLink.removeAttribute("href");
+      } else {
+        variantLink.href = "../styles/variants/" + picker.value + ".css";
+        variantLink.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

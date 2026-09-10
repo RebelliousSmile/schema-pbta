@@ -1,0 +1,68 @@
+game = "urban-shadows"
+name = "Urban Shadows 2e"
+version = "1.0.0"
+source = "Urban Shadows Second Edition core book, 2024"
+rollFormula = "2d6"
+minMod = -3
+maxMod = 4
+
+[rollResults.success]
+range = "10+"
+label = "Strong hit"
+[rollResults.partial]
+range = "7-9"
+label = "Weak hit"
+[rollResults.failure]
+range = "6-"
+label = "Miss"
+
+[character]
+description = "A political actor in a supernatural city."
+[character.stats]
+blood = "Blood"
+heart = "Heart"
+mind = "Mind"
+spirit = "Spirit"
+mortalis = "Mortalis"
+night = "Night"
+power = "Power"
+wild = "Wild"
+[character.moveTypes]
+basic = "Basic Moves"
+circle = "Circle Moves"
+debt = "Debt Moves"
+city = "City Moves"
+playbook = "Playbook Moves"
+intimacy = "Intimacy Moves"
+corruption = "Corruption Moves"
+[character.attributes.harm]
+type = "Clock"
+label = "Harm"
+max = 5
+position = "top"
+[character.attributes.corruption]
+type = "Clock"
+label = "Corruption"
+max = 5
+position = "top"
+[character.attributes.advancement]
+type = "Xp"
+label = "Advancement"
+position = "top"
+[character.attributes.status]
+type = "ListMany"
+label = "Circle Status"
+position = "left"
+[character.attributes.debts]
+type = "ListMany"
+label = "Debts"
+position = "left"
+[character.attributes.scars]
+type = "ListMany"
+label = "Scars"
+position = "left"
+
+[mc]
+description = "Moves used by the Master of Ceremonies."
+[mc.moveTypes]
+mc = "MC Moves"

@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- MC move vocabularies and an optional move audience, with cross-reference
+  checks and temporary fixture coverage for MC-only types.
+- Canonical game definitions for Monsterhearts 2, Urban Shadows 2e and The
+  Sprawl 1.1, each with generated schemas and positive/negative audit fixtures.
+- Original move, MC-action and playbook fixtures for all three games, including
+  French character-sheet vocabulary from The Sprawl 1.1 VF.
+- Generated semantic Handbook previews and distinct original visual packs for
+  all five games, plus the visual-only Monsterhearts `drowned-lake` variant.
+- Pack validation covering paths, descriptors, variants, data separation and
+  the structured editing surface required by Lantern forms.
+
 ## [0.2.0] - 2026-09-09
 
 ### Added

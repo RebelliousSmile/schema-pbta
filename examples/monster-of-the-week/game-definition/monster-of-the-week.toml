@@ -168,6 +168,12 @@ type = "LongText"
 label = "Motivation"
 position = "left"
 
+[mc]
+description = "Moves the Keeper uses to keep a mystery active and dangerous."
+
+[mc.moveTypes]
+keeper = "Keeper Moves"
+
 # Threat vocabularies, this repository's addition. `threatTypes` holds the
 # types a threat is picked from — the four categories of `npc.attributes.type`
 # are their headings — and `impulses` the motivations that come with them, this

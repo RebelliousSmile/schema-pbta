@@ -1,0 +1,15 @@
+slug = "read-the-current"
+name = "Read the Current"
+game = "urban-shadows"
+moveType = "basic"
+description = "Notice which community is shaping the scene and where its influence is weakest."
+trigger = "When you pause to read the politics of a charged place, roll with the relevant Circle."
+[roll]
+rollType = "formula"
+rollFormula = "2d6 + Circle"
+[results.success]
+label = "10+"
+text = "Ask two questions about the local balance of power."
+[results.partial]
+label = "7-9"
+text = "Ask one question and reveal that you are paying attention."

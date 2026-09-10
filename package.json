@@ -6,10 +6,13 @@
     "gen": "tsx tools/gen-schemas.ts",
     "validate": "tsx tools/validate-examples.ts",
     "validate:refs": "tsx tools/validate-references.ts",
+    "validate:refs:fixtures": "tsx tools/validate-reference-fixtures.ts",
     "audit": "tsx tools/audit-schemas.ts",
+    "handbook:validate": "tsx tools/validate-handbook-packs.ts",
     "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && npm run gen && npm run validate && npm run validate:refs && npm run audit",
-    "toml:one": "tsx tools/toml2json.ts"
+    "check": "npm run typecheck && npm run gen && npm run validate && npm run validate:refs && npm run validate:refs:fixtures && npm run audit && npm run handbook:render && npm run handbook:validate",
+    "toml:one": "tsx tools/toml2json.ts",
+    "handbook:render": "tsx tools/render-handbook-preview.ts"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,30 @@
+slug = "la-noyee"
+name = "La Noyée"
+game = "monsterhearts"
+description = "Tu es revenue du lac avec une voix plus calme et des souvenirs qui ne sont pas tous les tiens."
+statsDetail = "Sexy +1, Glacial +2, Impulsif -1, Ténébreux +0."
+startingMoves = ["garder-la-face"]
+advancement = ["Prends une autre action de ta mue.", "Augmente une caractéristique de +1."]
+[stats]
+hot = 1
+cold = 2
+volatile = -1
+dark = 0
+[attributes]
+harm = 0
+xp = 0
+strings = []
+conditions = []
+darkestSelf = "Le lac réclame une vérité que tu as refusé de lui donner."
+look = "Vêtements toujours humides, regard immobile."
+clique = []
+[[moves]]
+ref = "garder-la-face"
+[[moves]]
+name = "Écouter sous la surface"
+moveType = "skin"
+description = "Le silence te livre des fragments de ce que les autres taisent."
+trigger = "Quand tu restes immobile au bord de l’eau, lance avec Ténébreux."
+[[creation]]
+label = "Qu’as-tu laissé au fond du lac ?"
+options = ["Un souvenir", "Une promesse", "Une autre version de toi"]

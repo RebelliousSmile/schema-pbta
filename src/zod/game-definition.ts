@@ -185,6 +185,12 @@ const npcSchema = z.strictObject({
   description: z.string().optional().meta({ description: "Optional explanation of the NPC sheet configuration." }),
 }).meta({ description: "NPC-side vocabularies and sheet configuration." });
 
+/** Vocabulary for moves made by the Master of Ceremonies or equivalent role. */
+const mcSchema = z.strictObject({
+  moveTypes: labelDictionary.meta({ description: "MC move type keys mapped to their labels." }),
+  description: z.string().optional().meta({ description: "Optional explanation of the MC move vocabulary." }),
+}).meta({ description: "Game-master-side move vocabularies." });
+
 /**
  * A clock preset, named by the game rather than by the front that uses it.
  *
@@ -228,6 +234,7 @@ export const gameDefinitionSchema = z.strictObject({
 
   character: characterSchema.meta({ description: "Character-side vocabularies and sheet configuration." }),
   npc: npcSchema.optional().meta({ description: "Optional NPC-side vocabularies and sheet configuration." }),
+  mc: mcSchema.optional().meta({ description: "Optional MC-side move vocabularies." }),
   fronts: frontsSchema.optional().meta({ description: "Optional vocabularies used by fronts." }),
 }).meta({
   title: "PbtA game definition",

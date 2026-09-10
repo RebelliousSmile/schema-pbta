@@ -1,0 +1,67 @@
+game = "monsterhearts"
+name = "Monsterhearts 2"
+version = "1.0.0"
+source = "Monsterhearts 2, French edition, core rules and skins"
+rollFormula = "2d6"
+minMod = -3
+maxMod = 4
+
+[rollResults.success]
+range = "10+"
+label = "Réussite"
+[rollResults.partial]
+range = "7-9"
+label = "Réussite mitigée"
+[rollResults.failure]
+range = "6-"
+label = "Échec"
+
+[character]
+description = "Un personnage adolescent monstrueux défini par sa mue."
+[character.stats]
+hot = "Sexy"
+cold = "Glacial"
+volatile = "Impulsif"
+dark = "Ténébreux"
+[character.moveTypes]
+basic = "Actions de base"
+skin = "Actions de mue"
+sex = "Action sexuelle"
+darkestSelf = "Démon intérieur"
+adult = "Actions d’adulte"
+[character.attributes.harm]
+type = "Clock"
+label = "Dégâts"
+max = 4
+position = "top"
+[character.attributes.xp]
+type = "Xp"
+label = "Expérience"
+max = 5
+position = "top"
+[character.attributes.strings]
+type = "ListMany"
+label = "Ascendants"
+position = "left"
+[character.attributes.conditions]
+type = "ListMany"
+label = "Conditions"
+condition = true
+position = "left"
+[character.attributes.darkestSelf]
+type = "LongText"
+label = "Démon intérieur"
+position = "left"
+[character.attributes.look]
+type = "LongText"
+label = "Identité"
+position = "left"
+[character.attributes.clique]
+type = "ListMany"
+label = "Clique"
+position = "left"
+
+[mc]
+description = "Réactions utilisées par la MC."
+[mc.moveTypes]
+reaction = "Réactions de MC"

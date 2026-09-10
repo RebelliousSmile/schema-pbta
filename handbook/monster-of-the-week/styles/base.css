@@ -1,0 +1,23 @@
+@import url("../../shared/theme-tokens.css");
+
+html[data-game="monster-of-the-week"] {
+  --hb-paper: #eee7d5;
+  --hb-paper-alt: #d9d0ba;
+  --hb-ink: #20231f;
+  --hb-muted: #5d625b;
+  --hb-accent: #a53628;
+  --hb-accent-2: #d9a441;
+  --hb-radius: 0;
+  --hb-display: "Courier New", monospace;
+  --hb-texture: url("../assets/images/watch-mark.svg");
+}
+
+html[data-game="monster-of-the-week"] body { background: #282e2a; background-image: linear-gradient(115deg, transparent 48%, #ffffff08 49% 51%, transparent 52%); background-size: 42px 42px; }
+html[data-game="monster-of-the-week"] .handbook-sheet { box-shadow: var(--hb-shadow); transform: rotate(.12deg); }
+html[data-game="monster-of-the-week"] .handbook-game { background: var(--hb-paper) var(--hb-texture) 96% 50% / 13rem no-repeat; border-block-start: .45rem solid var(--hb-accent); }
+html[data-game="monster-of-the-week"] h1, html[data-game="monster-of-the-week"] h2, html[data-game="monster-of-the-week"] h3 { font-family: var(--hb-display); text-transform: uppercase; }
+html[data-game="monster-of-the-week"] h1 { font-size: clamp(2.5rem, 7vw, 5.4rem); letter-spacing: -.08em; }
+html[data-game="monster-of-the-week"] .handbook-panel { background-image: repeating-linear-gradient(0deg, transparent 0 27px, #28332d0a 28px); }
+html[data-game="monster-of-the-week"] .handbook-kicker { color: var(--hb-accent); }
+html[data-game="monster-of-the-week"] .handbook-move { border-color: var(--hb-ink); }
+html[data-game="monster-of-the-week"] .handbook-result { --line: var(--hb-accent); }

@@ -1,0 +1,77 @@
+game = "the-sprawl"
+name = "The Sprawl"
+version = "1.0.0"
+source = "The Sprawl 1.1, VO rules and VF character playbooks"
+rollFormula = "2d6"
+minMod = -3
+maxMod = 4
+
+[rollResults.success]
+range = "10+"
+label = "Strong hit"
+[rollResults.partial]
+range = "7-9"
+label = "Weak hit"
+[rollResults.failure]
+range = "6-"
+label = "Miss"
+
+[character]
+description = "A professional operative working dangerous corporate missions."
+[character.stats]
+cool = "Cran"
+edge = "Pro"
+meat = "Chair"
+mind = "Esprit"
+style = "Style"
+synth = "Synth"
+[character.moveTypes]
+basic = "Basic Moves"
+playbook = "Playbook Moves"
+mission = "Mission Moves"
+custom = "Custom Moves"
+[character.equipmentTypes]
+gear = "Gear"
+weapon = "Weapons"
+armour = "Armour"
+cyberware = "Cyberware"
+vehicle = "Vehicles"
+[character.attributes.harm]
+type = "Clock"
+label = "Horloge de dégâts"
+max = 6
+position = "top"
+[character.attributes.xp]
+type = "Xp"
+label = "XP"
+max = 10
+position = "top"
+[character.attributes.armour]
+type = "Number"
+label = "Armure"
+position = "top"
+[character.attributes.intel]
+type = "Resource"
+label = "Info"
+position = "left"
+[character.attributes.gear]
+type = "Resource"
+label = "Matos"
+position = "left"
+[character.attributes.cred]
+type = "Resource"
+label = "Cred"
+position = "left"
+[character.attributes.directives]
+type = "ListMany"
+label = "Directives"
+position = "left"
+[character.attributes.cyberware]
+type = "LongText"
+label = "Cybernétique"
+position = "left"
+
+[mc]
+description = "Moves used by the Master of Ceremonies."
+[mc.moveTypes]
+mc = "MC Moves"

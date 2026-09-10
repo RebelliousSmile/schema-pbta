@@ -3,16 +3,21 @@
 Open, versioned data schemas for **Powered by the Apocalypse** games (Apocalypse World, Dungeon World, Monster of the Week, Masks, Monsterhearts, and others) so VTTs, builders, and other digital
 tools can **share the same data**.
 
+Published examples are original fixtures. Local game books may be consulted to
+derive a game’s structural vocabulary, but their prose, layouts, illustrations
+and PDFs are not assets of this repository.
+
 The aim is an ecosystem of interoperable digital tools where they can exchange
 structured JSON/TOML, validate it via schemas (e.g., using Zod), and leverage it
 for their specific needs.
 
 ## Status
 
-Early, but usable. Masks and Monster of the Week each publish a game definition,
-move, playbook, NPC and front schema. Twelve TOML examples exercise the content
-pipeline, while a separate positive and negative corpus audits all ten generated
-schemas.
+Early, but usable. Masks and Monster of the Week publish game definition, move,
+playbook, NPC and front schemas. Monsterhearts 2, Urban Shadows 2e and The Sprawl
+1.1 publish game definition, move and playbook schemas. The examples exercise
+the content pipeline, while a separate positive and negative corpus audits every
+generated schema.
 
 ## What's in here
 
@@ -22,6 +27,22 @@ schemas.
 - `corpus/temoins/` contains legitimate JSON documents that every target must accept
 - `corpus/refus/` contains intentionally malformed JSON documents, one named defect per file
 - `tools/` provides generation and validation scripts
+- `handbook/` contains generated semantic previews and original visual packs
+
+## Handbook previews and Lantern forms
+
+`npm run handbook:render` builds one preview per game from explicit references
+to `examples/`; the HTML is generated and is never a second source of rules.
+Each game then applies its own CSS and original images. Visual variants, such as
+Monsterhearts’ `drowned-lake`, load as CSS/assets only and keep the same data and
+markup. The future installable Handbook manifest is deliberately not specified
+yet.
+
+Lantern form controls derive from the generated JSON Schemas and the canonical
+game vocabulary: typed `character.attributes`, stats, move types, playbook
+values, rolls and results. Narrative helpers such as `statsDetail` must not be
+parsed to recover mechanical values. `npm run handbook:validate` checks that
+each game exposes this minimum structured editing surface.
 
 ## Using the schemas in your tool
 
@@ -81,8 +102,9 @@ segments. A move naming a result outside the game's tiers is a warning, not an
 error.
 
 `npm run check` type-checks the sources, generates the schemas, runs both
-validation passes and finishes with the schema audit described below. Any
-failing step fails the chain.
+validation passes and the schema audit, regenerates the Handbook previews, then
+validates every pack and its Lantern editing surface. Any failing step fails the
+chain.
 
 ## Audited guarantees
 

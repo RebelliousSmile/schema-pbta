@@ -1665,6 +1665,31 @@
       ],
       "additionalProperties": false
     },
+    "mc": {
+      "description": "Optional MC-side move vocabularies.",
+      "type": "object",
+      "properties": {
+        "moveTypes": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "MC move type keys mapped to their labels."
+        },
+        "description": {
+          "description": "Optional explanation of the MC move vocabulary.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "moveTypes"
+      ],
+      "additionalProperties": false
+    },
     "fronts": {
       "description": "Optional vocabularies used by fronts.",
       "type": "object",

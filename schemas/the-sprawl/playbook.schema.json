@@ -1,0 +1,535 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Stable kebab-case identifier of the playbook."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable playbook name."
+    },
+    "game": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Folder slug of the game this playbook belongs to."
+    },
+    "actorType": {
+      "description": "Character sheet type driven by this playbook.",
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Plain-text explanation of the playbook."
+    },
+    "playbookImage": {
+      "description": "Image reference associated with the playbook.",
+      "type": "string",
+      "minLength": 1
+    },
+    "stats": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": -2147483648,
+        "maximum": 2147483647
+      },
+      "description": "Starting signed 32-bit stat values keyed by game stat."
+    },
+    "statsDetail": {
+      "description": "Text accompanying the starting stat spread.",
+      "type": "string",
+      "minLength": 1
+    },
+    "attributes": {
+      "description": "Starting values keyed by game attribute.",
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "moves": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "ref": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                "description": "Slug of a standalone move in the same game."
+              }
+            },
+            "required": [
+              "ref"
+            ],
+            "additionalProperties": false,
+            "description": "Reference to a standalone move."
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Human-readable move name."
+              },
+              "moveType": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Key declared in the game's move type vocabulary."
+              },
+              "audience": {
+                "description": "Optional audience that owns this move; MC moves use `mc`.",
+                "type": "string",
+                "enum": [
+                  "character",
+                  "npc",
+                  "mc"
+                ]
+              },
+              "playbook": {
+                "description": "Playbook slug when the move belongs to one.",
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Plain-text explanation of the move."
+              },
+              "trigger": {
+                "description": "Situation that triggers the move.",
+                "type": "string",
+                "minLength": 1
+              },
+              "roll": {
+                "description": "Optional roll configuration.",
+                "type": "object",
+                "properties": {
+                  "rollType": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Game stat key, `formula`, or `none` describing how the move rolls."
+                  },
+                  "rollFormula": {
+                    "description": "Explicit roll formula when rollType is `formula`.",
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "rollMod": {
+                    "description": "Signed 32-bit modifier added to the roll.",
+                    "type": "integer",
+                    "minimum": -2147483648,
+                    "maximum": 2147483647
+                  }
+                },
+                "required": [
+                  "rollType"
+                ],
+                "additionalProperties": false
+              },
+              "results": {
+                "description": "Outcome entries keyed by the game's roll result vocabulary.",
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Human-readable label for this result tier."
+                    },
+                    "text": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Plain-text outcome for this result tier."
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "text"
+                  ],
+                  "additionalProperties": false,
+                  "description": "One possible outcome of a move roll."
+                }
+              },
+              "uses": {
+                "description": "Available uses, stored as an unsigned 32-bit count.",
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 2147483647
+              },
+              "choices": {
+                "description": "Choice instructions attached to the move.",
+                "type": "string",
+                "minLength": 1
+              },
+              "tags": {
+                "description": "Free-form tags attached to the move.",
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "name",
+              "moveType",
+              "description"
+            ],
+            "additionalProperties": false
+          }
+        ],
+        "description": "A move reference or a complete inline move."
+      },
+      "description": "Moves available to this playbook."
+    },
+    "startingMoves": {
+      "description": "Slugs of moves granted at character creation.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+      }
+    },
+    "choiceSets": {
+      "description": "Move choices available during creation or advancement.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable heading for the choice set."
+          },
+          "description": {
+            "description": "Explanation shown with the choices.",
+            "type": "string",
+            "minLength": 1
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "single",
+              "multi"
+            ],
+            "description": "Whether one or several choices may be selected."
+          },
+          "repeatable": {
+            "description": "Whether this choice set can be granted more than once.",
+            "type": "boolean"
+          },
+          "grantOn": {
+            "description": "Lifecycle event that grants this choice set.",
+            "type": "string",
+            "minLength": 1
+          },
+          "choices": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "ref": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                      "description": "Slug of a standalone move in the same game."
+                    },
+                    "granted": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 2147483647,
+                      "description": "Number of times this choice is granted."
+                    },
+                    "advancement": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 2147483647,
+                      "description": "Advancement step at which this choice becomes available."
+                    }
+                  },
+                  "required": [
+                    "ref",
+                    "granted",
+                    "advancement"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Human-readable move name."
+                    },
+                    "moveType": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Key declared in the game's move type vocabulary."
+                    },
+                    "audience": {
+                      "description": "Optional audience that owns this move; MC moves use `mc`.",
+                      "type": "string",
+                      "enum": [
+                        "character",
+                        "npc",
+                        "mc"
+                      ]
+                    },
+                    "playbook": {
+                      "description": "Playbook slug when the move belongs to one.",
+                      "type": "string",
+                      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                    },
+                    "description": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Plain-text explanation of the move."
+                    },
+                    "trigger": {
+                      "description": "Situation that triggers the move.",
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "roll": {
+                      "description": "Optional roll configuration.",
+                      "type": "object",
+                      "properties": {
+                        "rollType": {
+                          "type": "string",
+                          "minLength": 1,
+                          "description": "Game stat key, `formula`, or `none` describing how the move rolls."
+                        },
+                        "rollFormula": {
+                          "description": "Explicit roll formula when rollType is `formula`.",
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "rollMod": {
+                          "description": "Signed 32-bit modifier added to the roll.",
+                          "type": "integer",
+                          "minimum": -2147483648,
+                          "maximum": 2147483647
+                        }
+                      },
+                      "required": [
+                        "rollType"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "results": {
+                      "description": "Outcome entries keyed by the game's roll result vocabulary.",
+                      "type": "object",
+                      "propertyNames": {
+                        "type": "string"
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": {
+                          "label": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Human-readable label for this result tier."
+                          },
+                          "text": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Plain-text outcome for this result tier."
+                          }
+                        },
+                        "required": [
+                          "label",
+                          "text"
+                        ],
+                        "additionalProperties": false,
+                        "description": "One possible outcome of a move roll."
+                      }
+                    },
+                    "uses": {
+                      "description": "Available uses, stored as an unsigned 32-bit count.",
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 2147483647
+                    },
+                    "choices": {
+                      "description": "Choice instructions attached to the move.",
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "tags": {
+                      "description": "Free-form tags attached to the move.",
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "granted": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 2147483647,
+                      "description": "Number of times this choice is granted."
+                    },
+                    "advancement": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 2147483647,
+                      "description": "Advancement step at which this choice becomes available."
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "moveType",
+                    "description",
+                    "granted",
+                    "advancement"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "description": "Moves offered by this choice set."
+          }
+        },
+        "required": [
+          "title",
+          "type",
+          "choices"
+        ],
+        "additionalProperties": false,
+        "description": "A group of moves from which the player chooses."
+      }
+    },
+    "advancement": {
+      "description": "Advancement options offered by the playbook.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "creation": {
+      "description": "Questions asked during character creation.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Question or prompt shown during character creation."
+          },
+          "options": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Non-empty list of answers offered to the player."
+          }
+        },
+        "required": [
+          "label",
+          "options"
+        ],
+        "additionalProperties": false,
+        "description": "One character-creation question and its answers."
+      }
+    },
+    "gear": {
+      "description": "Starting or selectable gear.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable gear name."
+          },
+          "equipmentType": {
+            "description": "Key declared in the game's equipment type vocabulary.",
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "description": "Plain-text explanation of the gear.",
+            "type": "string",
+            "minLength": 1
+          },
+          "quantity": {
+            "description": "Quantity held, stored as an unsigned 32-bit count.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2147483647
+          },
+          "tags": {
+            "description": "Free-form tags attached to the gear.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "description": "A piece of starting or selectable gear."
+      }
+    }
+  },
+  "required": [
+    "slug",
+    "name",
+    "game",
+    "description",
+    "stats",
+    "moves"
+  ],
+  "additionalProperties": false,
+  "title": "PbtA playbook",
+  "description": "Portable representation of a Powered by the Apocalypse character playbook.",
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/main/schemas/the-sprawl/playbook.schema.json"
+}

@@ -1,0 +1,24 @@
+@import url("../../shared/theme-tokens.css");
+
+html[data-game="the-sprawl"] {
+  --hb-paper: #10191e;
+  --hb-paper-alt: #17272c;
+  --hb-ink: #d6f7ee;
+  --hb-muted: #83aaa5;
+  --hb-accent: #ff3d8d;
+  --hb-accent-2: #00e4d0;
+  --hb-line: #2b5555;
+  --hb-radius: 0;
+  --hb-display: "Arial Narrow", "Roboto Condensed", sans-serif;
+  --hb-texture: url("../assets/images/network-grid.svg");
+}
+
+html[data-game="the-sprawl"] body { background: #050b0f; background-image: linear-gradient(90deg, #00e4d009 1px, transparent 1px), linear-gradient(#00e4d009 1px, transparent 1px); background-size: 24px 24px; }
+html[data-game="the-sprawl"] .handbook-sheet { box-shadow: 0 0 3rem #00e4d01f; }
+html[data-game="the-sprawl"] .handbook-game { background: var(--hb-paper) var(--hb-texture) right center / 27rem no-repeat; border-inline-start: .65rem solid var(--hb-accent); }
+html[data-game="the-sprawl"] h1, html[data-game="the-sprawl"] h2, html[data-game="the-sprawl"] h3 { font-family: var(--hb-display); font-stretch: condensed; text-transform: uppercase; }
+html[data-game="the-sprawl"] h1 { font-size: clamp(3rem, 9vw, 7rem); line-height: .8; text-shadow: .12em .05em 0 #ff3d8d66; }
+html[data-game="the-sprawl"] .handbook-kicker { color: var(--hb-accent-2); }
+html[data-game="the-sprawl"] .handbook-panel { border-color: var(--hb-line); }
+html[data-game="the-sprawl"] .handbook-move { border-inline-start: .25rem solid var(--hb-accent); padding-inline-start: 1rem; }
+html[data-game="the-sprawl"] .handbook-result { --line: var(--hb-accent-2); }

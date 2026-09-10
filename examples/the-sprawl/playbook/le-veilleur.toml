@@ -1,0 +1,32 @@
+slug = "le-veilleur"
+name = "Le Veilleur"
+game = "the-sprawl"
+description = "Tu repères les sorties, les caméras et les mensonges avant que le reste de l’équipe entre."
+statsDetail = "Cran +1, Pro +2, Chair +0, Esprit +1, Style -1, Synth +0."
+startingMoves = ["evaluer-la-zone"]
+advancement = ["Choisis une autre Manœuvre de ton Livret.", "Augmente une stat de +1."]
+[stats]
+cool = 1
+edge = 2
+meat = 0
+mind = 1
+style = -1
+synth = 0
+[attributes]
+harm = 0
+xp = 0
+armour = 0
+intel = 0
+gear = 0
+cred = 5
+directives = ["Ne laisse personne derrière toi."]
+cyberware = "Optiques à spectre variable et liaison tactique."
+[[moves]]
+ref = "evaluer-la-zone"
+[[moves]]
+name = "Toujours une sortie"
+moveType = "playbook"
+description = "Quand la situation bascule, tu sais quel passage est encore praticable."
+[[creation]]
+label = "Qui t’a appris à surveiller les issues ?"
+options = ["Une équipe disparue", "Une corpo", "Une personne que tu protèges encore"]

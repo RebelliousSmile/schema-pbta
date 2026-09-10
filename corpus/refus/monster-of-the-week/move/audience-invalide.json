@@ -1,0 +1,8 @@
+{
+  "slug": "invalid-audience",
+  "name": "Invalid Audience",
+  "game": "monster-of-the-week",
+  "moveType": "basic",
+  "audience": "keeper",
+  "description": "This audience is not part of the portable contract."
+}
