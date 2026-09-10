@@ -1,0 +1,134 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Stable kebab-case identifier of the move."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable move name."
+    },
+    "game": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Folder slug of the game this move belongs to."
+    },
+    "moveType": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Key declared in the game's move type vocabulary."
+    },
+    "audience": {
+      "description": "Optional audience that owns this move; MC moves use `mc`.",
+      "type": "string",
+      "enum": [
+        "character",
+        "npc",
+        "mc"
+      ]
+    },
+    "playbook": {
+      "description": "Playbook slug when the move belongs to one.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Plain-text explanation of the move."
+    },
+    "trigger": {
+      "description": "Situation that triggers the move.",
+      "type": "string",
+      "minLength": 1
+    },
+    "roll": {
+      "description": "Optional roll configuration.",
+      "type": "object",
+      "properties": {
+        "rollType": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Game stat key, `formula`, or `none` describing how the move rolls."
+        },
+        "rollFormula": {
+          "description": "Explicit roll formula when rollType is `formula`.",
+          "type": "string",
+          "minLength": 1
+        },
+        "rollMod": {
+          "description": "Signed 32-bit modifier added to the roll.",
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
+        }
+      },
+      "required": [
+        "rollType"
+      ],
+      "additionalProperties": false
+    },
+    "results": {
+      "description": "Outcome entries keyed by the game's roll result vocabulary.",
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable label for this result tier."
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Plain-text outcome for this result tier."
+          }
+        },
+        "required": [
+          "label",
+          "text"
+        ],
+        "additionalProperties": false,
+        "description": "One possible outcome of a move roll."
+      }
+    },
+    "uses": {
+      "description": "Available uses, stored as an unsigned 32-bit count.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    },
+    "choices": {
+      "description": "Choice instructions attached to the move.",
+      "type": "string",
+      "minLength": 1
+    },
+    "tags": {
+      "description": "Free-form tags attached to the move.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "slug",
+    "name",
+    "game",
+    "moveType",
+    "description"
+  ],
+  "additionalProperties": false,
+  "title": "PbtA move",
+  "description": "Portable representation of a Powered by the Apocalypse move.",
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/main/schemas/monsterhearts/move.schema.json"
+}

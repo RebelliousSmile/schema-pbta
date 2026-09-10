@@ -1,0 +1,32 @@
+slug = "the-bridge"
+name = "The Bridge"
+game = "urban-shadows"
+description = "You move between communities that prefer to pretend they have nothing in common."
+statsDetail = "Blood +0, Heart +1, Mind +1, Spirit -1; adjust one Circle through creation."
+startingMoves = ["read-the-current"]
+advancement = ["Take another playbook move.", "Raise one Circle rating by +1."]
+[stats]
+blood = 0
+heart = 1
+mind = 1
+spirit = -1
+mortalis = 1
+night = 0
+power = 1
+wild = -1
+[attributes]
+harm = 0
+corruption = 0
+advancement = 0
+status = ["Mortalis 1"]
+debts = []
+scars = []
+[[moves]]
+ref = "read-the-current"
+[[moves]]
+name = "Open a Side Door"
+moveType = "playbook"
+description = "Your familiarity with several communities lets you arrange an introduction no one else could."
+[[creation]]
+label = "Which two Circles rely on you to speak to each other?"
+options = ["Mortalis and Night", "Power and Wild", "Night and Power"]

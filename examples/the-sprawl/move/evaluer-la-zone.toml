@@ -1,0 +1,14 @@
+slug = "evaluer-la-zone"
+name = "Évaluer la zone"
+game = "the-sprawl"
+moveType = "basic"
+description = "Identifier les points de contrôle et les angles morts avant que l’équipe ne s’engage."
+trigger = "Quand tu observes une zone sous pression, lance avec Pro."
+[roll]
+rollType = "edge"
+[results.success]
+label = "10+"
+text = "Gagne trois retenues pour exploiter les détails repérés."
+[results.partial]
+label = "7-9"
+text = "Gagne une retenue et attire une attention indésirable."

@@ -1,0 +1,6 @@
+slug = "faire-remonter-le-manque"
+name = "Faire remonter le manque"
+game = "monsterhearts"
+moveType = "reaction"
+audience = "mc"
+description = "Rappeler à quelqu’un ce qu’il désire et ce qu’il risque de perdre."

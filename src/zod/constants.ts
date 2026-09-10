@@ -63,16 +63,22 @@ export const TARGETS: Array<SchemaTarget> = [
     zod: gameDefinitionSchema,
     game: GAMES.monsterhearts,
   },
+  { name: "move", zod: moveSchema, game: GAMES.monsterhearts },
+  { name: "playbook", zod: playbookSchema, game: GAMES.monsterhearts },
   {
     name: "game-definition",
     zod: gameDefinitionSchema,
     game: GAMES["urban-shadows"],
   },
+  { name: "move", zod: moveSchema, game: GAMES["urban-shadows"] },
+  { name: "playbook", zod: playbookSchema, game: GAMES["urban-shadows"] },
   {
     name: "game-definition",
     zod: gameDefinitionSchema,
     game: GAMES["the-sprawl"],
   },
+  { name: "move", zod: moveSchema, game: GAMES["the-sprawl"] },
+  { name: "playbook", zod: playbookSchema, game: GAMES["the-sprawl"] },
   {
     name: "game-definition",
     zod: gameDefinitionSchema,

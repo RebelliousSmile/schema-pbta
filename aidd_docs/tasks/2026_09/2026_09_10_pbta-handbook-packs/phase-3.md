@@ -1,5 +1,5 @@
 ---
-status: pending
+status: done
 ---
 
 # Instruction: Moves et livrets structurés
@@ -62,7 +62,7 @@ journey
 > Relever le vocabulaire et la structure nécessaires aux règles, actions de MC et livrets, puis les éprouver avec des fixtures originales plutôt qu’avec du texte ou une mise en page protégés.
 
 1. Modéliser Monsterhearts à partir des règles et mues uniquement ; exclure villes et campagnes, et écrire des fixtures de moves et livrets originales.
-2. Modéliser The Sprawl avec la structure VO 1.1, en isolant tout libellé destiné à être remplacé par la VF et en utilisant des fixtures originales jusqu’à la source VF.
+2. Modéliser The Sprawl avec la structure VO 1.1 et les livrets de la VF locale comme référence de libellés, en utilisant des fixtures originales pour le dépôt.
 3. Modéliser Urban Shadows à partir des règles et playbooks 2e, avec des fixtures originales qui exercent ses mécaniques propres.
 4. Garder les Team Playbooks et suppléments de Monster of the Week comme extensions distinctes du corpus core ; ne pas les mélanger aux exemples existants.
 

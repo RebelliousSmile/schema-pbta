@@ -1,0 +1,14 @@
+slug = "garder-la-face"
+name = "Garder la face"
+game = "monsterhearts"
+moveType = "basic"
+description = "Résister à la pression sociale sans laisser voir ce qu’elle provoque."
+trigger = "Quand tu caches une émotion qui pourrait te trahir, lance avec Glacial."
+[roll]
+rollType = "cold"
+[results.success]
+label = "10+"
+text = "Tu gardes le contrôle et choisis qui remarque la tension."
+[results.partial]
+label = "7-9"
+text = "Tu tiens bon, mais la MC introduit un coût social."

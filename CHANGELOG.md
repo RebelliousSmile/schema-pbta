@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   checks and temporary fixture coverage for MC-only types.
 - Canonical game definitions for Monsterhearts 2, Urban Shadows 2e and The
   Sprawl 1.1, each with generated schemas and positive/negative audit fixtures.
+- Original move, MC-action and playbook fixtures for all three games, including
+  French character-sheet vocabulary from The Sprawl 1.1 VF.
 
 ## [0.2.0] - 2026-09-09
 

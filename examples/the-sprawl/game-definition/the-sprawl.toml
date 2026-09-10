@@ -1,7 +1,7 @@
 game = "the-sprawl"
 name = "The Sprawl"
 version = "1.0.0"
-source = "The Sprawl 1.1, English source for a future French vocabulary"
+source = "The Sprawl 1.1, VO rules and VF character playbooks"
 rollFormula = "2d6"
 minMod = -3
 maxMod = 4
@@ -19,10 +19,10 @@ label = "Miss"
 [character]
 description = "A professional operative working dangerous corporate missions."
 [character.stats]
-cool = "Cool"
-edge = "Edge"
-meat = "Meat"
-mind = "Mind"
+cool = "Cran"
+edge = "Pro"
+meat = "Chair"
+mind = "Esprit"
 style = "Style"
 synth = "Synth"
 [character.moveTypes]
@@ -38,25 +38,25 @@ cyberware = "Cyberware"
 vehicle = "Vehicles"
 [character.attributes.harm]
 type = "Clock"
-label = "Harm Clock"
+label = "Horloge de dégâts"
 max = 6
 position = "top"
 [character.attributes.xp]
 type = "Xp"
-label = "Experience"
+label = "XP"
 max = 10
 position = "top"
 [character.attributes.armour]
 type = "Number"
-label = "Armour"
+label = "Armure"
 position = "top"
 [character.attributes.intel]
 type = "Resource"
-label = "Intel"
+label = "Info"
 position = "left"
 [character.attributes.gear]
 type = "Resource"
-label = "Gear"
+label = "Matos"
 position = "left"
 [character.attributes.cred]
 type = "Resource"
@@ -68,7 +68,7 @@ label = "Directives"
 position = "left"
 [character.attributes.cyberware]
 type = "LongText"
-label = "Cyberware"
+label = "Cybernétique"
 position = "left"
 
 [mc]
