@@ -2,7 +2,7 @@
 status: done
 ---
 
-# Instruction: Validation et preuve transactionnelle
+# Instruction: Validation autonome du payload
 
 ## Architecture projection
 
@@ -22,9 +22,9 @@ schema-pbta/
 ```mermaid
 flowchart TD
   A[Valider toute la source] --> B{Un fichier est invalide}
-  B -->|oui| C[Refuser sans promotion]
+  B -->|oui| C[Refuser tout le payload]
   B -->|non| D[Préparer cinq packs et leurs assets]
-  D --> E[Remplacer la source installée en une transaction]
+  D --> E[Retourner un payload complet et fermé]
 ```
 
 ## Test Scope

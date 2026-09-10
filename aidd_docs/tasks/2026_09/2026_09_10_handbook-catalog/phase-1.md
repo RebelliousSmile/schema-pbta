@@ -11,14 +11,12 @@ status: done
 ```txt
 schema-pbta/
 ├── handbook.json                                      ✅ catalogue racine v1
-├── LICENSES/HANDBOOK-ASSETS.md                       ✅ provenance centralisée des SVG
 └── handbook/
     ├── masks/pack.json                                ✅ pack clair héroïque
     ├── monster-of-the-week/pack.json                  ✅ pack clair dossier paranormal
     ├── monsterhearts/pack.json                        ✅ pack sombre avec variante drowned-lake
-    ├── the-sprawl/pack.json                           ✅ pack sombre cyberpunk
     ├── urban-shadows/pack.json                        ✅ pack clair occulte urbain
-    └── {masks,monster-of-the-week,monsterhearts,the-sprawl,urban-shadows}/README.md ✏️ renvoi de provenance
+    └── the-sprawl/pack.json                           ✅ pack sombre cyberpunk
 ```
 
 ## User Journey
@@ -63,7 +61,7 @@ journey
 > Publier un inventaire explicite des cinq jeux sous une seule identité de dépôt.
 
 1. Créer `handbook.json` v1 pour `RebelliousSmile/schema-pbta` avec nom, description et auteur.
-2. Déclarer Masks, Monster of the Week, Monsterhearts, The Sprawl et Urban Shadows en version `0.1.0` avec ids, chemins, labels et descriptions uniques.
+2. Déclarer Masks, Monster of the Week, Monsterhearts, Urban Shadows et The Sprawl en version `0.1.0` avec ids, chemins, labels et descriptions uniques.
 3. Conserver le même ordre canonique que `GAMES` et ne jamais découvrir un pack par simple présence d’un dossier.
 
 ### `2)` Créer les cinq manifests
@@ -82,7 +80,7 @@ journey
 1. Déclarer les SVG originaux retenus sous `assets/images` avec des rôles stables et des chemins relatifs à `handbook/<jeu>/assets`.
 2. Inclure les deux SVG Monsterhearts comme rôles communs au pack afin que le changement de variante ne demande aucun téléchargement tardif.
 3. Ne déclarer aucune police tant que les dossiers ne contiennent que des placeholders de provenance.
-4. Centraliser auteur, origine et licence des SVG dans `LICENSES/HANDBOOK-ASSETS.md`, avec un renvoi depuis chaque README de jeu concerné.
+4. Réserver la centralisation de la provenance et les renvois documentaires à la phase de publication, avant livraison finale.
 
 ## Test acceptance criteria
 
@@ -93,4 +91,3 @@ journey
 | 2 | Handbook 2.7.1 accepte les cinq manifests ; chaque jeu modifie visiblement la note via ses tokens natifs sans renderer PbtA spécifique. |
 | 2 | Monsterhearts démarre avec sa base sombre et expose `drowned-lake` comme unique variante alternative. |
 | 3 | Chaque asset déclaré existe sous la racine du pack, possède une extension image admise et aucune police inexistante n’est annoncée. |
-| 3 | Chaque SVG déclaré possède une provenance et une licence explicites dès son premier commit distribuable. |

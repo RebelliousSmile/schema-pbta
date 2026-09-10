@@ -1,5 +1,5 @@
 ---
-status: pending
+status: done
 ---
 
 # Instruction: Preuve par le vrai installateur Handbook
@@ -9,21 +9,21 @@ status: pending
 > Tree of the final files. ✅ create · ✏️ modify · ❌ delete
 
 ```txt
-../handbook/
-├── package.json                                      ✏️ exposer l’assertion externe
+schema-pbta/
+├── package.json                                      ✏️ exposer l’assertion optionnelle
 └── tools/
-    ├── assert-pbta-source.mjs                        ✅ localiser et lancer le harnais
-    └── assertPbtaSource.harness.mts                  ✅ installer et mettre à jour la source réelle
+    └── validate-handbook-install.ts                  ✅ exercer le vrai installateur sur la source locale
 ```
 
 ## User Journey
 
 ```mermaid
 flowchart TD
-  A[Handbook ouvre le catalogue schema-pbta] --> B[Préparer cinq manifests et leurs SVG]
-  B --> C[Promouvoir la source complète]
-  C --> D[Relancer avec le dernier pack corrompu]
-  D --> E[Conserver octet pour octet la source installée]
+  A[Le harnais schema-pbta localise Handbook] --> B[Handbook ouvre le catalogue local]
+  B --> C[Préparer cinq manifests et leurs SVG]
+  C --> D[Promouvoir la source complète]
+  D --> E[Relancer avec le dernier pack corrompu]
+  E --> F[Conserver octet pour octet la source installée]
 ```
 
 ## Test Scope
@@ -34,47 +34,47 @@ title: Test scope
 ---
 journey
   section Setup
-    Localiser schema-pbta par variable ou checkout frère => source réelle lisible: 5: system
+    Résoudre HANDBOOK_ROOT ou à défaut le checkout frère => installateur Handbook importable: 5: cli
   section Happy path
-    Installer le catalogue avec le vrai installateur => cinq packs et tous les SVG sont promus: 5: system
+    Installer le catalogue local avec le vrai installateur => cinq packs et tous les SVG sont promus: 5: cli
   section Edge case - dernier pack fautif
-    Corrompre le cinquième manifest pendant une mise à jour => ancienne installation intégralement conservée: 1: system
-  section Edge case - dépôt absent
-    Retirer schema-pbta du contexte => exécuter la suite core Handbook => aucune dépendance externe requise: 5: system
-  section Teardown
-    Supprimer le stockage temporaire => environnement initial restauré: 5: system
+    Corrompre le cinquième manifest pendant une mise à jour => ancienne installation intégralement conservée: 1: cli
+  section Edge case - host absent
+    Exécuter la preuve sans Handbook localisable => diagnostic explicite avec HANDBOOK_ROOT attendu: 1: cli
 ```
 
 ## Tasks to do
 
-### `1)` Ajouter le harnais externe
+### `1)` Ajouter le harnais côté source
 
-> Tester schema-pbta sans le transformer en dépendance du build Handbook.
+> Tester le catalogue depuis son propre dépôt sans écrire dans Handbook.
 
-1. Calquer le lanceur sur l’assertion de source Adrenaline et résoudre schema-pbta par `SCHEMA_PBTA_ROOT` ou checkout frère.
-2. Exposer `assert:pbta-source` dans `package.json` sans l’ajouter à `npm run check`.
-3. Donner un diagnostic d’absence exploitable lorsque le dépôt source ne peut pas être localisé.
+1. Calquer le harnais sur `schema-adrenaline/tools/validate-handbook-install.ts` et garder `process.cwd()` comme racine de la source PbtA.
+2. Traiter `HANDBOOK_ROOT` comme autoritaire lorsqu’il est défini ; utiliser le checkout frère `../handbook` seulement sinon, puis vérifier `package.json` et la présence de `src/games/sourceInstaller.ts`.
+3. Exposer `handbook:install` dans le `package.json` de `schema-pbta`, sans l’ajouter à `npm run check`.
+4. Donner un diagnostic exploitable lorsque le host est absent ou incompatible.
 
 ### `2)` Prouver installation et mise à jour atomiques
 
 > Traverser les vrais lecteurs v1 et la vraie frontière de staging.
 
-1. Alimenter `installResolvedSchemaSource` avec `handbook.json`, les cinq manifests et les SVG réels.
-2. Vérifier les cinq répertoires installés, les versions, les variantes et chaque asset déclaré.
-3. Installer un état initial, corrompre tardivement le cinquième pack en mémoire, puis comparer récursivement le stockage avant et après l’échec.
+1. Importer `installResolvedSchemaSource` depuis le checkout Handbook et l’alimenter avec `handbook.json`, les cinq manifests et les SVG réels ; laisser son lecteur de manifests appliquer la comparaison SemVer avec la version du host.
+2. Simuler l’adapter Obsidian en mémoire et vérifier les cinq répertoires installés, les versions, les variantes, la métadonnée de source et chaque asset déclaré.
+3. Installer un état initial, rendre invalide en mémoire le manifest du cinquième pack pendant une mise à jour, puis comparer récursivement fichiers et dossiers avant et après le rejet.
 
-### `3)` Préserver l’autonomie Handbook
+### `3)` Préserver l’autonomie des deux dépôts
 
-> Garder le test inter-dépôts volontaire.
+> Garder la preuve inter-dépôts volontaire et unilatérale.
 
-1. Exécuter le nouveau script avec schema-pbta présent.
-2. Exécuter `npm run check` et confirmer qu’il ne lance ni ne localise schema-pbta.
-3. Ne modifier aucun code runtime Handbook ni sa version pour cette issue.
+1. Exécuter le nouveau script avec le checkout Handbook explicite puis, variable absente, avec le checkout frère ; vérifier qu’une variable explicite invalide échoue sans fallback silencieux.
+2. Exécuter `npm run check` dans `schema-pbta` sans Handbook et confirmer qu’il ne lance pas la preuve externe.
+3. Vérifier que le diff de phase ne contient aucun changement dans le dépôt Handbook.
 
 ## Test acceptance criteria
 
 | Task | Acceptance criteria |
 | --- | --- |
-| 1 | `npm run assert:pbta-source` localise la source explicitement ou comme checkout frère et explique clairement son absence. |
-| 2 | Le vrai installateur promeut exactement cinq packs et tous leurs SVG ; une erreur du dernier manifest conserve intégralement l’installation précédente. |
-| 3 | La suite core Handbook passe sans schema-pbta et le diff Handbook ne contient que le script npm et les deux fichiers de harnais. |
+| 1 | `npm run handbook:install` respecte un `HANDBOOK_ROOT` autoritaire ou utilise à défaut le checkout frère, et explique clairement tout chemin ou host absent. |
+| 2 | Le véritable lecteur de manifests refuse selon SemVer un host antérieur à 2.7.1, sans comparaison lexicale propre au harnais. |
+| 2 | Le vrai installateur promeut exactement cinq packs, leurs variantes et les six SVG ; une erreur du cinquième manifest conserve intégralement fichiers et dossiers de l’installation précédente. |
+| 3 | `npm run check` reste autonome sans checkout Handbook et la phase ne modifie que `schema-pbta`. |

@@ -71,7 +71,7 @@ journey
 1. Centraliser pour chaque SVG auteur, origine, licence et chemin installé.
 2. Préciser qu’aucune police placeholder n’est distribuée.
 3. Mettre à jour le changelog sans annoncer de publication npm ni de version Handbook inexistante.
-4. Consigner les commandes de validation et de preuve inter-dépôts.
+4. Consigner la validation autonome et la commande optionnelle `npm run handbook:install`, avec `HANDBOOK_ROOT` ou le checkout frère.
 
 ## Test acceptance criteria
 
@@ -81,4 +81,4 @@ journey
 | 1 | La documentation indique explicitement que les fences et callouts PbtA ne font pas partie de cette livraison. |
 | 2 | Un contributeur sait quels changements imposent le bump `0.1.x` conjoint et quels fichiers restent exclus du payload. |
 | 3 | Chaque SVG distribué possède une provenance et une licence ; aucune police inexistante ou preview n’est annoncée comme installable. |
-| 3 | Les commandes documentées reproduisent la validation autonome et l’assertion optionnelle avec le vrai installateur Handbook. |
+| 3 | Les commandes documentées reproduisent la validation autonome et `npm run handbook:install` avec le vrai installateur Handbook, sans demander de modifier le dépôt host. |
