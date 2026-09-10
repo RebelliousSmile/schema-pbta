@@ -1,0 +1,46 @@
+{
+  "manifestVersion": 1,
+  "version": "0.1.0",
+  "minimumHandbookVersion": "2.7.1",
+  "requires": [],
+  "pack": {
+    "id": "monster-of-the-week",
+    "label": "Monster of the Week",
+    "style": {
+      "base": {
+        "note": {
+          "--font-text-theme": "Georgia, serif",
+          "--font-header-theme": "Courier New, monospace",
+          "--h1-font": "Courier New, monospace",
+          "--h2-font": "Courier New, monospace",
+          "--h3-font": "Courier New, monospace",
+          "--h1-text-transform": "uppercase",
+          "--h2-text-transform": "uppercase"
+        }
+      },
+      "light": {
+        "note": {
+          "--background-primary": "#eee7d5",
+          "--background-primary-alt": "#d9d0ba",
+          "--text-normal": "#20231f",
+          "--text-muted": "#5d625b",
+          "--color-accent": "#a53628",
+          "--interactive-accent": "#a53628",
+          "--link-color": "#a53628",
+          "--link-color-hover": "#20231f",
+          "--h1-color": "#a53628",
+          "--h2-color": "#20231f",
+          "--tag-color": "#20231f",
+          "--tag-background": "#d9a441",
+          "--checkbox-color": "#a53628"
+        }
+      }
+    },
+    "polarities": ["light"],
+    "assets": {
+      "images": {
+        "game-mark": "images/watch-mark.svg"
+      }
+    }
+  }
+}

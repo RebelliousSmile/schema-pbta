@@ -1,0 +1,45 @@
+{
+  "manifestVersion": 1,
+  "version": "0.1.0",
+  "minimumHandbookVersion": "2.7.1",
+  "requires": [],
+  "pack": {
+    "id": "the-sprawl",
+    "label": "The Sprawl",
+    "style": {
+      "base": {
+        "note": {
+          "--font-text-theme": "Arial, sans-serif",
+          "--font-header-theme": "Arial Narrow, Roboto Condensed, sans-serif",
+          "--h1-font": "Arial Narrow, Roboto Condensed, sans-serif",
+          "--h2-font": "Arial Narrow, Roboto Condensed, sans-serif",
+          "--h1-text-transform": "uppercase",
+          "--h2-text-transform": "uppercase"
+        }
+      },
+      "dark": {
+        "note": {
+          "--background-primary": "#10191e",
+          "--background-primary-alt": "#17272c",
+          "--text-normal": "#d6f7ee",
+          "--text-muted": "#83aaa5",
+          "--color-accent": "#ff3d8d",
+          "--interactive-accent": "#ff3d8d",
+          "--link-color": "#00e4d0",
+          "--link-color-hover": "#ff3d8d",
+          "--h1-color": "#ff3d8d",
+          "--h2-color": "#00e4d0",
+          "--tag-color": "#d6f7ee",
+          "--tag-background": "#2b5555",
+          "--checkbox-color": "#00e4d0"
+        }
+      }
+    },
+    "polarities": ["dark"],
+    "assets": {
+      "images": {
+        "game-mark": "images/network-grid.svg"
+      }
+    }
+  }
+}

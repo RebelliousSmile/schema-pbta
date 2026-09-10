@@ -1,0 +1,43 @@
+{
+  "manifestVersion": 1,
+  "version": "0.1.0",
+  "minimumHandbookVersion": "2.7.1",
+  "requires": [],
+  "pack": {
+    "id": "urban-shadows",
+    "label": "Urban Shadows",
+    "style": {
+      "base": {
+        "note": {
+          "--font-text-theme": "Georgia, serif",
+          "--font-header-theme": "Georgia, serif",
+          "--h1-font": "Georgia, serif",
+          "--h2-font": "Georgia, serif"
+        }
+      },
+      "light": {
+        "note": {
+          "--background-primary": "#ebe7df",
+          "--background-primary-alt": "#ddd6cb",
+          "--text-normal": "#242321",
+          "--text-muted": "#6b655c",
+          "--color-accent": "#5c3478",
+          "--interactive-accent": "#5c3478",
+          "--link-color": "#5c3478",
+          "--link-color-hover": "#242321",
+          "--h1-color": "#5c3478",
+          "--h2-color": "#b88935",
+          "--tag-color": "#242321",
+          "--tag-background": "#ddd6cb",
+          "--checkbox-color": "#5c3478"
+        }
+      }
+    },
+    "polarities": ["light"],
+    "assets": {
+      "images": {
+        "game-mark": "images/city-sigil.svg"
+      }
+    }
+  }
+}

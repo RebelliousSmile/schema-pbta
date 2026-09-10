@@ -1,0 +1,77 @@
+{
+  "manifestVersion": 1,
+  "version": "0.1.0",
+  "minimumHandbookVersion": "2.7.1",
+  "requires": [],
+  "variants": [
+    {
+      "id": "base",
+      "label": "Monsterhearts",
+      "style": {},
+      "polarities": ["dark"]
+    },
+    {
+      "id": "drowned-lake",
+      "label": "Drowned Lake",
+      "style": {
+        "light": {
+          "note": {
+            "--background-primary": "#d8d7cf",
+            "--background-primary-alt": "#bfc5bd",
+            "--text-normal": "#17171d",
+            "--text-muted": "#4b4b52",
+            "--color-accent": "#ff477e",
+            "--interactive-accent": "#ff477e",
+            "--link-color": "#702a24",
+            "--link-color-hover": "#17171d",
+            "--h1-color": "#17171d",
+            "--h2-color": "#ff477e",
+            "--tag-color": "#17171d",
+            "--tag-background": "#a8d6b1",
+            "--checkbox-color": "#ff477e"
+          }
+        }
+      },
+      "polarities": ["light"]
+    }
+  ],
+  "defaultVariantId": "base",
+  "pack": {
+    "id": "monsterhearts",
+    "label": "Monsterhearts",
+    "style": {
+      "base": {
+        "note": {
+          "--font-text-theme": "Garamond, Georgia, serif",
+          "--font-header-theme": "Garamond, Georgia, serif",
+          "--h1-font": "Garamond, Georgia, serif",
+          "--h2-font": "Garamond, Georgia, serif"
+        }
+      },
+      "dark": {
+        "note": {
+          "--background-primary": "#171315",
+          "--background-primary-alt": "#261a1b",
+          "--text-normal": "#c5a7a0",
+          "--text-muted": "#896e6b",
+          "--color-accent": "#702a24",
+          "--interactive-accent": "#702a24",
+          "--link-color": "#9b5549",
+          "--link-color-hover": "#c5a7a0",
+          "--h1-color": "#9b5549",
+          "--h2-color": "#9b5549",
+          "--tag-color": "#c5a7a0",
+          "--tag-background": "#5b302f",
+          "--checkbox-color": "#9b5549"
+        }
+      }
+    },
+    "polarities": ["dark"],
+    "assets": {
+      "images": {
+        "game-mark": "images/thorn-heart.svg",
+        "variant-mark": "variants/drowned-lake/zine-lake.svg"
+      }
+    }
+  }
+}

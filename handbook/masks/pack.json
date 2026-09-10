@@ -1,0 +1,46 @@
+{
+  "manifestVersion": 1,
+  "version": "0.1.0",
+  "minimumHandbookVersion": "2.7.1",
+  "requires": [],
+  "pack": {
+    "id": "masks",
+    "label": "Masks: A New Generation",
+    "style": {
+      "base": {
+        "note": {
+          "--font-text-theme": "Arial, sans-serif",
+          "--font-header-theme": "Impact, Haettenschweiler, Arial Narrow Bold, sans-serif",
+          "--h1-font": "Impact, Haettenschweiler, Arial Narrow Bold, sans-serif",
+          "--h2-font": "Impact, Haettenschweiler, Arial Narrow Bold, sans-serif",
+          "--h3-font": "Impact, Haettenschweiler, Arial Narrow Bold, sans-serif",
+          "--h1-text-transform": "uppercase",
+          "--h2-text-transform": "uppercase"
+        }
+      },
+      "light": {
+        "note": {
+          "--background-primary": "#fff9e8",
+          "--background-primary-alt": "#eaf6fa",
+          "--text-normal": "#10243b",
+          "--text-muted": "#526579",
+          "--color-accent": "#e8492e",
+          "--interactive-accent": "#e8492e",
+          "--link-color": "#16a4c4",
+          "--link-color-hover": "#e8492e",
+          "--h1-color": "#e8492e",
+          "--h2-color": "#10243b",
+          "--tag-color": "#10243b",
+          "--tag-background": "#9edcea",
+          "--checkbox-color": "#16a4c4"
+        }
+      }
+    },
+    "polarities": ["light"],
+    "assets": {
+      "images": {
+        "game-mark": "images/hero-burst.svg"
+      }
+    }
+  }
+}
