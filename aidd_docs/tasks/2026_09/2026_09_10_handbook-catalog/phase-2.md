@@ -1,8 +1,8 @@
 ---
-status: pending
+status: done
 ---
 
-# Instruction: Validation et preuve transactionnelle
+# Instruction: Validation du catalogue et du payload
 
 ## Architecture projection
 

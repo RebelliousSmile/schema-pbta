@@ -2,28 +2,29 @@
 status: pending
 ---
 
-# Instruction: Preuve par le vrai installateur Handbook
+# Instruction: Documentation et publication
 
 ## Architecture projection
 
 > Tree of the final files. ✅ create · ✏️ modify · ❌ delete
 
 ```txt
-../handbook/
-├── package.json                                      ✏️ exposer l’assertion externe
-└── tools/
-    ├── assert-pbta-source.mjs                        ✅ localiser et lancer le harnais
-    └── assertPbtaSource.harness.mts                  ✅ installer et mettre à jour la source réelle
+schema-pbta/
+├── README.md                                      ✏️ installation de la source Handbook
+├── CONTRIBUTING.md                               ✏️ maintenance des versions et assets
+├── CHANGELOG.md                                  ✏️ catalogue multi-pack sans release npm
+└── handbook/
+    └── README.md                                 ✏️ frontière entre payload installable et previews
 ```
 
 ## User Journey
 
 ```mermaid
 flowchart TD
-  A[Handbook ouvre le catalogue schema-pbta] --> B[Préparer cinq manifests et leurs SVG]
-  B --> C[Promouvoir la source complète]
-  C --> D[Relancer avec le dernier pack corrompu]
-  D --> E[Conserver octet pour octet la source installée]
+  A[Ajouter RebelliousSmile schema-pbta dans Handbook] --> B[Installer cinq packs ensemble]
+  B --> C[Choisir un jeu]
+  C --> D[Choisir Drowned Lake pour Monsterhearts si désiré]
+  D --> E[Vérifier puis appliquer une mise à jour volontaire]
 ```
 
 ## Test Scope
@@ -34,47 +35,48 @@ title: Test scope
 ---
 journey
   section Setup
-    Localiser schema-pbta par variable ou checkout frère => source réelle lisible: 5: system
+    Lire les guides depuis un clone propre => prérequis et version Handbook visibles: 5: system
   section Happy path
-    Installer le catalogue avec le vrai installateur => cinq packs et tous les SVG sont promus: 5: system
-  section Edge case - dernier pack fautif
-    Corrompre le cinquième manifest pendant une mise à jour => ancienne installation intégralement conservée: 1: system
-  section Edge case - dépôt absent
-    Retirer schema-pbta du contexte => exécuter la suite core Handbook => aucune dépendance externe requise: 5: system
-  section Teardown
-    Supprimer le stockage temporaire => environnement initial restauré: 5: system
+    Suivre ajout installation choix et mise à jour => source unique et cinq packs identifiables: 5: system
+  section Edge case - contribution
+    Modifier manifest variante ou asset => consulter le guide => bump catalogue et pack exigé ensemble: 5: system
+  section Edge case - provenance
+    Ajouter une ressource binaire => consulter le registre => auteur source et licence requis: 5: system
 ```
 
 ## Tasks to do
 
-### `1)` Ajouter le harnais externe
+### `1)` Documenter l’installation
 
-> Tester schema-pbta sans le transformer en dépendance du build Handbook.
+> Rendre le parcours source puis jeu compréhensible sans connaître l’arborescence interne.
 
-1. Calquer le lanceur sur l’assertion de source Adrenaline et résoudre schema-pbta par `SCHEMA_PBTA_ROOT` ou checkout frère.
-2. Exposer `assert:pbta-source` dans `package.json` sans l’ajouter à `npm run check`.
-3. Donner un diagnostic d’absence exploitable lorsque le dépôt source ne peut pas être localisé.
+1. Décrire la version Handbook minimale, l’ajout du dépôt, l’installation groupée et la mise à jour volontaire.
+2. Expliquer que les packs v1 changent l’apparence native des notes et ne fournissent encore aucun bloc PbtA ni callout propre au jeu.
+3. Documenter le choix de variante en temps réel et la base Monsterhearts utilisée par défaut.
 
-### `2)` Prouver installation et mise à jour atomiques
+### `2)` Documenter la maintenance
 
-> Traverser les vrais lecteurs v1 et la vraie frontière de staging.
+> Préserver l’identité et la compatibilité du catalogue.
 
-1. Alimenter `installResolvedSchemaSource` avec `handbook.json`, les cinq manifests et les SVG réels.
-2. Vérifier les cinq répertoires installés, les versions, les variantes et chaque asset déclaré.
-3. Installer un état initial, corrompre tardivement le cinquième pack en mémoire, puis comparer récursivement le stockage avant et après l’échec.
+1. Exiger un bump simultané du manifest et de son entrée catalogue pour toute modification installable.
+2. Distinguer clairement les `pack.json` installables des HTML, CSS et TOML de preview locaux.
+3. Décrire les rôles d’assets, les extensions admises et l’interdiction de contenu exécutable.
 
-### `3)` Préserver l’autonomie Handbook
+### `3)` Enregistrer la provenance et la livraison
 
-> Garder le test inter-dépôts volontaire.
+> Permettre une redistribution vérifiable des seuls SVG annoncés.
 
-1. Exécuter le nouveau script avec schema-pbta présent.
-2. Exécuter `npm run check` et confirmer qu’il ne lance ni ne localise schema-pbta.
-3. Ne modifier aucun code runtime Handbook ni sa version pour cette issue.
+1. Vérifier que chaque SVG distribué possède un auteur, une origine, une licence et un chemin installé dans `LICENSES/HANDBOOK-ASSETS.md`.
+2. Préciser qu’aucune police placeholder n’est distribuée.
+3. Mettre à jour le changelog sans annoncer de publication npm ni de version Handbook inexistante.
+4. Consigner les commandes de validation et de preuve inter-dépôts.
 
 ## Test acceptance criteria
 
 | Task | Acceptance criteria |
 | --- | --- |
-| 1 | `npm run assert:pbta-source` localise la source explicitement ou comme checkout frère et explique clairement son absence. |
-| 2 | Le vrai installateur promeut exactement cinq packs et tous leurs SVG ; une erreur du dernier manifest conserve intégralement l’installation précédente. |
-| 3 | La suite core Handbook passe sans schema-pbta et le diff Handbook ne contient que le script npm et les deux fichiers de harnais. |
+| 1 | Le README permet d’ajouter une source unique, d’installer cinq packs et de changer la variante Monsterhearts avec Handbook 2.7.1 ou supérieur. |
+| 1 | La documentation indique explicitement que les fences et callouts PbtA ne font pas partie de cette livraison. |
+| 2 | Un contributeur sait quels changements imposent le bump `0.1.x` conjoint et quels fichiers restent exclus du payload. |
+| 3 | Chaque SVG distribué possède une provenance et une licence ; aucune police inexistante ou preview n’est annoncée comme installable. |
+| 3 | Les commandes documentées reproduisent la validation autonome et l’assertion optionnelle avec le vrai installateur Handbook. |

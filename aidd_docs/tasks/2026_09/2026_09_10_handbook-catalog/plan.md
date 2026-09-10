@@ -1,5 +1,5 @@
 ---
-objective: "schema-pbta publie cinq packs de présentation v1 qu’Handbook 2.7.1 peut installer et mettre à jour ensemble depuis une source unique, sans télécharger de contenu exécutable."
+objective: "schema-pbta publie depuis une source unique cinq packs de présentation v1 fermés et compatibles avec Handbook 2.7.1, sans contenu exécutable."
 status: in-progress
 ---
 
@@ -9,7 +9,7 @@ status: in-progress
 
 | Field | Value |
 | --- | --- |
-| **Goal** | Publier un catalogue racine et cinq packs visuels PbtA compatibles avec l’installateur actuel de Handbook, puis prouver leur installation transactionnelle. |
+| **Goal** | Publier et valider un catalogue racine contenant cinq packs visuels PbtA compatibles avec le contrat actuel de Handbook. |
 | **Source** | [Issue GitHub RebelliousSmile/schema-pbta#2](https://github.com/RebelliousSmile/schema-pbta/issues/2) |
 
 ## Phases
@@ -17,9 +17,8 @@ status: in-progress
 | # | Phase | File |
 | --- | --- | --- |
 | 1 | Catalogue et manifests installables | [`phase-1.md`](./phase-1.md) |
-| 2 | Validation et preuve transactionnelle | [`phase-2.md`](./phase-2.md) |
-| 3 | Preuve par le vrai installateur Handbook | [`phase-3.md`](./phase-3.md) |
-| 4 | Documentation et publication | [`phase-4.md`](./phase-4.md) |
+| 2 | Validation du catalogue et du payload | [`phase-2.md`](./phase-2.md) |
+| 3 | Documentation et publication | [`phase-3.md`](./phase-3.md) |
 
 ## Resources
 
@@ -42,6 +41,6 @@ status: in-progress
 | Produire un effet visible avec les variables Obsidian natives du pack, sans ajouter de renderer PbtA dans cette issue. | Le starter kit devient démontrable immédiatement tout en gardant la publication des blocs PbtA comme évolution indépendante. |
 | Déclarer seulement les SVG originaux utiles comme assets ; ne distribuer ni CSS, HTML, TypeScript, JavaScript, TOML de preview, ni police placeholder. | L’installateur ne doit matérialiser que les manifests et ressources binaires nécessaires au pack. |
 | Garder les `pack.json` comme source de vérité installable et les previews existantes comme outil de conception local. | Le payload Handbook reste stable et fermé sans faire de son CSS de preview un contrat runtime. |
-| Vérifier l’intégration avec le vrai lecteur et le vrai installateur Handbook depuis un harnais externe optionnel, exclu de la chaîne core autonome de Handbook. | Cela prouve la compatibilité et l’atomicité sans créer de dépendance CI circulaire entre les dépôts. |
+| Vérifier l’intégration avec le vrai lecteur et le vrai installateur dans un plan autonome appartenant au dépôt Handbook. | Le code du harnais et son statut de phase peuvent ainsi être commités ensemble sans créer de dépendance CI circulaire. |
 | Retirer avant la phase 1 les modifications suivies non commitées du plan PbtA 2.8.0 abandonné, puis conserver uniquement ce dossier de plan. | Elles modifient le contrat canonique hors du périmètre de l’issue #2 et empêcheraient un commit de phase isolé. |
-| Affecter les phases 1, 2 et 4 à `schema-pbta`, et la phase 3 seule au dépôt Handbook. | Chaque phase produit exactement un commit dans un seul dépôt et laisse les deux arbres propres à sa frontière. |
+| Garder les trois phases de ce plan dans `schema-pbta` et suivre le harnais dans `handbook/aidd_docs/tasks/2026_09/2026_09_10_pbta-source-integration/`. | Chaque plan possède ses statuts et son code dans un seul dépôt, donc chaque phase peut produire exactement un commit local. |
