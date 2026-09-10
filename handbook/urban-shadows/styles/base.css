@@ -1,23 +1,158 @@
 @import url("../../shared/theme-tokens.css");
 
+@font-face {
+  font-family: "Urban Shadows Display";
+  src: url("../assets/fonts/league-gothic-latin-400-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Urban Shadows Text";
+  src: url("../assets/fonts/source-serif-4-latin-wght-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+}
+
 html[data-game="urban-shadows"] {
-  --hb-paper: #ebe7df;
-  --hb-paper-alt: #ddd6cb;
-  --hb-ink: #242321;
-  --hb-muted: #6b655c;
-  --hb-accent: #5c3478;
-  --hb-accent-2: #b88935;
-  --hb-radius: .15rem;
-  --hb-display: Georgia, serif;
+  --hb-paper: #fbfaf7;
+  --hb-paper-alt: #e5e4e3;
+  --hb-ink: #171216;
+  --hb-muted: #665d63;
+  --hb-accent: #591133;
+  --hb-accent-2: #2c1827;
+  --hb-line: #591133;
+  --hb-radius: 0;
+  --hb-body: "Urban Shadows Text", "Source Serif 4", Georgia, serif;
+  --hb-display: "Urban Shadows Display", "Arial Narrow", Impact, sans-serif;
   --hb-texture: url("../assets/images/city-sigil.svg");
 }
 
-html[data-game="urban-shadows"] body { background: #292731; background-image: linear-gradient(135deg, #fff04 1px, transparent 1px); background-size: 18px 18px; }
-html[data-game="urban-shadows"] .handbook-sheet { box-shadow: var(--hb-shadow); }
-html[data-game="urban-shadows"] .handbook-game { min-height: 16rem; background: var(--hb-paper) var(--hb-texture) 93% 50% / 17rem no-repeat; border-block-end: .35rem double var(--hb-accent); }
-html[data-game="urban-shadows"] h1, html[data-game="urban-shadows"] h2, html[data-game="urban-shadows"] h3 { font-family: var(--hb-display); }
-html[data-game="urban-shadows"] h1 { max-width: 11ch; font-size: clamp(3rem, 8vw, 6.6rem); line-height: .85; }
-html[data-game="urban-shadows"] .handbook-kicker { color: var(--hb-accent); }
-html[data-game="urban-shadows"] .handbook-panel { border-color: #8c7d70; }
-html[data-game="urban-shadows"] .handbook-stat:nth-child(4n+1), html[data-game="urban-shadows"] .handbook-stat:nth-child(4n+2) { color: var(--hb-accent); }
-html[data-game="urban-shadows"] .handbook-result { --line: var(--hb-accent-2); }
+html[data-game="urban-shadows"] body {
+  background-color: #27232a;
+  background-image: linear-gradient(135deg, rgb(255 255 255 / 2%) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+html[data-game="urban-shadows"] .handbook-sheet {
+  background: var(--hb-paper);
+  box-shadow: var(--hb-shadow);
+  font-family: var(--hb-body);
+  font-size: 1.02rem;
+  line-height: 1.34;
+}
+
+html[data-game="urban-shadows"] .handbook-game {
+  min-height: 13rem;
+  background: var(--hb-paper) var(--hb-texture) 94% 50% / 15rem no-repeat;
+  border-block-end: .3rem solid var(--hb-accent);
+}
+
+html[data-game="urban-shadows"] h1 {
+  max-width: 11ch;
+  margin-block-end: .45rem;
+  color: var(--hb-accent);
+  font-family: var(--hb-display);
+  font-size: clamp(3.4rem, 8vw, 6.8rem);
+  font-weight: 400;
+  letter-spacing: .015em;
+  line-height: .8;
+  text-shadow: .035em 0 var(--hb-ink);
+  text-transform: uppercase;
+}
+
+html[data-game="urban-shadows"] :is(h2, h3) {
+  color: var(--hb-ink);
+  font-family: var(--hb-body);
+  font-weight: 750;
+  letter-spacing: -.025em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+html[data-game="urban-shadows"] h2 {
+  margin-block: 1.2rem .45rem;
+  font-size: 1.75rem;
+}
+
+html[data-game="urban-shadows"] h3 {
+  margin-block: .8rem .3rem;
+  color: var(--hb-accent);
+  font-size: 1.25rem;
+}
+
+html[data-game="urban-shadows"] p {
+  margin-block-end: .72rem;
+}
+
+html[data-game="urban-shadows"] :is(em, blockquote) {
+  color: var(--hb-accent);
+}
+
+html[data-game="urban-shadows"] blockquote {
+  margin-inline: 1rem 0;
+  padding-inline-start: .8rem;
+  border-inline-start: .18rem solid var(--hb-accent);
+  font-style: italic;
+}
+
+html[data-game="urban-shadows"] .handbook-kicker {
+  color: var(--hb-accent);
+  font-family: var(--hb-display);
+  font-size: .88rem;
+  font-weight: 400;
+  letter-spacing: .08em;
+}
+
+html[data-game="urban-shadows"] .handbook-panel {
+  border-color: color-mix(in srgb, var(--hb-accent), transparent 45%);
+}
+
+html[data-game="urban-shadows"] .handbook-move {
+  margin-block: .8rem;
+  padding-block: .75rem;
+  border-block-start: .08rem solid var(--hb-accent);
+}
+
+html[data-game="urban-shadows"] .handbook-move header {
+  align-items: end;
+}
+
+html[data-game="urban-shadows"] .handbook-result {
+  --line: var(--hb-accent);
+  padding: .55rem .7rem;
+  border-block: .06rem solid var(--hb-accent);
+  border-inline: 0;
+  background: var(--hb-paper-alt);
+}
+
+html[data-game="urban-shadows"] :is(.handbook-options, .handbook-advancement) {
+  padding-inline-start: 1.05rem;
+  list-style: none;
+}
+
+html[data-game="urban-shadows"] :is(.handbook-options, .handbook-advancement) li {
+  position: relative;
+  margin-block: .12rem;
+}
+
+html[data-game="urban-shadows"] :is(.handbook-options, .handbook-advancement) li::before {
+  position: absolute;
+  inset-inline-start: -.9rem;
+  color: var(--hb-accent);
+  content: "\25C6";
+  font-size: .48em;
+  line-height: 2.45;
+}
+
+html[data-game="urban-shadows"] :is(.handbook-stat, .handbook-attribute) {
+  padding-block: .24rem;
+  border-block-end-color: color-mix(in srgb, var(--hb-accent), transparent 60%);
+}
+
+html[data-game="urban-shadows"] .handbook-stat:nth-child(4n+1),
+html[data-game="urban-shadows"] .handbook-stat:nth-child(4n+2) {
+  color: var(--hb-accent);
+}

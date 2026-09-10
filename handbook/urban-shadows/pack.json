@@ -1,6 +1,6 @@
 {
   "manifestVersion": 1,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "minimumHandbookVersion": "2.7.1",
   "requires": [],
   "pack": {
@@ -9,32 +9,67 @@
     "style": {
       "base": {
         "note": {
-          "--font-text-theme": "Georgia, serif",
-          "--font-header-theme": "Georgia, serif",
-          "--h1-font": "Georgia, serif",
-          "--h2-font": "Georgia, serif"
+          "--font-text-theme": "'Urban Shadows Text', 'Source Serif 4', Georgia, serif",
+          "--font-header-theme": "'Urban Shadows Display', 'Arial Narrow', Impact, sans-serif",
+          "--h1-font": "'Urban Shadows Display', 'Arial Narrow', Impact, sans-serif",
+          "--h1-size": "2.8em",
+          "--h1-weight": "400",
+          "--h1-line-height": "0.86",
+          "--h2-font": "'Urban Shadows Text', 'Source Serif 4', Georgia, serif",
+          "--h2-size": "1.65em",
+          "--h2-weight": "750",
+          "--h2-line-height": "1",
+          "--h3-font": "'Urban Shadows Text', 'Source Serif 4', Georgia, serif",
+          "--h3-size": "1.35em",
+          "--h3-weight": "750",
+          "--h3-line-height": "1.05",
+          "--h4-font": "'Urban Shadows Text', 'Source Serif 4', Georgia, serif",
+          "--h4-weight": "700",
+          "--bold-color": "#171216",
+          "--italic-color": "#7b244d",
+          "--blockquote-border-color": "#591133",
+          "--blockquote-color": "#7b244d",
+          "--blockquote-background-color": "transparent",
+          "--list-marker-color": "#591133",
+          "--list-marker-color-hover": "#171216",
+          "--hr-color": "#591133",
+          "--hr-thickness": "1px"
         }
       },
       "light": {
         "note": {
-          "--background-primary": "#ebe7df",
-          "--background-primary-alt": "#ddd6cb",
-          "--text-normal": "#242321",
-          "--text-muted": "#6b655c",
-          "--color-accent": "#5c3478",
-          "--interactive-accent": "#5c3478",
-          "--link-color": "#5c3478",
-          "--link-color-hover": "#242321",
-          "--h1-color": "#5c3478",
-          "--h2-color": "#b88935",
-          "--tag-color": "#242321",
-          "--tag-background": "#ddd6cb",
-          "--checkbox-color": "#5c3478"
+          "--background-primary": "#fbfaf7",
+          "--background-primary-alt": "#e5e4e3",
+          "--text-normal": "#171216",
+          "--text-muted": "#665d63",
+          "--color-accent": "#591133",
+          "--interactive-accent": "#591133",
+          "--link-color": "#7b244d",
+          "--link-color-hover": "#171216",
+          "--h1-color": "#591133",
+          "--h2-color": "#171216",
+          "--h3-color": "#591133",
+          "--h4-color": "#171216",
+          "--tag-color": "#171216",
+          "--tag-background": "#e5e4e3",
+          "--checkbox-color": "#591133"
         }
       }
     },
     "polarities": ["light"],
     "assets": {
+      "fonts": {
+        "Urban Shadows Display": {
+          "file": "fonts/league-gothic-latin-400-normal.woff2",
+          "weight": "400",
+          "style": "normal"
+        },
+        "Urban Shadows Text": {
+          "file": "fonts/source-serif-4-latin-wght-normal.woff2",
+          "weight": "200 900",
+          "style": "normal"
+        }
+      },
       "images": {
         "game-mark": "images/city-sigil.svg"
       }

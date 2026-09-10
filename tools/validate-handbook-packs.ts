@@ -13,6 +13,7 @@ const expectedGames = Object.values(GAMES).map(({ folder }) => folder);
 const semver = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
 const safeToken = /^--[A-Za-z0-9-]+$/;
 const safeImageExtensions = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"]);
+const safeFontExtensions = new Set([".woff2", ".woff", ".ttf", ".otf"]);
 
 const catalogueFields = ["manifestVersion", "repository", "name", "description", "author", "packs"];
 const entryFields = ["id", "version", "path", "label", "description"];
@@ -134,9 +135,31 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
     const manifestRoot = path.dirname(path.join(sourceRoot, manifestPath));
     const assets = data(pack.assets);
     for (const field of unknownFields(assets, assetFields)) issues.push(`${id}: unknown assets field ${field}`);
-    if (Object.keys(data(assets.fonts)).length > 0) issues.push(`${id}: fonts must not be declared while only placeholders exist`);
     const assetRoot = assets.root === undefined ? "assets" : assets.root;
     if (!safeRelativePath(assetRoot)) issues.push(`${id}: unsafe asset root`);
+    for (const [family, declared] of Object.entries(data(assets.fonts))) {
+      if (!family.trim() || /[{};<>\"]/.test(family)) {
+        issues.push(`${id}: unsafe font family ${family}`);
+        continue;
+      }
+      const face = typeof declared === "string" ? { file: declared } : data(declared);
+      for (const field of unknownFields(face, ["file", "weight", "style"])) {
+        issues.push(`${id}: unknown font field ${family}.${field}`);
+      }
+      const fontFile = face.file;
+      if (!safeRelativePath(fontFile) || !safeFontExtensions.has(path.extname(fontFile).toLowerCase())) {
+        issues.push(`${id}: unsafe or unsupported font ${family}`);
+        continue;
+      }
+      for (const field of ["weight", "style"]) {
+        const value = face[field];
+        if (value !== undefined && (typeof value !== "string" || !value.trim() || /[{};<>]/.test(value))) {
+          issues.push(`${id}: unsafe font ${field} for ${family}`);
+        }
+      }
+      const fontAsset = path.join(manifestRoot, String(assetRoot), fontFile);
+      if (!fs.existsSync(fontAsset)) issues.push(`${id}: missing font asset ${fontFile}`);
+    }
     for (const [role, declared] of Object.entries(data(assets.images))) {
       if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(role) || !safeRelativePath(declared)) {
         issues.push(`${id}: unsafe image declaration ${role}`);
