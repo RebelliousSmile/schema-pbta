@@ -1,0 +1,7 @@
+game = "masks"
+gameDefinition = "masks"
+playbook = "the-ember"
+moves = ["borrowed-nerve", "hold-the-line"]
+mcMoves = []
+variants = ["base"]
+defaultVariant = "base"

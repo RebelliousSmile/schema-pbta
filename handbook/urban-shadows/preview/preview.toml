@@ -1,0 +1,7 @@
+game = "urban-shadows"
+gameDefinition = "urban-shadows"
+playbook = "the-bridge"
+moves = ["read-the-current"]
+mcMoves = ["tighten-the-web"]
+variants = ["base"]
+defaultVariant = "base"

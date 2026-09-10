@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="fr" data-game="urban-shadows" data-variant="base">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Urban Shadows 2e — Handbook preview</title>
+  <link rel="stylesheet" href="../../shared/preview.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link data-variant-stylesheet rel="stylesheet" href="">
+</head>
+<body>
+  <main class="handbook-sheet" data-handbook-preview>
+    <header class="handbook-game" data-region="game-identity">
+      <div><span class="handbook-kicker">Handbook preview</span><h1>Urban Shadows 2e</h1><p>Urban Shadows Second Edition core book, 2024</p></div>
+      <label class="handbook-variant">Variante<select data-variant-picker><option value="base" selected>base</option></select></label>
+    </header>
+    <div class="handbook-layout">
+      <section class="handbook-panel handbook-identity" data-region="character-identity">
+        <span class="handbook-kicker">Livret</span><h2>The Bridge</h2><p>You move between communities that prefer to pretend they have nothing in common.</p>
+        <p class="handbook-stats-detail">Blood +0, Heart +1, Mind +1, Spirit -1; adjust one Circle through creation.</p>
+        <div class="handbook-creation"><div class="handbook-creation__item"><h3>Which two Circles rely on you to speak to each other?</h3><ul class="handbook-options"><li>Mortalis and Night</li><li>Power and Wild</li><li>Night and Power</li></ul></div></div>
+      </section>
+      <section class="handbook-panel handbook-playbook" data-region="playbook-moves">
+        <span class="handbook-kicker">Actions</span><h2>Moves du livret</h2>
+        <article class="handbook-move" data-move="read-the-current" data-move-type="basic" data-audience="character">
+    <header><span class="handbook-kicker">basic</span><h3>Read the Current</h3></header>
+    <p>Notice which community is shaping the scene and where its influence is weakest.</p><p class="handbook-move__trigger">When you pause to read the politics of a charged place, roll with the relevant Circle.</p>
+    <div class="handbook-results"><div class="handbook-result" data-result="success"><strong>10+</strong><p>Ask two questions about the local balance of power.</p></div><div class="handbook-result" data-result="partial"><strong>7-9</strong><p>Ask one question and reveal that you are paying attention.</p></div></div>
+  </article>
+<article class="handbook-move" data-move="embedded-open-a-side-door" data-move-type="playbook" data-audience="character">
+    <header><span class="handbook-kicker">playbook</span><h3>Open a Side Door</h3></header>
+    <p>Your familiarity with several communities lets you arrange an introduction no one else could.</p>
+    
+  </article>
+        <ul class="handbook-advancement"><li>Take another playbook move.</li><li>Raise one Circle rating by +1.</li></ul>
+      </section>
+      <aside class="handbook-panel handbook-state" data-region="character-state">
+        <span class="handbook-kicker">État</span><h2>Caractéristiques</h2><dl class="handbook-stats">
+    <div class="handbook-stat" data-stat="blood">
+      <dt>Blood</dt><dd>0</dd>
+    </div>
+    <div class="handbook-stat" data-stat="heart">
+      <dt>Heart</dt><dd>1</dd>
+    </div>
+    <div class="handbook-stat" data-stat="mind">
+      <dt>Mind</dt><dd>1</dd>
+    </div>
+    <div class="handbook-stat" data-stat="spirit">
+      <dt>Spirit</dt><dd>-1</dd>
+    </div>
+    <div class="handbook-stat" data-stat="mortalis">
+      <dt>Mortalis</dt><dd>1</dd>
+    </div>
+    <div class="handbook-stat" data-stat="night">
+      <dt>Night</dt><dd>0</dd>
+    </div>
+    <div class="handbook-stat" data-stat="power">
+      <dt>Power</dt><dd>1</dd>
+    </div>
+    <div class="handbook-stat" data-stat="wild">
+      <dt>Wild</dt><dd>-1</dd>
+    </div>
+  </dl>
+        <h2>Attributs</h2><dl class="handbook-attributes">
+    <div class="handbook-attribute" data-attribute="harm" data-attribute-type="Clock">
+      <dt>Harm</dt><dd>0</dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="corruption" data-attribute-type="Clock">
+      <dt>Corruption</dt><dd>0</dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="advancement" data-attribute-type="Xp">
+      <dt>Advancement</dt><dd>0</dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="status" data-attribute-type="ListMany">
+      <dt>Circle Status</dt><dd>Mortalis 1</dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="debts" data-attribute-type="ListMany">
+      <dt>Debts</dt><dd>—</dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="scars" data-attribute-type="ListMany">
+      <dt>Scars</dt><dd>—</dd>
+    </div>
+  </dl>
+      </aside>
+    </div>
+    <footer class="handbook-panel handbook-mc" data-region="mc-actions">
+      <span class="handbook-kicker">Référence MC</span><h2>Actions de MC</h2><article class="handbook-move" data-move="tighten-the-web" data-move-type="mc" data-audience="mc">
+    <header><span class="handbook-kicker">mc</span><h3>Tighten the Web</h3></header>
+    <p>Connect a present obligation to a faction that can collect on it.</p>
+    
+  </article>
+    </footer>
+  </main>
+  <script>
+    const picker = document.querySelector("[data-variant-picker]");
+    const variantLink = document.querySelector("[data-variant-stylesheet]");
+    picker?.addEventListener("change", () => {
+      document.documentElement.dataset.variant = picker.value;
+      variantLink.href = picker.value === "base" ? "" : "../styles/variants/" + picker.value + ".css";
+    });
+  </script>
+</body>
+</html>

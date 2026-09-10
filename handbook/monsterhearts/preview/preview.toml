@@ -1,0 +1,7 @@
+game = "monsterhearts"
+gameDefinition = "monsterhearts"
+playbook = "la-noyee"
+moves = ["garder-la-face"]
+mcMoves = ["faire-remonter-le-manque"]
+variants = ["base", "drowned-lake"]
+defaultVariant = "base"

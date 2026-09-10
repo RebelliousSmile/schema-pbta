@@ -1,0 +1,7 @@
+game = "monster-of-the-week"
+gameDefinition = "monster-of-the-week"
+playbook = "the-lightkeeper"
+moves = ["read-the-water", "stand-the-watch"]
+mcMoves = ["hold-the-dark"]
+variants = ["base"]
+defaultVariant = "base"

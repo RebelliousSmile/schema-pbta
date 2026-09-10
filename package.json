@@ -10,7 +10,8 @@
     "audit": "tsx tools/audit-schemas.ts",
     "typecheck": "tsc --noEmit",
     "check": "npm run typecheck && npm run gen && npm run validate && npm run validate:refs && npm run validate:refs:fixtures && npm run audit",
-    "toml:one": "tsx tools/toml2json.ts"
+    "toml:one": "tsx tools/toml2json.ts",
+    "handbook:render": "tsx tools/render-handbook-preview.ts"
   },
   "repository": {
     "type": "git",

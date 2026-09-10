@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr" data-game="monsterhearts" data-variant="base">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Monsterhearts 2 — Handbook preview</title>
+  <link rel="stylesheet" href="../../shared/preview.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link data-variant-stylesheet rel="stylesheet" href="">
+</head>
+<body>
+  <main class="handbook-sheet" data-handbook-preview>
+    <header class="handbook-game" data-region="game-identity">
+      <div><span class="handbook-kicker">Handbook preview</span><h1>Monsterhearts 2</h1><p>Monsterhearts 2, French edition, core rules and skins</p></div>
+      <label class="handbook-variant">Variante<select data-variant-picker><option value="base" selected>base</option><option value="drowned-lake">drowned-lake</option></select></label>
+    </header>
+    <div class="handbook-layout">
+      <section class="handbook-panel handbook-identity" data-region="character-identity">
+        <span class="handbook-kicker">Livret</span><h2>La Noyée</h2><p>Tu es revenue du lac avec une voix plus calme et des souvenirs qui ne sont pas tous les tiens.</p>
+        <p class="handbook-stats-detail">Sexy +1, Glacial +2, Impulsif -1, Ténébreux +0.</p>
+        <div class="handbook-creation"><div class="handbook-creation__item"><h3>Qu’as-tu laissé au fond du lac ?</h3><ul class="handbook-options"><li>Un souvenir</li><li>Une promesse</li><li>Une autre version de toi</li></ul></div></div>
+      </section>
+      <section class="handbook-panel handbook-playbook" data-region="playbook-moves">
+        <span class="handbook-kicker">Actions</span><h2>Moves du livret</h2>
+        <article class="handbook-move" data-move="garder-la-face" data-move-type="basic" data-audience="character">
+    <header><span class="handbook-kicker">basic</span><h3>Garder la face</h3></header>
+    <p>Résister à la pression sociale sans laisser voir ce qu’elle provoque.</p><p class="handbook-move__trigger">Quand tu caches une émotion qui pourrait te trahir, lance avec Glacial.</p>
+    <div class="handbook-results"><div class="handbook-result" data-result="success"><strong>10+</strong><p>Tu gardes le contrôle et choisis qui remarque la tension.</p></div><div class="handbook-result" data-result="partial"><strong>7-9</strong><p>Tu tiens bon, mais la MC introduit un coût social.</p></div></div>
+  </article>
+<article class="handbook-move" data-move="embedded--couter-sous-la-surface" data-move-type="skin" data-audience="character">
+    <header><span class="handbook-kicker">skin</span><h3>Écouter sous la surface</h3></header>
+    <p>Le silence te livre des fragments de ce que les autres taisent.</p><p class="handbook-move__trigger">Quand tu restes immobile au bord de l’eau, lance avec Ténébreux.</p>
+    
+  </article>
+        <ul class="handbook-advancement"><li>Prends une autre action de ta mue.</li><li>Augmente une caractéristique de +1.</li></ul>
+      </section>
+      <aside class="handbook-panel handbook-state" data-region="character-state">
+        <span class="handbook-kicker">État</span><h2>Caractéristiques</h2><dl class="handbook-stats">
+    <div class="handbook-stat" data-stat="hot">
+      <dt>Sexy</dt><dd>1</dd>
+    </div>
+    <div class="handbook-stat" data-stat="cold">
+      <dt>Glacial</dt><dd>2</dd>
+    </div>
+    <div class="handbook-stat" data-stat="volatile">
+      <dt>Impulsif</dt><dd>-1</dd>
+    </div>
+    <div class="handbook-stat" data-stat="dark">
+      <dt>Ténébreux</dt><dd>0</dd>
+    </div>
+  </dl>
+        <h2>Attributs</h2><dl class="handbook-attributes">
+    <div class="handbook-attribute" data-attribute="harm" data-attribute-type="Clock">
+      <dt>Dégâts</dt><dd>0</dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="xp" data-attribute-type="Xp">
+      <dt>Expérience</dt><dd>0</dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="strings" data-attribute-type="ListMany">
+      <dt>Ascendants</dt><dd>—</dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="conditions" data-attribute-type="ListMany">
+      <dt>Conditions</dt><dd>—</dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="darkestSelf" data-attribute-type="LongText">
+      <dt>Démon intérieur</dt><dd>Le lac réclame une vérité que tu as refusé de lui donner.</dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="look" data-attribute-type="LongText">
+      <dt>Identité</dt><dd>Vêtements toujours humides, regard immobile.</dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="clique" data-attribute-type="ListMany">
+      <dt>Clique</dt><dd>—</dd>
+    </div>
+  </dl>
+      </aside>
+    </div>
+    <footer class="handbook-panel handbook-mc" data-region="mc-actions">
+      <span class="handbook-kicker">Référence MC</span><h2>Actions de MC</h2><article class="handbook-move" data-move="faire-remonter-le-manque" data-move-type="reaction" data-audience="mc">
+    <header><span class="handbook-kicker">reaction</span><h3>Faire remonter le manque</h3></header>
+    <p>Rappeler à quelqu’un ce qu’il désire et ce qu’il risque de perdre.</p>
+    
+  </article>
+    </footer>
+  </main>
+  <script>
+    const picker = document.querySelector("[data-variant-picker]");
+    const variantLink = document.querySelector("[data-variant-stylesheet]");
+    picker?.addEventListener("change", () => {
+      document.documentElement.dataset.variant = picker.value;
+      variantLink.href = picker.value === "base" ? "" : "../styles/variants/" + picker.value + ".css";
+    });
+  </script>
+</body>
+</html>

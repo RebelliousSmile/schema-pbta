@@ -1,0 +1,7 @@
+game = "the-sprawl"
+gameDefinition = "the-sprawl"
+playbook = "le-veilleur"
+moves = ["evaluer-la-zone"]
+mcMoves = ["fermer-la-nasse"]
+variants = ["base"]
+defaultVariant = "base"

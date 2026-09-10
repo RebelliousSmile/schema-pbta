@@ -51,7 +51,8 @@ journey
 
 1. Écrire un validateur qui exige un pack pour chacun des cinq jeux déclarés dans `GAMES`, avec styles, aperçu et assets.
 2. Vérifier les références locales, les descripteurs d’aperçu, les répertoires de variantes et l’absence de documents de données canoniques sous `handbook/`.
-3. Ajouter les commandes de génération et validation à la chaîne du dépôt.
+3. Vérifier la surface d’édition Lantern : les définitions exposent stats, types de moves et attributs typés, et les livrets portent leurs valeurs mécaniques sans demander d’analyser `statsDetail` ou leur prose.
+4. Ajouter les commandes de génération et validation à la chaîne du dépôt.
 
 ### `2)` Donner les règles de maintenance
 
@@ -65,5 +66,5 @@ journey
 
 | Task | Acceptance criteria |
 | --- | --- |
-| 1 | Un chemin d’asset, de stylesheet ou de référence d’aperçu invalide fait échouer la validation avec un diagnostic précis, tandis que les cinq packs attendus passent. |
+| 1 | Un chemin d’asset, de stylesheet, de référence d’aperçu ou une surface mécanique insuffisante pour les formulaires Lantern fait échouer la validation avec un diagnostic précis, tandis que les cinq packs attendus passent. |
 | 2 | Les guides permettent à un contributeur de distinguer sans ambiguïté où ajouter une donnée, un aperçu, un thème ou une variante. |
