@@ -72,4 +72,19 @@ npm run check          # typecheck + generate + validate + references + audit
 3. Add a visual variant as `styles/variants/<slug>.css` plus `assets/variants/<slug>/`, then list the slug in the preview descriptor. Do not add alternate HTML or TOML data for a variant.
 4. Run `npm run handbook:render`, `npm run handbook:validate`, then `npm run check`.
 
-The preview contract is intentionally independent of Handbook’s future install manifest. Do not infer or publish that manifest here until Handbook stabilizes it.
+The preview contract is independent from the installable pack contract. HTML,
+CSS, TOML, TypeScript and JavaScript used by previews must never be referenced
+by `handbook.json` or a `pack.json`.
+
+For any installable change:
+
+1. Bump the affected `pack.json` patch version and the matching entry in
+   `handbook.json` together. Never publish one without the other.
+2. Keep asset paths relative to the pack's asset root. Installable images are
+   limited to PNG, JPEG, WebP, GIF and SVG; executable files are forbidden.
+3. Record every distributed image's author, origin, licence and installed path
+   in `LICENSES/HANDBOOK-ASSETS.md`. Do not declare the placeholder font
+   directories as assets.
+4. Run `npm run check`. To exercise the real Handbook installer from a sibling
+   Handbook checkout, run `SCHEMA_PBTA_ROOT=/path/to/schema-pbta npm run
+   assert:pbta-source` from that Handbook repository.

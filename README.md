@@ -29,14 +29,33 @@ generated schema.
 - `tools/` provides generation and validation scripts
 - `handbook/` contains generated semantic previews and original visual packs
 
+## Install in Handbook
+
+Handbook 2.7.1 or newer can install the five presentation packs from this one
+repository. In Handbook settings, add `RebelliousSmile/schema-pbta` as a schema
+source on the `main` branch, then install or reload the source. The operation
+installs or updates Masks, Monster of the Week, Monsterhearts, Urban Shadows and
+The Sprawl together; use the source's Check action when you want to look for a
+new published version.
+
+After installation, choose the game in Handbook's Game mode setting. The packs
+set native Obsidian colours and typography for notes. They do not yet add PbtA
+fenced blocks, game-specific callouts or editing tools. Monsterhearts defaults
+to its `base` appearance; its `drowned-lake` variant can be selected at runtime
+without reinstalling the source.
+
+The installable contract is the root [`handbook.json`](./handbook.json) plus
+each listed `handbook/<game>/pack.json` and its declared SVG assets. A source
+update is promoted only after Handbook has prepared every listed pack.
+
 ## Handbook previews and Lantern forms
 
 `npm run handbook:render` builds one preview per game from explicit references
 to `examples/`; the HTML is generated and is never a second source of rules.
 Each game then applies its own CSS and original images. Visual variants, such as
 Monsterhearts’ `drowned-lake`, load as CSS/assets only and keep the same data and
-markup. The future installable Handbook manifest is deliberately not specified
-yet.
+markup. These preview files are design aids and are not part of the installable
+Handbook payload.
 
 Lantern form controls derive from the generated JSON Schemas and the canonical
 game vocabulary: typed `character.attributes`, stats, move types, playbook

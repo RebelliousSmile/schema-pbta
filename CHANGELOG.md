@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- A versioned `handbook.json` source publishing five declarative Handbook 2.7.1
+  presentation packs in one transaction, with original SVG assets and the
+  optional Monsterhearts `drowned-lake` variant.
+- Closed catalogue and payload validation, rejection fixtures, autonomous CI,
+  and an optional cross-repository assertion using Handbook's real installer.
 - MC move vocabularies and an optional move audience, with cross-reference
   checks and temporary fixture coverage for MC-only types.
 - Canonical game definitions for Monsterhearts 2, Urban Shadows 2e and The
