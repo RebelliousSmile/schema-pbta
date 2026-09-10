@@ -44,6 +44,7 @@ Thanks for helping make Powered by the Apocalypse tools interoperate!
 - **Backward compatibility:** try as much as possible to avoid breaking changes.
 - **Metadata:** add concise descriptions and examples to your fields. With Zod, make use of `.meta({ description, examples })`
 - **Game sources:** record the source and edition used to derive vocabulary, but contribute original fixtures only; do not copy published move text, playbook prose, layouts, images or PDFs.
+- **Lantern editing surface:** mechanical values belong in typed fields (`stats`, `attributes`, `moves`, `roll`, `results`, `choiceSets`), never only in narrative helpers such as `statsDetail` or `description`.
 - **Numeric domains:** every numeric schema needs a finite upper bound. Use a
   rule-derived bound when one exists; otherwise use the documented signed
   32-bit transport range (or its non-negative half for counts).
@@ -63,3 +64,12 @@ npm run audit          # audit identities, descriptions, bounds, witnesses and r
 npm run typecheck      # statically check all TypeScript sources
 npm run check          # typecheck + generate + validate + references + audit
 ```
+
+## Add a Handbook theme or variant
+
+1. Keep rules and playbook data under `examples/<game>/`; select them by slug in `handbook/<game>/preview/preview.toml`.
+2. Add the game theme to `styles/base.css` and keep its original or redistributable assets under that pack’s `assets/` directory. Record their provenance in the pack README.
+3. Add a visual variant as `styles/variants/<slug>.css` plus `assets/variants/<slug>/`, then list the slug in the preview descriptor. Do not add alternate HTML or TOML data for a variant.
+4. Run `npm run handbook:render`, `npm run handbook:validate`, then `npm run check`.
+
+The preview contract is intentionally independent of Handbook’s future install manifest. Do not infer or publish that manifest here until Handbook stabilizes it.
