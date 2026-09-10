@@ -29,41 +29,39 @@ generated schema.
 - `tools/` provides generation and validation scripts
 - `handbook/` contains generated semantic previews and original visual packs
 
-## Handbook packs, previews and Lantern forms
+## Install in Handbook
 
-Handbook 2.7.1 or newer can install all five visual packs from this repository
-as one source:
+Handbook 2.7.1 or newer can install the five presentation packs from this one
+repository. In Handbook settings, add `RebelliousSmile/schema-pbta` as a schema
+source on the `main` branch, then install or reload the source. The operation
+installs or updates Masks, Monster of the Week, Monsterhearts, Urban Shadows and
+The Sprawl together; use the source's Check action when you want to look for a
+new published version.
 
-1. Open **Settings → Handbook → Schema sources** and choose **Add source**.
-2. Enter `RebelliousSmile/schema-pbta` as the GitHub repository.
-3. Select **Branch**, enter `main`, then choose **Save and check**. A release or
-   immutable tag can be selected instead when one is published.
-4. Pick Masks, Monster of the Week, Monsterhearts 2, Urban Shadows or The Sprawl
-   under **Game mode**. The appearance changes immediately.
+After installation, choose the game in Handbook's Game mode setting. The packs
+set native Obsidian colours and typography for notes. They do not yet add PbtA
+fenced blocks, game-specific callouts or editing tools. Monsterhearts defaults
+to its `base` appearance; its `drowned-lake` variant can be selected at runtime
+without reinstalling the source.
 
-The source is installed as a unit: Handbook validates all five manifests and
-their six SVG assets before replacing the previous version. To update it,
-choose **Check** beside the registered source, verify its reference, then choose
-**Save and check**. Handbook performs no background update check.
+The installable contract is the root [`handbook.json`](./handbook.json) plus
+each listed `handbook/<game>/pack.json` and its declared SVG assets. A source
+update is promoted only after Handbook has prepared every listed pack.
 
-When Monsterhearts 2 is active, **Game variant** offers the default *Gothique
-sage* appearance and *Drowned Lake*. Switching variants repaints open notes in
-real time and does not change their data. These v1 packs set native Obsidian
-appearance tokens only; they do not provide PbtA fenced blocks or game-specific
-callouts.
+## Handbook previews and Lantern forms
 
-`npm run handbook:render` builds one local preview per game from explicit
-references to `examples/`. Its generated HTML, CSS and TOML descriptor are
-design tools, not installable payload. Only `handbook.json`, each listed
-`pack.json` and the images declared by those manifests are downloaded by
-Handbook. Asset provenance is recorded in
-[`LICENSES/HANDBOOK-ASSETS.md`](./LICENSES/HANDBOOK-ASSETS.md).
+`npm run handbook:render` builds one preview per game from explicit references
+to `examples/`; the HTML is generated and is never a second source of rules.
+Each game then applies its own CSS and original images. Visual variants, such as
+Monsterhearts’ `drowned-lake`, load as CSS/assets only and keep the same data and
+markup. These preview files are design aids and are not part of the installable
+Handbook payload.
 
 Lantern form controls derive from the generated JSON Schemas and the canonical
 game vocabulary: typed `character.attributes`, stats, move types, playbook
 values, rolls and results. Narrative helpers such as `statsDetail` must not be
-parsed to recover mechanical values. The visual variant is deliberately absent
-from these schemas because it never changes game data.
+parsed to recover mechanical values. `npm run handbook:validate` checks that
+each game exposes this minimum structured editing surface.
 
 ## Using the schemas in your tool
 
@@ -124,10 +122,8 @@ error.
 
 `npm run check` type-checks the sources, generates the schemas, runs both
 validation passes and the schema audit, regenerates the Handbook previews, then
-validates the closed Handbook catalogue and its rejection fixtures. Any failing
-step fails the chain. The optional `npm run handbook:install` assertion uses a
-real Handbook checkout from `HANDBOOK_ROOT` or `../handbook`; it stays outside
-the autonomous check because it is an inter-repository integration test.
+validates every pack and its Lantern editing surface. Any failing step fails the
+chain.
 
 ## Audited guarantees
 

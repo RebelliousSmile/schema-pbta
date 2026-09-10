@@ -5,180 +5,176 @@ import { GAMES } from "../src/zod/constants.js";
 import { loadData } from "./read-data.js";
 
 type Data = Record<string, unknown>;
-export type HandbookBundle = {
-  catalogue: unknown;
-  manifests: Record<string, unknown>;
-  files: Set<string>;
-};
-export type PreparedHandbookBundle = { errors: string[]; payload: string[] };
 
-const CATALOGUE_FIELDS = ["manifestVersion", "repository", "name", "description", "author", "packs"];
-const ENTRY_FIELDS = ["id", "version", "path", "label", "description"];
-const MANIFEST_FIELDS = ["manifestVersion", "version", "minimumHandbookVersion", "requires", "variants", "defaultVariantId", "pack"];
-const PACK_FIELDS = ["id", "label", "style", "polarities", "assets", "shapes"];
-const VARIANT_FIELDS = ["id", "label", "style", "polarities"];
-const STYLE_FIELDS = ["base", "light", "dark"];
-const LAYER_FIELDS = ["note", "workspace"];
-const ASSET_FIELDS = ["root", "images", "fonts"];
-const SEMVER = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
-const ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const TOKEN = /^--[a-zA-Z0-9-]+$/;
-const IMAGE = /\.(?:png|jpe?g|webp|gif|svg)$/i;
-const FORBIDDEN_VALUE = /["{};<>]/;
-const MAX_PACKS = 64;
-const MAX_ASSETS = 256;
-const MAX_ASSET_BYTES = 20 * 1024 * 1024;
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const handbookRoot = path.join(root, "handbook");
+const errors: string[] = [];
+const expectedGames = Object.values(GAMES).map(({ folder }) => folder);
+const semver = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
+const safeToken = /^--[A-Za-z0-9-]+$/;
+const safeImageExtensions = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"]);
 
-function data(value: unknown): Data | null {
-  return value && typeof value === "object" && !Array.isArray(value) ? value as Data : null;
+const catalogueFields = ["manifestVersion", "repository", "name", "description", "author", "packs"];
+const entryFields = ["id", "version", "path", "label", "description"];
+const manifestFields = ["manifestVersion", "version", "minimumHandbookVersion", "requires", "variants", "defaultVariantId", "pack"];
+const packFields = ["id", "label", "style", "polarities", "assets", "shapes"];
+const styleFields = ["base", "light", "dark"];
+const layerFields = ["note", "workspace"];
+const assetFields = ["root", "images", "fonts"];
+const variantFields = ["id", "label", "style", "polarities"];
+
+function data(value: unknown): Data {
+  return value && typeof value === "object" && !Array.isArray(value) ? value as Data : {};
 }
 
-function unknownFields(value: Data, allowed: string[], context: string, errors: string[]): void {
-  const unknown = Object.keys(value).filter((field) => !allowed.includes(field));
-  if (unknown.length) errors.push(`${context}: unknown fields ${unknown.join(", ")}`);
+function strings(value: unknown): string[] {
+  return Array.isArray(value) && value.every((item) => typeof item === "string") ? value : [];
 }
 
-function safePath(value: unknown): value is string {
-  if (typeof value !== "string" || value.length === 0 || value.includes("\\")) return false;
-  if (value.startsWith("/") || /^[a-z]+:/i.test(value)) return false;
-  return value.split("/").every((part) => part !== "" && part !== "." && part !== "..");
+function unknownFields(value: Data, allowed: string[]): string[] {
+  return Object.keys(value).filter((field) => !allowed.includes(field));
 }
 
-function versionParts(value: string): number[] {
-  return value.split(".").map(Number);
+function safeRelativePath(value: unknown): value is string {
+  if (typeof value !== "string") return false;
+  const clean = value.replaceAll("\\", "/");
+  return clean.length > 0 && !clean.startsWith("/") && !/^[A-Za-z]:/.test(clean)
+    && clean.split("/").every((part) => part.length > 0 && part !== "." && part !== "..");
 }
 
-function versionAtLeast(value: string, minimum: string): boolean {
-  const left = versionParts(value);
-  const right = versionParts(minimum);
-  for (let i = 0; i < 3; i++) {
-    if (left[i] !== right[i]) return left[i] > right[i];
+function readJson(file: string, issues: string[], context: string): Data | null {
+  try {
+    return data(JSON.parse(fs.readFileSync(file, "utf8")));
+  } catch (error) {
+    issues.push(`${context}: invalid JSON (${error instanceof Error ? error.message : String(error)})`);
+    return null;
   }
-  return true;
 }
 
-function validateTokens(value: unknown, context: string, errors: string[]): void {
-  const style = data(value);
-  if (!style) { errors.push(`${context}: style must be an object`); return; }
-  unknownFields(style, STYLE_FIELDS, context, errors);
-  for (const polarity of STYLE_FIELDS) {
-    if (style[polarity] === undefined) continue;
-    const layer = data(style[polarity]);
-    if (!layer) { errors.push(`${context}.${polarity}: layer must be an object`); continue; }
-    unknownFields(layer, LAYER_FIELDS, `${context}.${polarity}`, errors);
-    for (const slot of LAYER_FIELDS) {
-      if (layer[slot] === undefined) continue;
-      const tokens = data(layer[slot]);
-      if (!tokens) { errors.push(`${context}.${polarity}.${slot}: tokens must be an object`); continue; }
-      for (const [name, tokenValue] of Object.entries(tokens)) {
-        if (!TOKEN.test(name)) errors.push(`${context}.${polarity}.${slot}.${name}: unsafe token name`);
-        if (typeof tokenValue !== "string" || FORBIDDEN_VALUE.test(tokenValue)) errors.push(`${context}.${polarity}.${slot}.${name}: unsafe token value`);
-      }
+function validateTokens(value: unknown, issues: string[], context: string): void {
+  const tokens = data(value);
+  for (const [name, token] of Object.entries(tokens)) {
+    if (!safeToken.test(name)) issues.push(`${context}: unsafe token name ${name}`);
+    if (typeof token !== "string" || token.trim().length === 0 || /[{};<>]/.test(token)) {
+      issues.push(`${context}: unsafe token value for ${name}`);
     }
   }
 }
 
-function validatePolarities(value: unknown, context: string, errors: string[]): void {
-  if (!Array.isArray(value) || value.length === 0 || value.some((entry) => entry !== "light" && entry !== "dark") || new Set(value).size !== value.length) {
-    errors.push(`${context}: polarities must be a non-empty unique light/dark list`);
+function validateStyle(value: unknown, issues: string[], context: string): void {
+  const style = data(value);
+  for (const field of unknownFields(style, styleFields)) issues.push(`${context}: unknown style field ${field}`);
+  for (const layerName of styleFields) {
+    if (style[layerName] === undefined) continue;
+    const layer = data(style[layerName]);
+    for (const field of unknownFields(layer, layerFields)) issues.push(`${context}.${layerName}: unknown layer field ${field}`);
+    for (const slot of layerFields) {
+      if (layer[slot] !== undefined) validateTokens(layer[slot], issues, `${context}.${layerName}.${slot}`);
+    }
   }
 }
 
-function validatePack(packValue: unknown, context: string, root: string, files: Set<string>, errors: string[], assetPayload: string[]): void {
-  const pack = data(packValue);
-  if (!pack) { errors.push(`${context}: pack must be an object`); return; }
-  unknownFields(pack, PACK_FIELDS, context, errors);
-  if (typeof pack.id !== "string" || !ID.test(pack.id)) errors.push(`${context}.id: invalid id`);
-  if (typeof pack.label !== "string" || !pack.label.trim()) errors.push(`${context}.label: missing label`);
-  validatePolarities(pack.polarities, `${context}.polarities`, errors);
-  validateTokens(pack.style, `${context}.style`, errors);
-
-  const assets = data(pack.assets);
-  if (!assets) return;
-  unknownFields(assets, ASSET_FIELDS, `${context}.assets`, errors);
-  if (assets.fonts !== undefined) errors.push(`${context}.assets.fonts: fonts are not distributed by this source`);
-  const assetRoot = assets.root === undefined ? "assets" : assets.root;
-  if (!safePath(assetRoot)) { errors.push(`${context}.assets.root: unsafe path`); return; }
-  const images = data(assets.images);
-  if (!images) { errors.push(`${context}.assets.images: images must be an object`); return; }
-  for (const [role, fileValue] of Object.entries(images)) {
-    if (!ID.test(role)) errors.push(`${context}.assets.images.${role}: invalid role`);
-    if (!safePath(fileValue) || !IMAGE.test(fileValue)) { errors.push(`${context}.assets.images.${role}: unsafe or unsupported image path`); continue; }
-    const relative = `${root}/${assetRoot}/${fileValue}`;
-    if (!files.has(relative)) errors.push(`${context}.assets.images.${role}: missing ${relative}`);
-    else assetPayload.push(relative);
+/** Validate the exact closed payload that Handbook will resolve from one source. */
+export function validateInstallableHandbookSource(sourceRoot: string): string[] {
+  const issues: string[] = [];
+  const catalogue = readJson(path.join(sourceRoot, "handbook.json"), issues, "handbook.json");
+  if (!catalogue) return issues;
+  for (const field of unknownFields(catalogue, catalogueFields)) issues.push(`handbook.json: unknown field ${field}`);
+  if (catalogue.manifestVersion !== 1) issues.push("handbook.json: manifestVersion must be 1");
+  if (catalogue.repository !== "RebelliousSmile/schema-pbta") issues.push("handbook.json: repository must be RebelliousSmile/schema-pbta");
+  if (!Array.isArray(catalogue.packs)) {
+    issues.push("handbook.json: packs must be an array");
+    return issues;
   }
-}
 
-export function prepareHandbookBundle(bundle: HandbookBundle, handbookVersion = "2.7.1"): PreparedHandbookBundle {
-  const errors: string[] = [];
-  const payload: string[] = [];
-  const catalogue = data(bundle.catalogue);
-  if (!catalogue) return { errors: ["handbook.json: catalogue must be an object"], payload: [] };
-  unknownFields(catalogue, CATALOGUE_FIELDS, "handbook.json", errors);
-  if (catalogue.manifestVersion !== 1) errors.push("handbook.json.manifestVersion: only version 1 is supported");
-  if (catalogue.repository !== "RebelliousSmile/schema-pbta") errors.push("handbook.json.repository: unexpected repository");
-  const entries = Array.isArray(catalogue.packs) ? catalogue.packs : [];
-  if (!Array.isArray(catalogue.packs) || entries.length === 0 || entries.length > MAX_PACKS) errors.push("handbook.json.packs: invalid pack count");
-  const expected = Object.values(GAMES).map((game) => game.folder);
-  const ids: string[] = [];
-  const paths: string[] = [];
-  const assets: string[] = [];
+  const entries = catalogue.packs.map(data);
+  const ids = entries.map((entry) => String(entry.id ?? ""));
+  if (ids.join(",") !== expectedGames.join(",")) {
+    issues.push(`handbook.json: expected packs in order ${expectedGames.join(", ")}`);
+  }
+  const seenIds = new Set<string>();
+  const seenPaths = new Set<string>();
 
-  entries.forEach((entryValue, index) => {
-    const context = `handbook.json.packs[${index}]`;
-    const entry = data(entryValue);
-    if (!entry) { errors.push(`${context}: entry must be an object`); return; }
-    unknownFields(entry, ENTRY_FIELDS, context, errors);
+  for (const [index, entry] of entries.entries()) {
+    const context = `handbook.json pack ${index + 1}`;
+    for (const field of unknownFields(entry, entryFields)) issues.push(`${context}: unknown field ${field}`);
     const id = typeof entry.id === "string" ? entry.id : "";
+    const version = typeof entry.version === "string" ? entry.version : "";
     const manifestPath = entry.path;
-    if (!ID.test(id)) errors.push(`${context}.id: invalid id`);
-    if (ids.includes(id)) errors.push(`${context}.id: duplicate ${id}`);
-    ids.push(id);
-    if (typeof entry.version !== "string" || !SEMVER.test(entry.version)) errors.push(`${context}.version: invalid SemVer`);
-    if (!safePath(manifestPath) || !manifestPath.endsWith("/pack.json")) { errors.push(`${context}.path: unsafe manifest path`); return; }
-    if (paths.includes(manifestPath)) errors.push(`${context}.path: duplicate ${manifestPath}`);
-    paths.push(manifestPath);
-    const manifest = data(bundle.manifests[manifestPath]);
-    if (!manifest) { errors.push(`${manifestPath}: missing manifest`); return; }
-    unknownFields(manifest, MANIFEST_FIELDS, manifestPath, errors);
-    if (manifest.manifestVersion !== 1) errors.push(`${manifestPath}.manifestVersion: only version 1 is supported`);
-    if (manifest.version !== entry.version) errors.push(`${manifestPath}.version: does not match catalogue`);
-    if (manifest.minimumHandbookVersion !== "2.7.1") errors.push(`${manifestPath}.minimumHandbookVersion: expected 2.7.1`);
-    if (typeof manifest.minimumHandbookVersion === "string" && SEMVER.test(manifest.minimumHandbookVersion) && !versionAtLeast(handbookVersion, manifest.minimumHandbookVersion)) errors.push(`${manifestPath}: requires Handbook ${manifest.minimumHandbookVersion} or newer`);
-    if (!Array.isArray(manifest.requires) || manifest.requires.length !== 0) errors.push(`${manifestPath}.requires: PbtA capabilities are not available in Handbook 2.7.1`);
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)) issues.push(`${context}: invalid id`);
+    if (!semver.test(version)) issues.push(`${context}: invalid version`);
+    if (seenIds.has(id)) issues.push(`${context}: duplicate id ${id}`);
+    seenIds.add(id);
+    if (!safeRelativePath(manifestPath) || !manifestPath.endsWith("/pack.json")) {
+      issues.push(`${context}: unsafe manifest path`);
+      continue;
+    }
+    if (seenPaths.has(manifestPath)) issues.push(`${context}: duplicate path ${manifestPath}`);
+    seenPaths.add(manifestPath);
+    const manifest = readJson(path.join(sourceRoot, manifestPath), issues, `${id} manifest`);
+    if (!manifest) continue;
+    for (const field of unknownFields(manifest, manifestFields)) issues.push(`${id}: unknown manifest field ${field}`);
+    if (manifest.manifestVersion !== 1) issues.push(`${id}: manifestVersion must be 1`);
+    if (manifest.version !== version) issues.push(`${id}: manifest version does not match catalogue`);
+    if (manifest.minimumHandbookVersion !== "2.7.1") issues.push(`${id}: minimumHandbookVersion must be 2.7.1`);
+    if (!Array.isArray(manifest.requires) || manifest.requires.length !== 0) issues.push(`${id}: requires must stay empty until Handbook provides PbtA capabilities`);
+
     const pack = data(manifest.pack);
-    if (pack?.id !== id) errors.push(`${manifestPath}.pack.id: does not match catalogue id ${id}`);
-    validatePack(pack, `${manifestPath}.pack`, manifestPath.slice(0, manifestPath.lastIndexOf("/")), bundle.files, errors, assets);
+    for (const field of unknownFields(pack, packFields)) issues.push(`${id}: unknown pack field ${field}`);
+    if (pack.id !== id) issues.push(`${id}: pack id does not match catalogue`);
+    if (typeof pack.label !== "string" || pack.label.trim().length === 0) issues.push(`${id}: pack label is required`);
+    validateStyle(pack.style, issues, `${id}.style`);
+    const polarity = id === "monsterhearts" || id === "the-sprawl" ? "dark" : "light";
+    if (strings(pack.polarities).join(",") !== polarity) issues.push(`${id}: expected ${polarity} polarity`);
+    const native = data(data(data(pack.style)[polarity]).note);
+    for (const token of ["--background-primary", "--text-normal", "--color-accent"]) {
+      if (typeof native[token] !== "string") issues.push(`${id}: missing native token ${token}`);
+    }
 
-    const variants = manifest.variants;
-    if (variants !== undefined) {
-      if (!Array.isArray(variants)) errors.push(`${manifestPath}.variants: variants must be an array`);
-      else {
-        const variantIds: string[] = [];
-        variants.forEach((variantValue, variantIndex) => {
-          const variantContext = `${manifestPath}.variants[${variantIndex}]`;
-          const variant = data(variantValue);
-          if (!variant) { errors.push(`${variantContext}: variant must be an object`); return; }
-          unknownFields(variant, VARIANT_FIELDS, variantContext, errors);
-          if (typeof variant.id !== "string" || !ID.test(variant.id) || variantIds.includes(variant.id)) errors.push(`${variantContext}.id: invalid or duplicate id`);
-          else variantIds.push(variant.id);
-          if (typeof variant.label !== "string" || !variant.label.trim()) errors.push(`${variantContext}.label: missing label`);
-          validatePolarities(variant.polarities, `${variantContext}.polarities`, errors);
-          validateTokens(variant.style, `${variantContext}.style`, errors);
-        });
-        if (typeof manifest.defaultVariantId !== "string" || !variantIds.includes(manifest.defaultVariantId)) errors.push(`${manifestPath}.defaultVariantId: does not name a variant`);
+    const manifestRoot = path.dirname(path.join(sourceRoot, manifestPath));
+    const assets = data(pack.assets);
+    for (const field of unknownFields(assets, assetFields)) issues.push(`${id}: unknown assets field ${field}`);
+    if (Object.keys(data(assets.fonts)).length > 0) issues.push(`${id}: fonts must not be declared while only placeholders exist`);
+    const assetRoot = assets.root === undefined ? "assets" : assets.root;
+    if (!safeRelativePath(assetRoot)) issues.push(`${id}: unsafe asset root`);
+    for (const [role, declared] of Object.entries(data(assets.images))) {
+      if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(role) || !safeRelativePath(declared)) {
+        issues.push(`${id}: unsafe image declaration ${role}`);
+        continue;
       }
-    } else if (manifest.defaultVariantId !== undefined) errors.push(`${manifestPath}.defaultVariantId: variants are absent`);
-  });
+      const extension = path.extname(declared).toLowerCase();
+      if (!safeImageExtensions.has(extension)) issues.push(`${id}: executable or unsupported asset ${declared}`);
+      const asset = path.join(manifestRoot, String(assetRoot), declared);
+      if (!fs.existsSync(asset)) issues.push(`${id}: missing asset ${declared}`);
+    }
 
-  if (JSON.stringify(ids) !== JSON.stringify(expected)) errors.push(`handbook.json.packs: expected ids in order ${expected.join(", ")}`);
-  if (assets.length > MAX_ASSETS) errors.push(`payload: more than ${MAX_ASSETS} assets`);
-  const bytes = assets.reduce((total, file) => total + (bundle.files.has(file) ? 1 : 0), 0);
-  if (bytes > MAX_ASSET_BYTES) errors.push(`payload: exceeds ${MAX_ASSET_BYTES} bytes`);
-  if (errors.length) return { errors, payload: [] };
-  payload.push("handbook.json", ...paths, ...assets);
-  return { errors: [], payload };
+    if (manifest.variants !== undefined) {
+      if (!Array.isArray(manifest.variants)) issues.push(`${id}: variants must be an array`);
+      else for (const [variantIndex, rawVariant] of manifest.variants.entries()) {
+        const variant = data(rawVariant);
+        for (const field of unknownFields(variant, variantFields)) issues.push(`${id} variant ${variantIndex + 1}: unknown field ${field}`);
+        if (typeof variant.id !== "string" || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(variant.id)) issues.push(`${id} variant ${variantIndex + 1}: invalid id`);
+        if (typeof variant.label !== "string" || variant.label.trim().length === 0) issues.push(`${id} variant ${variantIndex + 1}: label is required`);
+        validateStyle(variant.style, issues, `${id}.variants.${String(variant.id)}`);
+        if (strings(variant.polarities).length === 0) issues.push(`${id} variant ${variantIndex + 1}: polarity is required`);
+      }
+    }
+    if (id === "monsterhearts") {
+      const variantIds = Array.isArray(manifest.variants) ? manifest.variants.map((variant) => String(data(variant).id ?? "")) : [];
+      if (manifest.defaultVariantId !== "base" || variantIds.join(",") !== "base,drowned-lake") {
+        issues.push("monsterhearts: expected base then drowned-lake variants with base as default");
+      }
+    } else if (manifest.variants !== undefined || manifest.defaultVariantId !== undefined) {
+      issues.push(`${id}: only Monsterhearts declares variants`);
+    }
+  }
+  return issues;
+}
+
+function requirePath(file: string, context: string): boolean {
+  if (fs.existsSync(file)) return true;
+  errors.push(`${context}: missing ${path.relative(root, file)}`);
+  return false;
 }
 
 function walk(directory: string): string[] {
@@ -189,53 +185,109 @@ function walk(directory: string): string[] {
   });
 }
 
-export function readHandbookBundle(root: string): HandbookBundle {
-  const cataloguePath = path.join(root, "handbook.json");
-  const catalogue = JSON.parse(fs.readFileSync(cataloguePath, "utf8")) as Data;
-  const manifests: Record<string, unknown> = {};
-  for (const entry of Array.isArray(catalogue.packs) ? catalogue.packs : []) {
-    const manifestPath = data(entry)?.path;
-    if (typeof manifestPath === "string" && fs.existsSync(path.join(root, manifestPath))) {
-      manifests[manifestPath] = JSON.parse(fs.readFileSync(path.join(root, manifestPath), "utf8"));
-    }
-  }
-  return {
-    catalogue,
-    manifests,
-    files: new Set(walk(path.join(root, "handbook")).map((file) => path.relative(root, file).replaceAll("\\", "/"))),
-  };
-}
-
-function validatePreviews(root: string, errors: string[]): void {
-  const handbookRoot = path.join(root, "handbook");
-  for (const game of Object.values(GAMES).map(({ folder }) => folder)) {
-    const descriptorPath = path.join(handbookRoot, game, "preview", "preview.toml");
-    const htmlPath = path.join(handbookRoot, game, "preview", "index.html");
-    if (!fs.existsSync(descriptorPath) || !fs.existsSync(htmlPath)) { errors.push(`${game}: missing preview`); continue; }
-    const descriptor = data(loadData(descriptorPath));
-    const html = fs.readFileSync(htmlPath, "utf8");
-    if (descriptor?.game !== game) errors.push(`${game}: preview descriptor mismatch`);
-    for (const region of ["game-identity", "character-identity", "playbook-moves", "character-state", "mc-actions"]) {
-      if (!html.includes(`data-region="${region}"`)) errors.push(`${game}: generated preview misses region ${region}`);
-    }
+function validateLocalCssReferences(file: string, context: string): void {
+  if (!fs.existsSync(file)) return;
+  const css = fs.readFileSync(file, "utf8");
+  for (const match of css.matchAll(/url\(\s*["']?([^"')]+)["']?\s*\)/g)) {
+    const reference = match[1].trim();
+    if (/^(data:|https?:|#)/.test(reference)) continue;
+    requirePath(path.resolve(path.dirname(file), reference), `${context} CSS reference`);
   }
 }
 
-export function validateRepository(root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")): PreparedHandbookBundle {
-  const result = prepareHandbookBundle(readHandbookBundle(root));
-  const errors = [...result.errors];
-  validatePreviews(root, errors);
-  return errors.length ? { errors, payload: [] } : result;
+function validateHtml(file: string, game: string): void {
+  if (!fs.existsSync(file)) return;
+  const html = fs.readFileSync(file, "utf8");
+  const regions = ["game-identity", "character-identity", "playbook-moves", "character-state", "mc-actions"];
+  for (const region of regions) {
+    if (!html.includes(`data-region="${region}"`)) errors.push(`${game}: generated preview misses region ${region}`);
+  }
+  if (!html.includes(`data-game="${game}"`)) errors.push(`${game}: generated preview has the wrong data-game`);
+  for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
+    const reference = match[1];
+    if (!reference || /^(data:|https?:|#)/.test(reference)) continue;
+    requirePath(path.resolve(path.dirname(file), reference), `${game} HTML reference`);
+  }
 }
 
-const invoked = process.argv[1] ? path.resolve(process.argv[1]) : "";
-if (invoked === fileURLToPath(import.meta.url)) {
-  const result = validateRepository();
-  if (result.errors.length) {
-    console.error("Handbook pack validation failed:");
-    result.errors.forEach((error) => console.error(`- ${error}`));
-    process.exitCode = 1;
-  } else {
-    console.log(`✅ Handbook catalogue prepared ${result.payload.length} files from five packs.`);
+function validateEditorSurface(game: string, definition: Data, playbook: Data): void {
+  const character = data(definition.character);
+  const stats = data(character.stats);
+  const attributes = data(character.attributes);
+  const moveTypes = data(character.moveTypes);
+  if (Object.keys(stats).length === 0) errors.push(`${game}: Lantern surface has no character stats`);
+  if (Object.keys(attributes).length === 0) errors.push(`${game}: Lantern surface has no typed attributes`);
+  if (Object.keys(moveTypes).length === 0) errors.push(`${game}: Lantern surface has no character move types`);
+  for (const [key, attribute] of Object.entries(attributes)) {
+    if (typeof data(attribute).type !== "string") errors.push(`${game}: attribute ${key} has no form discriminator`);
   }
+  if (Object.keys(data(playbook.stats)).length === 0) errors.push(`${game}: preview playbook has no structured stat values`);
+  if (Object.keys(data(playbook.attributes)).length === 0) errors.push(`${game}: preview playbook has no structured attribute values`);
+  if (!Array.isArray(playbook.moves) || playbook.moves.length === 0) errors.push(`${game}: preview playbook has no structured moves`);
+}
+
+errors.push(...validateInstallableHandbookSource(root));
+
+for (const game of [...expectedGames].sort()) {
+  const pack = path.join(handbookRoot, game);
+  const context = `handbook/${game}`;
+  requirePath(path.join(pack, "README.md"), context);
+  const baseCss = path.join(pack, "styles", "base.css");
+  requirePath(baseCss, context);
+  requirePath(path.join(pack, "styles", "variants"), context);
+  requirePath(path.join(pack, "assets", "fonts"), context);
+  const imageDirectory = path.join(pack, "assets", "images");
+  requirePath(imageDirectory, context);
+  requirePath(path.join(pack, "assets", "variants"), context);
+  if (walk(imageDirectory).length === 0) errors.push(`${context}: assets/images is empty`);
+  validateLocalCssReferences(baseCss, context);
+
+  const descriptorFile = path.join(pack, "preview", "preview.toml");
+  const htmlFile = path.join(pack, "preview", "index.html");
+  if (!requirePath(descriptorFile, context) || !requirePath(htmlFile, context)) continue;
+  const descriptor = data(loadData(descriptorFile));
+  if (descriptor.game !== game) errors.push(`${context}: descriptor game must be ${game}`);
+  const variants = strings(descriptor.variants);
+  if (!variants.includes("base")) errors.push(`${context}: variants must include base`);
+  if (!variants.includes(String(descriptor.defaultVariant))) errors.push(`${context}: defaultVariant is not declared`);
+
+  const references: Array<[string, string]> = [
+    ["game-definition", String(descriptor.gameDefinition)],
+    ["playbook", String(descriptor.playbook)],
+    ...strings(descriptor.moves).map((slug): [string, string] => ["move", slug]),
+    ...strings(descriptor.mcMoves).map((slug): [string, string] => ["move", slug]),
+  ];
+  for (const [kind, slug] of references) {
+    requirePath(path.join(root, "examples", game, kind, `${slug}.toml`), `${context} descriptor reference`);
+  }
+
+  for (const variant of variants.filter((name) => name !== "base")) {
+    const variantCss = path.join(pack, "styles", "variants", `${variant}.css`);
+    requirePath(variantCss, `${context} variant ${variant}`);
+    requirePath(path.join(pack, "assets", "variants", variant), `${context} variant ${variant}`);
+    validateLocalCssReferences(variantCss, `${context} variant ${variant}`);
+  }
+
+  const definitionFile = path.join(root, "examples", game, "game-definition", `${descriptor.gameDefinition}.toml`);
+  const playbookFile = path.join(root, "examples", game, "playbook", `${descriptor.playbook}.toml`);
+  if (fs.existsSync(definitionFile) && fs.existsSync(playbookFile)) {
+    validateEditorSurface(game, data(loadData(definitionFile)), data(loadData(playbookFile)));
+  }
+  validateHtml(htmlFile, game);
+  console.log(`✓ ${context}`);
+}
+
+for (const file of walk(handbookRoot)) {
+  const relative = path.relative(handbookRoot, file).replaceAll("\\", "/");
+  const isDescriptor = /\/preview\/preview\.toml$/.test(`/${relative}`);
+  const isPackManifest = /\/pack\.json$/.test(`/${relative}`);
+  if (!isDescriptor && !isPackManifest && /\.(toml|json)$/i.test(file)) errors.push(`Canonical-looking data is forbidden under handbook/: ${relative}`);
+}
+
+if (errors.length > 0) {
+  console.error("\nHandbook pack validation failed:");
+  for (const error of errors) console.error(`- ${error}`);
+  process.exitCode = 1;
+} else {
+  console.log("\n✅ All Handbook packs and Lantern editor surfaces passed validation.");
 }

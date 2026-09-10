@@ -2,7 +2,7 @@
 status: done
 ---
 
-# Instruction: Preuve par le vrai installateur Handbook
+# Instruction: Documentation et publication
 
 ## Architecture projection
 
@@ -10,20 +10,21 @@ status: done
 
 ```txt
 schema-pbta/
-├── package.json                                      ✏️ exposer l’assertion optionnelle
-└── tools/
-    └── validate-handbook-install.ts                  ✅ exercer le vrai installateur sur la source locale
+├── README.md                                      ✏️ installation de la source Handbook
+├── CONTRIBUTING.md                               ✏️ maintenance des versions et assets
+├── CHANGELOG.md                                  ✏️ catalogue multi-pack sans release npm
+└── handbook/
+    └── README.md                                 ✏️ frontière entre payload installable et previews
 ```
 
 ## User Journey
 
 ```mermaid
 flowchart TD
-  A[Le harnais schema-pbta localise Handbook] --> B[Handbook ouvre le catalogue local]
-  B --> C[Préparer cinq manifests et leurs SVG]
-  C --> D[Promouvoir la source complète]
-  D --> E[Relancer avec le dernier pack corrompu]
-  E --> F[Conserver octet pour octet la source installée]
+  A[Ajouter RebelliousSmile schema-pbta dans Handbook] --> B[Installer cinq packs ensemble]
+  B --> C[Choisir un jeu]
+  C --> D[Choisir Drowned Lake pour Monsterhearts si désiré]
+  D --> E[Vérifier puis appliquer une mise à jour volontaire]
 ```
 
 ## Test Scope
@@ -34,47 +35,48 @@ title: Test scope
 ---
 journey
   section Setup
-    Résoudre HANDBOOK_ROOT ou à défaut le checkout frère => installateur Handbook importable: 5: cli
+    Lire les guides depuis un clone propre => prérequis et version Handbook visibles: 5: system
   section Happy path
-    Installer le catalogue local avec le vrai installateur => cinq packs et tous les SVG sont promus: 5: cli
-  section Edge case - dernier pack fautif
-    Corrompre le cinquième manifest pendant une mise à jour => ancienne installation intégralement conservée: 1: cli
-  section Edge case - host absent
-    Exécuter la preuve sans Handbook localisable => diagnostic explicite avec HANDBOOK_ROOT attendu: 1: cli
+    Suivre ajout installation choix et mise à jour => source unique et cinq packs identifiables: 5: system
+  section Edge case - contribution
+    Modifier manifest variante ou asset => consulter le guide => bump catalogue et pack exigé ensemble: 5: system
+  section Edge case - provenance
+    Ajouter une ressource binaire => consulter le registre => auteur source et licence requis: 5: system
 ```
 
 ## Tasks to do
 
-### `1)` Ajouter le harnais côté source
+### `1)` Documenter l’installation
 
-> Tester le catalogue depuis son propre dépôt sans écrire dans Handbook.
+> Rendre le parcours source puis jeu compréhensible sans connaître l’arborescence interne.
 
-1. Calquer le harnais sur `schema-adrenaline/tools/validate-handbook-install.ts` et garder `process.cwd()` comme racine de la source PbtA.
-2. Traiter `HANDBOOK_ROOT` comme autoritaire lorsqu’il est défini ; utiliser le checkout frère `../handbook` seulement sinon, puis vérifier `package.json` et la présence de `src/games/sourceInstaller.ts`.
-3. Exposer `handbook:install` dans le `package.json` de `schema-pbta`, sans l’ajouter à `npm run check`.
-4. Donner un diagnostic exploitable lorsque le host est absent ou incompatible.
+1. Décrire la version Handbook minimale, l’ajout du dépôt, l’installation groupée et la mise à jour volontaire.
+2. Expliquer que les packs v1 changent l’apparence native des notes et ne fournissent encore aucun bloc PbtA ni callout propre au jeu.
+3. Documenter le choix de variante en temps réel et la base Monsterhearts utilisée par défaut.
 
-### `2)` Prouver installation et mise à jour atomiques
+### `2)` Documenter la maintenance
 
-> Traverser les vrais lecteurs v1 et la vraie frontière de staging.
+> Préserver l’identité et la compatibilité du catalogue.
 
-1. Importer `installResolvedSchemaSource` depuis le checkout Handbook et l’alimenter avec `handbook.json`, les cinq manifests et les SVG réels ; laisser son lecteur de manifests appliquer la comparaison SemVer avec la version du host.
-2. Simuler l’adapter Obsidian en mémoire et vérifier les cinq répertoires installés, les versions, les variantes, la métadonnée de source et chaque asset déclaré.
-3. Installer un état initial, rendre invalide en mémoire le manifest du cinquième pack pendant une mise à jour, puis comparer récursivement fichiers et dossiers avant et après le rejet.
+1. Exiger un bump simultané du manifest et de son entrée catalogue pour toute modification installable.
+2. Distinguer clairement les `pack.json` installables des HTML, CSS et TOML de preview locaux.
+3. Décrire les rôles d’assets, les extensions admises et l’interdiction de contenu exécutable.
 
-### `3)` Préserver l’autonomie des deux dépôts
+### `3)` Enregistrer la provenance et la livraison
 
-> Garder la preuve inter-dépôts volontaire et unilatérale.
+> Permettre une redistribution vérifiable des seuls SVG annoncés.
 
-1. Exécuter le nouveau script avec le checkout Handbook explicite puis, variable absente, avec le checkout frère ; vérifier qu’une variable explicite invalide échoue sans fallback silencieux.
-2. Exécuter `npm run check` dans `schema-pbta` sans Handbook et confirmer qu’il ne lance pas la preuve externe.
-3. Vérifier que le diff de phase ne contient aucun changement dans le dépôt Handbook.
+1. Vérifier que chaque SVG distribué possède un auteur, une origine, une licence et un chemin installé dans `LICENSES/HANDBOOK-ASSETS.md`.
+2. Préciser qu’aucune police placeholder n’est distribuée.
+3. Mettre à jour le changelog sans annoncer de publication npm ni de version Handbook inexistante.
+4. Consigner les commandes de validation et de preuve inter-dépôts.
 
 ## Test acceptance criteria
 
 | Task | Acceptance criteria |
 | --- | --- |
-| 1 | `npm run handbook:install` respecte un `HANDBOOK_ROOT` autoritaire ou utilise à défaut le checkout frère, et explique clairement tout chemin ou host absent. |
-| 2 | Le véritable lecteur de manifests refuse selon SemVer un host antérieur à 2.7.1, sans comparaison lexicale propre au harnais. |
-| 2 | Le vrai installateur promeut exactement cinq packs, leurs variantes et les six SVG ; une erreur du cinquième manifest conserve intégralement fichiers et dossiers de l’installation précédente. |
-| 3 | `npm run check` reste autonome sans checkout Handbook et la phase ne modifie que `schema-pbta`. |
+| 1 | Le README permet d’ajouter une source unique, d’installer cinq packs et de changer la variante Monsterhearts avec Handbook 2.7.1 ou supérieur. |
+| 1 | La documentation indique explicitement que les fences et callouts PbtA ne font pas partie de cette livraison. |
+| 2 | Un contributeur sait quels changements imposent le bump `0.1.x` conjoint et quels fichiers restent exclus du payload. |
+| 3 | Chaque SVG distribué possède une provenance et une licence ; aucune police inexistante ou preview n’est annoncée comme installable. |
+| 3 | Les commandes documentées reproduisent la validation autonome et l’assertion optionnelle avec le vrai installateur Handbook. |

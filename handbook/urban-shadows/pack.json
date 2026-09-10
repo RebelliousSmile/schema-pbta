@@ -6,12 +6,38 @@
   "pack": {
     "id": "urban-shadows",
     "label": "Urban Shadows",
-    "polarities": ["light"],
     "style": {
-      "base": { "note": { "--font-text-theme": "Georgia, serif", "--font-header-theme": "Georgia, serif", "--radius-s": "2px", "--radius-m": "3px", "--tag-radius": "2px" }, "workspace": {} },
-      "light": { "note": { "--background-primary": "#EBE7DF", "--background-primary-alt": "#E4DED5", "--background-secondary": "#DDD6CB", "--text-normal": "#242321", "--text-muted": "#6B655C", "--interactive-accent": "#5C3478", "--color-accent": "#5C3478", "--h1-color": "#34243F", "--h2-color": "#5C3478", "--h3-color": "#70488A", "--link-color": "#5C3478", "--tag-color": "#F6F1E9", "--tag-background": "#5C3478", "--blockquote-border-color": "#B88935" }, "workspace": { "--background-primary": "#EBE7DF", "--background-secondary": "#DDD6CB", "--text-normal": "#242321", "--interactive-accent": "#5C3478" } },
-      "dark": { "note": {}, "workspace": {} }
+      "base": {
+        "note": {
+          "--font-text-theme": "Georgia, serif",
+          "--font-header-theme": "Georgia, serif",
+          "--h1-font": "Georgia, serif",
+          "--h2-font": "Georgia, serif"
+        }
+      },
+      "light": {
+        "note": {
+          "--background-primary": "#ebe7df",
+          "--background-primary-alt": "#ddd6cb",
+          "--text-normal": "#242321",
+          "--text-muted": "#6b655c",
+          "--color-accent": "#5c3478",
+          "--interactive-accent": "#5c3478",
+          "--link-color": "#5c3478",
+          "--link-color-hover": "#242321",
+          "--h1-color": "#5c3478",
+          "--h2-color": "#b88935",
+          "--tag-color": "#242321",
+          "--tag-background": "#ddd6cb",
+          "--checkbox-color": "#5c3478"
+        }
+      }
     },
-    "assets": { "images": { "city-sigil": "images/city-sigil.svg" } }
+    "polarities": ["light"],
+    "assets": {
+      "images": {
+        "game-mark": "images/city-sigil.svg"
+      }
+    }
   }
 }

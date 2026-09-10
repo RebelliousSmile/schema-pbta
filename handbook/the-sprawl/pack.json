@@ -6,12 +6,40 @@
   "pack": {
     "id": "the-sprawl",
     "label": "The Sprawl",
-    "polarities": ["dark"],
     "style": {
-      "base": { "note": { "--font-text-theme": "Arial, sans-serif", "--font-header-theme": "'Arial Narrow', 'Roboto Condensed', sans-serif", "--inline-title-text-transform": "uppercase", "--h1-text-transform": "uppercase", "--h2-text-transform": "uppercase", "--radius-s": "0px", "--radius-m": "0px", "--tag-radius": "0px" }, "workspace": {} },
-      "light": { "note": {}, "workspace": {} },
-      "dark": { "note": { "--background-primary": "#10191E", "--background-primary-alt": "#132127", "--background-secondary": "#17272C", "--text-normal": "#D6F7EE", "--text-muted": "#83AAA5", "--interactive-accent": "#FF3D8D", "--color-accent": "#FF3D8D", "--h1-color": "#D6F7EE", "--h2-color": "#00E4D0", "--h3-color": "#FF72AA", "--link-color": "#00D2C0", "--tag-color": "#071014", "--tag-background": "#00E4D0", "--blockquote-border-color": "#FF3D8D" }, "workspace": { "--background-primary": "#10191E", "--background-secondary": "#081014", "--text-normal": "#D6F7EE", "--interactive-accent": "#FF3D8D" } }
+      "base": {
+        "note": {
+          "--font-text-theme": "Arial, sans-serif",
+          "--font-header-theme": "Arial Narrow, Roboto Condensed, sans-serif",
+          "--h1-font": "Arial Narrow, Roboto Condensed, sans-serif",
+          "--h2-font": "Arial Narrow, Roboto Condensed, sans-serif",
+          "--h1-text-transform": "uppercase",
+          "--h2-text-transform": "uppercase"
+        }
+      },
+      "dark": {
+        "note": {
+          "--background-primary": "#10191e",
+          "--background-primary-alt": "#17272c",
+          "--text-normal": "#d6f7ee",
+          "--text-muted": "#83aaa5",
+          "--color-accent": "#ff3d8d",
+          "--interactive-accent": "#ff3d8d",
+          "--link-color": "#00e4d0",
+          "--link-color-hover": "#ff3d8d",
+          "--h1-color": "#ff3d8d",
+          "--h2-color": "#00e4d0",
+          "--tag-color": "#d6f7ee",
+          "--tag-background": "#2b5555",
+          "--checkbox-color": "#00e4d0"
+        }
+      }
     },
-    "assets": { "images": { "network-grid": "images/network-grid.svg" } }
+    "polarities": ["dark"],
+    "assets": {
+      "images": {
+        "game-mark": "images/network-grid.svg"
+      }
+    }
   }
 }
