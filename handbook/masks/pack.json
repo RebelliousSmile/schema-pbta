@@ -1,0 +1,17 @@
+{
+  "manifestVersion": 1,
+  "version": "0.1.0",
+  "minimumHandbookVersion": "2.7.1",
+  "requires": [],
+  "pack": {
+    "id": "masks",
+    "label": "Masks: A New Generation",
+    "polarities": ["light"],
+    "style": {
+      "base": { "note": { "--font-text-theme": "Inter, Arial, sans-serif", "--font-header-theme": "Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif", "--inline-title-text-transform": "uppercase", "--h1-text-transform": "uppercase", "--h2-text-transform": "uppercase", "--radius-s": "4px", "--radius-m": "8px", "--tag-radius": "3px" }, "workspace": {} },
+      "light": { "note": { "--background-primary": "#FFF9E8", "--background-primary-alt": "#EAF6FA", "--background-secondary": "#D7EEF4", "--text-normal": "#10243B", "--text-muted": "#526579", "--interactive-accent": "#E8492E", "--color-accent": "#E8492E", "--h1-color": "#10243B", "--h2-color": "#E8492E", "--h3-color": "#167F99", "--link-color": "#167F99", "--tag-color": "#FFF9E8", "--tag-background": "#E8492E", "--blockquote-border-color": "#16A4C4" }, "workspace": { "--background-primary": "#FFF9E8", "--background-secondary": "#D7EEF4", "--text-normal": "#10243B", "--interactive-accent": "#E8492E" } },
+      "dark": { "note": {}, "workspace": {} }
+    },
+    "assets": { "images": { "hero-burst": "images/hero-burst.svg" } }
+  }
+}

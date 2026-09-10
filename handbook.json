@@ -1,0 +1,14 @@
+{
+  "manifestVersion": 1,
+  "repository": "RebelliousSmile/schema-pbta",
+  "name": "PbtA Handbook Packs",
+  "description": "Five declarative Handbook appearances for Powered by the Apocalypse games.",
+  "author": "RebelliousSmile",
+  "packs": [
+    { "id": "masks", "version": "0.1.0", "path": "handbook/masks/pack.json", "label": "Masks: A New Generation", "description": "Bright heroic comic-book appearance." },
+    { "id": "monster-of-the-week", "version": "0.1.0", "path": "handbook/monster-of-the-week/pack.json", "label": "Monster of the Week", "description": "Weathered paranormal case-file appearance." },
+    { "id": "monsterhearts", "version": "0.1.0", "path": "handbook/monsterhearts/pack.json", "label": "Monsterhearts 2", "description": "Restrained gothic appearance with a Drowned Lake variant." },
+    { "id": "urban-shadows", "version": "0.1.0", "path": "handbook/urban-shadows/pack.json", "label": "Urban Shadows", "description": "Occult urban intrigue appearance." },
+    { "id": "the-sprawl", "version": "0.1.0", "path": "handbook/the-sprawl/pack.json", "label": "The Sprawl", "description": "Dark neon corporate-cyberpunk appearance." }
+  ]
+}
