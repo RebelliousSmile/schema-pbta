@@ -1,0 +1,27 @@
+:root {
+  --hb-paper: #f8f5ed;
+  --hb-paper-alt: #efeadf;
+  --hb-ink: #222326;
+  --hb-muted: #66676b;
+  --hb-accent: #9a3e31;
+  --hb-accent-2: #d2a75b;
+  --hb-line: color-mix(in srgb, var(--hb-ink), transparent 72%);
+  --hb-shadow: 0 1.5rem 4rem rgb(25 25 25 / 14%);
+  --hb-radius: .25rem;
+  --hb-body: system-ui, sans-serif;
+  --hb-display: Georgia, serif;
+  --hb-texture: none;
+}
+
+.handbook-sheet {
+  --paper: var(--hb-paper);
+  --ink: var(--hb-ink);
+  --line: var(--hb-line);
+  color: var(--hb-ink);
+  font-family: var(--hb-body);
+}
+
+.handbook-sheet .handbook-panel { background-color: var(--hb-paper); }
+.handbook-sheet .handbook-game { background-color: var(--hb-paper); }
+.handbook-sheet .handbook-variant select { background-color: var(--hb-paper-alt); }
+.handbook-sheet .handbook-stats-detail { color: var(--hb-muted); }

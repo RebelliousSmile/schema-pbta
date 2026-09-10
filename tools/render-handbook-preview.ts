@@ -151,7 +151,7 @@ function render(game: string): string {
   <title>${escapeHtml(definition.name)} — Handbook preview</title>
   <link rel="stylesheet" href="../../shared/preview.css">
   <link rel="stylesheet" href="../styles/base.css">
-  <link data-variant-stylesheet rel="stylesheet" href="">
+  <link data-variant-stylesheet rel="stylesheet" disabled>
 </head>
 <body>
   <main class="handbook-sheet" data-handbook-preview>
@@ -184,7 +184,13 @@ function render(game: string): string {
     const variantLink = document.querySelector("[data-variant-stylesheet]");
     picker?.addEventListener("change", () => {
       document.documentElement.dataset.variant = picker.value;
-      variantLink.href = picker.value === "base" ? "" : "../styles/variants/" + picker.value + ".css";
+      if (picker.value === "base") {
+        variantLink.disabled = true;
+        variantLink.removeAttribute("href");
+      } else {
+        variantLink.href = "../styles/variants/" + picker.value + ".css";
+        variantLink.disabled = false;
+      }
     });
   </script>
 </body>

@@ -6,7 +6,7 @@
   <title>Masks: A New Generation — Handbook preview</title>
   <link rel="stylesheet" href="../../shared/preview.css">
   <link rel="stylesheet" href="../styles/base.css">
-  <link data-variant-stylesheet rel="stylesheet" href="">
+  <link data-variant-stylesheet rel="stylesheet" disabled>
 </head>
 <body>
   <main class="handbook-sheet" data-handbook-preview>
@@ -87,7 +87,13 @@ Going cold is not rest. It is a debt taken against the next time you need to be 
     const variantLink = document.querySelector("[data-variant-stylesheet]");
     picker?.addEventListener("change", () => {
       document.documentElement.dataset.variant = picker.value;
-      variantLink.href = picker.value === "base" ? "" : "../styles/variants/" + picker.value + ".css";
+      if (picker.value === "base") {
+        variantLink.disabled = true;
+        variantLink.removeAttribute("href");
+      } else {
+        variantLink.href = "../styles/variants/" + picker.value + ".css";
+        variantLink.disabled = false;
+      }
     });
   </script>
 </body>

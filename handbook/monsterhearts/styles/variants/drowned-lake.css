@@ -1,0 +1,14 @@
+html[data-game="monsterhearts"][data-variant="drowned-lake"] {
+  --hb-paper: #dbe4df;
+  --hb-paper-alt: #c8d5d0;
+  --hb-ink: #102d30;
+  --hb-muted: #45666a;
+  --hb-accent: #17666c;
+  --hb-accent-2: #8caeaa;
+  --hb-texture: url("../../assets/variants/drowned-lake/lake-rings.svg");
+}
+
+html[data-game="monsterhearts"][data-variant="drowned-lake"] body { background: #081d22; background-image: linear-gradient(#4f808133 1px, transparent 1px); background-size: 100% 12px; }
+html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-sheet { filter: saturate(.75); }
+html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-game { border-block-color: #5f9698; }
+html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-panel { background-image: linear-gradient(105deg, transparent 65%, #17666c09); }

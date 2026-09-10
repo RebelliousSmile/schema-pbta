@@ -1,0 +1,23 @@
+@import url("../../shared/theme-tokens.css");
+
+html[data-game="urban-shadows"] {
+  --hb-paper: #ebe7df;
+  --hb-paper-alt: #ddd6cb;
+  --hb-ink: #242321;
+  --hb-muted: #6b655c;
+  --hb-accent: #5c3478;
+  --hb-accent-2: #b88935;
+  --hb-radius: .15rem;
+  --hb-display: Georgia, serif;
+  --hb-texture: url("../assets/images/city-sigil.svg");
+}
+
+html[data-game="urban-shadows"] body { background: #292731; background-image: linear-gradient(135deg, #fff04 1px, transparent 1px); background-size: 18px 18px; }
+html[data-game="urban-shadows"] .handbook-sheet { box-shadow: var(--hb-shadow); }
+html[data-game="urban-shadows"] .handbook-game { min-height: 16rem; background: var(--hb-paper) var(--hb-texture) 93% 50% / 17rem no-repeat; border-block-end: .35rem double var(--hb-accent); }
+html[data-game="urban-shadows"] h1, html[data-game="urban-shadows"] h2, html[data-game="urban-shadows"] h3 { font-family: var(--hb-display); }
+html[data-game="urban-shadows"] h1 { max-width: 11ch; font-size: clamp(3rem, 8vw, 6.6rem); line-height: .85; }
+html[data-game="urban-shadows"] .handbook-kicker { color: var(--hb-accent); }
+html[data-game="urban-shadows"] .handbook-panel { border-color: #8c7d70; }
+html[data-game="urban-shadows"] .handbook-stat:nth-child(4n+1), html[data-game="urban-shadows"] .handbook-stat:nth-child(4n+2) { color: var(--hb-accent); }
+html[data-game="urban-shadows"] .handbook-result { --line: var(--hb-accent-2); }

@@ -1,0 +1,22 @@
+@import url("../../shared/theme-tokens.css");
+
+html[data-game="masks"] {
+  --hb-paper: #fff9e8;
+  --hb-paper-alt: #eaf6fa;
+  --hb-ink: #10243b;
+  --hb-muted: #526579;
+  --hb-accent: #e8492e;
+  --hb-accent-2: #16a4c4;
+  --hb-radius: 1rem .2rem 1rem .2rem;
+  --hb-display: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  --hb-texture: url("../assets/images/hero-burst.svg");
+}
+
+html[data-game="masks"] body { background: #9edcea; background-image: radial-gradient(#fff7 1px, transparent 1px); background-size: 9px 9px; }
+html[data-game="masks"] .handbook-sheet { filter: drop-shadow(.7rem .8rem 0 #10243b); }
+html[data-game="masks"] .handbook-game { background: var(--hb-paper) var(--hb-texture) right center / auto 100% no-repeat; border-block-end: .65rem solid var(--hb-accent); transform: rotate(-.35deg); }
+html[data-game="masks"] h1, html[data-game="masks"] h2, html[data-game="masks"] h3 { font-family: var(--hb-display); letter-spacing: .025em; text-transform: uppercase; }
+html[data-game="masks"] h1 { max-width: 14ch; font-size: clamp(2.8rem, 8vw, 6.5rem); line-height: .78; }
+html[data-game="masks"] .handbook-panel { border: .18rem solid var(--hb-ink); border-radius: var(--hb-radius); }
+html[data-game="masks"] .handbook-kicker { color: var(--hb-accent); }
+html[data-game="masks"] .handbook-result { --line: var(--hb-accent-2); transform: skew(-1deg); }
