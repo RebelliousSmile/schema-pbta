@@ -1,22 +1,22 @@
 html[data-game="monsterhearts"][data-variant="drowned-lake"] {
-  --hb-paper: #d8d7cf;
-  --hb-paper-alt: #bfc5bd;
-  --hb-ink: #17171d;
-  --hb-muted: #4b4b52;
-  --hb-accent: #ff477e;
-  --hb-accent-2: #a8d6b1;
-  --hb-line: #24242a;
+  --hb-paper: #111217;
+  --hb-paper-alt: #25262c;
+  --hb-ink: #ebe8e4;
+  --hb-muted: #a7a8ad;
+  --hb-accent: #7457bd;
+  --hb-accent-2: #d34e59;
+  --hb-line: #54515e;
   --hb-texture: url("../../assets/variants/drowned-lake/zine-lake.svg");
 }
 
-html[data-game="monsterhearts"][data-variant="drowned-lake"] body { background-color: #202027; background-image: repeating-linear-gradient(93deg, #fff04 0 1px, transparent 1px 7px), repeating-linear-gradient(3deg, #0004 0 2px, transparent 2px 11px); }
+html[data-game="monsterhearts"][data-variant="drowned-lake"] body { background-color: #090a0d; background-image: repeating-linear-gradient(93deg, #fff04 0 1px, transparent 1px 7px), repeating-linear-gradient(3deg, #0004 0 2px, transparent 2px 11px); }
 html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-sheet { filter: contrast(1.06); box-shadow: 1.2rem 1.4rem 0 #09090c; }
-html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-game { border: .22rem solid var(--hb-ink); border-block-end: .65rem solid var(--hb-accent); background-size: 23rem; }
-html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-game h1 { color: #f0eee6; background: var(--hb-ink); padding: .1em .2em; text-shadow: .06em .05em 0 var(--hb-accent); transform: rotate(-1deg); }
+html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-game { border: .22rem solid #f4f0ec; border-block-end: .65rem solid var(--hb-accent); background-size: 23rem; }
+html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-game h1 { color: #f4f0ec; background: #090a0d; padding: .1em .2em; -webkit-text-stroke: 1px var(--hb-accent-2); paint-order: stroke fill; text-shadow: .06em .05em 0 #090a0d; transform: rotate(-1deg); }
 html[data-game="monsterhearts"][data-variant="drowned-lake"] h2 { color: var(--hb-accent); }
-html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-panel { border: .18rem solid var(--hb-ink); box-shadow: .45rem .45rem 0 #17171d; background-image: repeating-linear-gradient(0deg, transparent 0 18px, #0000000b 19px); }
+html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-panel { border: .18rem solid #f4f0ec; box-shadow: .45rem .45rem 0 #090a0d; background-image: repeating-linear-gradient(0deg, transparent 0 18px, #ffffff0b 19px); }
 html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-layout > :nth-child(1) { transform: rotate(.35deg); }
 html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-layout > :nth-child(2) { transform: rotate(-.25deg); }
-html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-kicker { display: inline-block; padding: .2rem .45rem; color: var(--hb-ink); background: var(--hb-accent-2); transform: rotate(-1.5deg); }
-html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-move { margin-inline: -.35rem; padding-inline: .7rem; background: #eceae2; box-shadow: .25rem .25rem 0 var(--hb-accent); transform: rotate(.2deg); }
+html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-kicker { display: inline-block; padding: .2rem .45rem; color: #f4f0ec; background: var(--hb-accent); transform: rotate(-1.5deg); }
+html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-move { margin-inline: -.35rem; padding-inline: .7rem; background: var(--hb-paper-alt); box-shadow: .25rem .25rem 0 var(--hb-accent); transform: rotate(.2deg); }
 html[data-game="monsterhearts"][data-variant="drowned-lake"] .handbook-result { --line: var(--hb-accent); }

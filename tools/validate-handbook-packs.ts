@@ -125,7 +125,7 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
     if (pack.id !== id) issues.push(`${id}: pack id does not match catalogue`);
     if (typeof pack.label !== "string" || pack.label.trim().length === 0) issues.push(`${id}: pack label is required`);
     validateStyle(pack.style, issues, `${id}.style`);
-    const polarity = id === "monsterhearts" || id === "the-sprawl" ? "dark" : "light";
+    const polarity = id === "the-sprawl" ? "dark" : "light";
     if (strings(pack.polarities).join(",") !== polarity) issues.push(`${id}: expected ${polarity} polarity`);
     const native = data(data(data(pack.style)[polarity]).note);
     for (const token of ["--background-primary", "--text-normal", "--color-accent"]) {
@@ -183,9 +183,14 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
       }
     }
     if (id === "monsterhearts") {
-      const variantIds = Array.isArray(manifest.variants) ? manifest.variants.map((variant) => String(data(variant).id ?? "")) : [];
+      const monsterheartsVariants = Array.isArray(manifest.variants) ? manifest.variants.map(data) : [];
+      const variantIds = monsterheartsVariants.map((variant) => String(variant.id ?? ""));
       if (manifest.defaultVariantId !== "base" || variantIds.join(",") !== "base,drowned-lake") {
         issues.push("monsterhearts: expected base then drowned-lake variants with base as default");
+      }
+      const variantPolarities = monsterheartsVariants.map((variant) => strings(variant.polarities).join(","));
+      if (variantPolarities.join("|") !== "light|dark") {
+        issues.push("monsterhearts: expected a light base variant and a dark drowned-lake variant");
       }
     } else if (manifest.variants !== undefined || manifest.defaultVariantId !== undefined) {
       issues.push(`${id}: only Monsterhearts declares variants`);

@@ -1,6 +1,6 @@
 {
   "manifestVersion": 1,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "minimumHandbookVersion": "2.7.1",
   "requires": [],
   "variants": [
@@ -8,31 +8,46 @@
       "id": "base",
       "label": "Monsterhearts",
       "style": {},
-      "polarities": ["dark"]
+      "polarities": ["light"]
     },
     {
       "id": "drowned-lake",
       "label": "Drowned Lake",
       "style": {
-        "light": {
+        "base": {
           "note": {
-            "--background-primary": "#d8d7cf",
-            "--background-primary-alt": "#bfc5bd",
-            "--text-normal": "#17171d",
-            "--text-muted": "#4b4b52",
-            "--color-accent": "#ff477e",
-            "--interactive-accent": "#ff477e",
-            "--link-color": "#702a24",
-            "--link-color-hover": "#17171d",
-            "--h1-color": "#17171d",
-            "--h2-color": "#ff477e",
-            "--tag-color": "#17171d",
-            "--tag-background": "#a8d6b1",
-            "--checkbox-color": "#ff477e"
+            "--pbta-column-rule": "#7457bd",
+            "--drowned-lake-title-outline": "#d34e59",
+            "--drowned-lake-title-shadow": "#090a0d",
+            "--bold-color": "#f4f0ec",
+            "--italic-color": "#a88af0",
+            "--blockquote-border-color": "#7457bd",
+            "--blockquote-color": "#d4c8f4",
+            "--list-marker-color": "#a88af0",
+            "--list-marker-color-hover": "#f4f0ec",
+            "--hr-color": "#7457bd"
+          }
+        },
+        "dark": {
+          "note": {
+            "--background-primary": "#111217",
+            "--background-primary-alt": "#25262c",
+            "--text-normal": "#ebe8e4",
+            "--text-muted": "#a7a8ad",
+            "--color-accent": "#7457bd",
+            "--interactive-accent": "#7457bd",
+            "--link-color": "#d34e59",
+            "--link-color-hover": "#f4f0ec",
+            "--h1-color": "#f4f0ec",
+            "--h2-color": "#f4f0ec",
+            "--h3-color": "#a88af0",
+            "--tag-color": "#f4f0ec",
+            "--tag-background": "#33264f",
+            "--checkbox-color": "#a88af0"
           }
         }
       },
-      "polarities": ["light"]
+      "polarities": ["dark"]
     }
   ],
   "defaultVariantId": "base",
@@ -44,29 +59,60 @@
         "note": {
           "--font-text-theme": "Garamond, Georgia, serif",
           "--font-header-theme": "Garamond, Georgia, serif",
+          "--font-text-size": "16px",
+          "--line-height-normal": "1.2",
+          "--file-line-width": "72rem",
+          "--p-spacing": "0.56rem",
+          "--inline-title-font": "Garamond, Georgia, serif",
+          "--inline-title-text-transform": "uppercase",
+          "--inline-title-weight": "400",
+          "--inline-title-line-height": "1.04",
           "--h1-font": "Garamond, Georgia, serif",
-          "--h2-font": "Garamond, Georgia, serif"
+          "--h1-size": "2.15em",
+          "--h1-weight": "400",
+          "--h1-line-height": "1.04",
+          "--h1-text-transform": "uppercase",
+          "--h2-font": "Garamond, Georgia, serif",
+          "--h2-size": "1.48em",
+          "--h2-weight": "700",
+          "--h2-line-height": "1.06",
+          "--h3-font": "Garamond, Georgia, serif",
+          "--h3-size": "1.25em",
+          "--h3-weight": "700",
+          "--h3-line-height": "1.08",
+          "--pbta-column-gap": "2.4rem",
+          "--pbta-column-rule": "#292326",
+          "--bold-color": "#171416",
+          "--italic-color": "#4f343d",
+          "--blockquote-border-color": "#292326",
+          "--blockquote-color": "#292326",
+          "--blockquote-background-color": "transparent",
+          "--list-marker-color": "#292326",
+          "--list-marker-color-hover": "#171416",
+          "--hr-color": "#292326",
+          "--hr-thickness": "1px"
         }
       },
-      "dark": {
+      "light": {
         "note": {
-          "--background-primary": "#171315",
-          "--background-primary-alt": "#261a1b",
-          "--text-normal": "#c5a7a0",
-          "--text-muted": "#896e6b",
-          "--color-accent": "#702a24",
-          "--interactive-accent": "#702a24",
-          "--link-color": "#9b5549",
-          "--link-color-hover": "#c5a7a0",
-          "--h1-color": "#9b5549",
-          "--h2-color": "#9b5549",
-          "--tag-color": "#c5a7a0",
-          "--tag-background": "#5b302f",
-          "--checkbox-color": "#9b5549"
+          "--background-primary": "#faf8f2",
+          "--background-primary-alt": "#eeeae1",
+          "--text-normal": "#171416",
+          "--text-muted": "#5f5758",
+          "--color-accent": "#292326",
+          "--interactive-accent": "#292326",
+          "--link-color": "#643f4b",
+          "--link-color-hover": "#171416",
+          "--h1-color": "#292326",
+          "--h2-color": "#171416",
+          "--h3-color": "#171416",
+          "--tag-color": "#faf8f2",
+          "--tag-background": "#292326",
+          "--checkbox-color": "#292326"
         }
       }
     },
-    "polarities": ["dark"],
+    "polarities": ["light"],
     "assets": {
       "images": {
         "game-mark": "images/thorn-heart.svg",
