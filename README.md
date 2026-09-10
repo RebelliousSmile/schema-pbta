@@ -3,6 +3,10 @@
 Open, versioned data schemas for **Powered by the Apocalypse** games (Apocalypse World, Dungeon World, Monster of the Week, Masks, Monsterhearts, and others) so VTTs, builders, and other digital
 tools can **share the same data**.
 
+Published examples are original fixtures. Local game books may be consulted to
+derive a game’s structural vocabulary, but their prose, layouts, illustrations
+and PDFs are not assets of this repository.
+
 The aim is an ecosystem of interoperable digital tools where they can exchange
 structured JSON/TOML, validate it via schemas (e.g., using Zod), and leverage it
 for their specific needs.

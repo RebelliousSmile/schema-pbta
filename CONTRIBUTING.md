@@ -43,6 +43,7 @@ Thanks for helping make Powered by the Apocalypse tools interoperate!
   game folder and schema name.
 - **Backward compatibility:** try as much as possible to avoid breaking changes.
 - **Metadata:** add concise descriptions and examples to your fields. With Zod, make use of `.meta({ description, examples })`
+- **Game sources:** record the source and edition used to derive vocabulary, but contribute original fixtures only; do not copy published move text, playbook prose, layouts, images or PDFs.
 - **Numeric domains:** every numeric schema needs a finite upper bound. Use a
   rule-derived bound when one exists; otherwise use the documented signed
   32-bit transport range (or its non-negative half for counts).

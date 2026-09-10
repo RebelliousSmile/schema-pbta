@@ -1,4 +1,5 @@
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { GAMES, TARGETS } from "../src/zod/constants";
 import { listDataFiles, loadData } from "./read-data";
 
@@ -15,14 +16,14 @@ import { listDataFiles, loadData } from "./read-data";
  */
 
 type Severity = "error" | "warning";
-type Diagnostic = {
+export type Diagnostic = {
   file: string;
   key: string;
   message: string;
   severity: Severity;
 };
 
-const diagnostics: Diagnostic[] = [];
+let diagnostics: Diagnostic[] = [];
 
 function report(severity: Severity, file: string, key: string, message: string) {
   diagnostics.push({ file, key, message, severity });
@@ -121,8 +122,8 @@ function moveLikeObjects(data: Dict): Array<[Dict, string]> {
   );
 }
 
-function checkGame(game: Game) {
-  const definitionDir = path.join("examples", game.folder, "game-definition");
+function checkGame(game: Game, root: string) {
+  const definitionDir = path.join(root, "examples", game.folder, "game-definition");
   const definitionFiles = listDataFiles(definitionDir);
 
   if (definitionFiles.length === 0) {
@@ -162,17 +163,26 @@ function checkGame(game: Game) {
   const definition = definitionData;
   const character = isDict(definition.character) ? definition.character : {};
   const npc = isDict(definition.npc) ? definition.npc : {};
+  const mc = isDict(definition.mc) ? definition.mc : {};
 
   const statKeys = keysOf(character.stats);
   const attributeKeys: Record<string, string[]> = {
     playbook: keysOf(character.attributes),
     npc: keysOf(npc.attributes),
   };
-  // Character side and NPC side pooled, deduplicated: the two blocks routinely
-  // declare the same key, and a message listing it twice reads as a bug.
-  const moveTypes = [
+  const characterAndNpcMoveTypes = [
     ...new Set([...keysOf(character.moveTypes), ...keysOf(npc.moveTypes)]),
   ];
+  const mcMoveTypes = keysOf(mc.moveTypes);
+  for (const key of mcMoveTypes) {
+    if (!characterAndNpcMoveTypes.includes(key)) continue;
+    error(
+      definitionFile,
+      `mc.moveTypes.${key}`,
+      `MC move type "${key}" is reserved already by character or NPC moves`
+    );
+  }
+  const moveTypes = [...new Set([...characterAndNpcMoveTypes, ...mcMoveTypes])];
   const equipmentTypes = [
     ...new Set([
       ...keysOf(character.equipmentTypes),
@@ -202,7 +212,7 @@ function checkGame(game: Game) {
   for (const target of TARGETS) {
     if (target.game.folder !== game.folder) continue;
     if (target.name === "game-definition") continue;
-    const dir = path.join("examples", game.folder, target.name);
+    const dir = path.join(root, "examples", game.folder, target.name);
     for (const file of listDataFiles(dir)) {
       const data = loadData(file);
       if (!isDict(data)) {
@@ -289,7 +299,20 @@ function checkGame(game: Game) {
     for (const [move, keyPath] of moveLikeObjects(data)) {
       const prefix = at(keyPath);
       const moveType = move.moveType as string;
-      if (!moveTypes.includes(moveType)) {
+      const audience = move.audience;
+      if (audience === "mc" && !mcMoveTypes.includes(moveType)) {
+        error(
+          file,
+          `${prefix}moveType`,
+          `MC move type "${moveType}" is unknown; the game declares: ${list(mcMoveTypes)}`
+        );
+      } else if (audience !== "mc" && mcMoveTypes.includes(moveType)) {
+        error(
+          file,
+          `${prefix}audience`,
+          `move type "${moveType}" is reserved for MC moves and requires audience "mc"`
+        );
+      } else if (!moveTypes.includes(moveType)) {
         error(
           file,
           `${prefix}moveType`,
@@ -402,14 +425,20 @@ function checkGame(game: Game) {
   }
 }
 
-function run() {
+export function validateReferences(root = process.cwd()): Diagnostic[] {
+  diagnostics = [];
   const targeted = [
     ...new Map<string, Game>(TARGETS.map((t) => [t.game.folder, t.game])).values(),
   ];
-  for (const game of targeted) checkGame(game);
+  for (const game of targeted) checkGame(game, root);
+  return diagnostics;
+}
+
+function run() {
+  const foundDiagnostics = validateReferences();
 
   const byFile = new Map<string, Diagnostic[]>();
-  for (const d of diagnostics) {
+  for (const d of foundDiagnostics) {
     byFile.set(d.file, [...(byFile.get(d.file) ?? []), d]);
   }
   for (const [file, found] of byFile) {
@@ -420,8 +449,8 @@ function run() {
     }
   }
 
-  const errors = diagnostics.filter((d) => d.severity === "error").length;
-  const warnings = diagnostics.length - errors;
+  const errors = foundDiagnostics.filter((d) => d.severity === "error").length;
+  const warnings = foundDiagnostics.length - errors;
   if (errors > 0) {
     console.error(
       `\n❌ Reference check failed: ${errors} error(s), ${warnings} warning(s).`
@@ -435,4 +464,6 @@ function run() {
   );
 }
 
-run();
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  run();
+}

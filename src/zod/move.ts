@@ -53,6 +53,9 @@ export const moveSchema = z.strictObject({
   game: gameRefSchema.meta({ description: "Folder slug of the game this move belongs to." }),
   /** A key of the game's `moveTypes`, character side or NPC side. */
   moveType: nonEmptyString.meta({ description: "Key declared in the game's move type vocabulary." }),
+  audience: z.enum(["character", "npc", "mc"]).optional().meta({
+    description: "Optional audience that owns this move; MC moves use `mc`.",
+  }),
   /** The playbook this move belongs to, when it belongs to one. */
   playbook: slugSchema.optional().meta({ description: "Playbook slug when the move belongs to one." }),
   /** Plain text, deliberately: upstream stores an `HTMLField`. */

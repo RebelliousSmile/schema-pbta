@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- MC move vocabularies and an optional move audience, with cross-reference
+  checks and temporary fixture coverage for MC-only types.
+
 ## [0.2.0] - 2026-09-09
 
 ### Added
