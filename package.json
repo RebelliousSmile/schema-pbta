@@ -9,8 +9,10 @@
     "validate:refs:fixtures": "tsx tools/validate-reference-fixtures.ts",
     "audit": "tsx tools/audit-schemas.ts",
     "handbook:validate": "tsx tools/validate-handbook-packs.ts",
+    "handbook:fixtures": "tsx tools/validate-handbook-catalog-fixtures.ts",
+    "handbook:install": "tsx tools/validate-handbook-install.ts",
     "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && npm run gen && npm run validate && npm run validate:refs && npm run validate:refs:fixtures && npm run audit && npm run handbook:render && npm run handbook:validate",
+    "check": "npm run typecheck && npm run gen && npm run validate && npm run validate:refs && npm run validate:refs:fixtures && npm run audit && npm run handbook:render && npm run handbook:validate && npm run handbook:fixtures",
     "toml:one": "tsx tools/toml2json.ts",
     "handbook:render": "tsx tools/render-handbook-preview.ts"
   },

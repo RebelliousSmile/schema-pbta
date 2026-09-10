@@ -1,0 +1,17 @@
+{
+  "manifestVersion": 1,
+  "version": "0.1.0",
+  "minimumHandbookVersion": "2.7.1",
+  "requires": [],
+  "pack": {
+    "id": "urban-shadows",
+    "label": "Urban Shadows",
+    "polarities": ["light"],
+    "style": {
+      "base": { "note": { "--font-text-theme": "Georgia, serif", "--font-header-theme": "Georgia, serif", "--radius-s": "2px", "--radius-m": "3px", "--tag-radius": "2px" }, "workspace": {} },
+      "light": { "note": { "--background-primary": "#EBE7DF", "--background-primary-alt": "#E4DED5", "--background-secondary": "#DDD6CB", "--text-normal": "#242321", "--text-muted": "#6B655C", "--interactive-accent": "#5C3478", "--color-accent": "#5C3478", "--h1-color": "#34243F", "--h2-color": "#5C3478", "--h3-color": "#70488A", "--link-color": "#5C3478", "--tag-color": "#F6F1E9", "--tag-background": "#5C3478", "--blockquote-border-color": "#B88935" }, "workspace": { "--background-primary": "#EBE7DF", "--background-secondary": "#DDD6CB", "--text-normal": "#242321", "--interactive-accent": "#5C3478" } },
+      "dark": { "note": {}, "workspace": {} }
+    },
+    "assets": { "images": { "city-sigil": "images/city-sigil.svg" } }
+  }
+}

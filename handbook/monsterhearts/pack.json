@@ -1,0 +1,22 @@
+{
+  "manifestVersion": 1,
+  "version": "0.1.0",
+  "minimumHandbookVersion": "2.7.1",
+  "requires": [],
+  "variants": [
+    { "id": "base", "label": "Gothique sage", "style": {}, "polarities": ["dark"] },
+    { "id": "drowned-lake", "label": "Drowned Lake", "style": { "base": { "note": { "--font-text-theme": "Arial, sans-serif", "--font-header-theme": "Impact, 'Arial Narrow Bold', sans-serif", "--inline-title-text-transform": "uppercase", "--h1-text-transform": "uppercase" }, "workspace": {} }, "light": { "note": { "--background-primary": "#D8D7CF", "--background-primary-alt": "#C9CBC4", "--background-secondary": "#BFC5BD", "--text-normal": "#17171D", "--text-muted": "#4B4B52", "--interactive-accent": "#D82F66", "--color-accent": "#D82F66", "--h1-color": "#17171D", "--h2-color": "#B51F53", "--link-color": "#A51D4B", "--tag-color": "#17171D", "--tag-background": "#A8D6B1" }, "workspace": { "--background-primary": "#D8D7CF", "--background-secondary": "#BFC5BD", "--text-normal": "#17171D", "--interactive-accent": "#D82F66" } }, "dark": { "note": {}, "workspace": {} } }, "polarities": ["light"] }
+  ],
+  "defaultVariantId": "base",
+  "pack": {
+    "id": "monsterhearts",
+    "label": "Monsterhearts 2",
+    "polarities": ["dark"],
+    "style": {
+      "base": { "note": { "--font-text-theme": "Garamond, Georgia, serif", "--font-header-theme": "Garamond, Georgia, serif", "--inline-title-font-style": "italic", "--h1-font-style": "italic", "--radius-s": "1px", "--radius-m": "2px", "--tag-radius": "1px" }, "workspace": {} },
+      "light": { "note": {}, "workspace": {} },
+      "dark": { "note": { "--background-primary": "#171315", "--background-primary-alt": "#211719", "--background-secondary": "#261A1B", "--text-normal": "#C5A7A0", "--text-muted": "#896E6B", "--interactive-accent": "#702A24", "--color-accent": "#702A24", "--h1-color": "#8B3A32", "--h2-color": "#8B3A32", "--h3-color": "#A35A4E", "--link-color": "#B66859", "--tag-color": "#D8C0BA", "--tag-background": "#5B302F", "--blockquote-border-color": "#702A24" }, "workspace": { "--background-primary": "#171315", "--background-secondary": "#100D0E", "--text-normal": "#C5A7A0", "--interactive-accent": "#702A24" } }
+    },
+    "assets": { "images": { "thorn-heart": "images/thorn-heart.svg", "drowned-lake": "variants/drowned-lake/zine-lake.svg" } }
+  }
+}

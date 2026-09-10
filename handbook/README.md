@@ -1,23 +1,43 @@
 # Packs visuels Handbook
 
-Ce répertoire est une référence locale en attendant la stabilisation du format installable de Handbook. Chaque jeu possède un pack autonome avec son aperçu généré, son thème, ses images et la provenance de ses assets.
+Ce répertoire contient les cinq packs visuels publiés par le catalogue racine
+`handbook.json`. Handbook 2.7.1 ou supérieur les installe ensemble depuis la
+source GitHub `RebelliousSmile/schema-pbta`.
 
 ## Séparation des responsabilités
 
-- `examples/<game>/` contient les données canoniques consommables par Lantern et Handbook.
+- `handbook/<game>/pack.json` est le manifeste installable et déclaratif du jeu.
+- `handbook/<game>/assets/` contient uniquement les images que ce manifeste peut déclarer.
+- `examples/<game>/` contient les données canoniques consommables par Lantern et les previews.
 - `handbook/<game>/preview/preview.toml` sélectionne des documents canoniques par slug ; il ne contient aucune règle.
 - `handbook/<game>/preview/index.html` est régénéré par `npm run handbook:render`.
 - `handbook/<game>/styles/base.css` définit l’identité du jeu.
 - `styles/variants/<slug>.css` et `assets/variants/<slug>/` forment un delta purement visuel.
 - `handbook/shared/` contient la structure et les tokens communs, pas de contenu de jeu.
 
-Le sélecteur de variante modifie `html[data-variant]` et charge la feuille correspondante en temps réel. Il ne remplace jamais le HTML. Le détail des régions stables se trouve dans `shared/preview-contract.md`.
+Les HTML, CSS et TOML de preview restent locaux : ils ne sont référencés ni par
+`handbook.json` ni par les manifests installables. Le payload distant se limite
+au catalogue, aux cinq `pack.json` et à leurs six SVG déclarés. Aucun script,
+aucune feuille CSS externe et aucune police placeholder ne sont distribués.
+
+Le sélecteur de variante de la preview modifie `html[data-variant]` sans
+remplacer le HTML. Dans Handbook, le choix équivalent apparaît en temps réel
+après sélection de Monsterhearts 2 : `base` (*Gothique sage*) est la valeur par
+défaut et `drowned-lake` son unique alternative. Les deux mécanismes restent
+purement visuels. Le détail des régions stables se trouve dans
+`shared/preview-contract.md`.
 
 ## Commandes
 
 ```sh
 npm run handbook:render
 npm run handbook:validate
+npm run handbook:fixtures
+npm run handbook:install # optionnel, avec HANDBOOK_ROOT ou ../handbook
 ```
 
-La validation exige un pack pour chaque jeu déclaré, résout les références locales et contrôle la surface mécanique minimale destinée aux formulaires Lantern.
+La validation autonome exige un pack pour chaque jeu déclaré, ferme le payload
+sur ses seuls manifests et images, puis exerce les refus attendus. La dernière
+commande traverse en plus le véritable installateur Handbook sans modifier son
+dépôt. La provenance et la licence de chaque SVG sont consignées dans
+[`../LICENSES/HANDBOOK-ASSETS.md`](../LICENSES/HANDBOOK-ASSETS.md).

@@ -29,20 +29,41 @@ generated schema.
 - `tools/` provides generation and validation scripts
 - `handbook/` contains generated semantic previews and original visual packs
 
-## Handbook previews and Lantern forms
+## Handbook packs, previews and Lantern forms
 
-`npm run handbook:render` builds one preview per game from explicit references
-to `examples/`; the HTML is generated and is never a second source of rules.
-Each game then applies its own CSS and original images. Visual variants, such as
-Monsterhearts’ `drowned-lake`, load as CSS/assets only and keep the same data and
-markup. The future installable Handbook manifest is deliberately not specified
-yet.
+Handbook 2.7.1 or newer can install all five visual packs from this repository
+as one source:
+
+1. Open **Settings → Handbook → Schema sources** and choose **Add source**.
+2. Enter `RebelliousSmile/schema-pbta` as the GitHub repository.
+3. Select **Branch**, enter `main`, then choose **Save and check**. A release or
+   immutable tag can be selected instead when one is published.
+4. Pick Masks, Monster of the Week, Monsterhearts 2, Urban Shadows or The Sprawl
+   under **Game mode**. The appearance changes immediately.
+
+The source is installed as a unit: Handbook validates all five manifests and
+their six SVG assets before replacing the previous version. To update it,
+choose **Check** beside the registered source, verify its reference, then choose
+**Save and check**. Handbook performs no background update check.
+
+When Monsterhearts 2 is active, **Game variant** offers the default *Gothique
+sage* appearance and *Drowned Lake*. Switching variants repaints open notes in
+real time and does not change their data. These v1 packs set native Obsidian
+appearance tokens only; they do not provide PbtA fenced blocks or game-specific
+callouts.
+
+`npm run handbook:render` builds one local preview per game from explicit
+references to `examples/`. Its generated HTML, CSS and TOML descriptor are
+design tools, not installable payload. Only `handbook.json`, each listed
+`pack.json` and the images declared by those manifests are downloaded by
+Handbook. Asset provenance is recorded in
+[`LICENSES/HANDBOOK-ASSETS.md`](./LICENSES/HANDBOOK-ASSETS.md).
 
 Lantern form controls derive from the generated JSON Schemas and the canonical
 game vocabulary: typed `character.attributes`, stats, move types, playbook
 values, rolls and results. Narrative helpers such as `statsDetail` must not be
-parsed to recover mechanical values. `npm run handbook:validate` checks that
-each game exposes this minimum structured editing surface.
+parsed to recover mechanical values. The visual variant is deliberately absent
+from these schemas because it never changes game data.
 
 ## Using the schemas in your tool
 
@@ -103,8 +124,10 @@ error.
 
 `npm run check` type-checks the sources, generates the schemas, runs both
 validation passes and the schema audit, regenerates the Handbook previews, then
-validates every pack and its Lantern editing surface. Any failing step fails the
-chain.
+validates the closed Handbook catalogue and its rejection fixtures. Any failing
+step fails the chain. The optional `npm run handbook:install` assertion uses a
+real Handbook checkout from `HANDBOOK_ROOT` or `../handbook`; it stays outside
+the autonomous check because it is an inter-repository integration test.
 
 ## Audited guarantees
 

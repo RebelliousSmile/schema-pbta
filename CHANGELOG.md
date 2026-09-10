@@ -15,10 +15,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Sprawl 1.1, each with generated schemas and positive/negative audit fixtures.
 - Original move, MC-action and playbook fixtures for all three games, including
   French character-sheet vocabulary from The Sprawl 1.1 VF.
-- Generated semantic Handbook previews and distinct original visual packs for
-  all five games, plus the visual-only Monsterhearts `drowned-lake` variant.
-- Pack validation covering paths, descriptors, variants, data separation and
-  the structured editing surface required by Lantern forms.
+- A Handbook v1 root catalogue with installable manifests for all five games,
+  six original SVG assets and the visual-only Monsterhearts `drowned-lake`
+  variant. This is a repository payload, not an npm release.
+- Autonomous catalogue validation and rejection fixtures covering paths,
+  versions, variants, safe tokens, assets and executable-content exclusion,
+  plus CI running the complete repository check.
+- An optional integration assertion that installs and updates the full source
+  through Handbook's real installer and proves rollback after a late failure.
+- Generated semantic Handbook previews kept separate from the installable
+  manifests and assets.
 
 ## [0.2.0] - 2026-09-09
 

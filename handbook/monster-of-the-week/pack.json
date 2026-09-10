@@ -1,0 +1,17 @@
+{
+  "manifestVersion": 1,
+  "version": "0.1.0",
+  "minimumHandbookVersion": "2.7.1",
+  "requires": [],
+  "pack": {
+    "id": "monster-of-the-week",
+    "label": "Monster of the Week",
+    "polarities": ["light"],
+    "style": {
+      "base": { "note": { "--font-text-theme": "Georgia, serif", "--font-header-theme": "'Courier New', monospace", "--inline-title-text-transform": "uppercase", "--h1-text-transform": "uppercase", "--h2-text-transform": "uppercase", "--radius-s": "0px", "--radius-m": "0px", "--checkbox-radius": "0px" }, "workspace": {} },
+      "light": { "note": { "--background-primary": "#EEE7D5", "--background-primary-alt": "#E4DCC9", "--background-secondary": "#D9D0BA", "--text-normal": "#20231F", "--text-muted": "#5D625B", "--interactive-accent": "#A53628", "--color-accent": "#A53628", "--h1-color": "#20231F", "--h2-color": "#A53628", "--h3-color": "#6E2A23", "--link-color": "#8B2E24", "--tag-color": "#EEE7D5", "--tag-background": "#70251D", "--blockquote-border-color": "#A53628" }, "workspace": { "--background-primary": "#EEE7D5", "--background-secondary": "#D9D0BA", "--text-normal": "#20231F", "--interactive-accent": "#A53628" } },
+      "dark": { "note": {}, "workspace": {} }
+    },
+    "assets": { "images": { "watch-mark": "images/watch-mark.svg" } }
+  }
+}
