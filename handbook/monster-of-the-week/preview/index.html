@@ -17,84 +17,91 @@
     <div class="handbook-layout">
       <section class="handbook-panel handbook-identity" data-region="character-identity">
         <span class="handbook-kicker">Livret</span><h2>The Lightkeeper</h2><p>You keep a light that has not been needed for shipping in forty years, and every night you keep it anyway. Something in the channel counts on the dark, and you are the reason it does not get it.</p>
-        <p class="handbook-stats-detail">Charm +0, Cool +2, Sharp +1, Tough +1, Weird -1 — or swap Cool and Weird.</p>
-        <div class="handbook-creation"><div class="handbook-creation__item"><h3>Why did you take the light?</h3><ul class="handbook-options"><li>It was my parent&#039;s, and they did not finish the job.</li><li>The county pays badly and asks nothing.</li><li>Something asked me not to.</li></ul></div><div class="handbook-creation__item"><h3>What is in the logbook you never show anyone?</h3><ul class="handbook-options"><li>Every night the beam caught something that was not a boat.</li><li>Names, in a hand that is not mine.</li><li>Nothing. That is the problem.</li></ul></div></div>
+<aside class="handbook-callout handbook-stats-detail" data-callout="rule"><strong>Répartition de départ</strong><p>Charm +0, Cool +2, Sharp +1, Tough +1, Weird -1 — or swap Cool and Weird.</p></aside>
+<div class="handbook-creation"><section class="handbook-creation__item" data-schema-block="creation-question"><h3>Why did you take the light?</h3><ul class="handbook-options"><li>It was my parent&#039;s, and they did not finish the job.</li><li>The county pays badly and asks nothing.</li><li>Something asked me not to.</li></ul></section><section class="handbook-creation__item" data-schema-block="creation-question"><h3>What is in the logbook you never show anyone?</h3><ul class="handbook-options"><li>Every night the beam caught something that was not a boat.</li><li>Names, in a hand that is not mine.</li><li>Nothing. That is the problem.</li></ul></section></div>
+<section class="handbook-subsection handbook-gear-list"><span class="handbook-kicker">Inventaire</span><h2>Équipement</h2><ul><li class="handbook-gear" data-schema-block="gear"><div><strong>Signal lamp</strong><small>gear</small></div><p>Hand-held, ninety minutes of battery, blinding at close range.</p><ul class="handbook-tags" aria-label="Tags"><li>light</li><li>unreliable</li></ul></li><li class="handbook-gear" data-schema-block="gear"><div><strong>Boarding axe</strong><small>weapon</small></div><span class="handbook-gear__quantity">×1</span><ul class="handbook-tags" aria-label="Tags"><li>2-harm</li><li>hand</li><li>heavy</li></ul></li><li class="handbook-gear" data-schema-block="gear"><div><strong>Bag of coarse salt</strong><small>gear</small></div><span class="handbook-gear__quantity">×2</span></li></ul></section>
       </section>
       <section class="handbook-panel handbook-playbook" data-region="playbook-moves">
         <span class="handbook-kicker">Actions</span><h2>Moves du livret</h2>
-        <article class="handbook-move" data-move="read-the-water" data-move-type="class" data-audience="character">
-    <header><span class="handbook-kicker">class</span><h3>Read the Water</h3></header>
-    <p>You have spent enough nights watching the channel to know when it is lying to you. Standing water, wet footprints, a puddle that ripples with no wind: they all answer, if you ask in the dark.</p><p class="handbook-move__trigger">When you question still water about what has passed through it, roll +Weird.</p>
-    <div class="handbook-results"><div class="handbook-result" data-result="success"><strong>10+</strong><p>Ask two of: what came through here, where did it go, what does it want, who else has asked me this? On a 12, the water shows you rather than telling you.</p></div><div class="handbook-result" data-result="partial"><strong>7-9</strong><p>Ask one of those questions. Whatever you asked about learns that you asked.</p></div><div class="handbook-result" data-result="failure"><strong>Miss</strong><p>The water answers something you did not ask, and it is about you.</p></div></div>
+<article class="handbook-move" data-move="read-the-water" data-move-type="class" data-audience="character" data-schema-block="move" data-starting-move="true">
+    <header><div><span class="handbook-kicker">class · départ</span><h3>Read the Water</h3></div><span class="handbook-roll" data-schema-block="roll">2d6 + Weird</span></header>
+    <p>You have spent enough nights watching the channel to know when it is lying to you. Standing water, wet footprints, a puddle that ripples with no wind: they all answer, if you ask in the dark.</p><aside class="handbook-callout handbook-move__trigger" data-callout="trigger"><strong>Déclencheur</strong><p>When you question still water about what has passed through it, roll +Weird.</p></aside>
+<ul class="handbook-tags" aria-label="Tags"><li>lightkeeper</li><li>ritual</li></ul>
+<div class="handbook-results"><div class="handbook-result" data-result="success" data-schema-block="result"><strong>10+</strong><p>Ask two of: what came through here, where did it go, what does it want, who else has asked me this? On a 12, the water shows you rather than telling you.</p></div><div class="handbook-result" data-result="partial" data-schema-block="result"><strong>7-9</strong><p>Ask one of those questions. Whatever you asked about learns that you asked.</p></div><div class="handbook-result" data-result="failure" data-schema-block="result"><strong>Miss</strong><p>The water answers something you did not ask, and it is about you.</p></div></div>
   </article>
-<article class="handbook-move" data-move="stand-the-watch" data-move-type="basic" data-audience="character">
-    <header><span class="handbook-kicker">basic</span><h3>Stand the Watch</h3></header>
-    <p>Someone has to stay awake while the others sleep, and the thing outside knows it.</p><p class="handbook-move__trigger">When you keep watch through the night in a place you know is not safe, roll +Cool.</p>
-    <div class="handbook-results"><div class="handbook-result" data-result="success"><strong>10+</strong><p>Nothing reaches the others, and you notice one thing about how it moves.</p></div><div class="handbook-result" data-result="partial"><strong>7-9</strong><p>Nothing reaches the others, but the watch costs you: mark harm 1 or lose your next chance to rest.</p></div><div class="handbook-result" data-result="failure"><strong>Miss</strong><p>You wake to find the watch already over, and something inside with you.</p></div></div>
+<article class="handbook-move" data-move="stand-the-watch" data-move-type="basic" data-audience="character" data-schema-block="move">
+    <header><div><span class="handbook-kicker">basic</span><h3>Stand the Watch</h3></div><span class="handbook-roll" data-schema-block="roll">2d6 + Cool</span></header>
+    <p>Someone has to stay awake while the others sleep, and the thing outside knows it.</p><aside class="handbook-callout handbook-move__trigger" data-callout="trigger"><strong>Déclencheur</strong><p>When you keep watch through the night in a place you know is not safe, roll +Cool.</p></aside>
+
+<div class="handbook-results"><div class="handbook-result" data-result="success" data-schema-block="result"><strong>10+</strong><p>Nothing reaches the others, and you notice one thing about how it moves.</p></div><div class="handbook-result" data-result="partial" data-schema-block="result"><strong>7-9</strong><p>Nothing reaches the others, but the watch costs you: mark harm 1 or lose your next chance to rest.</p></div><div class="handbook-result" data-result="failure" data-schema-block="result"><strong>Miss</strong><p>You wake to find the watch already over, and something inside with you.</p></div></div>
   </article>
-<article class="handbook-move" data-move="embedded-sightline" data-move-type="class" data-audience="character">
-    <header><span class="handbook-kicker">class</span><h3>Sightline</h3></header>
-    <p>The beam of your light is the one thing in the county nothing can stand in front of and stay hidden.</p><p class="handbook-move__trigger">When you sweep your light across a place, name what you are looking for; the Keeper tells you whether it is there.</p>
-    
+<article class="handbook-move" data-move="embedded-sightline" data-move-type="class" data-audience="character" data-schema-block="move">
+    <header><div><span class="handbook-kicker">class</span><h3>Sightline</h3></div></header>
+    <p>The beam of your light is the one thing in the county nothing can stand in front of and stay hidden.</p><aside class="handbook-callout handbook-move__trigger" data-callout="trigger"><strong>Déclencheur</strong><p>When you sweep your light across a place, name what you are looking for; the Keeper tells you whether it is there.</p></aside>
+
+
   </article>
-<article class="handbook-move" data-move="embedded-fog-sense" data-move-type="class" data-audience="character">
-    <header><span class="handbook-kicker">class</span><h3>Fog Sense</h3></header>
+<article class="handbook-move" data-move="embedded-fog-sense" data-move-type="class" data-audience="character" data-schema-block="move">
+    <header><div><span class="handbook-kicker">class</span><h3>Fog Sense</h3></div></header>
     <p>You always know how long you have before the fog closes the road. Not to the minute, but close enough to decide.</p>
-    
+
+
   </article>
-        <ul class="handbook-advancement"><li>Take another Lightkeeper move.</li><li>Take a move from another playbook.</li><li>Raise a stat by +1 (max +3).</li><li>Get a haven, or add a wing to the one you keep.</li><li>Mark two Luck.</li></ul>
+<section class="handbook-subsection handbook-choice-sets"><span class="handbook-kicker">Sélection</span><h2>Choix du livret</h2><section class="handbook-choice-set" data-choice-type="multi" data-schema-block="choice-set"><header><h3>Lightkeeper Moves</h3><span>Choix multiples</span></header><p>Choose two at creation. Read the Water is already yours.</p><ul><li class="handbook-choice" data-schema-block="choice"><span class="handbook-choice__mark" aria-hidden="true"></span><span><strong>Stand the Watch</strong><small>Progression 1</small></span></li><li class="handbook-choice" data-schema-block="choice"><span class="handbook-choice__mark" aria-hidden="true"></span><span><strong>The Lamp Room</strong><small>Disponible au départ</small></span></li><li class="handbook-choice" data-schema-block="choice"><span class="handbook-choice__mark" aria-hidden="true"></span><span><strong>Salt Line</strong><small>Progression 1</small></span></li></ul></section></section>
+<section class="handbook-subsection"><span class="handbook-kicker">Évolution</span><h2>Progression</h2><ul class="handbook-advancement"><li>Take another Lightkeeper move.</li><li>Take a move from another playbook.</li><li>Raise a stat by +1 (max +3).</li><li>Get a haven, or add a wing to the one you keep.</li><li>Mark two Luck.</li></ul></section>
       </section>
       <aside class="handbook-panel handbook-state" data-region="character-state">
         <span class="handbook-kicker">État</span><h2>Caractéristiques</h2><dl class="handbook-stats">
-    <div class="handbook-stat" data-stat="charm">
+    <div class="handbook-stat" data-stat="charm" data-schema-block="stat">
       <dt>Charm</dt><dd>0</dd>
     </div>
-    <div class="handbook-stat" data-stat="cool">
+    <div class="handbook-stat" data-stat="cool" data-schema-block="stat">
       <dt>Cool</dt><dd>2</dd>
     </div>
-    <div class="handbook-stat" data-stat="sharp">
+    <div class="handbook-stat" data-stat="sharp" data-schema-block="stat">
       <dt>Sharp</dt><dd>1</dd>
     </div>
-    <div class="handbook-stat" data-stat="tough">
+    <div class="handbook-stat" data-stat="tough" data-schema-block="stat">
       <dt>Tough</dt><dd>1</dd>
     </div>
-    <div class="handbook-stat" data-stat="weird">
+    <div class="handbook-stat" data-stat="weird" data-schema-block="stat">
       <dt>Weird</dt><dd>-1</dd>
     </div>
   </dl>
         <h2>Attributs</h2><dl class="handbook-attributes">
-    <div class="handbook-attribute" data-attribute="armour" data-attribute-type="Number">
-      <dt>Armour</dt><dd>1</dd>
+    <div class="handbook-attribute" data-attribute="armour" data-attribute-type="Number" data-schema-block="attribute">
+      <dt>Armour<small>Number</small></dt><dd><span class="handbook-attribute__value">1</span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="luck" data-attribute-type="Clock">
-      <dt>Luck</dt><dd>0</dd>
+    <div class="handbook-attribute" data-attribute="luck" data-attribute-type="Clock" data-schema-block="attribute">
+      <dt>Luck<small>Clock</small></dt><dd><span class="handbook-track" aria-label="0 sur 7"><span class="handbook-track__segments" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span><strong>0 / 7</strong></span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="harm" data-attribute-type="Clock">
-      <dt>Harm</dt><dd>0</dd>
+    <div class="handbook-attribute" data-attribute="harm" data-attribute-type="Clock" data-schema-block="attribute">
+      <dt>Harm<small>Clock</small></dt><dd><span class="handbook-track" aria-label="0 sur 7"><span class="handbook-track__segments" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span><strong>0 / 7</strong></span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="xp" data-attribute-type="Xp">
-      <dt>Experience</dt><dd>0</dd>
+    <div class="handbook-attribute" data-attribute="xp" data-attribute-type="Xp" data-schema-block="attribute">
+      <dt>Experience<small>Xp</small></dt><dd><span class="handbook-track" aria-label="0 sur 5"><span class="handbook-track__segments" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span><strong>0 / 5</strong></span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="unstable" data-attribute-type="Checkbox">
-      <dt>Unstable</dt><dd>false</dd>
+    <div class="handbook-attribute" data-attribute="unstable" data-attribute-type="Checkbox" data-schema-block="attribute">
+      <dt>Unstable<small>Checkbox</small></dt><dd><span class="handbook-check" data-checked="false" aria-label="Non coché"></span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="look" data-attribute-type="LongText">
-      <dt>Look</dt><dd>Salt-stiff coat, a torch you never turn on, hands that have been cold since 1998.</dd>
+    <div class="handbook-attribute" data-attribute="look" data-attribute-type="LongText" data-schema-block="attribute">
+      <dt>Look<small>LongText</small></dt><dd><span class="handbook-attribute__value">Salt-stiff coat, a torch you never turn on, hands that have been cold since 1998.</span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="luckSpecial" data-attribute-type="LongText">
-      <dt>Luck Special</dt><dd>When you mark your last Luck, the light goes out for good and you know it happened.</dd>
+    <div class="handbook-attribute" data-attribute="luckSpecial" data-attribute-type="LongText" data-schema-block="attribute">
+      <dt>Luck Special<small>LongText</small></dt><dd><span class="handbook-attribute__value">When you mark your last Luck, the light goes out for good and you know it happened.</span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="improvements" data-attribute-type="LongText">
-      <dt>Improvements</dt><dd>Name the hunter you called first, the night the light went out.</dd>
+    <div class="handbook-attribute" data-attribute="improvements" data-attribute-type="LongText" data-schema-block="attribute">
+      <dt>Improvements<small>LongText</small></dt><dd><span class="handbook-attribute__value">Name the hunter you called first, the night the light went out.</span></dd>
     </div>
   </dl>
       </aside>
     </div>
     <footer class="handbook-panel handbook-mc" data-region="mc-actions">
-      <span class="handbook-kicker">Référence MC</span><h2>Actions de MC</h2><article class="handbook-move" data-move="hold-the-dark" data-move-type="keeper" data-audience="mc">
-    <header><span class="handbook-kicker">keeper</span><h3>Hold the Dark</h3></header>
+      <span class="handbook-kicker">Référence MC</span><h2>Actions de MC</h2><article class="handbook-move" data-move="hold-the-dark" data-move-type="keeper" data-audience="mc" data-schema-block="move">
+    <header><div><span class="handbook-kicker">keeper</span><h3>Hold the Dark</h3></div></header>
     <p>Bring the danger closer, reveal what the hunters overlooked, or make safety cost something.</p>
-    
+
+
   </article>
     </footer>
   </main>

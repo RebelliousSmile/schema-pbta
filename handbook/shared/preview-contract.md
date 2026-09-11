@@ -19,8 +19,17 @@ Chaque `preview/preview.toml` contient uniquement l’identifiant du jeu, les sl
 | `.handbook-result[data-result]` | Résultat nommé d’un move. |
 | `.handbook-stat[data-stat]` | Stat canonique. |
 | `.handbook-attribute[data-attribute][data-attribute-type]` | Attribut canonique. |
+| `[data-schema-block="roll"]` | Formule ou caractéristique utilisée par le jet. |
+| `[data-schema-block="choice-set"]` | Groupe de choix simple ou multiple du livret. |
+| `[data-schema-block="creation-question"]` | Question structurée de création. |
+| `[data-schema-block="gear"]` | Équipement avec quantité, type et tags éventuels. |
+| `.handbook-callout[data-callout="rule"]` | Règle de création ou répartition de départ. |
+| `.handbook-callout[data-callout="trigger"]` | Déclencheur mécanique isolé de la description. |
+| `.handbook-callout[data-callout="choice"]` | Instructions de choix attachées à un move. |
 
 Une donnée optionnelle absente n’entraîne pas l’invention d’une valeur. Une collection vide peut être omise ; la région MC reste visible avec un état explicite lorsqu’aucune action n’est sélectionnée.
+
+Les blocs visuels représentent la forme des données sans devenir des contrôles d’édition. Les carrés, segments de jauge et marqueurs de choix sont décoratifs dans l’aperçu ; leur valeur accessible reste portée par le texte et les attributs `aria-label`. Un thème peut modifier leur apparence, jamais leur sens ni leurs attributs `data-*`.
 
 ## Surface d’édition Lantern
 

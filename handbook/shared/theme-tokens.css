@@ -11,6 +11,10 @@
   --hb-body: system-ui, sans-serif;
   --hb-display: Georgia, serif;
   --hb-texture: none;
+  --hb-surface: color-mix(in srgb, var(--hb-paper), var(--hb-ink) 3%);
+  --hb-surface-strong: color-mix(in srgb, var(--hb-paper), var(--hb-ink) 8%);
+  --hb-accent-soft: color-mix(in srgb, var(--hb-paper), var(--hb-accent) 11%);
+  --hb-focus: color-mix(in srgb, var(--hb-accent), white 20%);
 }
 
 .handbook-sheet {

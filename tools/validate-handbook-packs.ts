@@ -230,6 +230,9 @@ function validateHtml(file: string, game: string): void {
   for (const region of regions) {
     if (!html.includes(`data-region="${region}"`)) errors.push(`${game}: generated preview misses region ${region}`);
   }
+  for (const block of ["move", "stat", "attribute"]) {
+    if (!html.includes(`data-schema-block="${block}"`)) errors.push(`${game}: generated preview misses schema block ${block}`);
+  }
   if (!html.includes(`data-game="${game}"`)) errors.push(`${game}: generated preview has the wrong data-game`);
   for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
     const reference = match[1];

@@ -17,77 +17,82 @@
     <div class="handbook-layout">
       <section class="handbook-panel handbook-identity" data-region="character-identity">
         <span class="handbook-kicker">Livret</span><h2>Le Veilleur</h2><p>Tu repères les sorties, les caméras et les mensonges avant que le reste de l’équipe entre.</p>
-        <p class="handbook-stats-detail">Cran +1, Pro +2, Chair +0, Esprit +1, Style -1, Synth +0.</p>
-        <div class="handbook-creation"><div class="handbook-creation__item"><h3>Qui t’a appris à surveiller les issues ?</h3><ul class="handbook-options"><li>Une équipe disparue</li><li>Une corpo</li><li>Une personne que tu protèges encore</li></ul></div></div>
+<aside class="handbook-callout handbook-stats-detail" data-callout="rule"><strong>Répartition de départ</strong><p>Cran +1, Pro +2, Chair +0, Esprit +1, Style -1, Synth +0.</p></aside>
+<div class="handbook-creation"><section class="handbook-creation__item" data-schema-block="creation-question"><h3>Qui t’a appris à surveiller les issues ?</h3><ul class="handbook-options"><li>Une équipe disparue</li><li>Une corpo</li><li>Une personne que tu protèges encore</li></ul></section></div>
+
       </section>
       <section class="handbook-panel handbook-playbook" data-region="playbook-moves">
         <span class="handbook-kicker">Actions</span><h2>Moves du livret</h2>
-        <article class="handbook-move" data-move="evaluer-la-zone" data-move-type="basic" data-audience="character">
-    <header><span class="handbook-kicker">basic</span><h3>Évaluer la zone</h3></header>
-    <p>Identifier les points de contrôle et les angles morts avant que l’équipe ne s’engage.</p><p class="handbook-move__trigger">Quand tu observes une zone sous pression, lance avec Pro.</p>
-    <div class="handbook-results"><div class="handbook-result" data-result="success"><strong>10+</strong><p>Gagne trois retenues pour exploiter les détails repérés.</p></div><div class="handbook-result" data-result="partial"><strong>7-9</strong><p>Gagne une retenue et attire une attention indésirable.</p></div></div>
+<article class="handbook-move" data-move="evaluer-la-zone" data-move-type="basic" data-audience="character" data-schema-block="move" data-starting-move="true">
+    <header><div><span class="handbook-kicker">basic · départ</span><h3>Évaluer la zone</h3></div><span class="handbook-roll" data-schema-block="roll">2d6 + Pro</span></header>
+    <p>Identifier les points de contrôle et les angles morts avant que l’équipe ne s’engage.</p><aside class="handbook-callout handbook-move__trigger" data-callout="trigger"><strong>Déclencheur</strong><p>Quand tu observes une zone sous pression, lance avec Pro.</p></aside>
+
+<div class="handbook-results"><div class="handbook-result" data-result="success" data-schema-block="result"><strong>10+</strong><p>Gagne trois retenues pour exploiter les détails repérés.</p></div><div class="handbook-result" data-result="partial" data-schema-block="result"><strong>7-9</strong><p>Gagne une retenue et attire une attention indésirable.</p></div></div>
   </article>
-<article class="handbook-move" data-move="embedded-toujours-une-sortie" data-move-type="playbook" data-audience="character">
-    <header><span class="handbook-kicker">playbook</span><h3>Toujours une sortie</h3></header>
+<article class="handbook-move" data-move="embedded-toujours-une-sortie" data-move-type="playbook" data-audience="character" data-schema-block="move">
+    <header><div><span class="handbook-kicker">playbook</span><h3>Toujours une sortie</h3></div></header>
     <p>Quand la situation bascule, tu sais quel passage est encore praticable.</p>
-    
+
+
   </article>
-        <ul class="handbook-advancement"><li>Choisis une autre Manœuvre de ton Livret.</li><li>Augmente une stat de +1.</li></ul>
+
+<section class="handbook-subsection"><span class="handbook-kicker">Évolution</span><h2>Progression</h2><ul class="handbook-advancement"><li>Choisis une autre Manœuvre de ton Livret.</li><li>Augmente une stat de +1.</li></ul></section>
       </section>
       <aside class="handbook-panel handbook-state" data-region="character-state">
         <span class="handbook-kicker">État</span><h2>Caractéristiques</h2><dl class="handbook-stats">
-    <div class="handbook-stat" data-stat="cool">
+    <div class="handbook-stat" data-stat="cool" data-schema-block="stat">
       <dt>Cran</dt><dd>1</dd>
     </div>
-    <div class="handbook-stat" data-stat="edge">
+    <div class="handbook-stat" data-stat="edge" data-schema-block="stat">
       <dt>Pro</dt><dd>2</dd>
     </div>
-    <div class="handbook-stat" data-stat="meat">
+    <div class="handbook-stat" data-stat="meat" data-schema-block="stat">
       <dt>Chair</dt><dd>0</dd>
     </div>
-    <div class="handbook-stat" data-stat="mind">
+    <div class="handbook-stat" data-stat="mind" data-schema-block="stat">
       <dt>Esprit</dt><dd>1</dd>
     </div>
-    <div class="handbook-stat" data-stat="style">
+    <div class="handbook-stat" data-stat="style" data-schema-block="stat">
       <dt>Style</dt><dd>-1</dd>
     </div>
-    <div class="handbook-stat" data-stat="synth">
+    <div class="handbook-stat" data-stat="synth" data-schema-block="stat">
       <dt>Synth</dt><dd>0</dd>
     </div>
   </dl>
         <h2>Attributs</h2><dl class="handbook-attributes">
-    <div class="handbook-attribute" data-attribute="harm" data-attribute-type="Clock">
-      <dt>Horloge de dégâts</dt><dd>0</dd>
+    <div class="handbook-attribute" data-attribute="harm" data-attribute-type="Clock" data-schema-block="attribute">
+      <dt>Horloge de dégâts<small>Clock</small></dt><dd><span class="handbook-track" aria-label="0 sur 6"><span class="handbook-track__segments" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span><strong>0 / 6</strong></span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="xp" data-attribute-type="Xp">
-      <dt>XP</dt><dd>0</dd>
+    <div class="handbook-attribute" data-attribute="xp" data-attribute-type="Xp" data-schema-block="attribute">
+      <dt>XP<small>Xp</small></dt><dd><span class="handbook-track" aria-label="0 sur 10"><span class="handbook-track__segments" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span><strong>0 / 10</strong></span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="armour" data-attribute-type="Number">
-      <dt>Armure</dt><dd>0</dd>
+    <div class="handbook-attribute" data-attribute="armour" data-attribute-type="Number" data-schema-block="attribute">
+      <dt>Armure<small>Number</small></dt><dd><span class="handbook-attribute__value">0</span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="intel" data-attribute-type="Resource">
-      <dt>Info</dt><dd>0</dd>
+    <div class="handbook-attribute" data-attribute="intel" data-attribute-type="Resource" data-schema-block="attribute">
+      <dt>Info<small>Resource</small></dt><dd><span class="handbook-track" aria-label="0 sur une valeur non bornée"><span class="handbook-track__segments" aria-hidden="true"><span></span></span><strong>0</strong></span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="gear" data-attribute-type="Resource">
-      <dt>Matos</dt><dd>0</dd>
+    <div class="handbook-attribute" data-attribute="gear" data-attribute-type="Resource" data-schema-block="attribute">
+      <dt>Matos<small>Resource</small></dt><dd><span class="handbook-track" aria-label="0 sur une valeur non bornée"><span class="handbook-track__segments" aria-hidden="true"><span></span></span><strong>0</strong></span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="cred" data-attribute-type="Resource">
-      <dt>Cred</dt><dd>5</dd>
+    <div class="handbook-attribute" data-attribute="cred" data-attribute-type="Resource" data-schema-block="attribute">
+      <dt>Cred<small>Resource</small></dt><dd><span class="handbook-track" aria-label="5 sur une valeur non bornée"><span class="handbook-track__segments" aria-hidden="true"><span data-filled="true"></span><span data-filled="true"></span><span data-filled="true"></span><span data-filled="true"></span><span data-filled="true"></span></span><strong>5</strong></span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="directives" data-attribute-type="ListMany">
-      <dt>Directives</dt><dd>Ne laisse personne derrière toi.</dd>
+    <div class="handbook-attribute" data-attribute="directives" data-attribute-type="ListMany" data-schema-block="attribute">
+      <dt>Directives<small>ListMany</small></dt><dd><ul class="handbook-value-list"><li>Ne laisse personne derrière toi.</li></ul></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="cyberware" data-attribute-type="LongText">
-      <dt>Cybernétique</dt><dd>Optiques à spectre variable et liaison tactique.</dd>
+    <div class="handbook-attribute" data-attribute="cyberware" data-attribute-type="LongText" data-schema-block="attribute">
+      <dt>Cybernétique<small>LongText</small></dt><dd><span class="handbook-attribute__value">Optiques à spectre variable et liaison tactique.</span></dd>
     </div>
   </dl>
       </aside>
     </div>
     <footer class="handbook-panel handbook-mc" data-region="mc-actions">
-      <span class="handbook-kicker">Référence MC</span><h2>Actions de MC</h2><article class="handbook-move" data-move="fermer-la-nasse" data-move-type="mc" data-audience="mc">
-    <header><span class="handbook-kicker">mc</span><h3>Fermer la nasse</h3></header>
+      <span class="handbook-kicker">Référence MC</span><h2>Actions de MC</h2><article class="handbook-move" data-move="fermer-la-nasse" data-move-type="mc" data-audience="mc" data-schema-block="move">
+    <header><div><span class="handbook-kicker">mc</span><h3>Fermer la nasse</h3></div></header>
     <p>Fais converger une menace corporatiste et un problème déjà établi.</p>
-    
+
+
   </article>
     </footer>
   </main>

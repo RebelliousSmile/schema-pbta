@@ -19,61 +19,72 @@
         <span class="handbook-kicker">Livret</span><h2>The Ember</h2><p>Something burned in your house and you were the only one who walked out warm.
 
 You are the last heat of a thing that ended. People treat you as a memorial, and you are trying very hard to be a person instead.</p>
-        <p class="handbook-stats-detail">Choose one spread, or move one point from any stat to another.</p>
-        <div class="handbook-creation"><div class="handbook-creation__item"><h3>What did the fire take?</h3><ul class="handbook-options"><li>A building everyone in the city can name.</li><li>A person only you remember.</li><li>The version of you that had plans.</li></ul></div><div class="handbook-creation__item"><h3>Who pulled you out?</h3><ul class="handbook-options"><li>A stranger who never gave a name.</li><li>Someone on your team, who will not talk about it.</li><li>Nobody. You walked.</li></ul></div></div>
+<aside class="handbook-callout handbook-stats-detail" data-callout="rule"><strong>Répartition de départ</strong><p>Choose one spread, or move one point from any stat to another.</p></aside>
+<div class="handbook-creation"><section class="handbook-creation__item" data-schema-block="creation-question"><h3>What did the fire take?</h3><ul class="handbook-options"><li>A building everyone in the city can name.</li><li>A person only you remember.</li><li>The version of you that had plans.</li></ul></section><section class="handbook-creation__item" data-schema-block="creation-question"><h3>Who pulled you out?</h3><ul class="handbook-options"><li>A stranger who never gave a name.</li><li>Someone on your team, who will not talk about it.</li><li>Nobody. You walked.</li></ul></section></div>
+<section class="handbook-subsection handbook-gear-list"><span class="handbook-kicker">Inventaire</span><h2>Équipement</h2><ul><li class="handbook-gear" data-schema-block="gear"><div><strong>Coat that never quite dries</strong><small>gear</small></div><p>Heavy, scorched at the hem, the only thing you kept.</p><ul class="handbook-tags" aria-label="Tags"><li>signature</li></ul></li><li class="handbook-gear" data-schema-block="gear"><div><strong>Thermometer, cracked</strong></div></li></ul></section>
       </section>
       <section class="handbook-panel handbook-playbook" data-region="playbook-moves">
         <span class="handbook-kicker">Actions</span><h2>Moves du livret</h2>
-        <article class="handbook-move" data-move="borrowed-nerve" data-move-type="playbook" data-audience="character">
-    <header><span class="handbook-kicker">playbook</span><h3>Borrowed Nerve</h3></header>
+<article class="handbook-move" data-move="borrowed-nerve" data-move-type="playbook" data-audience="character" data-schema-block="move" data-starting-move="true">
+    <header><div><span class="handbook-kicker">playbook · départ</span><h3>Borrowed Nerve</h3></div></header>
     <p>You are braver on someone else&#039;s behalf than you have ever been on your own.
 
-This is not courage you own. It is lent, and the lender can call it back.</p><p class="handbook-move__trigger">When you act on a promise you made to someone who holds Influence over you, take +1 forward.</p>
-    
+This is not courage you own. It is lent, and the lender can call it back.</p><aside class="handbook-callout handbook-move__trigger" data-callout="trigger"><strong>Déclencheur</strong><p>When you act on a promise you made to someone who holds Influence over you, take +1 forward.</p></aside>
+<aside class="handbook-callout handbook-move__choices" data-callout="choice"><strong>Choix</strong><p>Choose who lent you the nerve:
+
+- someone who has Influence over you, and gets to say later whether you spent it well;
+- someone who does not, in which case you spend a condition instead of a use.</p></aside><span class="handbook-uses" aria-label="3 utilisations"><span class="handbook-uses__pips" aria-hidden="true"><span data-filled="true"></span><span data-filled="true"></span><span data-filled="true"></span></span><small>3 utilisations</small></span><ul class="handbook-tags" aria-label="Tags"><li>playbook</li><li>influence</li></ul>
+
   </article>
-<article class="handbook-move" data-move="hold-the-line" data-move-type="basic" data-audience="character">
-    <header><span class="handbook-kicker">basic</span><h3>Hold the Line</h3></header>
+<article class="handbook-move" data-move="hold-the-line" data-move-type="basic" data-audience="character" data-schema-block="move">
+    <header><div><span class="handbook-kicker">basic</span><h3>Hold the Line</h3></div><span class="handbook-roll" data-schema-block="roll">2d6 + Danger</span></header>
     <p>Standing your ground is a claim about who you are, and the city will test it.
 
-When you hold the line you are not attacking, and you are not hiding. You are telling everyone watching where the edge of the fight is.</p><p class="handbook-move__trigger">When you plant yourself between danger and someone who cannot take the hit, roll + Danger.</p>
-    <div class="handbook-results"><div class="handbook-result" data-result="failure"><strong>Miss</strong><p>The line breaks somewhere you were not looking. Mark a condition, and the GM says who got through.</p></div><div class="handbook-result" data-result="partial"><strong>Mixed success</strong><p>You hold, but only by giving something up. Choose one: you take the blow meant for them and mark a condition, or the line holds and something behind you is wrecked.</p></div><div class="handbook-result" data-result="success"><strong>Full success</strong><p>Nothing gets past you. Take Influence over anyone who watched you do it, and clear a condition if this is the person you swore to protect.</p></div></div>
+When you hold the line you are not attacking, and you are not hiding. You are telling everyone watching where the edge of the fight is.</p><aside class="handbook-callout handbook-move__trigger" data-callout="trigger"><strong>Déclencheur</strong><p>When you plant yourself between danger and someone who cannot take the hit, roll + Danger.</p></aside>
+<ul class="handbook-tags" aria-label="Tags"><li>defense</li><li>team</li></ul>
+<div class="handbook-results"><div class="handbook-result" data-result="failure" data-schema-block="result"><strong>Miss</strong><p>The line breaks somewhere you were not looking. Mark a condition, and the GM says who got through.</p></div><div class="handbook-result" data-result="partial" data-schema-block="result"><strong>Mixed success</strong><p>You hold, but only by giving something up. Choose one: you take the blow meant for them and mark a condition, or the line holds and something behind you is wrecked.</p></div><div class="handbook-result" data-result="success" data-schema-block="result"><strong>Full success</strong><p>Nothing gets past you. Take Influence over anyone who watched you do it, and clear a condition if this is the person you swore to protect.</p></div></div>
   </article>
-<article class="handbook-move" data-move="embedded-bank-the-coals" data-move-type="playbook" data-audience="character">
-    <header><span class="handbook-kicker">playbook</span><h3>Bank the Coals</h3></header>
+<article class="handbook-move" data-move="embedded-bank-the-coals" data-move-type="playbook" data-audience="character" data-schema-block="move">
+    <header><div><span class="handbook-kicker">playbook</span><h3>Bank the Coals</h3></div></header>
     <p>You can put yourself out, briefly, and nobody likes what is underneath.
 
-Going cold is not rest. It is a debt taken against the next time you need to be warm.</p><p class="handbook-move__trigger">When you deliberately go cold to pass for ordinary, you may hold your heat until the end of the scene.</p>
-    
+Going cold is not rest. It is a debt taken against the next time you need to be warm.</p><aside class="handbook-callout handbook-move__trigger" data-callout="trigger"><strong>Déclencheur</strong><p>When you deliberately go cold to pass for ordinary, you may hold your heat until the end of the scene.</p></aside>
+<aside class="handbook-callout handbook-move__choices" data-callout="choice"><strong>Choix</strong><p>While you are cold, choose one:
+
+- nobody reads you as powered, and you take -1 to Freak;
+- you keep your powers, and someone present notices exactly what you are.</p></aside><ul class="handbook-tags" aria-label="Tags"><li>playbook</li><li>identity</li></ul>
+
   </article>
-        <ul class="handbook-advancement"><li>Take another move from your playbook.</li><li>Take a move from another playbook.</li><li>Unlock your Moment of Truth.</li><li>Change your hero name and your look.</li></ul>
+<section class="handbook-subsection handbook-choice-sets"><span class="handbook-kicker">Sélection</span><h2>Choix du livret</h2><section class="handbook-choice-set" data-choice-type="multi" data-schema-block="choice-set"><header><h3>Starting moves</h3><span>Choix multiples</span></header><p>Choose two, and note which one you would give back first.</p><ul><li class="handbook-choice" data-schema-block="choice"><span class="handbook-choice__mark" aria-hidden="true"></span><span><strong>Borrowed Nerve</strong><small>Disponible au départ</small></span></li><li class="handbook-choice" data-schema-block="choice"><span class="handbook-choice__mark" aria-hidden="true"></span><span><strong>Read the Room by Its Heat</strong><small>Progression 1</small></span></li></ul></section></section>
+<section class="handbook-subsection"><span class="handbook-kicker">Évolution</span><h2>Progression</h2><ul class="handbook-advancement"><li>Take another move from your playbook.</li><li>Take a move from another playbook.</li><li>Unlock your Moment of Truth.</li><li>Change your hero name and your look.</li></ul></section>
       </section>
       <aside class="handbook-panel handbook-state" data-region="character-state">
         <span class="handbook-kicker">État</span><h2>Caractéristiques</h2><dl class="handbook-stats">
-    <div class="handbook-stat" data-stat="danger">
+    <div class="handbook-stat" data-stat="danger" data-schema-block="stat">
       <dt>Danger</dt><dd>1</dd>
     </div>
-    <div class="handbook-stat" data-stat="freak">
+    <div class="handbook-stat" data-stat="freak" data-schema-block="stat">
       <dt>Freak</dt><dd>2</dd>
     </div>
-    <div class="handbook-stat" data-stat="savior">
+    <div class="handbook-stat" data-stat="savior" data-schema-block="stat">
       <dt>Savior</dt><dd>0</dd>
     </div>
-    <div class="handbook-stat" data-stat="superior">
+    <div class="handbook-stat" data-stat="superior" data-schema-block="stat">
       <dt>Superior</dt><dd>1</dd>
     </div>
-    <div class="handbook-stat" data-stat="mundane">
+    <div class="handbook-stat" data-stat="mundane" data-schema-block="stat">
       <dt>Mundane</dt><dd>-1</dd>
     </div>
   </dl>
         <h2>Attributs</h2><dl class="handbook-attributes">
-    <div class="handbook-attribute" data-attribute="look" data-attribute-type="LongText">
-      <dt>Look</dt><dd>Warm to the touch, dressed for a colder season, always slightly out of breath.</dd>
+    <div class="handbook-attribute" data-attribute="look" data-attribute-type="LongText" data-schema-block="attribute">
+      <dt>Look<small>LongText</small></dt><dd><span class="handbook-attribute__value">Warm to the touch, dressed for a colder season, always slightly out of breath.</span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="abilities" data-attribute-type="LongText">
-      <dt>Abilities</dt><dd>You give off heat you cannot switch off, and you can pull it back into yourself for a moment at a cost.</dd>
+    <div class="handbook-attribute" data-attribute="abilities" data-attribute-type="LongText" data-schema-block="attribute">
+      <dt>Abilities<small>LongText</small></dt><dd><span class="handbook-attribute__value">You give off heat you cannot switch off, and you can pull it back into yourself for a moment at a cost.</span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="influence" data-attribute-type="LongText">
-      <dt>Influence</dt><dd>The person who pulled you out of the fire holds Influence over you.</dd>
+    <div class="handbook-attribute" data-attribute="influence" data-attribute-type="LongText" data-schema-block="attribute">
+      <dt>Influence<small>LongText</small></dt><dd><span class="handbook-attribute__value">The person who pulled you out of the fire holds Influence over you.</span></dd>
     </div>
   </dl>
       </aside>

@@ -17,68 +17,73 @@
     <div class="handbook-layout">
       <section class="handbook-panel handbook-identity" data-region="character-identity">
         <span class="handbook-kicker">Livret</span><h2>La Noyée</h2><p>Tu es revenue du lac avec une voix plus calme et des souvenirs qui ne sont pas tous les tiens.</p>
-        <p class="handbook-stats-detail">Sexy +1, Glacial +2, Impulsif -1, Ténébreux +0.</p>
-        <div class="handbook-creation"><div class="handbook-creation__item"><h3>Qu’as-tu laissé au fond du lac ?</h3><ul class="handbook-options"><li>Un souvenir</li><li>Une promesse</li><li>Une autre version de toi</li></ul></div></div>
+<aside class="handbook-callout handbook-stats-detail" data-callout="rule"><strong>Répartition de départ</strong><p>Sexy +1, Glacial +2, Impulsif -1, Ténébreux +0.</p></aside>
+<div class="handbook-creation"><section class="handbook-creation__item" data-schema-block="creation-question"><h3>Qu’as-tu laissé au fond du lac ?</h3><ul class="handbook-options"><li>Un souvenir</li><li>Une promesse</li><li>Une autre version de toi</li></ul></section></div>
+
       </section>
       <section class="handbook-panel handbook-playbook" data-region="playbook-moves">
         <span class="handbook-kicker">Actions</span><h2>Moves du livret</h2>
-        <article class="handbook-move" data-move="garder-la-face" data-move-type="basic" data-audience="character">
-    <header><span class="handbook-kicker">basic</span><h3>Garder la face</h3></header>
-    <p>Résister à la pression sociale sans laisser voir ce qu’elle provoque.</p><p class="handbook-move__trigger">Quand tu caches une émotion qui pourrait te trahir, lance avec Glacial.</p>
-    <div class="handbook-results"><div class="handbook-result" data-result="success"><strong>10+</strong><p>Tu gardes le contrôle et choisis qui remarque la tension.</p></div><div class="handbook-result" data-result="partial"><strong>7-9</strong><p>Tu tiens bon, mais la MC introduit un coût social.</p></div></div>
+<article class="handbook-move" data-move="garder-la-face" data-move-type="basic" data-audience="character" data-schema-block="move" data-starting-move="true">
+    <header><div><span class="handbook-kicker">basic · départ</span><h3>Garder la face</h3></div><span class="handbook-roll" data-schema-block="roll">2d6 + Glacial</span></header>
+    <p>Résister à la pression sociale sans laisser voir ce qu’elle provoque.</p><aside class="handbook-callout handbook-move__trigger" data-callout="trigger"><strong>Déclencheur</strong><p>Quand tu caches une émotion qui pourrait te trahir, lance avec Glacial.</p></aside>
+
+<div class="handbook-results"><div class="handbook-result" data-result="success" data-schema-block="result"><strong>10+</strong><p>Tu gardes le contrôle et choisis qui remarque la tension.</p></div><div class="handbook-result" data-result="partial" data-schema-block="result"><strong>7-9</strong><p>Tu tiens bon, mais la MC introduit un coût social.</p></div></div>
   </article>
-<article class="handbook-move" data-move="embedded--couter-sous-la-surface" data-move-type="skin" data-audience="character">
-    <header><span class="handbook-kicker">skin</span><h3>Écouter sous la surface</h3></header>
-    <p>Le silence te livre des fragments de ce que les autres taisent.</p><p class="handbook-move__trigger">Quand tu restes immobile au bord de l’eau, lance avec Ténébreux.</p>
-    
+<article class="handbook-move" data-move="embedded-ecouter-sous-la-surface" data-move-type="skin" data-audience="character" data-schema-block="move">
+    <header><div><span class="handbook-kicker">skin</span><h3>Écouter sous la surface</h3></div></header>
+    <p>Le silence te livre des fragments de ce que les autres taisent.</p><aside class="handbook-callout handbook-move__trigger" data-callout="trigger"><strong>Déclencheur</strong><p>Quand tu restes immobile au bord de l’eau, lance avec Ténébreux.</p></aside>
+
+
   </article>
-        <ul class="handbook-advancement"><li>Prends une autre action de ta mue.</li><li>Augmente une caractéristique de +1.</li></ul>
+
+<section class="handbook-subsection"><span class="handbook-kicker">Évolution</span><h2>Progression</h2><ul class="handbook-advancement"><li>Prends une autre action de ta mue.</li><li>Augmente une caractéristique de +1.</li></ul></section>
       </section>
       <aside class="handbook-panel handbook-state" data-region="character-state">
         <span class="handbook-kicker">État</span><h2>Caractéristiques</h2><dl class="handbook-stats">
-    <div class="handbook-stat" data-stat="hot">
+    <div class="handbook-stat" data-stat="hot" data-schema-block="stat">
       <dt>Sexy</dt><dd>1</dd>
     </div>
-    <div class="handbook-stat" data-stat="cold">
+    <div class="handbook-stat" data-stat="cold" data-schema-block="stat">
       <dt>Glacial</dt><dd>2</dd>
     </div>
-    <div class="handbook-stat" data-stat="volatile">
+    <div class="handbook-stat" data-stat="volatile" data-schema-block="stat">
       <dt>Impulsif</dt><dd>-1</dd>
     </div>
-    <div class="handbook-stat" data-stat="dark">
+    <div class="handbook-stat" data-stat="dark" data-schema-block="stat">
       <dt>Ténébreux</dt><dd>0</dd>
     </div>
   </dl>
         <h2>Attributs</h2><dl class="handbook-attributes">
-    <div class="handbook-attribute" data-attribute="harm" data-attribute-type="Clock">
-      <dt>Dégâts</dt><dd>0</dd>
+    <div class="handbook-attribute" data-attribute="harm" data-attribute-type="Clock" data-schema-block="attribute">
+      <dt>Dégâts<small>Clock</small></dt><dd><span class="handbook-track" aria-label="0 sur 4"><span class="handbook-track__segments" aria-hidden="true"><span></span><span></span><span></span><span></span></span><strong>0 / 4</strong></span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="xp" data-attribute-type="Xp">
-      <dt>Expérience</dt><dd>0</dd>
+    <div class="handbook-attribute" data-attribute="xp" data-attribute-type="Xp" data-schema-block="attribute">
+      <dt>Expérience<small>Xp</small></dt><dd><span class="handbook-track" aria-label="0 sur 5"><span class="handbook-track__segments" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span><strong>0 / 5</strong></span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="strings" data-attribute-type="ListMany">
-      <dt>Ascendants</dt><dd>—</dd>
+    <div class="handbook-attribute" data-attribute="strings" data-attribute-type="ListMany" data-schema-block="attribute">
+      <dt>Ascendants<small>ListMany</small></dt><dd><span class="handbook-empty-value">À compléter</span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="conditions" data-attribute-type="ListMany">
-      <dt>Conditions</dt><dd>—</dd>
+    <div class="handbook-attribute" data-attribute="conditions" data-attribute-type="ListMany" data-schema-block="attribute">
+      <dt>Conditions<small>ListMany</small></dt><dd><span class="handbook-empty-value">À compléter</span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="darkestSelf" data-attribute-type="LongText">
-      <dt>Démon intérieur</dt><dd>Le lac réclame une vérité que tu as refusé de lui donner.</dd>
+    <div class="handbook-attribute" data-attribute="darkestSelf" data-attribute-type="LongText" data-schema-block="attribute">
+      <dt>Démon intérieur<small>LongText</small></dt><dd><span class="handbook-attribute__value">Le lac réclame une vérité que tu as refusé de lui donner.</span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="look" data-attribute-type="LongText">
-      <dt>Identité</dt><dd>Vêtements toujours humides, regard immobile.</dd>
+    <div class="handbook-attribute" data-attribute="look" data-attribute-type="LongText" data-schema-block="attribute">
+      <dt>Identité<small>LongText</small></dt><dd><span class="handbook-attribute__value">Vêtements toujours humides, regard immobile.</span></dd>
     </div>
-    <div class="handbook-attribute" data-attribute="clique" data-attribute-type="ListMany">
-      <dt>Clique</dt><dd>—</dd>
+    <div class="handbook-attribute" data-attribute="clique" data-attribute-type="ListMany" data-schema-block="attribute">
+      <dt>Clique<small>ListMany</small></dt><dd><span class="handbook-empty-value">À compléter</span></dd>
     </div>
   </dl>
       </aside>
     </div>
     <footer class="handbook-panel handbook-mc" data-region="mc-actions">
-      <span class="handbook-kicker">Référence MC</span><h2>Actions de MC</h2><article class="handbook-move" data-move="faire-remonter-le-manque" data-move-type="reaction" data-audience="mc">
-    <header><span class="handbook-kicker">reaction</span><h3>Faire remonter le manque</h3></header>
+      <span class="handbook-kicker">Référence MC</span><h2>Actions de MC</h2><article class="handbook-move" data-move="faire-remonter-le-manque" data-move-type="reaction" data-audience="mc" data-schema-block="move">
+    <header><div><span class="handbook-kicker">reaction</span><h3>Faire remonter le manque</h3></div></header>
     <p>Rappeler à quelqu’un ce qu’il désire et ce qu’il risque de perdre.</p>
-    
+
+
   </article>
     </footer>
   </main>
