@@ -21,3 +21,18 @@ Run the corpus together with the structural schema checks:
 npm run audit
 ```
 
+## Portable TOML contract
+
+`contract/cases.json` is the machine-readable suite shared with Handbook and
+Lantern. Each entry names a TOML file, one of the five public document targets,
+and whether the canonical codec must accept or reject it. Consumers must read
+the manifest rather than infer cases from filenames.
+
+The accepted cases are compared as normalized values after
+`parse -> stringify -> parse`; their TOML is also parsed independently with
+`smol-toml` and `@iarna/toml`. Formatting differences are allowed, value
+differences are not. Run the portable suite with:
+
+```bash
+npm run validate:contract
+```

@@ -1,0 +1,13 @@
+slug = "patient-messenger"
+name = "Patient Messenger"
+game = "contract-game"
+description = "A courier who carries one canonical document between every tool."
+tags = []
+drive = "Deliver the whole value without interpretation."
+moves = []
+
+[attributes]
+ready = false
+reserve = 0
+notes = "Nothing omitted."
+"quoted key" = ["alpha", "beta"]

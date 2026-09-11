@@ -1,0 +1,6 @@
+slug = "broken-move"
+name = "Broken Move"
+game = "contract-game"
+moveType = "basic"
+description = "This document has one unknown root field."
+unexpected = true

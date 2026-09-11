@@ -1,0 +1,15 @@
+game = "broken-contract"
+name = "Broken Contract"
+version = "1.0.0"
+rollFormula = "2d6"
+unexpected = true
+
+[rollResults.success]
+range = "10+"
+label = "Success"
+
+[character.stats]
+edge = "Edge"
+
+[character.moveTypes]
+basic = "Basic moves"

@@ -1,0 +1,28 @@
+slug = "keep-the-shape"
+name = "Keep the Shape"
+game = "contract-game"
+moveType = "basic"
+audience = "character"
+playbook = "contract-keeper"
+description = "Compare meaning across tools, even when their formatting differs."
+trigger = "When a document crosses a tool boundary."
+uses = 0
+choices = "Choose one field that must remain visible."
+tags = []
+
+[roll]
+rollType = "edge"
+rollFormula = "2d6"
+rollMod = 0
+
+[results.failure]
+label = "Setback"
+text = "Name the divergence and preserve the original."
+
+[results.partial]
+label = "Complication"
+text = "The value survives, but its presentation needs attention."
+
+[results.success]
+label = "Breakthrough"
+text = "The normalized value is unchanged."

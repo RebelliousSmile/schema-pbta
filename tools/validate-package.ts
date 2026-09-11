@@ -92,6 +92,18 @@ assert.throws(() =>
   PBTA_DOCUMENT_CODECS.playbook.parseToml(playbookSource + "\\nunexpected = true\\n")
 );
 
+const casesUrl = import.meta.resolve("schema-pbta/corpus/cases.json");
+const cases = JSON.parse(fs.readFileSync(new URL(casesUrl), "utf8"));
+assert.equal(cases.tomlVersion, PBTA_TOML_VERSION);
+for (const testCase of cases.cases) {
+  const caseUrl = import.meta.resolve("schema-pbta/corpus/" + testCase.path);
+  const source = fs.readFileSync(new URL(caseUrl), "utf8");
+  const codec = PBTA_DOCUMENT_CODECS[testCase.target];
+  assert.ok(codec, "missing codec for " + testCase.target);
+  if (testCase.expect === "accept") codec.parseToml(source);
+  else assert.throws(() => codec.parseToml(source));
+}
+
 await assert.rejects(
   import("schema-pbta/codecs/toml.js"),
   (error) => error?.code === "ERR_PACKAGE_PATH_NOT_EXPORTED",

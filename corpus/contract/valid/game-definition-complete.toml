@@ -1,0 +1,94 @@
+game = "contract-game"
+name = "Contract Game"
+version = "1.0.0"
+source = "Original interoperability fixture."
+rollFormula = "2d6"
+minMod = -3
+maxMod = 4
+
+[rollResults.failure]
+range = "6-"
+label = "Setback"
+
+[rollResults.partial]
+range = "7-9"
+label = "Complication"
+
+[rollResults.success]
+range = "10+"
+label = "Breakthrough"
+
+[character]
+description = "The portable character vocabulary."
+
+[character.statToggle]
+label = "Prepared"
+modifier = 0
+
+[character.stats]
+edge = "Edge"
+heart = "Heart"
+
+[character.moveTypes]
+basic = "Basic moves"
+playbook = "Playbook moves"
+
+[character.equipmentTypes]
+gear = "Gear"
+
+[character.attributes.ready]
+type = "Checkbox"
+label = "Ready"
+default = false
+customLabel = false
+limited = false
+visibleFor = true
+
+[character.attributes.reserve]
+type = "Resource"
+label = "Reserve"
+max = 5
+default = 0
+position = "top"
+
+[character.attributes.approach]
+type = "ListOne"
+label = "Approach"
+options = ["Careful", "Bold"]
+default = 0
+sort = false
+position = "left"
+
+[npc]
+description = "The portable non-player vocabulary."
+
+[npc.moveTypes]
+reaction = "Reactions"
+
+[npc.equipmentTypes]
+gear = "Gear"
+
+[npc.attributes.drive]
+type = "Text"
+label = "Drive"
+default = ""
+
+[mc]
+description = "The facilitator vocabulary."
+
+[mc.moveTypes]
+soft = "Soft moves"
+hard = "Hard moves"
+
+[fronts.threatTypes]
+rival = "Rival"
+storm = "Storm"
+
+[fronts.impulses]
+divide = "To divide"
+consume = "To consume"
+
+[[fronts.clockPresets]]
+key = "three-step"
+label = "Three steps"
+segments = ["Warning", "Escalation", "Doom"]

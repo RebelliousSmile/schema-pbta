@@ -1,0 +1,12 @@
+slug = "broken-front"
+name = "Broken Front"
+game = "contract-game"
+concept = "This document has one unknown root field."
+doom = "Validation rejects it."
+unexpected = true
+
+[[threats]]
+name = "Unknown Field"
+type = "rival"
+impulse = "divide"
+description = "The only defect is at the root."

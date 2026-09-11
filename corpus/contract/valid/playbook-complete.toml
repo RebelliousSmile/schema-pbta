@@ -3,8 +3,10 @@ name = "Contract Keeper"
 game = "masks"
 actorType = "character"
 description = "A complete original fixture.\n\nIts formatting exercises multiline semantic content."
+playbookImage = "contract-keeper.webp"
 startingMoves = ["keep-the-shape"]
 advancement = ["Record a compatible change."]
+statsDetail = "Assign every value exactly as written."
 
 [stats]
 danger = 0
@@ -33,6 +35,9 @@ options = ["Lantern", "Handbook"]
 [[gear]]
 name = "Pinned schema"
 quantity = 0
+equipmentType = "gear"
+description = "A frozen description of the contract."
+tags = []
 
 [[choiceSets]]
 title = "Compatibility choice"
@@ -41,5 +46,12 @@ repeatable = false
 
 [[choiceSets.choices]]
 ref = "keep-the-shape"
+granted = 0
+advancement = 0
+
+[[choiceSets.choices]]
+name = "Trace Every Field"
+moveType = "playbook"
+description = "Keep the path of every value visible."
 granted = 0
 advancement = 0
