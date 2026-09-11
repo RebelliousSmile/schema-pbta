@@ -63,7 +63,7 @@ journey
 
 > Attendre que Handbook consomme le package publié et livre ses primitives génériques.
 
-1. Relever la première release de `obsidian-handbook#27` qui dépend de `schema-pbta@1.0.0` et fournit les trois capacités.
+1. Relever la première release de `obsidian-handbook#27` qui dépend de l'asset GitHub immuable `schema-pbta-1.0.0.tgz` et fournit les trois capacités.
 2. Définir cette release comme `minimumHandbookVersion` des cinq packs et l’inscrire dans la matrice de compatibilité.
 3. Ne jamais utiliser une branche, un SHA mutable ou une version supposée comme minimum publié.
 
@@ -89,7 +89,7 @@ journey
 
 | Task | Acceptance criteria |
 | --- | --- |
-| 1 | La version minimale de chaque pack est une release Handbook qui importe `schema-pbta@1.0.0` et expose les trois capacités. |
+| 1 | La version minimale de chaque pack est une release Handbook qui importe l'asset GitHub immuable `schema-pbta-1.0.0.tgz` et expose les trois capacités. |
 | 2 | Les cinq manifests et le catalogue portent des versions concordantes et annoncent les mêmes capacités PbtA. |
 | 2 | Le vrai installateur de la release minimale accepte les cinq packs et conserve leurs capacités déclarées. |
 | 3 | Le vrai lecteur de manifest Handbook accepte un sixième jeu autonome sans ajouter son identifiant au catalogue ni au host. |

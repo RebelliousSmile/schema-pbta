@@ -2,7 +2,7 @@
 status: done
 ---
 
-# Instruction: Surface publique et artefact npm
+# Instruction: Surface publique et artefact installable
 
 ## Architecture projection
 
@@ -102,4 +102,4 @@ journey
 | 3 | L’alias courant peut évoluer sans changer le chemin versionné importé par un consommateur v1. |
 | 4 | Le tarball construit depuis un clone propre contient uniquement la surface déclarée et s’installe dans un projet ESM vide. |
 | 4 | Tous les imports publics fonctionnent depuis le tarball, tandis qu’un sous-chemin interne non déclaré échoue. |
-| 4 | Le harnais accepte la préparation `0.x`, mais refuse toute version npm stable dont la majeure diffère de `PBTA_CONTRACT_VERSION`. |
+| 4 | Le harnais accepte la préparation `0.x`, mais refuse toute version stable du paquet dont la majeure diffère de `PBTA_CONTRACT_VERSION`. |
