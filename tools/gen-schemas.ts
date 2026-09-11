@@ -1,6 +1,9 @@
 import fs from "node:fs";
 import { z } from "zod";
-import { PBTA_CONTRACT_VERSION } from "../src/contract-version";
+import {
+  PBTA_CONTRACT_SCHEMA_TAG,
+  PBTA_CONTRACT_VERSION,
+} from "../src/contract-version";
 import { TARGETS } from "../src/zod/constants";
 
 const CONTRACT_MAJOR = PBTA_CONTRACT_VERSION;
@@ -10,7 +13,7 @@ for (const t of TARGETS) {
     string,
     unknown
   >;
-  json.$id = `https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v${CONTRACT_MAJOR}/schemas/v${CONTRACT_MAJOR}/${t.game.folder}/${t.name}.schema.json`;
+  json.$id = `https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/${PBTA_CONTRACT_SCHEMA_TAG}/schemas/v${CONTRACT_MAJOR}/${t.game.folder}/${t.name}.schema.json`;
   const serialized = JSON.stringify(json, null, 2);
   const destinations = [
     `schemas/v${CONTRACT_MAJOR}/${t.game.folder}/${t.name}.schema.json`,

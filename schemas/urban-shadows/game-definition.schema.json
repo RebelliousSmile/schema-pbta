@@ -1770,5 +1770,5 @@
   "additionalProperties": false,
   "title": "PbtA game definition",
   "description": "Portable game vocabulary shared by PbtA content files and digital tools.",
-  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v1/schemas/v1/urban-shadows/game-definition.schema.json"
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v1.0.0/schemas/v1/urban-shadows/game-definition.schema.json"
 }

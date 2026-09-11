@@ -13,7 +13,7 @@ for their specific needs.
 
 ## Status
 
-Early, but usable. Masks and Monster of the Week publish game definition, move,
+The portable contract is versioned and release-ready. Masks and Monster of the Week publish game definition, move,
 playbook, NPC and front schemas. Monsterhearts 2, Urban Shadows 2e and The Sprawl
 1.1 publish game definition, move and playbook schemas. The examples exercise
 the content pipeline, while a separate positive and negative corpus audits every
@@ -65,14 +65,47 @@ each game exposes this minimum structured editing surface.
 
 ## Using the schemas in your tool
 
-### Use Zod directly (TS apps)
+### Install the canonical contract
 
-If you use TypeScript and Zod parsing, you can copy/paste the provided Zod schemas:
+The package is distributed as the immutable asset of GitHub Release `v1.0.0`;
+it is not published to the npm registry. Package managers accept the HTTPS
+tarball directly:
+
+```json
+{
+  "dependencies": {
+    "schema-pbta": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v1.0.0/schema-pbta-1.0.0.tgz"
+  }
+}
+```
+
+Commit the resulting lockfile: it records both the complete release URL and
+the integrity used by the package manager. The release also publishes a
+SHA-256 sidecar for independent verification.
+
+Import the Zod schemas, inferred TypeScript types, TOML codecs and contract
+versions from the public ESM entry point. Do not copy their source into a
+consumer:
 
 ```ts
-import { ApocalypseWorldExampleSchema } from "./src/zod/apocalypse-world/example";
-const parsed = ApocalypseWorldExampleSchema.parse(userInputJson);
+import {
+  PBTA_CONTRACT_SCHEMA_TAG,
+  PBTA_CONTRACT_VERSION,
+  PBTA_DOCUMENT_CODECS,
+  PBTA_TOML_VERSION,
+  playbookSchema,
+  type Playbook,
+} from "schema-pbta";
+
+const playbook: Playbook = playbookSchema.parse(userInputJson);
+const fromToml = PBTA_DOCUMENT_CODECS.playbook.parseToml(source);
+const toml = PBTA_DOCUMENT_CODECS.playbook.stringifyToml(fromToml);
 ```
+
+`PBTA_DOCUMENT_CODECS` contains exactly `game-definition`, `move`, `playbook`,
+`npc` and `front`. The portable suite is available from
+`schema-pbta/corpus/cases.json`; read that manifest and resolve every case under
+`schema-pbta/corpus/<path>` rather than maintaining a consumer-specific list.
 
 ### Validate data (language-agnostic)
 
@@ -142,6 +175,18 @@ The audit also parses `src/zod/` and rejects executable `.refine()` or
 in the generated interchange format. Comments and data keys with those names
 are ignored. Cross-file vocabulary and reference checks remain the separate
 responsibility of `npm run validate:refs`.
+
+## Ownership boundary
+
+This repository owns document shapes, inferred types, validation, TOML codecs
+and the shared conformance corpus. Lantern owns form components; Handbook owns
+renderers, callouts, blocks and presentation styles. Game packs own their
+manifest, palette and assets. Neither host may fork the schemas or select
+behavior from a hard-coded game identifier when a portable capability already
+describes it.
+
+The compatibility and release policy is documented in
+[`docs/compatibility.md`](./docs/compatibility.md).
 
 ## Derived work
 

@@ -36,3 +36,15 @@ differences are not. Run the portable suite with:
 ```bash
 npm run validate:contract
 ```
+
+An installed consumer loads the same files through the package exports:
+
+```js
+const manifestUrl = import.meta.resolve("schema-pbta/corpus/cases.json");
+```
+
+For every case, resolve `schema-pbta/corpus/${testCase.path}`, select
+`PBTA_DOCUMENT_CODECS[testCase.target]`, require accepted documents to survive
+`parse -> stringify -> parse`, and require rejected documents to throw. This is
+the minimum consumer conformance command; Handbook adds an esbuild proof and
+Lantern adds a Vite proof in their own repositories.

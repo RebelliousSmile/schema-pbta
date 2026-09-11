@@ -531,5 +531,5 @@
   "additionalProperties": false,
   "title": "PbtA playbook",
   "description": "Portable representation of a Powered by the Apocalypse character playbook.",
-  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v1/schemas/v1/monster-of-the-week/playbook.schema.json"
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v1.0.0/schemas/v1/monster-of-the-week/playbook.schema.json"
 }

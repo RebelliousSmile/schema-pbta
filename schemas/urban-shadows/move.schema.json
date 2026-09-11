@@ -130,5 +130,5 @@
   "additionalProperties": false,
   "title": "PbtA move",
   "description": "Portable representation of a Powered by the Apocalypse move.",
-  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v1/schemas/v1/urban-shadows/move.schema.json"
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v1.0.0/schemas/v1/urban-shadows/move.schema.json"
 }

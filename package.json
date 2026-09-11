@@ -1,6 +1,6 @@
 {
   "name": "schema-pbta",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Open, versioned data schemas for Powered by the Apocalypse games, to make digital tools interoperable.",
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
@@ -13,9 +13,12 @@
     "handbook:validate": "tsx tools/validate-handbook-packs.ts",
     "handbook:validate:fixtures": "tsx tools/validate-handbook-catalog-fixtures.ts",
     "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && npm run build && npm run gen && npm run validate && npm run validate:contract && npm run validate:refs && npm run validate:refs:fixtures && npm run audit && npm run validate:package && npm run handbook:render && npm run handbook:validate && npm run handbook:validate:fixtures",
+    "check": "npm run typecheck && npm run build && npm run gen && npm run validate && npm run validate:contract && npm run validate:refs && npm run validate:refs:fixtures && npm run audit && npm run validate:version && npm run validate:package && npm run validate:release && npm run handbook:render && npm run handbook:validate && npm run handbook:validate:fixtures",
     "validate:contract": "tsx tools/validate-contract.ts",
     "validate:package": "tsx tools/validate-package.ts",
+    "validate:release": "tsx tools/prepare-release.ts --verify",
+    "validate:version": "tsx tools/validate-version-compat.ts",
+    "release:prepare": "tsx tools/prepare-release.ts",
     "toml:one": "tsx tools/toml2json.ts",
     "handbook:render": "tsx tools/render-handbook-preview.ts"
   },

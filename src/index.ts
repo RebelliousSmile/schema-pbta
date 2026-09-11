@@ -1,4 +1,8 @@
-export { PBTA_CONTRACT_VERSION, PBTA_TOML_VERSION } from "./contract-version.js";
+export {
+  PBTA_CONTRACT_SCHEMA_TAG,
+  PBTA_CONTRACT_VERSION,
+  PBTA_TOML_VERSION,
+} from "./contract-version.js";
 export {
   PBTA_DOCUMENT_CODECS,
   PBTA_DOCUMENT_SCHEMAS,

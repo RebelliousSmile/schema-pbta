@@ -3,7 +3,10 @@ import path from "node:path";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import ts from "typescript";
-import { PBTA_CONTRACT_VERSION } from "../src/contract-version";
+import {
+  PBTA_CONTRACT_SCHEMA_TAG,
+  PBTA_CONTRACT_VERSION,
+} from "../src/contract-version";
 import { TARGETS } from "../src/zod/constants";
 
 type DescriptionCount = { total: number; described: number; missing: string[] };
@@ -113,7 +116,7 @@ function jsonFiles(directory: string): string[] {
 
 function expectedId(gameFolder: string, targetName: string): string {
   const version = `v${PBTA_CONTRACT_VERSION}`;
-  return `https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/${version}/schemas/${version}/${gameFolder}/${targetName}.schema.json`;
+  return `https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/${PBTA_CONTRACT_SCHEMA_TAG}/schemas/${version}/${gameFolder}/${targetName}.schema.json`;
 }
 
 export function audit(root = resolveRoot()): number {

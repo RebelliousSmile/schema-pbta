@@ -347,5 +347,5 @@
   "additionalProperties": false,
   "title": "PbtA front",
   "description": "Portable representation of a Powered by the Apocalypse front or mystery.",
-  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v1/schemas/v1/monster-of-the-week/front.schema.json"
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v1.0.0/schemas/v1/monster-of-the-week/front.schema.json"
 }

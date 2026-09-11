@@ -56,6 +56,7 @@ try {
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import {
+  PBTA_CONTRACT_SCHEMA_TAG,
   PBTA_CONTRACT_VERSION,
   PBTA_DOCUMENT_CODECS,
   PBTA_TOML_VERSION,
@@ -67,6 +68,7 @@ import {
 } from "schema-pbta";
 
 assert.equal(PBTA_CONTRACT_VERSION, 1);
+assert.equal(PBTA_CONTRACT_SCHEMA_TAG, "v1.0.0");
 assert.equal(PBTA_TOML_VERSION, "1.0.0");
 assert.deepEqual(Object.keys(PBTA_DOCUMENT_CODECS).sort(), [
   "front", "game-definition", "move", "npc", "playbook",
@@ -81,7 +83,7 @@ for (const parser of [
 
 const schemaUrl = import.meta.resolve("schema-pbta/schemas/v1/masks/playbook.schema.json");
 const schema = JSON.parse(fs.readFileSync(new URL(schemaUrl), "utf8"));
-assert.match(schema.$id, /\\/v1\\/schemas\\/v1\\/masks\\/playbook\\.schema\\.json$/);
+assert.match(schema.$id, /\\/v1\\.0\\.0\\/schemas\\/v1\\/masks\\/playbook\\.schema\\.json$/);
 
 const corpusUrl = import.meta.resolve("schema-pbta/corpus/valid/playbook-minimal.toml");
 const playbookSource = fs.readFileSync(new URL(corpusUrl), "utf8");
@@ -114,7 +116,7 @@ await assert.rejects(
 
   const major = Number(packageJson.version.split(".")[0]);
   if (major >= 1) {
-    assert.equal(major, 1, "stable npm package major must equal PBTA_CONTRACT_VERSION");
+    assert.equal(major, 1, "stable package major must equal PBTA_CONTRACT_VERSION");
   }
 
   console.log(
