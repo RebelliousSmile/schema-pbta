@@ -186,6 +186,8 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
       const monsterheartsVariants = Array.isArray(manifest.variants) ? manifest.variants.map(data) : [];
       const monsterheartsBaseNote = data(data(data(pack.style).base).note);
       for (const token of [
+        "--monsterhearts-title-font",
+        "--monsterhearts-title-ink",
         "--monsterhearts-table-ink",
         "--monsterhearts-table-background",
         "--monsterhearts-table-rule",
@@ -212,6 +214,8 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
         "--text-faint",
         "--table-text-color",
         "--table-header-color",
+        "--monsterhearts-title-font",
+        "--monsterhearts-title-ink",
         "--monsterhearts-table-ink",
         "--monsterhearts-table-background",
         "--monsterhearts-table-rule",
@@ -221,6 +225,9 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
         if (typeof drownedLakeBaseNote[token] !== "string") {
           issues.push(`monsterhearts: drowned-lake must pin readable ${token} at note scope`);
         }
+      }
+      if (drownedLakeBaseNote["--monsterhearts-title-ink"] !== "#f4f0ec") {
+        issues.push("monsterhearts: drowned-lake title ink must stay white");
       }
     } else if (manifest.variants !== undefined || manifest.defaultVariantId !== undefined) {
       issues.push(`${id}: only Monsterhearts declares variants`);
