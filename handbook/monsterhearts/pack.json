@@ -1,6 +1,6 @@
 {
   "manifestVersion": 1,
-  "version": "0.1.3",
+  "version": "0.1.4",
   "minimumHandbookVersion": "2.7.1",
   "requires": [],
   "variants": [
@@ -19,6 +19,8 @@
             "--pbta-column-rule": "#7457bd",
             "--drowned-lake-title-outline": "#d34e59",
             "--drowned-lake-title-shadow": "#090a0d",
+            "--monsterhearts-title-font": "'IM Fell English', 'Averia Serif Libre', Garamond, Georgia, serif",
+            "--monsterhearts-title-ink": "#f4f0ec",
             "--text-normal": "#ebe8e4",
             "--text-muted": "#a7a8ad",
             "--text-faint": "#777980",
@@ -92,6 +94,8 @@
           "--h3-line-height": "1.08",
           "--pbta-column-gap": "2.4rem",
           "--pbta-column-rule": "#292326",
+          "--monsterhearts-title-font": "'IM Fell English', 'Averia Serif Libre', Garamond, Georgia, serif",
+          "--monsterhearts-title-ink": "#292326",
           "--monsterhearts-table-ink": "#171416",
           "--monsterhearts-table-background": "#faf8f2",
           "--monsterhearts-table-rule": "#292326",
