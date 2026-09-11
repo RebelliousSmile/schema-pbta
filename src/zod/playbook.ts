@@ -6,8 +6,8 @@ import {
   portableInteger,
   portableNumber,
   slugSchema,
-} from "./shared";
-import { moveEntry, moveInlineEntry, moveRefEntry } from "./move";
+} from "./shared.js";
+import { moveEntry, moveInlineEntry, moveRefEntry } from "./move.js";
 
 /**
  * A character playbook.

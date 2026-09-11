@@ -1,0 +1,45 @@
+slug = "contract-keeper"
+name = "Contract Keeper"
+game = "masks"
+actorType = "character"
+description = "A complete original fixture.\n\nIts formatting exercises multiline semantic content."
+startingMoves = ["keep-the-shape"]
+advancement = ["Record a compatible change."]
+
+[stats]
+danger = 0
+freak = -1
+
+[attributes]
+ready = false
+potential = 0
+"quoted key" = ["alpha", "beta"]
+
+[[moves]]
+ref = "keep-the-shape"
+
+[[moves]]
+name = "Read the Contract"
+moveType = "playbook"
+description = "Compare the value, not the formatting."
+trigger = "When two tools disagree about a field."
+uses = 0
+tags = ["contract", "round-trip"]
+
+[[creation]]
+label = "Which tool exported this document?"
+options = ["Lantern", "Handbook"]
+
+[[gear]]
+name = "Pinned schema"
+quantity = 0
+
+[[choiceSets]]
+title = "Compatibility choice"
+type = "single"
+repeatable = false
+
+[[choiceSets.choices]]
+ref = "keep-the-shape"
+granted = 0
+advancement = 0

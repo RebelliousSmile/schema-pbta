@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { gameRefSchema, nonEmptyString, portableCount, slugSchema } from "./shared";
-import { moveEntry } from "./move";
+import { gameRefSchema, nonEmptyString, portableCount, slugSchema } from "./shared.js";
+import { moveEntry } from "./move.js";
 
 /**
  * A front: a threat in motion, with what it wants and how long the heroes have.

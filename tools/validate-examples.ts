@@ -14,6 +14,7 @@ async function run() {
   for (const t of TARGETS) {
     const schemaPath = path.join(
       "schemas",
+      "v1",
       t.game.folder,
       `${t.name}.schema.json`
     );

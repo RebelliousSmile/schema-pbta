@@ -1,0 +1,8 @@
+slug = "quiet-spark"
+name = "Quiet Spark"
+game = "masks"
+description = "A minimal original playbook used by the shared contract suite."
+moves = []
+
+[stats]
+danger = 0

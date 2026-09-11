@@ -111,7 +111,7 @@ function jsonFiles(directory: string): string[] {
 }
 
 function expectedId(gameFolder: string, targetName: string): string {
-  return `https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/main/schemas/${gameFolder}/${targetName}.schema.json`;
+  return `https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v1/schemas/v1/${gameFolder}/${targetName}.schema.json`;
 }
 
 export function audit(root = resolveRoot()): number {
@@ -130,7 +130,7 @@ export function audit(root = resolveRoot()): number {
 
   for (const target of TARGETS) {
     const targetLabel = `${target.game.folder}/${target.name}`;
-    const schemaPath = path.join(root, "schemas", target.game.folder, `${target.name}.schema.json`);
+    const schemaPath = path.join(root, "schemas", "v1", target.game.folder, `${target.name}.schema.json`);
     console.log(`\n-- ${targetLabel} --`);
 
     if (!fs.existsSync(schemaPath)) {
