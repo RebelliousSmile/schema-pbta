@@ -1,8 +1,8 @@
 {
   "manifestVersion": 1,
-  "version": "0.1.0",
-  "minimumHandbookVersion": "2.7.1",
-  "requires": [],
+  "version": "0.2.0",
+  "minimumHandbookVersion": "2.8.0",
+  "requires": ["block:pbta-playbook", "block:pbta-move", "style:pbta"],
   "pack": {
     "id": "monster-of-the-week",
     "label": "Monster of the Week",

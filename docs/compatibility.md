@@ -8,7 +8,7 @@ npm registry.
 
 | Package | Schema path | Canonical schema tag | TOML | Handbook | Lantern |
 | --- | --- | --- | --- | --- | --- |
-| `1.0.x` | `schemas/v1` | `v1.0.0` | `1.0.0` | pending consumer issue #27 | pending consumer issue #2 |
+| `1.0.x` | `schemas/v1` | `v1.0.0` | `1.0.0` | `2.8.0+` | pending consumer issue #2 |
 
 The schema path groups compatible artifacts by contract major. Every `$id`
 uses the exact `v1.0.0` tag so it never depends on a movable `v1` alias.
