@@ -184,6 +184,18 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
     }
     if (id === "monsterhearts") {
       const monsterheartsVariants = Array.isArray(manifest.variants) ? manifest.variants.map(data) : [];
+      const monsterheartsBaseNote = data(data(data(pack.style).base).note);
+      for (const token of [
+        "--monsterhearts-table-ink",
+        "--monsterhearts-table-background",
+        "--monsterhearts-table-rule",
+        "--monsterhearts-table-header",
+        "--monsterhearts-table-header-ink",
+      ]) {
+        if (typeof monsterheartsBaseNote[token] !== "string") {
+          issues.push(`monsterhearts: base theme must define ${token}`);
+        }
+      }
       const variantIds = monsterheartsVariants.map((variant) => String(variant.id ?? ""));
       if (manifest.defaultVariantId !== "base" || variantIds.join(",") !== "base,drowned-lake") {
         issues.push("monsterhearts: expected base then drowned-lake variants with base as default");
@@ -200,6 +212,11 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
         "--text-faint",
         "--table-text-color",
         "--table-header-color",
+        "--monsterhearts-table-ink",
+        "--monsterhearts-table-background",
+        "--monsterhearts-table-rule",
+        "--monsterhearts-table-header",
+        "--monsterhearts-table-header-ink",
       ]) {
         if (typeof drownedLakeBaseNote[token] !== "string") {
           issues.push(`monsterhearts: drowned-lake must pin readable ${token} at note scope`);
