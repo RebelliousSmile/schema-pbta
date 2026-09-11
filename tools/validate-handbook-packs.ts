@@ -10,6 +10,8 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const handbookRoot = path.join(root, "handbook");
 const errors: string[] = [];
 const expectedGames = Object.values(GAMES).map(({ folder }) => folder);
+const expectedMinimumHandbookVersion = "2.8.0";
+const expectedCapabilities = ["block:pbta-playbook", "block:pbta-move", "style:pbta"];
 const semver = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
 const safeToken = /^--[A-Za-z0-9-]+$/;
 const safeImageExtensions = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"]);
@@ -117,8 +119,12 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
     for (const field of unknownFields(manifest, manifestFields)) issues.push(`${id}: unknown manifest field ${field}`);
     if (manifest.manifestVersion !== 1) issues.push(`${id}: manifestVersion must be 1`);
     if (manifest.version !== version) issues.push(`${id}: manifest version does not match catalogue`);
-    if (manifest.minimumHandbookVersion !== "2.7.1") issues.push(`${id}: minimumHandbookVersion must be 2.7.1`);
-    if (!Array.isArray(manifest.requires) || manifest.requires.length !== 0) issues.push(`${id}: requires must stay empty until Handbook provides PbtA capabilities`);
+    if (manifest.minimumHandbookVersion !== expectedMinimumHandbookVersion) {
+      issues.push(`${id}: minimumHandbookVersion must be ${expectedMinimumHandbookVersion}`);
+    }
+    if (strings(manifest.requires).join(",") !== expectedCapabilities.join(",")) {
+      issues.push(`${id}: requires must equal ${expectedCapabilities.join(", ")}`);
+    }
 
     const pack = data(manifest.pack);
     for (const field of unknownFields(pack, packFields)) issues.push(`${id}: unknown pack field ${field}`);

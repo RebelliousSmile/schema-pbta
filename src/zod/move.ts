@@ -5,7 +5,7 @@ import {
   portableCount,
   portableInteger,
   slugSchema,
-} from "./shared";
+} from "./shared.js";
 
 /**
  * A move, canonical form.

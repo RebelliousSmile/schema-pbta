@@ -6,7 +6,7 @@ import {
   portableCount,
   portableInteger,
   portableNumber,
-} from "./shared";
+} from "./shared.js";
 
 /**
  * A game definition: dice, stats, attributes, and the vocabularies every other

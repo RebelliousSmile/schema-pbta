@@ -1,0 +1,49 @@
+slug = "drifting-contract"
+name = "The Drifting Contract"
+game = "contract-game"
+concept = "Every copied schema changes a little."
+description = "A front built entirely for interoperability testing."
+stakes = ["Will the tools converge on one contract?"]
+doom = "No two tools can exchange a complete document."
+
+[[cast]]
+name = "Patient Messenger"
+role = "Courier"
+ref = "patient-messenger"
+
+[[threats]]
+name = "Silent Default"
+type = "rival"
+impulse = "divide"
+description = "It invents values that were never supplied."
+moves = []
+
+[threats.clock]
+label = "Divergence"
+preset = "three-step"
+filled = 0
+
+[[threats]]
+name = "Lost Field"
+type = "storm"
+impulse = "consume"
+description = "It removes values that look empty."
+
+[[threats.moves]]
+name = "Erase the False"
+moveType = "hard"
+audience = "mc"
+description = "Delete a meaningful false value."
+
+[threats.clock]
+label = "Missing data"
+segments = ["Zero", "False", "Empty list"]
+filled = 0
+
+[[portents]]
+text = "A serializer drops zero."
+done = false
+
+[[portents]]
+text = "A form forgets an empty list."
+done = false

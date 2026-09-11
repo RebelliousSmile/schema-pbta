@@ -1,9 +1,9 @@
 import { ZodObject } from "zod";
-import { frontSchema } from "./front";
-import { gameDefinitionSchema } from "./game-definition";
-import { moveSchema } from "./move";
-import { npcSchema } from "./npc";
-import { playbookSchema } from "./playbook";
+import { frontSchema } from "./front.js";
+import { gameDefinitionSchema } from "./game-definition.js";
+import { moveSchema } from "./move.js";
+import { npcSchema } from "./npc.js";
+import { playbookSchema } from "./playbook.js";
 
 type Game = {
   name: string;

@@ -1,0 +1,6 @@
+slug = "broken-npc"
+name = "Broken NPC"
+game = "contract-game"
+description = "This document has one unknown root field."
+moves = []
+unexpected = true

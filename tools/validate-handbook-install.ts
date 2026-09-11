@@ -19,6 +19,13 @@ interface SourceInstallerModule {
   ): Promise<void>;
 }
 
+interface PluginManifestModule {
+  readGamePluginManifest(
+    source: unknown,
+    handbookVersion: string,
+  ): { manifest?: PackManifest; error?: string };
+}
+
 interface CatalogueEntry {
   id: string;
   version: string;
@@ -35,6 +42,8 @@ interface AssetFace {
 
 interface PackManifest {
   version: string;
+  minimumHandbookVersion: string;
+  requires: string[];
   defaultVariantId?: string;
   variants?: Array<{ id: string }>;
   pack: {
@@ -82,15 +91,29 @@ function resolveHandbookRoot(): string {
 }
 
 const handbookRoot = resolveHandbookRoot();
-const handbookPackage = readJson<{ version?: unknown }>(path.join(handbookRoot, "package.json"));
+const handbookPackage = readJson<{
+  version?: unknown;
+  dependencies?: Record<string, string>;
+}>(path.join(handbookRoot, "package.json"));
 if (typeof handbookPackage.version !== "string") {
   throw new Error(`Handbook package at "${handbookRoot}" has no string version`);
 }
+assert.equal(handbookPackage.version, "2.8.0", "integration must use released Handbook 2.8.0");
+assert.equal(
+  handbookPackage.dependencies?.["schema-pbta"],
+  "https://github.com/RebelliousSmile/schema-pbta/releases/download/v1.0.0/schema-pbta-1.0.0.tgz",
+  "Handbook must consume the immutable schema-pbta asset",
+);
 
 const sourceInstallerUrl = pathToFileURL(
   path.join(handbookRoot, "src", "games", "sourceInstaller.ts"),
 ).href;
 const { installResolvedSchemaSource } = (await import(sourceInstallerUrl)) as SourceInstallerModule;
+const pluginManifestUrl = pathToFileURL(
+  path.join(handbookRoot, "src", "games", "pluginManifest.ts"),
+).href;
+const { readGamePluginManifest } = (await import(pluginManifestUrl)) as PluginManifestModule;
+const expectedCapabilities = ["block:pbta-playbook", "block:pbta-move", "style:pbta"];
 
 function localPath(relative: string): string {
   const resolved = path.resolve(projectRoot, relative);
@@ -212,6 +235,8 @@ const manifests = new Map<string, PackManifest>();
 const expectedAssets: ExpectedAsset[] = [];
 for (const entry of catalogue.packs) {
   const manifest = readJson<PackManifest>(localPath(entry.path));
+  assert.equal(manifest.minimumHandbookVersion, "2.8.0", `${entry.id} minimum host`);
+  assert.deepEqual(manifest.requires, expectedCapabilities, `${entry.id} portable capabilities`);
   manifests.set(entry.id, manifest);
   expectedAssets.push(...assetFiles(entry, manifest));
 }
@@ -227,12 +252,24 @@ const installationRoot = `.obsidian/handbook/sources/${source.id}`;
 const oldHostStorage = createMemoryStorage();
 await assert.rejects(
   installResolvedSchemaSource(
-    plugin("2.7.0", oldHostStorage.adapter),
+    plugin("2.7.3", oldHostStorage.adapter),
     source,
     resolvedSource("0".repeat(40), 0),
   ),
-  /requires Handbook 2\.7\.1 or newer/,
+  /requires Handbook 2\.8\.0 or newer/,
 );
+
+const unknownManifest = structuredClone(manifests.get("masks"));
+assert.ok(unknownManifest, "Masks manifest is required for the unknown-id fixture");
+unknownManifest.pack.id = "never-seen-by-handbook";
+const unknownResult = readGamePluginManifest(unknownManifest, handbookPackage.version);
+assert.ok(unknownResult.manifest, unknownResult.error);
+assert.deepEqual(unknownResult.manifest.requires, expectedCapabilities);
+
+const unsupportedManifest = structuredClone(unknownManifest);
+unsupportedManifest.requires.push("block:not-installed");
+const unsupportedResult = readGamePluginManifest(unsupportedManifest, handbookPackage.version);
+assert.match(unsupportedResult.error ?? "", /unknown Handbook capabilities.*block:not-installed/);
 
 const storage = createMemoryStorage();
 const currentPlugin = plugin(handbookPackage.version, storage.adapter);

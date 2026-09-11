@@ -54,7 +54,7 @@ fixture("unsafe manifest path", (root) => {
 
 fixture("catalogue mismatch", (root) => {
   const manifest = readJson(path.join(root, "handbook", "the-sprawl", "pack.json"));
-  manifest.version = "0.2.0";
+  manifest.version = "0.2.1";
   writeJson(path.join(root, "handbook", "the-sprawl", "pack.json"), manifest);
 }, "manifest version does not match catalogue");
 
@@ -66,15 +66,21 @@ fixture("unknown field", (root) => {
 
 fixture("old minimum", (root) => {
   const manifest = readJson(path.join(root, "handbook", "masks", "pack.json"));
-  manifest.minimumHandbookVersion = "2.7.0";
+  manifest.minimumHandbookVersion = "2.7.3";
   writeJson(path.join(root, "handbook", "masks", "pack.json"), manifest);
 }, "minimumHandbookVersion");
 
-fixture("undeclared capability", (root) => {
+fixture("missing capability", (root) => {
   const manifest = readJson(path.join(root, "handbook", "masks", "pack.json"));
   manifest.requires = ["style:pbta"];
   writeJson(path.join(root, "handbook", "masks", "pack.json"), manifest);
-}, "requires must stay empty");
+}, "requires must equal");
+
+fixture("unknown capability", (root) => {
+  const manifest = readJson(path.join(root, "handbook", "masks", "pack.json"));
+  manifest.requires = ["block:pbta-playbook", "block:pbta-move", "style:pbta", "block:not-installed"];
+  writeJson(path.join(root, "handbook", "masks", "pack.json"), manifest);
+}, "requires must equal");
 
 fixture("unsafe token", (root) => {
   const manifest = readJson(path.join(root, "handbook", "masks", "pack.json"));

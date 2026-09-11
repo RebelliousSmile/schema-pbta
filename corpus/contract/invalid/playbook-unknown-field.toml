@@ -1,0 +1,9 @@
+slug = "broken-contract"
+name = "Broken Contract"
+game = "masks"
+description = "This fixture must be rejected."
+moves = []
+inventedByConsumer = true
+
+[stats]
+danger = 0

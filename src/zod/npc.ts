@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { gameRefSchema, nonEmptyString, portableNumber, slugSchema } from "./shared";
-import { moveEntry } from "./move";
+import { gameRefSchema, nonEmptyString, portableNumber, slugSchema } from "./shared.js";
+import { moveEntry } from "./move.js";
 
 /**
  * An NPC: anyone the heroes face.
