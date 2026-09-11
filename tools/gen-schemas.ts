@@ -1,8 +1,9 @@
 import fs from "node:fs";
 import { z } from "zod";
+import { PBTA_CONTRACT_VERSION } from "../src/contract-version";
 import { TARGETS } from "../src/zod/constants";
 
-const CONTRACT_MAJOR = 1;
+const CONTRACT_MAJOR = PBTA_CONTRACT_VERSION;
 
 for (const t of TARGETS) {
   const json = z.toJSONSchema(t.zod, { target: "draft-7" }) as Record<

@@ -1,5 +1,6 @@
-export { PBTA_CONTRACT_VERSION } from "./contract-version.js";
+export { PBTA_CONTRACT_VERSION, PBTA_TOML_VERSION } from "./contract-version.js";
 export {
+  PBTA_DOCUMENT_CODECS,
   PBTA_DOCUMENT_SCHEMAS,
   parseFrontToml,
   parseGameDefinitionToml,
@@ -17,6 +18,8 @@ export type {
   GameDefinition,
   Move,
   Npc,
+  PbtaDocumentByTarget,
+  PbtaDocumentCodec,
   PbtaDocumentTarget,
   Playbook,
 } from "./codecs/toml.js";

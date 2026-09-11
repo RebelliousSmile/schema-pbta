@@ -1,6 +1,6 @@
 ---
 objective: "schema-pbta publie un contrat PbtA v1 unique que Handbook et Lantern peuvent importer et vérifier avec les mêmes TOML sans perte de valeur normalisée."
-status: pending
+status: in-progress
 ---
 
 # Plan: Contrat PbtA canonique pour Handbook et Lantern

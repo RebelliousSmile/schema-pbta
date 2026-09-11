@@ -21,6 +21,20 @@ export type Playbook = z.infer<typeof playbookSchema>;
 export type Npc = z.infer<typeof npcSchema>;
 export type Front = z.infer<typeof frontSchema>;
 
+export interface PbtaDocumentByTarget {
+  "game-definition": GameDefinition;
+  move: Move;
+  playbook: Playbook;
+  npc: Npc;
+  front: Front;
+}
+
+export interface PbtaDocumentCodec<T> {
+  schema: ZodType<T>;
+  parseToml(source: string): T;
+  stringifyToml(value: unknown): string;
+}
+
 function parseWith<T>(schema: ZodType<T>, source: string): T {
   return schema.parse(parse(source));
 }
@@ -68,3 +82,34 @@ export function parseFrontToml(source: string): Front {
 export function stringifyFrontToml(value: unknown): string {
   return stringifyWith(frontSchema, value);
 }
+
+/** Canonical dispatch table shared by every consumer of PbtA documents. */
+export const PBTA_DOCUMENT_CODECS: {
+  [Target in PbtaDocumentTarget]: PbtaDocumentCodec<PbtaDocumentByTarget[Target]>;
+} = {
+  "game-definition": {
+    schema: gameDefinitionSchema,
+    parseToml: parseGameDefinitionToml,
+    stringifyToml: stringifyGameDefinitionToml,
+  },
+  move: {
+    schema: moveSchema,
+    parseToml: parseMoveToml,
+    stringifyToml: stringifyMoveToml,
+  },
+  playbook: {
+    schema: playbookSchema,
+    parseToml: parsePlaybookToml,
+    stringifyToml: stringifyPlaybookToml,
+  },
+  npc: {
+    schema: npcSchema,
+    parseToml: parseNpcToml,
+    stringifyToml: stringifyNpcToml,
+  },
+  front: {
+    schema: frontSchema,
+    parseToml: parseFrontToml,
+    stringifyToml: stringifyFrontToml,
+  },
+};
