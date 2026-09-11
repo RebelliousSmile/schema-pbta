@@ -2,7 +2,7 @@
 status: pending
 ---
 
-# Instruction: Capacités portables des packs Handbook
+# Instruction: Publication immuable du contrat
 
 ## Architecture projection
 
@@ -10,32 +10,21 @@ status: pending
 
 ```txt
 schema-pbta/
-├── package.json                               ✏️ commande d’intégration Handbook
-├── docs/compatibility.md                      ✏️ première version Handbook compatible
-├── handbook.json                              ✏️ versions des packs activés
-├── handbook/
-│   ├── masks/pack.json                        ✏️ capacités PbtA portables
-│   ├── monster-of-the-week/pack.json          ✏️ capacités PbtA portables
-│   ├── monsterhearts/pack.json                ✏️ capacités PbtA portables
-│   ├── the-sprawl/pack.json                   ✏️ capacités PbtA portables
-│   └── urban-shadows/pack.json                ✏️ capacités PbtA portables
-└── tools/
-    ├── validate-handbook-packs.ts             ✏️ contrat attendu des capacités
-    ├── validate-handbook-catalog-fixtures.ts  ✏️ refus des capacités et versions invalides
-    └── validate-handbook-install.ts           ✏️ installation contre le vrai host compatible
+└── aidd_docs/tasks/2026_09/2026_09_11_schema-pbta-canonical-contract/
+    └── phase-4.md                  ✏️ preuve de publication externe achevée
 
-Aucune suppression.
+Aucun fichier applicatif créé, modifié ou supprimé : cette phase publie l'artefact préparé par la phase 3.
 ```
 
 ## User Journey
 
 ```mermaid
 flowchart TD
-  A[Handbook publié importe schema-pbta 1.0.0] --> B[Pack déclare ses capacités]
-  B --> C[Host vérifie sa version minimale]
-  C --> D[Activer playbook move et style PbtA]
-  D --> E[Afficher handout blocs et callouts]
-  E --> F[Installer un autre jeu sans modifier le host]
+  A[Vérifier ou activer les releases immuables] --> B[Créer le brouillon v1.0.0 sur le commit de phase 3]
+  B --> C[Joindre tgz et SHA-256]
+  C --> D[Vérifier assets et attestation]
+  D --> E[Publier la release immuable]
+  E --> F[Transmettre URL et intégrité aux consommateurs]
 ```
 
 ## Test Scope
@@ -46,52 +35,57 @@ title: Test scope
 ---
 journey
   section Setup
-    Utiliser la release Handbook issue de la capacité générique => host minimal connu: 5: system
+    Vérifier le commit de phase 3 et l'état immutable-releases => cible et politique connues: 5: api
   section Happy path
-    Installer les cinq manifests avec le vrai host => capacités PbtA conservées pour cinq ids: 5: cli
-  section Edge case - ancien Handbook
-    Installer un pack avec un host antérieur => refus explicite avant promotion: 1: cli
-  section Edge case - capacité absente
-    Retirer une capacité obligatoire => validation échoue avec son nom: 1: cli
-  section Edge case - identifiant inconnu
-    Soumettre un manifest autonome sous un id inédit => capacités portables acceptées: 1: cli
+    Créer le brouillon puis joindre les deux assets => release complète encore réversible: 5: api
+    Publier puis vérifier asset et attestation => tag et fichiers verrouillés: 5: cli
+  section Edge case - immutabilité désactivée
+    Détecter enabled false => activer via API puis revérifier avant le brouillon: 1: api
+  section Edge case - asset incomplet
+    Omettre le tarball ou son SHA-256 => publication refusée avant verrouillage: 1: cli
+  section Edge case - digest invalide avant publication
+    Échouer le digest ou l'import ESM => brouillon conservé et aucun tag immuable publié: 1: cli
+  section Edge case - attestation invalide après publication
+    Échouer la vérification d'attestation => incident signalé sans déplacer le tag ni remplacer les assets: 1: cli
 ```
 
 ## Tasks to do
 
-### `1)` Épingler le premier host compatible
+### `1)` Établir le prérequis d'immutabilité
 
-> Attendre que Handbook consomme le package publié et livre ses primitives génériques.
+> Ne jamais publier une release modifiable présentée comme contrat canonique.
 
-1. Relever la première release de `obsidian-handbook#27` qui dépend de l'asset GitHub immuable `schema-pbta-1.0.0.tgz` et fournit les trois capacités.
-2. Définir cette release comme `minimumHandbookVersion` des cinq packs et l’inscrire dans la matrice de compatibilité.
-3. Ne jamais utiliser une branche, un SHA mutable ou une version supposée comme minimum publié.
+1. Lire `GET /repos/RebelliousSmile/schema-pbta/immutable-releases` avant toute création de release.
+2. Si nécessaire, activer la politique par l'API GitHub avec un compte administrateur, puis exiger une réponse `enabled: true`.
+3. Arrêter avant le brouillon si l'autorisation d'administration ou l'immutabilité manque.
 
-### `2)` Activer les primitives portables
+### `2)` Publier l'artefact exact
 
-> Déclarer les mêmes fonctions réutilisables quel que soit l’identifiant du jeu.
+> Faire pointer la release sur le commit déjà validé et commité par la phase 3.
 
-1. Ajouter `block:pbta-playbook`, `block:pbta-move` et `style:pbta` à `requires` de chaque pack.
-2. Incrémenter chaque version de pack et reporter exactement ces versions dans `handbook.json`.
-3. Garder palettes, assets et variantes comme données propres à chaque pack.
+1. Reproduire le tarball et son SHA-256 depuis le commit de phase 3 sans modification locale.
+2. Créer la GitHub Release `v1.0.0` en brouillon sur ce commit, sans publication sur le registre npm.
+3. Joindre les deux assets, vérifier leur présence, leur digest et l'import ESM avant de publier le brouillon.
+4. Vérifier après publication le tag, l'asset et l'attestation avec GitHub CLI ; en cas d'échec postpublication, signaler l'incident et ne jamais déplacer le tag ni remplacer un asset publié.
 
-### `3)` Valider l’absence de couplage au jeu
+### `3)` Aligner et informer les consommateurs
 
-> Empêcher le retour d’une liste d’identifiants autorisés.
+> Rendre le même mode de distribution explicite dans tous les dépôts.
 
-1. Remplacer les assertions historiques `requires: []` par la liste fermée des capacités PbtA publiées.
-2. Ajouter au harnais d’intégration un manifest autonome sous un identifiant inconnu, hors du catalogue fermé de schema-pbta.
-3. Adapter `validate-handbook-install.ts` à la release compatible et vérifier le payload avec le véritable installateur Handbook.
-4. Exposer cette intégration par un script recevant `HANDBOOK_ROOT`, distinct du check producteur autonome.
-5. Conserver les tests atomiques de version, catalogue, assets et rollback.
+1. Mettre à jour les tickets producteurs PbtA, Mist Engine et Adrenaline ainsi que `obsidian-handbook#27` et `lantern#2` pour nommer l'asset GitHub Release immuable plutôt qu'une publication de registre.
+2. Communiquer l'URL versionnée de l'asset, sa version et son intégrité à `obsidian-handbook#27` et `lantern#2`.
+3. Donner aux tickets consommateurs l'exemple de dépendance par URL HTTPS, le SHA-256 de release et les critères exigeant que leur lockfile conserve l'URL complète et son intégrité SRI.
+4. Déléguer explicitement à `obsidian-handbook#27` et `lantern#2` leurs preuves esbuild, Vite et corpus, sans les déclarer acquises dans le producteur.
 
 ## Test acceptance criteria
 
 | Task | Acceptance criteria |
 | --- | --- |
-| 1 | La version minimale de chaque pack est une release Handbook qui importe l'asset GitHub immuable `schema-pbta-1.0.0.tgz` et expose les trois capacités. |
-| 2 | Les cinq manifests et le catalogue portent des versions concordantes et annoncent les mêmes capacités PbtA. |
-| 2 | Le vrai installateur de la release minimale accepte les cinq packs et conserve leurs capacités déclarées. |
-| 3 | Le vrai lecteur de manifest Handbook accepte un sixième jeu autonome sans ajouter son identifiant au catalogue ni au host. |
-| 3 | Une capacité absente, inconnue ou une version de host trop ancienne empêche atomiquement la promotion du pack. |
-| 3 | Le rendu du handout, des deux blocs et des callouts reste prouvé dans la CI de `obsidian-handbook#27`, sans copier ce harnais ici. |
+| 1 | L'API GitHub confirme `enabled: true` avant la création du brouillon ; l'état actuellement désactivé est traité explicitement. |
+| 2 | Le paquet `1.0.0`, le tag `v1.0.0` et l'asset GitHub Release désignent le commit de phase 3 et la même forme de contrat. |
+| 2 | Le brouillon ne peut être publié sans tarball, SHA-256, import ESM valide et vérification d'intégrité réussie. |
+| 2 | Après publication, GitHub confirme la release immuable et l'attestation de l'asset ; toute correction exige une nouvelle version SemVer. |
+| 2 | Un échec détecté après publication est rendu visible sans tenter de réécrire le tag ou les assets immuables. |
+| 3 | Les cinq tickets liés décrivent tous la distribution par asset GitHub Release et aucun n'exige le registre npm. |
+| 3 | Les deux tickets consommateurs reçoivent l'URL `v1.0.0`, le SHA-256 et des critères explicites pour l'intégrité SRI, le corpus et leur bundler. |
+| 3 | La clôture du ticket producteur ne prétend pas que les intégrations esbuild et Vite sont déjà livrées ; ces preuves restent rattachées aux tickets consommateurs. |

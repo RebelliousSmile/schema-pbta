@@ -79,7 +79,7 @@ journey
 
 1. Faire dériver le chemin de génération et le `$id` de la constante de contrat plutôt que d’un second littéral local.
 2. Continuer à générer l’alias courant sous `schemas/<jeu>` sans le publier comme référence immuable.
-3. Auditer chaque artefact `schemas/v1` contre son jeu, sa cible et son URL canonique sous le tag v1.
+3. Auditer chaque artefact `schemas/v1` contre son jeu, sa cible et l'URL canonique déclarée par le contrat.
 
 ### `4)` Fermer et tester le package
 
@@ -98,7 +98,7 @@ journey
 | 1 | Un consommateur importe les versions du contrat et de TOML depuis la racine du package sans lire `package.json`. |
 | 2 | Chacune des cinq cibles résout un schéma, un parseur et un sérialiseur de types concordants. |
 | 2 | Une propriété inconnue reste rejetée et aucune valeur absente n’est inventée par le registre. |
-| 3 | Chaque schéma v1 généré porte un `$id` canonique dérivé de la version publique et l’audit rejette toute autre URL. |
+| 3 | Chaque schéma v1 généré porte un `$id` canonique dérivé de la référence publique déclarée et l'audit rejette toute autre URL. |
 | 3 | L’alias courant peut évoluer sans changer le chemin versionné importé par un consommateur v1. |
 | 4 | Le tarball construit depuis un clone propre contient uniquement la surface déclarée et s’installe dans un projet ESM vide. |
 | 4 | Tous les imports publics fonctionnent depuis le tarball, tandis qu’un sous-chemin interne non déclaré échoue. |
