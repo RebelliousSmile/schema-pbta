@@ -192,6 +192,19 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
       if (variantPolarities.join("|") !== "light|dark") {
         issues.push("monsterhearts: expected a light base variant and a dark drowned-lake variant");
       }
+      const drownedLake = monsterheartsVariants.find((variant) => variant.id === "drowned-lake");
+      const drownedLakeBaseNote = data(data(data(drownedLake?.style).base).note);
+      for (const token of [
+        "--text-normal",
+        "--text-muted",
+        "--text-faint",
+        "--table-text-color",
+        "--table-header-color",
+      ]) {
+        if (typeof drownedLakeBaseNote[token] !== "string") {
+          issues.push(`monsterhearts: drowned-lake must pin readable ${token} at note scope`);
+        }
+      }
     } else if (manifest.variants !== undefined || manifest.defaultVariantId !== undefined) {
       issues.push(`${id}: only Monsterhearts declares variants`);
     }

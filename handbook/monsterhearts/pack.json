@@ -1,6 +1,6 @@
 {
   "manifestVersion": 1,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "minimumHandbookVersion": "2.7.1",
   "requires": [],
   "variants": [
@@ -19,8 +19,13 @@
             "--pbta-column-rule": "#7457bd",
             "--drowned-lake-title-outline": "#d34e59",
             "--drowned-lake-title-shadow": "#090a0d",
+            "--text-normal": "#ebe8e4",
+            "--text-muted": "#a7a8ad",
+            "--text-faint": "#777980",
             "--bold-color": "#f4f0ec",
             "--italic-color": "#a88af0",
+            "--table-text-color": "#ebe8e4",
+            "--table-header-color": "#d4c8f4",
             "--blockquote-border-color": "#7457bd",
             "--blockquote-color": "#d4c8f4",
             "--list-marker-color": "#a88af0",

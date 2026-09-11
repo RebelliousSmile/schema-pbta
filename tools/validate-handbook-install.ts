@@ -215,7 +215,7 @@ for (const entry of catalogue.packs) {
   manifests.set(entry.id, manifest);
   expectedAssets.push(...assetFiles(entry, manifest));
 }
-assert.equal(expectedAssets.length, 6, "the five packs must declare exactly six assets");
+assert.equal(expectedAssets.length, 8, "the five packs must declare exactly eight assets");
 
 const source = {
   id: "rebellioussmile--schema-pbta",
