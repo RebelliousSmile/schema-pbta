@@ -1,6 +1,6 @@
 ---
 objective: "Vérifier puis clôturer l’issue #5 sur l’intégration Handbook déjà livrée, sans dupliquer le contrat PbtA."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Vérification du corpus PbtA canonique dans Handbook
