@@ -518,84 +518,6 @@
         "additionalProperties": false,
         "description": "A piece of starting or selectable gear."
       }
-    },
-    "strings": {
-      "description": "Starting String economy.",
-      "type": "object",
-      "properties": {
-        "max": {
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 2147483647,
-          "description": "Maximum Strings the skin can hold."
-        },
-        "starting": {
-          "description": "Strings held at character creation.",
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 2147483647
-        }
-      },
-      "required": [
-        "max"
-      ],
-      "additionalProperties": false
-    },
-    "conditions": {
-      "description": "Conditions named by this skin.",
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Condition name."
-          },
-          "description": {
-            "description": "Effect or fictional meaning of the condition.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "name"
-        ],
-        "additionalProperties": false,
-        "description": "A condition associated with the skin."
-      }
-    },
-    "sexMove": {
-      "type": "string",
-      "minLength": 1,
-      "description": "Move triggered by intimacy."
-    },
-    "darkestSelf": {
-      "type": "string",
-      "minLength": 1,
-      "description": "The skin's Darkest Self text."
-    },
-    "backstory": {
-      "description": "Backstory prompts and choices.",
-      "type": "array",
-      "items": {
-        "type": "string",
-        "minLength": 1
-      }
-    },
-    "advances": {
-      "minItems": 1,
-      "type": "array",
-      "items": {
-        "type": "string",
-        "minLength": 1
-      },
-      "description": "Skin-specific advances."
-    },
-    "harm": {
-      "description": "Starting harm value when the skin configures one.",
-      "type": "integer",
-      "minimum": -2147483648,
-      "maximum": 2147483647
     }
   },
   "required": [
@@ -604,13 +526,10 @@
     "game",
     "description",
     "stats",
-    "moves",
-    "sexMove",
-    "darkestSelf",
-    "advances"
+    "moves"
   ],
   "additionalProperties": false,
-  "title": "Monsterhearts playbook",
-  "description": "Portable single-document representation of a Monsterhearts skin.",
-  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v1.0.0/schemas/v1/monsterhearts/monsterhearts-playbook.schema.json"
+  "title": "PbtA playbook",
+  "description": "Portable representation of a Powered by the Apocalypse character playbook.",
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v2.0.0/schemas/v2/urban-shadows/playbook.schema.json"
 }

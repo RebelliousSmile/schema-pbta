@@ -1,0 +1,9 @@
+{
+  "slug": "missing-corruption",
+  "name": "Missing Corruption",
+  "game": "urban-shadows",
+  "description": "An invalid specialized playbook fixture.",
+  "stats": { "blood": 0, "heart": 0, "mind": 0, "spirit": 0 },
+  "moves": [],
+  "endMove": "Entrust your mortal relationships to another character."
+}

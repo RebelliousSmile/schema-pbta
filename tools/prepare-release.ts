@@ -9,6 +9,13 @@ type PackResult = { filename: string };
 
 const root = process.cwd();
 const verify = process.argv.includes("--verify");
+const npmCli = process.env.npm_execpath ?? path.join(
+  path.dirname(process.execPath),
+  "node_modules",
+  "npm",
+  "bin",
+  "npm-cli.js",
+);
 
 function argumentValue(name: string): string | undefined {
   const index = process.argv.indexOf(name);
@@ -19,7 +26,12 @@ function argumentValue(name: string): string | undefined {
 }
 
 function run(command: string, args: string[], cwd = root): string {
-  const result = spawnSync(command, args, { cwd, encoding: "utf8", env: process.env });
+  const result = spawnSync(command, args, {
+    cwd,
+    encoding: "utf8",
+    env: process.env,
+    shell: false,
+  });
   if (result.status !== 0) {
     throw new Error(
       `${command} ${args.join(" ")} failed\n${result.stdout ?? ""}${result.stderr ?? ""}`,
@@ -34,7 +46,7 @@ function sha256(filePath: string): string {
 
 function pack(destination: string): string {
   fs.mkdirSync(destination, { recursive: true });
-  const output = run("npm", [
+  const output = run(process.execPath, [npmCli,
     "pack",
     "--json",
     "--silent",

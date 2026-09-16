@@ -518,140 +518,6 @@
         "additionalProperties": false,
         "description": "A piece of starting or selectable gear."
       }
-    },
-    "statuses": {
-      "description": "Starting Circle status values keyed by Circle.",
-      "type": "object",
-      "propertyNames": {
-        "type": "string"
-      },
-      "additionalProperties": {
-        "type": "integer",
-        "minimum": -2147483648,
-        "maximum": 2147483647
-      }
-    },
-    "mortalRelationships": {
-      "description": "Mortal relationships selected by the playbook.",
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Name or concise label of the mortal relationship."
-          },
-          "description": {
-            "description": "Why this mortal relationship matters.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "name"
-        ],
-        "additionalProperties": false,
-        "description": "One mortal relationship that anchors the character."
-      }
-    },
-    "harm": {
-      "description": "Harm track configuration.",
-      "type": "object",
-      "properties": {
-        "armor": {
-          "description": "Armor currently available to the playbook.",
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 2147483647
-        },
-        "faint": {
-          "description": "Number of faint-harm boxes.",
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 2147483647
-        },
-        "serious": {
-          "description": "Number of serious-harm boxes.",
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 2147483647
-        },
-        "critical": {
-          "description": "Number of critical-harm boxes.",
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 2147483647
-        }
-      },
-      "additionalProperties": false
-    },
-    "scars": {
-      "description": "Scars offered by the playbook.",
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Human-readable scar label."
-          },
-          "stat": {
-            "description": "Stat reduced by this scar.",
-            "type": "string",
-            "minLength": 1
-          },
-          "modifier": {
-            "description": "Signed modifier applied by the scar.",
-            "type": "integer",
-            "minimum": -2147483648,
-            "maximum": 2147483647
-          }
-        },
-        "required": [
-          "name"
-        ],
-        "additionalProperties": false,
-        "description": "One lasting scar."
-      }
-    },
-    "corruption": {
-      "type": "object",
-      "properties": {
-        "trigger": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Fictional trigger that marks corruption."
-        },
-        "advances": {
-          "minItems": 1,
-          "type": "array",
-          "items": {
-            "type": "string",
-            "minLength": 1
-          },
-          "description": "Corruption advances offered by the playbook."
-        },
-        "moves": {
-          "description": "Corruption moves available to the playbook.",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "minLength": 1
-          }
-        }
-      },
-      "required": [
-        "trigger",
-        "advances"
-      ],
-      "additionalProperties": false,
-      "description": "Urban Shadows corruption mechanics."
-    },
-    "endMove": {
-      "type": "string",
-      "minLength": 1,
-      "description": "Move resolved when the character dies or retires."
     }
   },
   "required": [
@@ -660,12 +526,10 @@
     "game",
     "description",
     "stats",
-    "moves",
-    "corruption",
-    "endMove"
+    "moves"
   ],
   "additionalProperties": false,
-  "title": "Urban Shadows playbook",
-  "description": "Portable single-document representation of an Urban Shadows character playbook.",
-  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v1.0.0/schemas/v1/urban-shadows/urban-shadows-playbook.schema.json"
+  "title": "PbtA playbook",
+  "description": "Portable representation of a Powered by the Apocalypse character playbook.",
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v2.0.0/schemas/v2/masks/playbook.schema.json"
 }

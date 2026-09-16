@@ -135,7 +135,7 @@ export function audit(root = resolveRoot()): number {
 
   for (const target of TARGETS) {
     const targetLabel = `${target.game.folder}/${target.name}`;
-    const schemaPath = path.join(root, "schemas", "v1", target.game.folder, `${target.name}.schema.json`);
+    const schemaPath = path.join(root, "schemas", `v${PBTA_CONTRACT_VERSION}`, target.game.folder, `${target.name}.schema.json`);
     console.log(`\n-- ${targetLabel} --`);
 
     if (!fs.existsSync(schemaPath)) {

@@ -9,9 +9,10 @@ npm registry.
 | Package | Schema path | Canonical schema tag | TOML | Handbook | Lantern |
 | --- | --- | --- | --- | --- | --- |
 | `1.0.x` | `schemas/v1` | `v1.0.0` | `1.0.0` | `2.8.0+` | pending consumer issue #2 |
+| `2.0.x` | `schemas/v2` | `v2.0.0` | `1.0.0` | `2.8.0+` | pending specialized-playbook issue |
 
 The schema path groups compatible artifacts by contract major. Every `$id`
-uses the exact `v1.0.0` tag so it never depends on a movable `v1` alias.
+uses its exact immutable release tag so it never depends on a movable major alias.
 
 ## SemVer
 
@@ -31,7 +32,7 @@ instead of silently moving its `$id`.
 ## Release and consumer integrity
 
 `npm run release:prepare -- --output <directory>` creates the `.tgz` and a
-SHA-256 sidecar. Release `v1.0.0` must target the validated commit, contain both
+SHA-256 sidecar. Each release must target the validated commit, contain both
 assets and be published only while immutable releases are enabled for the
 repository. Published tags and assets are never moved or replaced.
 

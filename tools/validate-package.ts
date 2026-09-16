@@ -6,6 +6,13 @@ import { spawnSync } from "node:child_process";
 
 const root = process.cwd();
 const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "schema-pbta-package-"));
+const npmCli = process.env.npm_execpath ?? path.join(
+  path.dirname(process.execPath),
+  "node_modules",
+  "npm",
+  "bin",
+  "npm-cli.js",
+);
 const packageJson = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8")) as {
   name: string;
   version: string;
@@ -16,17 +23,18 @@ function run(command: string, args: string[], cwd = root): string {
     cwd,
     encoding: "utf8",
     env: process.env,
+    shell: false,
   });
   if (result.status !== 0) {
     throw new Error(
-      `${command} ${args.join(" ")} failed\n${result.stdout ?? ""}${result.stderr ?? ""}`,
+      `${command} ${args.join(" ")} failed\n${result.stdout ?? ""}${result.stderr ?? ""}${result.error?.message ?? ""}`,
     );
   }
   return result.stdout;
 }
 
 try {
-  const packOutput = run("npm", [
+  const packOutput = run(process.execPath, [npmCli,
     "pack",
     "--json",
     "--silent",
@@ -47,8 +55,8 @@ try {
     JSON.stringify({ private: true, type: "module" }),
   );
   run(
-    "npm",
-    ["install", "--ignore-scripts", "--no-audit", "--no-fund", tarball],
+    process.execPath,
+    [npmCli, "install", "--ignore-scripts", "--no-audit", "--no-fund", tarball],
     consumerRoot,
   );
 
@@ -63,27 +71,31 @@ import {
   parseFrontToml,
   parseGameDefinitionToml,
   parseMoveToml,
+  parseMonsterheartsPlaybookToml,
   parseNpcToml,
   parsePlaybookToml,
+  parseUrbanShadowsPlaybookToml,
 } from "schema-pbta";
 
-assert.equal(PBTA_CONTRACT_VERSION, 1);
-assert.equal(PBTA_CONTRACT_SCHEMA_TAG, "v1.0.0");
+assert.equal(PBTA_CONTRACT_VERSION, 2);
+assert.equal(PBTA_CONTRACT_SCHEMA_TAG, "v2.0.0");
 assert.equal(PBTA_TOML_VERSION, "1.0.0");
 assert.deepEqual(Object.keys(PBTA_DOCUMENT_CODECS).sort(), [
-  "front", "game-definition", "move", "npc", "playbook",
+  "front", "game-definition", "monsterhearts-playbook", "move", "npc", "playbook", "urban-shadows-playbook",
 ]);
 for (const parser of [
   parseFrontToml,
   parseGameDefinitionToml,
   parseMoveToml,
+  parseMonsterheartsPlaybookToml,
   parseNpcToml,
   parsePlaybookToml,
+  parseUrbanShadowsPlaybookToml,
 ]) assert.equal(typeof parser, "function");
 
-const schemaUrl = import.meta.resolve("schema-pbta/schemas/v1/masks/playbook.schema.json");
+const schemaUrl = import.meta.resolve("schema-pbta/schemas/v2/masks/playbook.schema.json");
 const schema = JSON.parse(fs.readFileSync(new URL(schemaUrl), "utf8"));
-assert.match(schema.$id, /\\/v1\\.0\\.0\\/schemas\\/v1\\/masks\\/playbook\\.schema\\.json$/);
+assert.match(schema.$id, /\\/v2\\.0\\.0\\/schemas\\/v2\\/masks\\/playbook\\.schema\\.json$/);
 
 const corpusUrl = import.meta.resolve("schema-pbta/corpus/valid/playbook-minimal.toml");
 const playbookSource = fs.readFileSync(new URL(corpusUrl), "utf8");
@@ -116,7 +128,7 @@ await assert.rejects(
 
   const major = Number(packageJson.version.split(".")[0]);
   if (major >= 1) {
-    assert.equal(major, 1, "stable package major must equal PBTA_CONTRACT_VERSION");
+    assert.equal(major, 2, "stable package major must equal PBTA_CONTRACT_VERSION");
   }
 
   console.log(

@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
+import { PBTA_CONTRACT_VERSION } from "../src/contract-version";
 import { TARGETS } from "../src/zod/constants";
 import { listDataFiles, loadData } from "./read-data";
 
@@ -14,7 +15,7 @@ async function run() {
   for (const t of TARGETS) {
     const schemaPath = path.join(
       "schemas",
-      "v1",
+      `v${PBTA_CONTRACT_VERSION}`,
       t.game.folder,
       `${t.name}.schema.json`
     );
