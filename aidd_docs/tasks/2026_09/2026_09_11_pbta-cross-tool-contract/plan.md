@@ -17,8 +17,8 @@ status: in-progress
 | # | Phase | File |
 | --- | --- | --- |
 | 1 | Package de contrat canonique | [`phase-1.md`](./phase-1.md) |
-| 2 | Capacités PbtA runtime dans Handbook | [`phase-2.md`](./phase-2.md) |
-| 3 | Consommateur PbtA dans Lantern | [`phase-3.md`](./phase-3.md) |
+| 2 | **[done]** Capacités PbtA runtime dans Handbook | [`phase-2.md`](./phase-2.md) |
+| 3 | **[in progress]** Consommateur PbtA dans Lantern | [`phase-3.md`](./phase-3.md) |
 | 4 | Activation des packs et preuve inter-dépôts | [`phase-4.md`](./phase-4.md) |
 
 ## Resources
@@ -37,7 +37,8 @@ status: in-progress
 | --- | --- |
 | `schema-pbta` exporte le Zod canonique, ses types, ses codecs et ses JSON Schemas générés. | Lantern et Handbook ne doivent plus posséder de schéma PbtA concurrent. |
 | La compatibilité compare les objets normalisés, jamais les octets TOML ou le DOM. | Les trois outils peuvent formater différemment sans perdre ni changer une valeur. |
-| Handbook fournit des capacités génériques `pbta-*` activables par plusieurs ids de jeu. | Un nouveau jeu ne doit pas entraîner une copie du parser et du renderer. |
+| Handbook fournit des capacités PbtA portables sans liste fermée d'ids de jeu, et conserve sa table de capacités propres aux jeux existants. | Un pack inconnu du host doit pouvoir activer un renderer compatible uniquement par son manifest. |
 | Les callouts sont des projections de champs canoniques, pas de nouvelles clés TOML. | La présentation reste distincte du contrat d'échange. |
 | La livraison suit contrat, host Handbook, consommateur Lantern, puis manifests. | Un pack ne peut pas annoncer une capacité absente de la version Handbook minimale. |
 | Le workflow durable vit dans `aidd_docs/recipes/add-a-cross-tool-pbta-game.md`. | Les mêmes contrôles deviennent obligatoires pour chaque jeu suivant. |
+| Les sources Mist Engine et Adrenaline font partie de la matrice de non-régression. | La généralisation des capacités ne doit pas casser les contrats déjà installables. |

@@ -64,6 +64,7 @@ journey
 1. Renommer la validation actuelle de « surface Lantern » en contrôle de données structurées.
 2. Ajouter la matrice réelle Schema, Lantern et Handbook.
 3. Épingler versions ou commits des trois checkouts en CI.
+4. Exécuter les suites schema-in-the-mist et schema-adrenaline comme non-régressions.
 
 ### `3)` Vérifier l'installation et documenter
 
@@ -80,3 +81,4 @@ journey
 | 1 | Chaque pack installable exige une version Handbook qui fournit toutes ses capacités déclarées. |
 | 2 | Une divergence de contrat ou une perte de champ fait échouer la CI inter-dépôts. |
 | 3 | Après installation, les trois inventaires sont non vides et le TOML revient dans Lantern avec le même objet canonique. |
+| 4 | Les packs Mist Engine et Adrenaline conservent leurs capacités, leurs blocs et leurs round-trips TOML. |
