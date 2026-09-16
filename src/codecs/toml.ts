@@ -6,12 +6,14 @@ import { moveSchema } from "../zod/move.js";
 import { npcSchema } from "../zod/npc.js";
 import { playbookSchema } from "../zod/playbook.js";
 import { urbanShadowsPlaybookSchema } from "../zod/urban-shadows-playbook.js";
+import { monsterheartsPlaybookSchema } from "../zod/monsterhearts-playbook.js";
 
 export const PBTA_DOCUMENT_SCHEMAS = {
   "game-definition": gameDefinitionSchema,
   move: moveSchema,
   playbook: playbookSchema,
   "urban-shadows-playbook": urbanShadowsPlaybookSchema,
+  "monsterhearts-playbook": monsterheartsPlaybookSchema,
   npc: npcSchema,
   front: frontSchema,
 } as const;
@@ -21,6 +23,7 @@ export type GameDefinition = z.infer<typeof gameDefinitionSchema>;
 export type Move = z.infer<typeof moveSchema>;
 export type Playbook = z.infer<typeof playbookSchema>;
 export type UrbanShadowsPlaybook = z.infer<typeof urbanShadowsPlaybookSchema>;
+export type MonsterheartsPlaybook = z.infer<typeof monsterheartsPlaybookSchema>;
 export type Npc = z.infer<typeof npcSchema>;
 export type Front = z.infer<typeof frontSchema>;
 
@@ -29,6 +32,7 @@ export interface PbtaDocumentByTarget {
   move: Move;
   playbook: Playbook;
   "urban-shadows-playbook": UrbanShadowsPlaybook;
+  "monsterhearts-playbook": MonsterheartsPlaybook;
   npc: Npc;
   front: Front;
 }
@@ -78,6 +82,8 @@ export function parseUrbanShadowsPlaybookToml(source: string): UrbanShadowsPlayb
 export function stringifyUrbanShadowsPlaybookToml(value: unknown): string {
   return stringifyWith(urbanShadowsPlaybookSchema, value);
 }
+export function parseMonsterheartsPlaybookToml(source: string): MonsterheartsPlaybook { return parseWith(monsterheartsPlaybookSchema, source); }
+export function stringifyMonsterheartsPlaybookToml(value: unknown): string { return stringifyWith(monsterheartsPlaybookSchema, value); }
 
 export function parseNpcToml(source: string): Npc {
   return parseWith(npcSchema, source);
@@ -119,6 +125,7 @@ export const PBTA_DOCUMENT_CODECS: {
     parseToml: parseUrbanShadowsPlaybookToml,
     stringifyToml: stringifyUrbanShadowsPlaybookToml,
   },
+  "monsterhearts-playbook": { schema: monsterheartsPlaybookSchema, parseToml: parseMonsterheartsPlaybookToml, stringifyToml: stringifyMonsterheartsPlaybookToml },
   npc: {
     schema: npcSchema,
     parseToml: parseNpcToml,

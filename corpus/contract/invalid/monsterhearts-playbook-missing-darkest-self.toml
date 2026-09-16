@@ -1,0 +1,8 @@
+slug = "the-hollow"
+name = "The Hollow"
+game = "monsterhearts"
+description = "A beautiful imitation trying to become real."
+stats = { hot = 1, cold = 0, volatile = -1, dark = 1 }
+moves = []
+sexMove = "When you share intimacy, take a String on them."
+advances = ["Take a new skin move."]

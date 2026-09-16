@@ -7,12 +7,14 @@
     { "path": "valid/playbook-complete.toml", "target": "playbook", "expect": "accept" },
     { "path": "valid/playbook-minimal.toml", "target": "playbook", "expect": "accept" },
     { "path": "valid/urban-shadows-playbook-complete.toml", "target": "urban-shadows-playbook", "expect": "accept" },
+    { "path": "valid/monsterhearts-playbook-complete.toml", "target": "monsterhearts-playbook", "expect": "accept" },
     { "path": "valid/npc-complete.toml", "target": "npc", "expect": "accept" },
     { "path": "valid/front-complete.toml", "target": "front", "expect": "accept" },
     { "path": "invalid/game-definition-unknown-field.toml", "target": "game-definition", "expect": "reject" },
     { "path": "invalid/move-unknown-field.toml", "target": "move", "expect": "reject" },
     { "path": "invalid/playbook-unknown-field.toml", "target": "playbook", "expect": "reject" },
     { "path": "invalid/urban-shadows-playbook-missing-corruption.toml", "target": "urban-shadows-playbook", "expect": "reject" },
+    { "path": "invalid/monsterhearts-playbook-missing-darkest-self.toml", "target": "monsterhearts-playbook", "expect": "reject" },
     { "path": "invalid/npc-unknown-field.toml", "target": "npc", "expect": "reject" },
     { "path": "invalid/front-unknown-field.toml", "target": "front", "expect": "reject" }
   ]

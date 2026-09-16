@@ -5,6 +5,7 @@ import { moveSchema } from "./move.js";
 import { npcSchema } from "./npc.js";
 import { playbookSchema } from "./playbook.js";
 import { urbanShadowsPlaybookSchema } from "./urban-shadows-playbook.js";
+import { monsterheartsPlaybookSchema } from "./monsterhearts-playbook.js";
 
 type Game = {
   name: string;
@@ -66,6 +67,7 @@ export const TARGETS: Array<SchemaTarget> = [
   },
   { name: "move", zod: moveSchema, game: GAMES.monsterhearts },
   { name: "playbook", zod: playbookSchema, game: GAMES.monsterhearts },
+  { name: "monsterhearts-playbook", zod: monsterheartsPlaybookSchema, game: GAMES.monsterhearts },
   {
     name: "game-definition",
     zod: gameDefinitionSchema,

@@ -1,0 +1,15 @@
+slug = "the-hollow"
+name = "The Hollow"
+game = "monsterhearts"
+description = "A beautiful imitation trying to become real."
+stats = { hot = 1, cold = 0, volatile = -1, dark = 1 }
+moves = [{ name = "What Are You?", moveType = "playbook", description = "Ask a question nobody wants to answer." }]
+sexMove = "When you share intimacy, take a String on them."
+darkestSelf = "You are empty until somebody proves otherwise."
+advances = ["Take a new skin move."]
+[strings]
+max = 5
+starting = 1
+[[conditions]]
+name = "Artificial"
+description = "Someone has named the thing you fear is true."

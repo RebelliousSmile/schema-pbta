@@ -1,0 +1,10 @@
+{
+  "slug": "missing-darkest-self",
+  "name": "Missing Darkest Self",
+  "game": "monsterhearts",
+  "description": "An invalid specialized playbook fixture.",
+  "stats": { "hot": 0, "cold": 0, "volatile": 0, "dark": 0 },
+  "moves": [],
+  "sexMove": "Share a secret that cannot safely be repeated.",
+  "advances": ["Take a move from another skin."]
+}
