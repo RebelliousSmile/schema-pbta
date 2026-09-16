@@ -1,0 +1,60 @@
+slug = "the-aware"
+name = "The Aware"
+game = "urban-shadows"
+description = "A mortal who has seen what the city hides and cannot look away."
+statsDetail = "Blood 0, Heart 1, Mind -1, Spirit 1."
+startingMoves = ["i-know-a-guy"]
+advancement = ["Take a new Aware move.", "Open a new mortal relationship."]
+endMove = "When you die, ask another PC to look after up to three mortal relationships."
+
+[stats]
+blood = 0
+heart = 1
+mind = -1
+spirit = 1
+mortalis = 1
+night = 0
+power = 1
+wild = -1
+
+[statuses]
+mortalis = 1
+night = 0
+power = 0
+wild = 0
+
+[attributes]
+corruption = 0
+
+[harm]
+armor = 0
+faint = 1
+serious = 2
+critical = 2
+
+[corruption]
+trigger = "When you ignore mortal commitments or relationships to deal with the supernatural, mark corruption."
+advances = ["Take +1 to any stat.", "Take a corruption move.", "Retire the character as a Threat."]
+moves = ["In Too Deep", "Free Agent"]
+
+[[moves]]
+name = "I Know a Guy"
+moveType = "playbook"
+description = "When you hit the streets to get what you need from a member of your Circle, roll with Heart instead."
+
+[[mortalRelationships]]
+name = "Younger sibling"
+description = "Relies on you for transportation and advice."
+
+[[mortalRelationships]]
+name = "Struggling best friend"
+description = "Always gets into messy altercations."
+
+[[scars]]
+name = "Shattered"
+stat = "blood"
+modifier = -1
+
+[[creation]]
+label = "Choose three mortal relationships."
+options = ["Younger sibling", "Loyal significant other", "Struggling best friend"]

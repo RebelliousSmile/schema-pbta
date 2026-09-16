@@ -5,11 +5,13 @@ import { gameDefinitionSchema } from "../zod/game-definition.js";
 import { moveSchema } from "../zod/move.js";
 import { npcSchema } from "../zod/npc.js";
 import { playbookSchema } from "../zod/playbook.js";
+import { urbanShadowsPlaybookSchema } from "../zod/urban-shadows-playbook.js";
 
 export const PBTA_DOCUMENT_SCHEMAS = {
   "game-definition": gameDefinitionSchema,
   move: moveSchema,
   playbook: playbookSchema,
+  "urban-shadows-playbook": urbanShadowsPlaybookSchema,
   npc: npcSchema,
   front: frontSchema,
 } as const;
@@ -18,6 +20,7 @@ export type PbtaDocumentTarget = keyof typeof PBTA_DOCUMENT_SCHEMAS;
 export type GameDefinition = z.infer<typeof gameDefinitionSchema>;
 export type Move = z.infer<typeof moveSchema>;
 export type Playbook = z.infer<typeof playbookSchema>;
+export type UrbanShadowsPlaybook = z.infer<typeof urbanShadowsPlaybookSchema>;
 export type Npc = z.infer<typeof npcSchema>;
 export type Front = z.infer<typeof frontSchema>;
 
@@ -25,6 +28,7 @@ export interface PbtaDocumentByTarget {
   "game-definition": GameDefinition;
   move: Move;
   playbook: Playbook;
+  "urban-shadows-playbook": UrbanShadowsPlaybook;
   npc: Npc;
   front: Front;
 }
@@ -67,6 +71,14 @@ export function stringifyPlaybookToml(value: unknown): string {
   return stringifyWith(playbookSchema, value);
 }
 
+export function parseUrbanShadowsPlaybookToml(source: string): UrbanShadowsPlaybook {
+  return parseWith(urbanShadowsPlaybookSchema, source);
+}
+
+export function stringifyUrbanShadowsPlaybookToml(value: unknown): string {
+  return stringifyWith(urbanShadowsPlaybookSchema, value);
+}
+
 export function parseNpcToml(source: string): Npc {
   return parseWith(npcSchema, source);
 }
@@ -101,6 +113,11 @@ export const PBTA_DOCUMENT_CODECS: {
     schema: playbookSchema,
     parseToml: parsePlaybookToml,
     stringifyToml: stringifyPlaybookToml,
+  },
+  "urban-shadows-playbook": {
+    schema: urbanShadowsPlaybookSchema,
+    parseToml: parseUrbanShadowsPlaybookToml,
+    stringifyToml: stringifyUrbanShadowsPlaybookToml,
   },
   npc: {
     schema: npcSchema,

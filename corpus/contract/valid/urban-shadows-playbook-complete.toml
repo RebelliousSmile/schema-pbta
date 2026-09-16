@@ -1,0 +1,12 @@
+slug = "the-aware"
+name = "The Aware"
+game = "urban-shadows"
+description = "A mortal who has learned the city has monsters."
+stats = { blood = 0, heart = 1, mind = -1, spirit = 1, mortalis = 1, night = 0, power = 1, wild = -1 }
+moves = [{ name = "I Know a Guy", moveType = "playbook", description = "Find help through your Circle." }]
+endMove = "Entrust your mortal relationships to another character."
+
+[corruption]
+trigger = "Ignore mortal commitments to confront the supernatural."
+advances = ["Take a corruption move."]
+
