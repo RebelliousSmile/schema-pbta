@@ -1,5 +1,5 @@
 ---
-status: pending
+status: done
 ---
 
 # Instruction: Issue et livraison inter-projets
@@ -49,3 +49,9 @@ journey
 | Task | Acceptance criteria |
 | --- | --- |
 | 1 | Une issue Lantern lie explicitement le template à la release de contrat requise. |
+
+## Livraison
+
+- Release : https://github.com/RebelliousSmile/schema-pbta/releases/tag/v2.0.0
+- Suivi Lantern : https://github.com/RebelliousSmile/lantern/issues/5
+- Aucun fichier, worktree ou paramètre Lantern n'a été modifié.

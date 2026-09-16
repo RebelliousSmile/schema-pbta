@@ -1,6 +1,6 @@
 ---
 objective: "Monsterhearts playbooks round-trip as one TOML document through a dedicated schema-pbta contract and a Lantern template tracked by a Lantern issue."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Playbook Monsterhearts spécialisé
