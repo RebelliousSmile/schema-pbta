@@ -89,13 +89,16 @@
                 "type": "string",
                 "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
                 "description": "Slug of a standalone move in the same game."
+              },
+              "checked": {
+                "description": "Whether this move is currently acquired.",
+                "type": "boolean"
               }
             },
             "required": [
               "ref"
             ],
-            "additionalProperties": false,
-            "description": "Reference to a standalone move."
+            "additionalProperties": false
           },
           {
             "type": "object",
@@ -206,6 +209,10 @@
                   "type": "string",
                   "minLength": 1
                 }
+              },
+              "checked": {
+                "description": "Whether this move is currently acquired.",
+                "type": "boolean"
               }
             },
             "required": [
@@ -216,7 +223,7 @@
             "additionalProperties": false
           }
         ],
-        "description": "A move reference or a complete inline move."
+        "description": "A move carried by this playbook, with its optional acquisition state."
       },
       "description": "Moves available to this playbook."
     },
@@ -443,8 +450,23 @@
       "description": "Advancement options offered by the playbook.",
       "type": "array",
       "items": {
-        "type": "string",
-        "minLength": 1
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable advancement option."
+          },
+          "checked": {
+            "description": "Whether this advancement has been acquired.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "additionalProperties": false,
+        "description": "One advancement option and its optional acquisition state."
       }
     },
     "creation": {

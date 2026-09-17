@@ -45,6 +45,16 @@ const choiceSchema = z.union([
   moveInlineEntry.extend(choiceExtension),
 ]);
 
+const playbookMoveEntry = z.union([
+  moveRefEntry.extend({ checked: z.boolean().optional().meta({ description: "Whether this move is currently acquired." }) }),
+  moveInlineEntry.extend({ checked: z.boolean().optional().meta({ description: "Whether this move is currently acquired." }) }),
+]).meta({ description: "A move carried by this playbook, with its optional acquisition state." });
+
+const advancementSchema = z.strictObject({
+  label: nonEmptyString.meta({ description: "Human-readable advancement option." }),
+  checked: z.boolean().optional().meta({ description: "Whether this advancement has been acquired." }),
+}).meta({ description: "One advancement option and its optional acquisition state." });
+
 const choiceSetSchema = z.strictObject({
   title: nonEmptyString.meta({ description: "Human-readable heading for the choice set." }),
   description: nonEmptyString.optional().meta({ description: "Explanation shown with the choices." }),
@@ -84,11 +94,11 @@ export const playbookSchema = z.strictObject({
   statsDetail: nonEmptyString.optional().meta({ description: "Text accompanying the starting stat spread." }),
   /** Keys must exist in `character.attributes` of the game definition. */
   attributes: z.record(z.string(), attributeValue).optional().meta({ description: "Starting values keyed by game attribute." }),
-  moves: z.array(moveEntry).meta({ description: "Moves available to this playbook." }),
+  moves: z.array(playbookMoveEntry).meta({ description: "Moves available to this playbook." }),
   /** Slugs granted outright at creation, distinct from what is available. */
   startingMoves: z.array(slugSchema).optional().meta({ description: "Slugs of moves granted at character creation." }),
   choiceSets: z.array(choiceSetSchema).optional().meta({ description: "Move choices available during creation or advancement." }),
-  advancement: z.array(nonEmptyString).optional().meta({ description: "Advancement options offered by the playbook." }),
+  advancement: z.array(advancementSchema).optional().meta({ description: "Advancement options offered by the playbook." }),
   creation: z.array(creationQuestionSchema).optional().meta({ description: "Questions asked during character creation." }),
   gear: z.array(gearSchema).optional().meta({ description: "Starting or selectable gear." }),
 }).meta({
