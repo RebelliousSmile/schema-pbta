@@ -10,6 +10,7 @@ import { monsterheartsPlaybookSchema } from "../zod/monsterhearts-playbook.js";
 import { masksPlaybookSchema } from "../zod/masks-playbook.js";
 import { monsterOfTheWeekPlaybookSchema } from "../zod/monster-of-the-week-playbook.js";
 import { theSprawlPlaybookSchema } from "../zod/the-sprawl-playbook.js";
+import { salvageRunPlaybookSchema } from "../zod/salvage-run-playbook.js";
 
 export const PBTA_DOCUMENT_SCHEMAS = {
   "game-definition": gameDefinitionSchema,
@@ -20,6 +21,7 @@ export const PBTA_DOCUMENT_SCHEMAS = {
   "masks-playbook": masksPlaybookSchema,
   "monster-of-the-week-playbook": monsterOfTheWeekPlaybookSchema,
   "the-sprawl-playbook": theSprawlPlaybookSchema,
+  "salvage-run-playbook": salvageRunPlaybookSchema,
   npc: npcSchema,
   front: frontSchema,
 } as const;
@@ -33,6 +35,7 @@ export type MonsterheartsPlaybook = z.infer<typeof monsterheartsPlaybookSchema>;
 export type MasksPlaybook = z.infer<typeof masksPlaybookSchema>;
 export type MonsterOfTheWeekPlaybook = z.infer<typeof monsterOfTheWeekPlaybookSchema>;
 export type TheSprawlPlaybook = z.infer<typeof theSprawlPlaybookSchema>;
+export type SalvageRunPlaybook = z.infer<typeof salvageRunPlaybookSchema>;
 export type Npc = z.infer<typeof npcSchema>;
 export type Front = z.infer<typeof frontSchema>;
 
@@ -45,6 +48,7 @@ export interface PbtaDocumentByTarget {
   "masks-playbook": MasksPlaybook;
   "monster-of-the-week-playbook": MonsterOfTheWeekPlaybook;
   "the-sprawl-playbook": TheSprawlPlaybook;
+  "salvage-run-playbook": SalvageRunPlaybook;
   npc: Npc;
   front: Front;
 }
@@ -102,6 +106,8 @@ export function parseMonsterOfTheWeekPlaybookToml(source: string): MonsterOfTheW
 export function stringifyMonsterOfTheWeekPlaybookToml(value: unknown): string { return stringifyWith(monsterOfTheWeekPlaybookSchema, value); }
 export function parseTheSprawlPlaybookToml(source: string): TheSprawlPlaybook { return parseWith(theSprawlPlaybookSchema, source); }
 export function stringifyTheSprawlPlaybookToml(value: unknown): string { return stringifyWith(theSprawlPlaybookSchema, value); }
+export function parseSalvageRunPlaybookToml(source: string): SalvageRunPlaybook { return parseWith(salvageRunPlaybookSchema, source); }
+export function stringifySalvageRunPlaybookToml(value: unknown): string { return stringifyWith(salvageRunPlaybookSchema, value); }
 
 export function parseNpcToml(source: string): Npc {
   return parseWith(npcSchema, source);
@@ -147,6 +153,7 @@ export const PBTA_DOCUMENT_CODECS: {
   "masks-playbook": { schema: masksPlaybookSchema, parseToml: parseMasksPlaybookToml, stringifyToml: stringifyMasksPlaybookToml },
   "monster-of-the-week-playbook": { schema: monsterOfTheWeekPlaybookSchema, parseToml: parseMonsterOfTheWeekPlaybookToml, stringifyToml: stringifyMonsterOfTheWeekPlaybookToml },
   "the-sprawl-playbook": { schema: theSprawlPlaybookSchema, parseToml: parseTheSprawlPlaybookToml, stringifyToml: stringifyTheSprawlPlaybookToml },
+  "salvage-run-playbook": { schema: salvageRunPlaybookSchema, parseToml: parseSalvageRunPlaybookToml, stringifyToml: stringifySalvageRunPlaybookToml },
   npc: {
     schema: npcSchema,
     parseToml: parseNpcToml,

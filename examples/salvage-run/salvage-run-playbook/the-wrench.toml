@@ -1,0 +1,20 @@
+slug = "the-wrench"
+name = "The Wrench"
+game = "salvage-run"
+actorType = "character"
+description = "The crew member who keeps the rig running past what the manual allows."
+stats = { grit = 1, nerve = 0, reflex = 1, wits = 2, sway = -1 }
+statsDetail = "Choose one stat at +1 and lower another by 1 to taste."
+attributes = { fuel = 3 }
+moves = [{ ref = "act-under-fire" }, { name = "Field Fix", moveType = "rig", audience = "character", playbook = "the-wrench", description = "When you jury-rig a fix under pressure, roll +Reflex.", trigger = "you jury-rig a fix under pressure", roll = { rollType = "reflex" }, results = { strong = { label = "10+", text = "The fix holds until you can do it properly." }, weak = { label = "7-9", text = "It holds, but mark 1 Fuel to keep it together." } }, tags = ["rig"] }]
+startingMoves = ["act-under-fire"]
+advancement = ["Get +1 to a stat (max +3)", "Get a new rig move", "Get a move from another playbook"]
+creation = [{ label = "Name", options = ["Bram", "Kessa", "Oren"] }, { label = "Look", options = ["grease-stained", "patched coveralls"] }]
+gear = [{ name = "Toolkit", equipmentType = "gear", description = "Everything short of a welder.", quantity = 1 }, { name = "Scrap", equipmentType = "salvage", quantity = 3, tags = ["barter"] }]
+[[choiceSets]]
+title = "Rig Moves"
+description = "Pick two to start."
+type = "multi"
+repeatable = false
+grantOn = "creation"
+choices = [{ ref = "overdrive", granted = 2, advancement = 0 }, { name = "Scavenger Eye", moveType = "rig", audience = "character", playbook = "the-wrench", description = "When you strip a wreck for parts, roll +Wits.", trigger = "you strip a wreck for parts", roll = { rollType = "wits" }, results = {}, granted = 2, advancement = 0 }]

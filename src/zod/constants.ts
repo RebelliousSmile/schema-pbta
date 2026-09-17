@@ -9,6 +9,7 @@ import { monsterheartsPlaybookSchema } from "./monsterhearts-playbook.js";
 import { masksPlaybookSchema } from "./masks-playbook.js";
 import { monsterOfTheWeekPlaybookSchema } from "./monster-of-the-week-playbook.js";
 import { theSprawlPlaybookSchema } from "./the-sprawl-playbook.js";
+import { salvageRunPlaybookSchema } from "./salvage-run-playbook.js";
 
 type Game = {
   name: string;
@@ -60,9 +61,13 @@ export const GAMES: GameDictionary = {
     folder: "the-sprawl",
     abbr: "the-sprawl",
   },
+  "salvage-run": { name: "Salvage Run", folder: "salvage-run", abbr: "salvage-run" },
 };
 
 export const TARGETS: Array<SchemaTarget> = [
+  { name: "game-definition", zod: gameDefinitionSchema, game: GAMES["salvage-run"] },
+  { name: "move", zod: moveSchema, game: GAMES["salvage-run"] },
+  { name: "salvage-run-playbook", zod: salvageRunPlaybookSchema, game: GAMES["salvage-run"] },
   {
     name: "game-definition",
     zod: gameDefinitionSchema,
@@ -147,6 +152,7 @@ export const TARGETS: Array<SchemaTarget> = [
  * always resolved against this specialised target.
  */
 export const SPECIALIZED_PLAYBOOK_TARGET_BY_GAME: Readonly<Record<string, string>> = {
+  [GAMES["salvage-run"].folder]: "salvage-run-playbook",
   [GAMES.masks.folder]: "masks-playbook",
   [GAMES.motw.folder]: "monster-of-the-week-playbook",
   [GAMES.monsterhearts.folder]: "monsterhearts-playbook",

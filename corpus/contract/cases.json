@@ -11,6 +11,7 @@
     { "path": "valid/masks-playbook-complete.toml", "target": "masks-playbook", "expect": "accept" },
     { "path": "valid/monster-of-the-week-playbook-complete.toml", "target": "monster-of-the-week-playbook", "expect": "accept" },
     { "path": "valid/the-sprawl-playbook-complete.toml", "target": "the-sprawl-playbook", "expect": "accept" },
+    { "path": "valid/salvage-run-playbook-complete.toml", "target": "salvage-run-playbook", "expect": "accept" },
     { "path": "valid/npc-complete.toml", "target": "npc", "expect": "accept" },
     { "path": "valid/front-complete.toml", "target": "front", "expect": "accept" },
     { "path": "invalid/game-definition-unknown-field.toml", "target": "game-definition", "expect": "reject" },
@@ -21,6 +22,7 @@
     { "path": "invalid/masks-playbook-missing-editorial.toml", "target": "masks-playbook", "expect": "reject" },
     { "path": "invalid/monster-of-the-week-playbook-missing-editorial.toml", "target": "monster-of-the-week-playbook", "expect": "reject" },
     { "path": "invalid/the-sprawl-playbook-missing-editorial.toml", "target": "the-sprawl-playbook", "expect": "reject" },
+    { "path": "invalid/salvage-run-playbook-unknown-field.toml", "target": "salvage-run-playbook", "expect": "reject" },
     { "path": "invalid/npc-unknown-field.toml", "target": "npc", "expect": "reject" },
     { "path": "invalid/front-unknown-field.toml", "target": "front", "expect": "reject" }
   ]

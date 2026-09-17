@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr" data-game="salvage-run" data-variant="base">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Salvage Run — Handbook preview</title>
+  <link rel="stylesheet" href="../../shared/preview.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link data-variant-stylesheet rel="stylesheet" disabled>
+</head>
+<body>
+  <main class="handbook-sheet" data-handbook-preview>
+    <header class="handbook-game" data-region="game-identity">
+      <div><span class="handbook-kicker">Handbook preview</span><h1>Salvage Run</h1><p>Original Lantern playtest draft</p></div>
+      <label class="handbook-variant">Variante<select data-variant-picker><option value="base" selected>base</option></select></label>
+    </header>
+    <div class="handbook-layout">
+      <section class="handbook-panel handbook-identity" data-region="character-identity">
+        <span class="handbook-kicker">Livret</span><h2>The Wrench</h2><p>The crew member who keeps the rig running past what the manual allows.</p>
+<aside class="handbook-callout handbook-stats-detail" data-callout="rule"><strong>Répartition de départ</strong><p>Choose one stat at +1 and lower another by 1 to taste.</p></aside>
+<div class="handbook-creation"><section class="handbook-creation__item" data-schema-block="creation-question"><h3>Name</h3><ul class="handbook-options"><li>Bram</li><li>Kessa</li><li>Oren</li></ul></section><section class="handbook-creation__item" data-schema-block="creation-question"><h3>Look</h3><ul class="handbook-options"><li>grease-stained</li><li>patched coveralls</li></ul></section></div>
+<section class="handbook-subsection handbook-gear-list"><span class="handbook-kicker">Inventaire</span><h2>Équipement</h2><ul><li class="handbook-gear" data-schema-block="gear"><div><strong>Toolkit</strong><small>gear</small></div><span class="handbook-gear__quantity">×1</span><p>Everything short of a welder.</p></li><li class="handbook-gear" data-schema-block="gear"><div><strong>Scrap</strong><small>salvage</small></div><span class="handbook-gear__quantity">×3</span><ul class="handbook-tags" aria-label="Tags"><li>barter</li></ul></li></ul></section>
+
+
+      </section>
+      <section class="handbook-panel handbook-playbook" data-region="playbook-moves">
+        <span class="handbook-kicker">Actions</span><h2>Moves du livret</h2>
+<article class="handbook-move" data-move="act-under-fire" data-move-type="basic" data-audience="character" data-schema-block="move" data-starting-move="true">
+    <header><div><span class="handbook-kicker">basic · départ</span><h3>Act Under Fire</h3></div><span class="handbook-roll" data-schema-block="roll">2d6 + Grit</span></header>
+    <p>Keep your cool while the wreck fights back.</p><aside class="handbook-callout handbook-move__trigger" data-callout="trigger"><strong>Déclencheur</strong><p>When you act under immediate danger, roll +Grit.</p></aside>
+
+<div class="handbook-results"><div class="handbook-result" data-result="strong" data-schema-block="result"><strong>10+</strong><p>You do it without trouble.</p></div><div class="handbook-result" data-result="weak" data-schema-block="result"><strong>7-9</strong><p>You do it, but the MC offers a hard bargain.</p></div></div>
+  </article>
+<article class="handbook-move" data-move="embedded-field-fix" data-move-type="rig" data-audience="character" data-schema-block="move">
+    <header><div><span class="handbook-kicker">rig</span><h3>Field Fix</h3></div><span class="handbook-roll" data-schema-block="roll">2d6 + Reflex</span></header>
+    <p>When you jury-rig a fix under pressure, roll +Reflex.</p><aside class="handbook-callout handbook-move__trigger" data-callout="trigger"><strong>Déclencheur</strong><p>you jury-rig a fix under pressure</p></aside>
+<ul class="handbook-tags" aria-label="Tags"><li>rig</li></ul>
+<div class="handbook-results"><div class="handbook-result" data-result="strong" data-schema-block="result"><strong>10+</strong><p>The fix holds until you can do it properly.</p></div><div class="handbook-result" data-result="weak" data-schema-block="result"><strong>7-9</strong><p>It holds, but mark 1 Fuel to keep it together.</p></div></div>
+  </article>
+<section class="handbook-subsection handbook-choice-sets"><span class="handbook-kicker">Sélection</span><h2>Choix du livret</h2><section class="handbook-choice-set" data-choice-type="multi" data-schema-block="choice-set"><header><h3>Rig Moves</h3><span>Choix multiples</span></header><p>Pick two to start.</p><ul><li class="handbook-choice" data-schema-block="choice"><span class="handbook-choice__mark" aria-hidden="true"></span><span><strong>overdrive</strong><small>Disponible au départ</small></span></li><li class="handbook-choice" data-schema-block="choice"><span class="handbook-choice__mark" aria-hidden="true"></span><span><strong>Scavenger Eye</strong><small>Disponible au départ</small></span></li></ul></section></section>
+<section class="handbook-subsection"><span class="handbook-kicker">Évolution</span><h2>Progression</h2><ul class="handbook-advancement"><li>Get +1 to a stat (max +3)</li><li>Get a new rig move</li><li>Get a move from another playbook</li></ul></section>
+      </section>
+      <aside class="handbook-panel handbook-state" data-region="character-state">
+        <span class="handbook-kicker">État</span><h2>Caractéristiques</h2><dl class="handbook-stats">
+    <div class="handbook-stat" data-stat="grit" data-schema-block="stat">
+      <dt>Grit</dt><dd>1</dd>
+    </div>
+    <div class="handbook-stat" data-stat="nerve" data-schema-block="stat">
+      <dt>Nerve</dt><dd>0</dd>
+    </div>
+    <div class="handbook-stat" data-stat="reflex" data-schema-block="stat">
+      <dt>Reflex</dt><dd>1</dd>
+    </div>
+    <div class="handbook-stat" data-stat="wits" data-schema-block="stat">
+      <dt>Wits</dt><dd>2</dd>
+    </div>
+    <div class="handbook-stat" data-stat="sway" data-schema-block="stat">
+      <dt>Sway</dt><dd>-1</dd>
+    </div>
+  </dl>
+        <h2>Attributs</h2><dl class="handbook-attributes">
+    <div class="handbook-attribute" data-attribute="fuel" data-attribute-type="Resource" data-schema-block="attribute">
+      <dt>Fuel<small>Resource</small></dt><dd><span class="handbook-track" aria-label="3 sur 6"><span class="handbook-track__segments" aria-hidden="true"><span data-filled="true"></span><span data-filled="true"></span><span data-filled="true"></span><span></span><span></span><span></span></span><strong>3 / 6</strong></span></dd>
+    </div>
+  </dl>
+      </aside>
+    </div>
+    <footer class="handbook-panel handbook-mc" data-region="mc-actions">
+      <span class="handbook-kicker">Référence MC</span><h2>Actions de MC</h2><p class="handbook-empty">Aucune action de MC sélectionnée pour cet aperçu.</p>
+    </footer>
+  </main>
+  <script>
+    const picker = document.querySelector("[data-variant-picker]");
+    const variantLink = document.querySelector("[data-variant-stylesheet]");
+    picker?.addEventListener("change", () => {
+      document.documentElement.dataset.variant = picker.value;
+      if (picker.value === "base") {
+        variantLink.disabled = true;
+        variantLink.removeAttribute("href");
+      } else {
+        variantLink.href = "../styles/variants/" + picker.value + ".css";
+        variantLink.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
