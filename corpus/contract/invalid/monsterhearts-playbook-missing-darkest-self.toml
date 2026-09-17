@@ -4,5 +4,23 @@ game = "monsterhearts"
 description = "A beautiful imitation trying to become real."
 stats = { hot = 1, cold = 0, volatile = -1, dark = 1 }
 moves = []
-sexMove = "When you share intimacy, take a String on them."
 advances = ["Take a new skin move."]
+
+[editorial.opening]
+heading = "Opening"
+paragraphs = ["An invalid fixture."]
+[editorial.playAdvice]
+heading = "Advice"
+paragraphs = ["This fixture omits a required region."]
+[editorial.sexMove]
+heading = "Sex Move"
+paragraphs = ["When you share intimacy, take a String on them."]
+[editorial.mcGuidance]
+heading = "For the MC"
+paragraphs = ["Ask a question."]
+[editorial.identity]
+heading = "Identity"
+paragraphs = ["Choose a name."]
+[editorial.progression]
+heading = "Progression"
+paragraphs = ["Take a new skin move."]
