@@ -36,6 +36,19 @@ trigger = "When you ignore mortal commitments or relationships to deal with the 
 advances = ["Take +1 to any stat.", "Take a corruption move.", "Retire the character as a Threat."]
 moves = ["In Too Deep", "Free Agent"]
 
+[editorial.opening]
+heading = "Entre les mondes"
+paragraphs = ["Tu as vu ce que la ville cache et tu ne peux plus l’ignorer."]
+[editorial.playAdvice]
+heading = "Conseils de jeu"
+paragraphs = ["Fais compter chaque faveur et chaque relation mortelle."]
+[editorial.identity]
+heading = "Identité"
+paragraphs = ["Choisis les personnes qui te retiennent encore au monde ordinaire."]
+[editorial.progression]
+heading = "Progression"
+paragraphs = ["Tes choix de corruption et tes relations définissent ce que tu deviens."]
+
 [[moves]]
 name = "I Know a Guy"
 moveType = "playbook"

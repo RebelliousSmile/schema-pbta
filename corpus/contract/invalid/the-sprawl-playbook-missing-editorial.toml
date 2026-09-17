@@ -1,0 +1,7 @@
+slug = "le-veilleur"
+name = "Le Veilleur"
+game = "the-sprawl"
+description = "Invalid fixture."
+stats = { edge = 1 }
+moves = []
+directives = ["Protect people."]

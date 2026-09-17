@@ -1,0 +1,19 @@
+slug = "the-lightkeeper"
+name = "The Lightkeeper"
+game = "monster-of-the-week"
+description = "An original fixture."
+stats = { charm = 1 }
+moves = []
+improvements = ["Take a move."]
+[editorial.opening]
+heading = "Opening"
+paragraphs = ["Original fixture."]
+[editorial.playAdvice]
+heading = "Advice"
+paragraphs = ["Keep watch."]
+[editorial.identity]
+heading = "Identity"
+paragraphs = ["Choose a road."]
+[editorial.progression]
+heading = "Progression"
+paragraphs = ["Take a move."]
