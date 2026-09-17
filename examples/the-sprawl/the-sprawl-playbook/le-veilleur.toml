@@ -1,0 +1,22 @@
+slug = "le-veilleur"
+name = "Le Veilleur"
+game = "the-sprawl"
+description = "Tu surveilles la mégalopole et ses promesses brisées."
+stats = { edge = 1, mind = 1, meat = 0, style = -1, synth = 0 }
+moves = [{ name = "Évaluer la zone", moveType = "playbook", description = "Lis les failles d’un lieu avant que le contrat ne se referme." }]
+directives = ["Protéger les personnes avant le contrat."]
+missionGear = ["Scanner de réseau"]
+cred = 0
+
+[editorial.opening]
+heading = "Sous surveillance"
+paragraphs = ["Tu connais les angles morts de la ville et le prix de chaque regard."]
+[editorial.playAdvice]
+heading = "Conseils de jeu"
+paragraphs = ["Fais de chaque contrat un choix entre sécurité et liberté."]
+[editorial.identity]
+heading = "Identité"
+paragraphs = ["Choisis ton contact, ton employeur et ce que tu refuses de vendre."]
+[editorial.progression]
+heading = "Avancement"
+paragraphs = ["Les missions te donnent les moyens de changer la ville ou de t’y perdre."]

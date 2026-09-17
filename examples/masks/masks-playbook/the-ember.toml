@@ -1,0 +1,22 @@
+slug = "the-ember"
+name = "The Ember"
+game = "masks"
+description = "A young hero learning what their fire can protect."
+stats = { danger = 1, freak = 2, savior = 0, superior = -1, mundane = 0 }
+moves = [{ name = "Burn Bright", moveType = "playbook", description = "Let your power reveal what matters." }]
+momentOfTruth = "For one moment, everyone sees the hero you can become."
+potential = 0
+influence = ["The team"]
+
+[editorial.opening]
+heading = "A spark"
+paragraphs = ["Your power burns brightest when someone needs you."]
+[editorial.playAdvice]
+heading = "Playing the Ember"
+paragraphs = ["Choose what your fire protects before it consumes."]
+[editorial.identity]
+heading = "Identity"
+paragraphs = ["Choose your look, your mentor, and what the city fears in you."]
+[editorial.progression]
+heading = "Potential"
+paragraphs = ["Mark potential when you learn from a mistake."]

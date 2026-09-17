@@ -1,0 +1,19 @@
+slug = "le-veilleur"
+name = "Le Veilleur"
+game = "the-sprawl"
+description = "An original fixture."
+stats = { edge = 1 }
+moves = []
+directives = ["Protect people."]
+[editorial.opening]
+heading = "Opening"
+paragraphs = ["Original fixture."]
+[editorial.playAdvice]
+heading = "Advice"
+paragraphs = ["Watch the city."]
+[editorial.identity]
+heading = "Identity"
+paragraphs = ["Choose a contact."]
+[editorial.progression]
+heading = "Progression"
+paragraphs = ["Finish the mission."]

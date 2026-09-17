@@ -1,0 +1,22 @@
+slug = "the-lightkeeper"
+name = "The Lightkeeper"
+game = "monster-of-the-week"
+description = "A hunter who keeps the dark from swallowing the road home."
+stats = { charm = 1, cool = 0, sharp = 2, tough = -1, weird = 0 }
+moves = [{ name = "Hold the Dark", moveType = "class", description = "Keep a dangerous truth in the light." }]
+luck = 0
+ratings = { lantern = 2 }
+improvements = ["Take another hunter move."]
+
+[editorial.opening]
+heading = "Keep watch"
+paragraphs = ["You carry a light for the people who cannot see what follows them."]
+[editorial.playAdvice]
+heading = "Playing the Lightkeeper"
+paragraphs = ["Make every clue a promise you intend to keep."]
+[editorial.identity]
+heading = "Identity"
+paragraphs = ["Choose the road you patrol and the person you could not save."]
+[editorial.progression]
+heading = "Improvements"
+paragraphs = ["Take another hunter move when experience changes you."]

@@ -1,6 +1,7 @@
 game = "urban-shadows"
 gameDefinition = "urban-shadows"
-playbook = "the-bridge"
+playbookKind = "urban-shadows-playbook"
+playbook = "the-aware"
 moves = ["read-the-current"]
 mcMoves = ["tighten-the-web"]
 variants = ["base"]

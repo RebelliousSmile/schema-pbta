@@ -282,6 +282,17 @@ function validateHtml(file: string, game: string): void {
       if (!html.includes(`data-region="${region}"`)) errors.push(`${game}: generated preview misses specialized region ${region}`);
     }
   }
+  const specializedFields: Record<string, string[]> = {
+    masks: ["moment-of-truth", "potential", "influence"],
+    "monster-of-the-week": ["luck", "ratings", "improvements"],
+    "the-sprawl": ["directives", "mission-gear", "cred"],
+    "urban-shadows": ["harm", "corruption", "mortal-relationships", "scars"],
+  };
+  for (const field of specializedFields[game] ?? []) {
+    if (!html.includes(`data-specialized-field="${field}"`)) {
+      errors.push(`${game}: generated preview misses specialized field ${field}`);
+    }
+  }
   if (!html.includes(`data-game="${game}"`)) errors.push(`${game}: generated preview has the wrong data-game`);
   for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
     const reference = match[1];
@@ -298,13 +309,25 @@ function validateEditorSurface(game: string, definition: Data, playbook: Data): 
   if (Object.keys(stats).length === 0) errors.push(`${game}: Lantern surface has no character stats`);
   if (Object.keys(attributes).length === 0) errors.push(`${game}: Lantern surface has no typed attributes`);
   if (Object.keys(moveTypes).length === 0) errors.push(`${game}: Lantern surface has no character move types`);
-  if (game === "monsterhearts") {
+  if (game === "monsterhearts" || Object.keys(data(playbook.editorial)).length > 0) {
     const editorial = data(playbook.editorial);
-    for (const region of ["opening", "playAdvice", "darkestSelf", "sexMove", "mcGuidance", "identity", "progression"]) {
+    const regions = game === "monsterhearts"
+      ? ["opening", "playAdvice", "darkestSelf", "sexMove", "mcGuidance", "identity", "progression"]
+      : ["opening", "playAdvice", "identity", "progression"];
+    for (const region of regions) {
       if (typeof data(editorial[region]).heading !== "string") errors.push(`${game}: specialized playbook misses ${region} editorial region`);
     }
     if (Object.keys(data(playbook.stats)).length === 0) errors.push(`${game}: preview playbook has no structured stat values`);
     if (!Array.isArray(playbook.moves) || playbook.moves.length === 0) errors.push(`${game}: preview playbook has no structured moves`);
+    const requiredFields: Record<string, string[]> = {
+      masks: ["momentOfTruth", "potential", "influence"],
+      "monster-of-the-week": ["luck", "ratings", "improvements"],
+      "the-sprawl": ["directives", "missionGear", "cred"],
+      "urban-shadows": ["harm", "corruption", "mortalRelationships", "scars"],
+    };
+    for (const field of requiredFields[game] ?? []) {
+      if (playbook[field] === undefined) errors.push(`${game}: specialized playbook misses ${field}`);
+    }
     return;
   }
   for (const [key, attribute] of Object.entries(attributes)) {

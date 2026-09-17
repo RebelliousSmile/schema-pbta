@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { nonEmptyString, portableCount, portableInteger } from "./shared.js";
 import { playbookSchema } from "./playbook.js";
+import { playbookEditorialSchema } from "./playbook-editorial.js";
 
 const relationshipSchema = z.strictObject({
   name: nonEmptyString.meta({ description: "Name or concise label of the mortal relationship." }),
@@ -38,6 +39,7 @@ export const urbanShadowsPlaybookSchema = playbookSchema.extend({
   scars: z.array(scarSchema).optional().meta({ description: "Scars offered by the playbook." }),
   corruption: corruptionSchema.meta({ description: "Urban Shadows corruption mechanics." }),
   endMove: nonEmptyString.meta({ description: "Move resolved when the character dies or retires." }),
+  editorial: playbookEditorialSchema.meta({ description: "Complete editorial copy rendered with the playbook." }),
 }).meta({
   title: "Urban Shadows playbook",
   description: "Portable single-document representation of an Urban Shadows character playbook.",

@@ -13,11 +13,13 @@ for their specific needs.
 
 ## Status
 
-The portable contract is versioned and release-ready. Masks and Monster of the Week publish game definition, move,
-playbook, NPC and front schemas. Monsterhearts 2 and Urban Shadows 2e additionally
-publish their specialized, single-TOML playbook schemas. Monsterhearts v3 carries
-the complete editorial and mechanical content of a skin in that one document. The Sprawl 1.1 publishes
-game definition, move and playbook schemas. The examples exercise
+The portable contract is versioned and release-ready. Every published game has
+one specialized, single-TOML playbook schema: `masks-playbook`,
+`monster-of-the-week-playbook`, `monsterhearts-playbook`,
+`urban-shadows-playbook`, or `the-sprawl-playbook`. Those documents carry the
+complete editorial and mechanical content of a character sheet. The generic
+`playbook` schema remains available for interchange, but is not a second
+canonical sheet. The examples exercise
 the content pipeline, while a separate positive and negative corpus audits every
 generated schema.
 
@@ -70,15 +72,15 @@ each game exposes this minimum structured editing surface.
 
 ### Install the canonical contract
 
-The latest published package is distributed as the immutable asset of GitHub Release `v2.0.0`;
-the v3 source is a candidate for its own immutable release and is not yet an install URL.
+The latest published package is distributed as the immutable asset of GitHub Release `v3.0.0`;
+the v4 source is a candidate for its own immutable release and is not yet an install URL.
 The package is not published to the npm registry. Package managers accept the HTTPS
 tarball directly:
 
 ```json
 {
   "dependencies": {
-    "schema-pbta": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v2.0.0/schema-pbta-2.0.0.tgz"
+    "schema-pbta": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v3.0.0/schema-pbta-3.0.0.tgz"
   }
 }
 ```
@@ -106,8 +108,8 @@ const fromToml = PBTA_DOCUMENT_CODECS.playbook.parseToml(source);
 const toml = PBTA_DOCUMENT_CODECS.playbook.stringifyToml(fromToml);
 ```
 
-`PBTA_DOCUMENT_CODECS` contains exactly `game-definition`, `move`, `playbook`,
-`npc` and `front`. The portable suite is available from
+`PBTA_DOCUMENT_CODECS` contains `game-definition`, `move`, `playbook`, `npc`,
+`front` and every specialized `*-playbook` type. The portable suite is available from
 `schema-pbta/corpus/cases.json`; read that manifest and resolve every case under
 `schema-pbta/corpus/<path>` rather than maintaining a consumer-specific list.
 

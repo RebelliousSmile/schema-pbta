@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { nonEmptyString, portableCount, portableInteger } from "./shared.js";
 import { playbookSchema } from "./playbook.js";
+import { editorialSectionSchema, playbookEditorialSchema } from "./playbook-editorial.js";
 
 const conditionSchema = z.strictObject({
   name: nonEmptyString.meta({ description: "Condition name." }),
@@ -12,19 +13,10 @@ const stringSchema = z.strictObject({
   starting: portableCount.optional().meta({ description: "Strings held at character creation." }),
 }).meta({ description: "String economy configuration." });
 
-const editorialSectionSchema = z.strictObject({
-  heading: nonEmptyString.meta({ description: "Heading shown for this playbook section." }),
-  paragraphs: z.array(nonEmptyString).min(1).meta({ description: "Ordered plain-text paragraphs shown in this section." }),
-}).meta({ description: "A named editorial region belonging to the playbook." });
-
-const editorialSchema = z.strictObject({
-  opening: editorialSectionSchema.meta({ description: "Origin and opening fiction for the skin." }),
-  playAdvice: editorialSectionSchema.meta({ description: "Advice for playing this skin." }),
+const editorialSchema = playbookEditorialSchema.extend({
   darkestSelf: editorialSectionSchema.meta({ description: "The skin's Darkest Self region." }),
   sexMove: editorialSectionSchema.meta({ description: "The skin's intimacy move region." }),
   mcGuidance: editorialSectionSchema.meta({ description: "Guidance addressed to the MC." }),
-  identity: editorialSectionSchema.meta({ description: "Identity choices and descriptive prompts." }),
-  progression: editorialSectionSchema.meta({ description: "Advancement and continuation guidance." }),
 }).meta({ description: "All editorial regions rendered as part of a Monsterhearts playbook." });
 
 /** Monsterhearts skin data in one portable TOML document. */

@@ -1,5 +1,6 @@
 game = "the-sprawl"
 gameDefinition = "the-sprawl"
+playbookKind = "the-sprawl-playbook"
 playbook = "le-veilleur"
 moves = ["evaluer-la-zone"]
 mcMoves = ["fermer-la-nasse"]

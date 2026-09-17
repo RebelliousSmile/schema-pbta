@@ -54,6 +54,35 @@ description = "Fixture for reference validation."
     ),
     "a reserved MC type without audience mc must produce an audience error",
   );
+
+  const specialisedPlaybook = path.join(
+    temporaryRoot,
+    "examples",
+    "monster-of-the-week",
+    "monster-of-the-week-playbook",
+    "the-lightkeeper.toml",
+  );
+  const genericDirectory = path.join(
+    temporaryRoot,
+    "examples",
+    "monster-of-the-week",
+    "playbook",
+  );
+  fs.mkdirSync(genericDirectory, { recursive: true });
+  fs.copyFileSync(specialisedPlaybook, path.join(genericDirectory, "the-lightkeeper.toml"));
+  fs.rmSync(specialisedPlaybook);
+
+  const noFallbackDiagnostics = validateReferences(temporaryRoot);
+  assert.ok(
+    noFallbackDiagnostics.some(
+      (diagnostic) =>
+        diagnostic.file.endsWith("read-the-water.toml") &&
+        diagnostic.key === "playbook" &&
+        diagnostic.message.includes("monster-of-the-week-playbook") &&
+        diagnostic.severity === "error",
+    ),
+    "a generic playbook homonym must not satisfy a move reference",
+  );
   console.log("✅ Reference fixture checks passed.");
 } finally {
   fs.rmSync(temporaryRoot, { recursive: true, force: true });

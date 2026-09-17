@@ -1,5 +1,6 @@
 game = "monster-of-the-week"
 gameDefinition = "monster-of-the-week"
+playbookKind = "monster-of-the-week-playbook"
 playbook = "the-lightkeeper"
 moves = ["read-the-water", "stand-the-watch"]
 mcMoves = ["hold-the-dark"]

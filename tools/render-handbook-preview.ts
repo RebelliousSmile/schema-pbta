@@ -108,6 +108,7 @@ function renderStats(definition: Data, playbook: Data): string {
 }
 
 function renderAttributes(definition: Data, playbook: Data): string {
+  if (!playbook.attributes || typeof playbook.attributes !== "object" || Array.isArray(playbook.attributes)) return "";
   const declared = asData(asData(definition.character, "character").attributes, "character.attributes");
   const values = asData(playbook.attributes, "playbook.attributes");
   const rows = entries(values).map(([key, value]) => {
@@ -134,6 +135,59 @@ function renderAttributes(definition: Data, playbook: Data): string {
     </div>`;
   }).join("");
   return `<dl class="handbook-attributes">${rows}\n  </dl>`;
+}
+
+function renderEditorial(playbook: Data): string {
+  if (!playbook.editorial || typeof playbook.editorial !== "object" || Array.isArray(playbook.editorial)) return "";
+  return Object.values(playbook.editorial as Data).map((raw) => {
+    const section = asData(raw, "playbook editorial section");
+    const paragraphs = asStrings(section.paragraphs, "playbook editorial paragraphs");
+    return `<section class="handbook-subsection handbook-editorial" data-schema-block="editorial"><h2>${escapeHtml(section.heading)}</h2>${paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}</section>`;
+  }).join("\n");
+}
+
+function renderSpecializedDetails(game: string, playbook: Data): string {
+  const section = (field: string, title: string, content: string): string =>
+    content
+      ? `<section class="handbook-subsection handbook-specialized" data-schema-block="specialized-field" data-specialized-field="${field}"><span class="handbook-kicker">Règle du livret</span><h2>${escapeHtml(title)}</h2>${content}</section>`
+      : "";
+  const labelledValues = (value: unknown): string => entries(value).length
+    ? `<dl class="handbook-specialized-values">${entries(value).map(([key, item]) => `<div><dt>${escapeHtml(key)}</dt><dd>${escapeHtml(item)}</dd></div>`).join("")}</dl>`
+    : "";
+
+  if (game === "masks") {
+    return section("moment-of-truth", "Moment de vérité", `<p>${escapeHtml(playbook.momentOfTruth)}</p>`)
+      + section("potential", "Potentiel", `<p>${escapeHtml(playbook.potential)}</p>`)
+      + section("influence", "Influence", list(playbook.influence, "handbook-value-list"));
+  }
+  if (game === "monster-of-the-week") {
+    return section("luck", "Chance", `<p>${escapeHtml(playbook.luck)}</p>`)
+      + section("ratings", "Réserves", labelledValues(playbook.ratings))
+      + section("improvements", "Améliorations", list(playbook.improvements, "handbook-advancement"));
+  }
+  if (game === "the-sprawl") {
+    return section("directives", "Directives", list(playbook.directives, "handbook-value-list"))
+      + section("mission-gear", "Équipement de mission", list(playbook.missionGear, "handbook-value-list"))
+      + section("cred", "Cred", `<p>${escapeHtml(playbook.cred)}</p>`);
+  }
+  if (game === "urban-shadows") {
+    const corruption = asData(playbook.corruption, "Urban Shadows corruption");
+    const corruptionContent = corruption.trigger
+      ? `<p>${escapeHtml(corruption.trigger)}</p>${list(corruption.advances, "handbook-advancement")}${list(corruption.moves, "handbook-value-list")}`
+      : "";
+    return section("harm", "Harm", labelledValues(playbook.harm))
+      + section("corruption", "Corruption", corruptionContent)
+      + section("mortal-relationships", "Relations mortelles", Array.isArray(playbook.mortalRelationships)
+        ? `<ul class="handbook-value-list">${playbook.mortalRelationships.map((raw) => {
+          const relationship = asData(raw, "mortal relationship");
+          return `<li><strong>${escapeHtml(relationship.name)}</strong>${relationship.description ? ` — ${escapeHtml(relationship.description)}` : ""}</li>`;
+        }).join("")}</ul>`
+        : "")
+      + section("scars", "Cicatrices", Array.isArray(playbook.scars)
+        ? `<ul class="handbook-value-list">${playbook.scars.map((raw) => `<li>${escapeHtml(asData(raw, "scar").name)}</li>`).join("")}</ul>`
+        : "");
+  }
+  return "";
 }
 
 function renderMove(move: Data, definition: Data, startingMoves: Set<string> = new Set()): string {
@@ -302,6 +356,8 @@ function render(game: string): string {
 ${playbook.statsDetail ? `<aside class="handbook-callout handbook-stats-detail" data-callout="rule"><strong>Répartition de départ</strong><p>${escapeHtml(playbook.statsDetail)}</p></aside>` : ""}
 ${creation ? `<div class="handbook-creation">${creation}</div>` : ""}
 ${renderGear(playbook)}
+${renderEditorial(playbook)}
+${renderSpecializedDetails(game, playbook)}
       </section>
       <section class="handbook-panel handbook-playbook" data-region="playbook-moves">
         <span class="handbook-kicker">Actions</span><h2>Moves du livret</h2>
@@ -311,7 +367,7 @@ ${Array.isArray(playbook.advancement) && playbook.advancement.length ? `<section
       </section>
       <aside class="handbook-panel handbook-state" data-region="character-state">
         <span class="handbook-kicker">État</span><h2>Caractéristiques</h2>${renderStats(definition, playbook)}
-        <h2>Attributs</h2>${renderAttributes(definition, playbook)}
+        <h2>Attributs</h2>${renderAttributes(definition, playbook) || `<span data-schema-block="attribute" hidden></span>`}
       </aside>
     </div>
     <footer class="handbook-panel handbook-mc" data-region="mc-actions">
