@@ -90,13 +90,14 @@ import {
 
 #### 5) 📖 Integrate Handbook through shared PbtA capabilities
 
-Register generic PbtA features once, then activate them for each compatible game instead of cloning five parsers and renderers.
+Register generic PbtA features once, then let any installed pack activate them without adding its game id to Handbook.
 
-1. Make block activation capability-based so `block:pbta-playbook` and `block:pbta-move` can serve several game ids.
-2. Parse TOML with the pinned canonical codec; let the renderer degrade visibly when optional display data is unavailable.
-3. Project canonical fields such as `trigger`, `choices`, and `results` into callouts; never introduce extra TOML keys for presentation.
-4. Register the blocks, handout renderer, callouts, feature settings, styles, and insertion templates.
-5. Assert that Handbook's Theme contents view returns non-empty handout, callout, and block entries for the active game.
+1. Add portable PbtA capabilities that any installed pack may declare, while retaining the existing game-specific capability map.
+2. Make block, handout, callout, and style activation depend on the active pack's `requires` list.
+3. Parse TOML with the pinned canonical codec; let the renderer degrade visibly when optional display data is unavailable.
+4. Project canonical fields such as `trigger`, `choices`, and `results` into callouts; never introduce extra TOML keys for presentation.
+5. Register the blocks, handout renderer, callouts, feature settings, styles, and insertion templates once.
+6. Assert that a synthetic, previously unknown game id gets the features solely by declaring the capabilities.
 
 ```json
 {
@@ -147,7 +148,8 @@ Consider the game supported only when generation, validation, both consumers, an
 2. Run the Lantern contract tests, lint, and production build.
 3. Run the Handbook corpus, capability, source-installation, and production checks.
 4. Run the pinned three-checkout contract job in CI.
-5. Update documentation and asset provenance only after the executable gates pass.
+5. Run the existing `schema-in-the-mist` and `schema-adrenaline` contract suites as non-regressions.
+6. Update documentation and asset provenance only after the executable gates pass.
 
 ```bash
 $ npm run check
@@ -163,4 +165,6 @@ $ npm run check
 - Every invalid shared fixture has an explicit expected verdict in all three consumers.
 - Lantern and Handbook lock the same `schema-pbta` contract version.
 - Handbook lists and renders the game's handout, callouts, and code blocks.
+- A previously unknown game id activates PbtA features without a Handbook source change.
+- Existing Mist Engine and Adrenaline sources retain all declared features and TOML round trips.
 - The pack cannot install on a Handbook version older than its required PbtA capabilities.

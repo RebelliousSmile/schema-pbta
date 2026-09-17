@@ -1,5 +1,5 @@
 ---
-status: pending
+status: done
 ---
 
 # Instruction: Capacités PbtA runtime dans Handbook
@@ -19,7 +19,7 @@ obsidian-handbook/
 │       ├── moveBlock.ts                              ✅ définition et insertion
 │       ├── renderer.ts                               ✅ handout sémantique partagé
 │       └── shapes.ts                                 ✅ zones des deux blocs
-├── src/games/capabilities.ts                         ✏️ capacités partagées par cinq jeux
+├── src/games/capabilities.ts                         ✏️ capacités PbtA portables et table historique
 ├── src/settings/types.ts                             ✏️ activation des fonctions PbtA
 ├── src/settings/themeContentsModal.ts                ✏️ inventaire handout
 ├── src/styles/pbta/                                  ✏️ blocs et callouts runtime
@@ -30,7 +30,7 @@ obsidian-handbook/
 
 ```mermaid
 flowchart TD
-  A[Handbook active un jeu PbtA] --> B[Résoudre les capacités du pack]
+  A[Handbook active un pack inconnu] --> B[Résoudre ses capacités déclarées]
   B --> C[Afficher handout callouts et blocks]
   C --> D[Insérer un TOML canonique]
   D --> E[Parser avec schema-pbta]
@@ -49,7 +49,7 @@ journey
   section Happy path
     Ouvrir Theme contents puis rendre un livret => listes non vides et handout complet: 5: system
   section Edge case - autre jeu PbtA
-    Passer de Masks à Monsterhearts => réutiliser le même parser => rendu avec le thème actif: 5: system
+    Installer un nouvel id de jeu => déclarer les capacités PbtA => outils actifs sans modifier Handbook: 5: system
   section Edge case - TOML invalide
     Fournir un champ invalide => parser le bloc => diagnostic visible sans crash du reste de la note: 1: system
 ```
@@ -61,8 +61,9 @@ journey
 > Permettre à une capacité de servir plusieurs modes de jeu.
 
 1. Remplacer l'égalité unique `block.mode` par une activation fondée sur les capacités du pack actif.
-2. Préserver les ids et flags historiques.
-3. Vérifier la cohérence entre registre et catalogue de capacités.
+2. Ajouter des capacités PbtA portables déclarables par tout pack, tout en conservant la table des capacités propres aux jeux existants.
+3. Préserver les ids et flags historiques.
+4. Vérifier la cohérence entre registre et catalogue de capacités.
 
 ### `2)` Ajouter les blocs et le handout PbtA
 
@@ -76,7 +77,7 @@ journey
 
 > Exposer déclencheur, règle, choix et résultat sans étendre le schéma.
 
-1. Déclarer les callouts PbtA applicables aux jeux compatibles.
+1. Déclarer les callouts PbtA conditionnés par capacité plutôt que par id de jeu.
 2. Les alimenter uniquement depuis les champs canoniques.
 3. Les inclure dans les commandes, menus et Theme contents.
 
@@ -84,6 +85,6 @@ journey
 
 | Task | Acceptance criteria |
 | --- | --- |
-| 1 | Une même définition de bloc est activable par les cinq ids PbtA sans dupliquer son parser. |
+| 1 | Un pack portant un id jamais codé dans Handbook active les fonctions PbtA uniquement via `requires`. |
 | 2 | Un livret canonique se parse, se rend et se recopie en TOML avec une valeur sémantique inchangée. |
 | 3 | Theme contents et les insertions affichent les handouts, callouts et blocks PbtA attendus. |
