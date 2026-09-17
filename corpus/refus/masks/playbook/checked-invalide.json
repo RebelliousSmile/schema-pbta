@@ -1,0 +1,15 @@
+{
+  "slug": "invalid-checked",
+  "name": "Invalid Checked",
+  "game": "masks",
+  "description": "An invalid original fixture.",
+  "stats": { "danger": 0 },
+  "moves": [
+    {
+      "name": "Broken move state",
+      "moveType": "playbook",
+      "description": "The checked state must be a boolean.",
+      "checked": "yes"
+    }
+  ]
+}

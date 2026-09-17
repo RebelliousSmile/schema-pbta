@@ -19,6 +19,7 @@ potential = 0
 
 [[moves]]
 ref = "keep-the-shape"
+checked = true
 
 [[moves]]
 name = "Read the Contract"
