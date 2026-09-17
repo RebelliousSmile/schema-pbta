@@ -273,8 +273,14 @@ function validateHtml(file: string, game: string): void {
   for (const region of regions) {
     if (!html.includes(`data-region="${region}"`)) errors.push(`${game}: generated preview misses region ${region}`);
   }
-  for (const block of ["move", "stat", "attribute"]) {
+  const blocks = game === "monsterhearts" ? ["move", "stat"] : ["move", "stat", "attribute"];
+  for (const block of blocks) {
     if (!html.includes(`data-schema-block="${block}"`)) errors.push(`${game}: generated preview misses schema block ${block}`);
+  }
+  if (game === "monsterhearts") {
+    for (const region of ["monsterhearts-opening", "monsterhearts-darkest-self", "monsterhearts-sex-move", "monsterhearts-identity", "monsterhearts-play-advice", "monsterhearts-mc-guidance", "monsterhearts-progression"]) {
+      if (!html.includes(`data-region="${region}"`)) errors.push(`${game}: generated preview misses specialized region ${region}`);
+    }
   }
   if (!html.includes(`data-game="${game}"`)) errors.push(`${game}: generated preview has the wrong data-game`);
   for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
@@ -292,6 +298,15 @@ function validateEditorSurface(game: string, definition: Data, playbook: Data): 
   if (Object.keys(stats).length === 0) errors.push(`${game}: Lantern surface has no character stats`);
   if (Object.keys(attributes).length === 0) errors.push(`${game}: Lantern surface has no typed attributes`);
   if (Object.keys(moveTypes).length === 0) errors.push(`${game}: Lantern surface has no character move types`);
+  if (game === "monsterhearts") {
+    const editorial = data(playbook.editorial);
+    for (const region of ["opening", "playAdvice", "darkestSelf", "sexMove", "mcGuidance", "identity", "progression"]) {
+      if (typeof data(editorial[region]).heading !== "string") errors.push(`${game}: specialized playbook misses ${region} editorial region`);
+    }
+    if (Object.keys(data(playbook.stats)).length === 0) errors.push(`${game}: preview playbook has no structured stat values`);
+    if (!Array.isArray(playbook.moves) || playbook.moves.length === 0) errors.push(`${game}: preview playbook has no structured moves`);
+    return;
+  }
   for (const [key, attribute] of Object.entries(attributes)) {
     if (typeof data(attribute).type !== "string") errors.push(`${game}: attribute ${key} has no form discriminator`);
   }
@@ -325,9 +340,10 @@ for (const game of [...expectedGames].sort()) {
   if (!variants.includes("base")) errors.push(`${context}: variants must include base`);
   if (!variants.includes(String(descriptor.defaultVariant))) errors.push(`${context}: defaultVariant is not declared`);
 
+  const playbookKind = typeof descriptor.playbookKind === "string" ? descriptor.playbookKind : "playbook";
   const references: Array<[string, string]> = [
     ["game-definition", String(descriptor.gameDefinition)],
-    ["playbook", String(descriptor.playbook)],
+    [playbookKind, String(descriptor.playbook)],
     ...strings(descriptor.moves).map((slug): [string, string] => ["move", slug]),
     ...strings(descriptor.mcMoves).map((slug): [string, string] => ["move", slug]),
   ];
@@ -343,7 +359,7 @@ for (const game of [...expectedGames].sort()) {
   }
 
   const definitionFile = path.join(root, "examples", game, "game-definition", `${descriptor.gameDefinition}.toml`);
-  const playbookFile = path.join(root, "examples", game, "playbook", `${descriptor.playbook}.toml`);
+  const playbookFile = path.join(root, "examples", game, playbookKind, `${descriptor.playbook}.toml`);
   if (fs.existsSync(definitionFile) && fs.existsSync(playbookFile)) {
     validateEditorSurface(game, data(loadData(definitionFile)), data(loadData(playbookFile)));
   }

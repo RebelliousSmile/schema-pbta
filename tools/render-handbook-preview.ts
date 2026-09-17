@@ -8,6 +8,7 @@ type Data = Record<string, unknown>;
 type PreviewDescriptor = {
   game: string;
   gameDefinition: string;
+  playbookKind?: string;
   playbook: string;
   moves: string[];
   mcMoves: string[];
@@ -38,6 +39,7 @@ function descriptorFor(game: string): PreviewDescriptor {
   return {
     game: String(data.game),
     gameDefinition: String(data.gameDefinition),
+    playbookKind: data.playbookKind === undefined ? undefined : String(data.playbookKind),
     playbook: String(data.playbook),
     moves: asStrings(data.moves, `${file}: moves`),
     mcMoves: asStrings(data.mcMoves, `${file}: mcMoves`),
@@ -203,13 +205,64 @@ function renderGear(playbook: Data): string {
   return `<section class="handbook-subsection handbook-gear-list"><span class="handbook-kicker">Inventaire</span><h2>Équipement</h2><ul>${items}</ul></section>`;
 }
 
+function renderEditorialSection(region: string, section: Data): string {
+  return `<section class="handbook-panel handbook-editorial handbook-editorial--${escapeHtml(region)}" data-region="monsterhearts-${escapeHtml(region)}"><h2>${escapeHtml(section.heading)}</h2>${Array.isArray(section.paragraphs) ? section.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("") : ""}</section>`;
+}
+
+function renderMonsterheartsPage(
+  descriptor: PreviewDescriptor,
+  definition: Data,
+  playbook: Data,
+  moves: Data[],
+  variantOptions: string,
+): string {
+  const editorial = asData(playbook.editorial, "Monsterhearts editorial");
+  const identity = renderEditorialSection("identity", asData(editorial.identity, "Monsterhearts identity"));
+  const mcGuidance = asData(editorial.mcGuidance, "Monsterhearts MC guidance");
+  const mcGuidanceParagraphs = asStrings(mcGuidance.paragraphs, "Monsterhearts MC guidance paragraphs");
+  return `<!doctype html>
+<html lang="fr" data-game="monsterhearts" data-variant="${escapeHtml(descriptor.defaultVariant)}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(playbook.name)} — Monsterhearts playbook</title>
+  <link rel="stylesheet" href="../../shared/preview.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link data-variant-stylesheet rel="stylesheet" disabled>
+</head>
+<body>
+  <main class="handbook-sheet handbook-monsterhearts-sheet" data-handbook-preview>
+    <header class="handbook-monsterhearts-title" data-region="game-identity"><span class="handbook-kicker">Livret Monsterhearts</span><h1>${escapeHtml(playbook.name)}</h1><p>${escapeHtml(playbook.description)}</p><label class="handbook-variant">Variante<select data-variant-picker>${variantOptions}</select></label></header>
+    <div class="handbook-monsterhearts-layout">
+      ${renderEditorialSection("opening", asData(editorial.opening, "Monsterhearts opening"))}
+      ${renderEditorialSection("darkest-self", asData(editorial.darkestSelf, "Monsterhearts Darkest Self"))}
+      ${renderEditorialSection("sex-move", asData(editorial.sexMove, "Monsterhearts sex move"))}
+      <section class="handbook-panel handbook-editorial handbook-editorial--moves" data-region="playbook-moves"><h2>Actions</h2>${renderPlaybookMoves(playbook, moves, definition)}</section>
+      <section class="handbook-panel handbook-editorial handbook-editorial--identity" data-region="character-identity">${identity}<h3>Caractéristiques</h3>${renderStats(definition, playbook)}</section>
+      <section class="handbook-panel handbook-editorial handbook-editorial--progression" data-region="character-state">${renderEditorialSection("play-advice", asData(editorial.playAdvice, "Monsterhearts play advice"))}${renderEditorialSection("mc-guidance", asData(editorial.mcGuidance, "Monsterhearts MC guidance"))}${renderEditorialSection("progression", asData(editorial.progression, "Monsterhearts progression"))}${list(playbook.advances, "handbook-advancement")}</section>
+    </div>
+    <footer class="handbook-panel handbook-mc" data-region="mc-actions"><span class="handbook-kicker">Référence MC</span><h2>Pour la MC</h2>${mcGuidanceParagraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}</footer>
+  </main>
+  <script>
+    const picker = document.querySelector("[data-variant-picker]");
+    const variantLink = document.querySelector("[data-variant-stylesheet]");
+    picker?.addEventListener("change", () => {
+      document.documentElement.dataset.variant = picker.value;
+      if (picker.value === "base") { variantLink.disabled = true; variantLink.removeAttribute("href"); }
+      else { variantLink.href = "../styles/variants/" + picker.value + ".css"; variantLink.disabled = false; }
+    });
+  </script>
+</body>
+</html>\n`;
+}
+
 function render(game: string): string {
   const descriptor = descriptorFor(game);
   if (descriptor.game !== game) throw new Error(`${game}: descriptor game mismatch`);
   if (!descriptor.variants.includes(descriptor.defaultVariant)) throw new Error(`${game}: defaultVariant is not listed`);
 
   const definition = canonical(game, "game-definition", descriptor.gameDefinition);
-  const playbook = canonical(game, "playbook", descriptor.playbook);
+  const playbook = canonical(game, descriptor.playbookKind ?? "playbook", descriptor.playbook);
   const moves = descriptor.moves.map((slug) => canonical(game, "move", slug));
   const mcMoves = descriptor.mcMoves.map((slug) => canonical(game, "move", slug));
   for (const move of mcMoves) {
@@ -222,6 +275,10 @@ function render(game: string): string {
     return `<section class="handbook-creation__item" data-schema-block="creation-question"><h3>${escapeHtml(item.label)}</h3>${list(item.options, "handbook-options")}</section>`;
   }).join("") : "";
   const mcRegion = mcMoves.length ? mcMoves.map((move) => renderMove(move, definition)).join("\n") : `<p class="handbook-empty">Aucune action de MC sélectionnée pour cet aperçu.</p>`;
+
+  if (game === "monsterhearts" && descriptor.playbookKind === "monsterhearts-playbook") {
+    return renderMonsterheartsPage(descriptor, definition, playbook, moves, variantOptions);
+  }
 
   return `<!doctype html>
 <html lang="fr" data-game="${escapeHtml(game)}" data-variant="${escapeHtml(descriptor.defaultVariant)}">

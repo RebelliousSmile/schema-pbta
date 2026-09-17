@@ -1,7 +1,8 @@
 game = "monsterhearts"
 gameDefinition = "monsterhearts"
-playbook = "la-noyee"
-moves = ["garder-la-face"]
-mcMoves = ["faire-remonter-le-manque"]
+playbookKind = "monsterhearts-playbook"
+playbook = "la-selkie"
+moves = []
+mcMoves = []
 variants = ["base", "drowned-lake"]
 defaultVariant = "base"
