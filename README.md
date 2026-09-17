@@ -15,7 +15,8 @@ for their specific needs.
 
 The portable contract is versioned and release-ready. Masks and Monster of the Week publish game definition, move,
 playbook, NPC and front schemas. Monsterhearts 2 and Urban Shadows 2e additionally
-publish their specialized, single-TOML playbook schemas. The Sprawl 1.1 publishes
+publish their specialized, single-TOML playbook schemas. Monsterhearts v3 carries
+the complete editorial and mechanical content of a skin in that one document. The Sprawl 1.1 publishes
 game definition, move and playbook schemas. The examples exercise
 the content pipeline, while a separate positive and negative corpus audits every
 generated schema.
@@ -69,8 +70,9 @@ each game exposes this minimum structured editing surface.
 
 ### Install the canonical contract
 
-The package is distributed as the immutable asset of GitHub Release `v2.0.0`;
-it is not published to the npm registry. Package managers accept the HTTPS
+The latest published package is distributed as the immutable asset of GitHub Release `v2.0.0`;
+the v3 source is a candidate for its own immutable release and is not yet an install URL.
+The package is not published to the npm registry. Package managers accept the HTTPS
 tarball directly:
 
 ```json
