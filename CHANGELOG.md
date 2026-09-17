@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-09-17
+
+### Added
+
+- A complete, single-document Monsterhearts playbook contract in v3, including
+  editorial regions for the opening, advice, Darkest Self, sex move, MC
+  guidance, identity and progression.
+- Canonical single-TOML fixtures for La Selkie, La Noyée and The Eclipse, plus
+  contract witnesses and rejection coverage for missing editorial regions.
+- A generated Monsterhearts Handbook preview sourced directly from La Selkie,
+  preserving the three-column playbook composition.
+- `schemas/v3` and public package exports for the v3 candidate contract.
+
+### Changed
+
+- Archived v1 and v2 schemas are now verified byte-for-byte against their
+  immutable release tags during compatibility validation.
+
 ## [0.3.0] - 2026-09-10
 
 ### Added
