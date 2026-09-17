@@ -263,12 +263,25 @@ function renderEditorialSection(region: string, section: Data): string {
   return `<section class="handbook-panel handbook-editorial handbook-editorial--${escapeHtml(region)}" data-region="monsterhearts-${escapeHtml(region)}"><h2>${escapeHtml(section.heading)}</h2>${Array.isArray(section.paragraphs) ? section.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("") : ""}</section>`;
 }
 
+function renderCreation(playbook: Data): string {
+  if (!Array.isArray(playbook.creation)) return "";
+  const questions = playbook.creation.map((raw) => {
+    const item = asData(raw, "creation item");
+    const attribute = typeof item.attribute === "string"
+      ? ` data-creation-attribute="${escapeHtml(item.attribute)}"`
+      : "";
+    return `<section class="handbook-creation__item" data-schema-block="creation-question"${attribute}><h3>${escapeHtml(item.label)}</h3>${list(item.options, "handbook-options")}</section>`;
+  }).join("");
+  return questions ? `<div class="handbook-creation">${questions}</div>` : "";
+}
+
 function renderMonsterheartsPage(
   descriptor: PreviewDescriptor,
   definition: Data,
   playbook: Data,
   moves: Data[],
   variantOptions: string,
+  creation: string,
 ): string {
   const editorial = asData(playbook.editorial, "Monsterhearts editorial");
   const identity = renderEditorialSection("identity", asData(editorial.identity, "Monsterhearts identity"));
@@ -292,7 +305,7 @@ function renderMonsterheartsPage(
       ${renderEditorialSection("darkest-self", asData(editorial.darkestSelf, "Monsterhearts Darkest Self"))}
       ${renderEditorialSection("sex-move", asData(editorial.sexMove, "Monsterhearts sex move"))}
       <section class="handbook-panel handbook-editorial handbook-editorial--moves" data-region="playbook-moves"><h2>Actions</h2>${renderPlaybookMoves(playbook, moves, definition)}</section>
-      <section class="handbook-panel handbook-editorial handbook-editorial--identity" data-region="character-identity">${identity}<h3>Caractéristiques</h3>${renderStats(definition, playbook)}</section>
+      <section class="handbook-panel handbook-editorial handbook-editorial--identity" data-region="character-identity">${identity}${creation}<h3>Caractéristiques</h3>${renderStats(definition, playbook)}</section>
       <section class="handbook-panel handbook-editorial handbook-editorial--progression" data-region="character-state">${renderEditorialSection("play-advice", asData(editorial.playAdvice, "Monsterhearts play advice"))}${renderEditorialSection("mc-guidance", asData(editorial.mcGuidance, "Monsterhearts MC guidance"))}${renderEditorialSection("progression", asData(editorial.progression, "Monsterhearts progression"))}${list(playbook.advances, "handbook-advancement")}</section>
     </div>
     <footer class="handbook-panel handbook-mc" data-region="mc-actions"><span class="handbook-kicker">Référence MC</span><h2>Pour la MC</h2>${mcGuidanceParagraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}</footer>
@@ -324,14 +337,11 @@ function render(game: string): string {
   }
 
   const variantOptions = descriptor.variants.map((variant) => `<option value="${escapeHtml(variant)}"${variant === descriptor.defaultVariant ? " selected" : ""}>${escapeHtml(variant)}</option>`).join("");
-  const creation = Array.isArray(playbook.creation) ? playbook.creation.map((raw) => {
-    const item = asData(raw, "creation item");
-    return `<section class="handbook-creation__item" data-schema-block="creation-question"><h3>${escapeHtml(item.label)}</h3>${list(item.options, "handbook-options")}</section>`;
-  }).join("") : "";
+  const creation = renderCreation(playbook);
   const mcRegion = mcMoves.length ? mcMoves.map((move) => renderMove(move, definition)).join("\n") : `<p class="handbook-empty">Aucune action de MC sélectionnée pour cet aperçu.</p>`;
 
   if (game === "monsterhearts" && descriptor.playbookKind === "monsterhearts-playbook") {
-    return renderMonsterheartsPage(descriptor, definition, playbook, moves, variantOptions);
+    return renderMonsterheartsPage(descriptor, definition, playbook, moves, variantOptions, creation);
   }
 
   return `<!doctype html>
@@ -354,7 +364,7 @@ function render(game: string): string {
       <section class="handbook-panel handbook-identity" data-region="character-identity">
         <span class="handbook-kicker">Livret</span><h2>${escapeHtml(playbook.name)}</h2><p>${escapeHtml(playbook.description)}</p>
 ${playbook.statsDetail ? `<aside class="handbook-callout handbook-stats-detail" data-callout="rule"><strong>Répartition de départ</strong><p>${escapeHtml(playbook.statsDetail)}</p></aside>` : ""}
-${creation ? `<div class="handbook-creation">${creation}</div>` : ""}
+${creation}
 ${renderGear(playbook)}
 ${renderEditorial(playbook)}
 ${renderSpecializedDetails(game, playbook)}
