@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.0.0] - 2026-09-18
+
+### Added
+
+- An original Salvage Run sample game, including its canonical playbook and
+  generated v5 schema artifacts.
+- Editable Monsterhearts ascendants, persistent acquisition states for moves
+  and advancements, and rejection coverage for invalid states.
+- Structured playbook-creation destinations: single Text/LongText results,
+  bounded ListMany selections with stable values, and named starting-stat
+  profiles.
+- Explicit Salvage Run Name/Look fields and finite starting profiles; Urban
+  Shadows mortal-relationship catalogues now preserve editorial descriptions
+  separately from their selected keys.
+
+### Changed
+
+- Specialized Monsterhearts, Monster of the Week and Urban Shadows progressions
+  now share the portable `{ label, checked }` acquisition entry.
+- Reference validation and Handbook previews now expose and validate creation
+  destinations, selection cardinality and stat-profile data without deriving
+  mechanics from prose.
+
 ## [4.0.0] - 2026-09-17
 
 ### Added
