@@ -1,26 +1,31 @@
 ---
-status: pending
+status: done
 ---
 
-# Instruction: Intégration Lantern et publication
+# Instruction: Aperçus Handbook et paquet v4
 
 ## Architecture projection
 
 > Tree of the final files. ✅ create · ✏️ modify · ❌ delete
 
 ```txt
-package.json, README.md, docs/compatibility.md ✏️ Préparent la distribution v4 et la frontière consumer.
-GitHub issue RebelliousSmile/lantern ✅ Suit l’intégration des nouvelles cibles dans Lantern.
-GitHub issue RebelliousSmile/obsidian-handbook ✅ Suit la consommation des cibles spécialisées par Handbook.
+tools/render-handbook-preview.ts ✏️ Charge le type spécialisé choisi par chaque aperçu.
+handbook/*/preview/preview.toml ✏️ Référence le livret spécialisé de son jeu.
+handbook/*/preview/index.html ✏️ Dérivé régénéré.
+tools/validate-handbook-packs.ts ✏️ Vérifie les régions éditoriales de tous les livrets spécialisés.
+tools/validate-package.ts ✏️ Vérifie les exports, codecs et schéma v4 depuis un tarball installé.
+README.md, docs/compatibility.md ✏️ Documentent la frontière canonique v4.
 ```
 
 ## User Journey
 
 ```mermaid
 flowchart TD
-  A[Contrat v4 valide] --> B[Release immuable]
-  B --> C[Handbook importe le schema]
-  B --> D[Lantern importe le schema]
+  A[TOML specialise] --> B[Generateur Handbook]
+  B --> C[Regions communes et propres au jeu]
+  C --> D[Apercu du livret]
+  A --> E[Codec public v4]
+  E --> F[Tarball installable]
 ```
 
 ## Test Scope
@@ -28,23 +33,38 @@ flowchart TD
 ```mermaid
 journey
   section Setup
-    publier le contrat v4 candidat => tarball verifiable disponible: 5: cli
+    selectionner une fixture specialisee par jeu => apercus configures: 5: cli
   section Happy path
-    ouvrir les suivis consommateurs => dependance et criteres disponibles: 5: cli
+    regenerer les apercus => regions communes et propres a chaque jeu visibles: 5: cli
+    installer le tarball candidat => codecs et schemas v4 resolubles: 5: cli
+    executer la verification complete => package et packs valides: 5: cli
+```
+
+## Wireframe
+
+```txt
+┌─────────────────────────────────────────┐
+│ (1) Identité et accroche                 │
+├───────────────┬─────────────────────────┤
+│ (2) Choix     │ (3) Actions et règles   │
+├───────────────┼─────────────────────────┤
+│ (4) État      │ (5) Progression          │
+└───────────────┴─────────────────────────┘
 ```
 
 ## Tasks to do
 
-### `1)` Livrer sans confondre les responsabilités
+### `1)` Rendre et emballer les livrets
 
-> Publier le producteur et déléguer les preuves d’intégration aux deux consumers.
+> Handbook et le paquet consommateur lisent les mêmes documents spécialisés.
 
-1. Préparer et vérifier la release v4 dans ce dépôt.
-2. Créer ou mettre à jour les issues Handbook et Lantern avec la version requise et les critères d’acceptation.
-3. Ne modifier aucun dépôt consumer depuis cette tâche.
+1. Adapter le générateur, les descripteurs et les validations Handbook à chaque `playbookKind` spécialisé.
+2. Rendre et vérifier les champs propres à Masks, Monster of the Week, The Sprawl, Urban Shadows et Monsterhearts, en plus des régions éditoriales communes.
+3. Régénérer les aperçus sans modifier la composition visuelle existante.
+4. Mettre à jour le contrôle du tarball, le README et la matrice de compatibilité pour v4.
 
 ## Test acceptance criteria
 
 | Task | Acceptance criteria |
 | --- | --- |
-| 1 | Les deux consumers ont un suivi explicite reliant leurs formulaires ou rendus aux cibles spécialisées v4. |
+| 1 | Chaque aperçu est généré depuis son TOML spécialisé, affiche ses champs éditoriaux et propres au jeu, et le tarball v4 expose tous les codecs et schémas attendus. |

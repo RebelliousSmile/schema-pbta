@@ -1,5 +1,6 @@
 game = "masks"
 gameDefinition = "masks"
+playbookKind = "masks-playbook"
 playbook = "the-ember"
 moves = ["borrowed-nerve", "hold-the-line"]
 mcMoves = []

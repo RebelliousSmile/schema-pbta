@@ -71,31 +71,37 @@ import {
   parseFrontToml,
   parseGameDefinitionToml,
   parseMoveToml,
+  parseMasksPlaybookToml,
+  parseMonsterOfTheWeekPlaybookToml,
   parseMonsterheartsPlaybookToml,
   parseNpcToml,
   parsePlaybookToml,
+  parseTheSprawlPlaybookToml,
   parseUrbanShadowsPlaybookToml,
 } from "schema-pbta";
 
-assert.equal(PBTA_CONTRACT_VERSION, 3);
-assert.equal(PBTA_CONTRACT_SCHEMA_TAG, "v3.0.0");
+assert.equal(PBTA_CONTRACT_VERSION, 4);
+assert.equal(PBTA_CONTRACT_SCHEMA_TAG, "v4.0.0");
 assert.equal(PBTA_TOML_VERSION, "1.0.0");
 assert.deepEqual(Object.keys(PBTA_DOCUMENT_CODECS).sort(), [
-  "front", "game-definition", "monsterhearts-playbook", "move", "npc", "playbook", "urban-shadows-playbook",
+  "front", "game-definition", "masks-playbook", "monster-of-the-week-playbook", "monsterhearts-playbook", "move", "npc", "playbook", "the-sprawl-playbook", "urban-shadows-playbook",
 ]);
 for (const parser of [
   parseFrontToml,
   parseGameDefinitionToml,
   parseMoveToml,
+  parseMasksPlaybookToml,
+  parseMonsterOfTheWeekPlaybookToml,
   parseMonsterheartsPlaybookToml,
   parseNpcToml,
   parsePlaybookToml,
+  parseTheSprawlPlaybookToml,
   parseUrbanShadowsPlaybookToml,
 ]) assert.equal(typeof parser, "function");
 
-const schemaUrl = import.meta.resolve("schema-pbta/schemas/v3/masks/playbook.schema.json");
+const schemaUrl = import.meta.resolve("schema-pbta/schemas/v4/masks/masks-playbook.schema.json");
 const schema = JSON.parse(fs.readFileSync(new URL(schemaUrl), "utf8"));
-assert.match(schema.$id, /\\/v3\\.0\\.0\\/schemas\\/v3\\/masks\\/playbook\\.schema\\.json$/);
+assert.match(schema.$id, /\\/v4\\.0\\.0\\/schemas\\/v4\\/masks\\/masks-playbook\\.schema\\.json$/);
 
 const corpusUrl = import.meta.resolve("schema-pbta/corpus/valid/playbook-minimal.toml");
 const playbookSource = fs.readFileSync(new URL(corpusUrl), "utf8");
@@ -128,7 +134,7 @@ await assert.rejects(
 
   const major = Number(packageJson.version.split(".")[0]);
   if (major >= 1) {
-    assert.equal(major, 3, "stable package major must equal PBTA_CONTRACT_VERSION");
+    assert.equal(major, 4, "stable package major must equal PBTA_CONTRACT_VERSION");
   }
 
   console.log(
