@@ -10,10 +10,8 @@ status: done
 
 ```txt
 examples/masks, examples/monster-of-the-week, examples/the-sprawl, examples/urban-shadows ✏️ Ajoutent un livret spécialisé canonique par jeu.
-examples/*/playbook/ ✏️ Ne contient plus de seconde source canonique du même livret.
 corpus/contract/** ✏️ Témoins acceptés et refusés pour chaque nouvelle cible.
 corpus/temoins et corpus/refus ✏️ Audit JSON correspondant.
-tools/validate-references.ts ✏️ Vérifie les invariants spécialisés.
 ```
 
 ## User Journey
@@ -44,9 +42,9 @@ journey
 
 > Donner à chaque livret une unique fixture spécialisée complète.
 
-1. Ajouter les exemples originaux spécialisés et retirer les doublons canoniques, y compris le playbook Urban Shadows générique.
+1. Ajouter les exemples originaux spécialisés, avec leur contenu éditorial complet.
 2. Ajouter cas positifs et négatifs par cible.
-3. Vérifier codecs, références et audit.
+3. Vérifier les codecs et le corpus d'audit.
 
 ## Test acceptance criteria
 

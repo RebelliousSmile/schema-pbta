@@ -1,29 +1,28 @@
 ---
-status: pending
+status: done
 ---
 
-# Instruction: Aperçus Handbook et livraison
+# Instruction: Références canoniques et retrait des doublons
 
 ## Architecture projection
 
 > Tree of the final files. ✅ create · ✏️ modify · ❌ delete
 
 ```txt
-tools/render-handbook-preview.ts ✏️ Charge le type spécialisé choisi par chaque aperçu.
-handbook/*/preview/preview.toml ✏️ Référence le livret spécialisé de son jeu.
-handbook/*/preview/index.html ✏️ Dérivé régénéré.
-handbook/*/styles/base.css ✏️ Dispose les régions propres au jeu.
-tools/validate-handbook-packs.ts ✏️ Vérifie les régions spécialisées.
-README.md, docs/compatibility.md, package.json ✏️ Documentent et distribuent v4.
+src/zod/constants.ts ✏️ Associe chaque jeu cible à son unique type de livret canonique.
+tools/validate-references.ts ✏️ Résout move.playbook dans le type spécialisé du jeu.
+tools/validate-reference-fixtures.ts ✏️ Prouve qu'aucun repli vers playbook générique n'est permis.
+examples/*/playbook/*.toml ❌ Retire les doublons canoniques génériques.
+corpus/temoins, corpus/refus ✏️ Couvre les exemples Urban Shadows et les nouveaux types.
 ```
 
 ## User Journey
 
 ```mermaid
 flowchart TD
-  A[TOML specialise] --> B[Generateur Handbook]
-  B --> C[Apercu du livret]
-  A --> D[Schema Lantern]
+  A[move.playbook] --> B[Type specialise du jeu]
+  B --> C[Livret canonique]
+  D[Fixture generique] --> E[Refus de resolution]
 ```
 
 ## Test Scope
@@ -31,36 +30,26 @@ flowchart TD
 ```mermaid
 journey
   section Setup
-    selectionner une fixture specialisee par jeu => apercus configurés: 5: cli
+    retirer les fixtures generiques dupliquees => un livret canonique par jeu: 5: cli
   section Happy path
-    regenerer les apercus => regions de chaque jeu visibles: 5: cli
-    executer la verification complete => package et packs valides: 5: cli
-```
-
-## Wireframe
-
-```txt
-┌─────────────────────────────────────────┐
-│ (1) Identité et accroche                 │
-├───────────────┬─────────────────────────┤
-│ (2) Choix     │ (3) Actions et règles   │
-├───────────────┼─────────────────────────┤
-│ (4) État      │ (5) Progression          │
-└───────────────┴─────────────────────────┘
+    valider les references de mouvement => les slugs specialises se resolvent: 5: cli
+  section Edge case - repli generique
+    ajouter une fixture playbook generique homonyme => la reference reste non resolue: 5: cli
 ```
 
 ## Tasks to do
 
-### `1)` Rendre et livrer les livrets
+### `1)` Rendre le lien de mouvement non ambigu
 
-> Faire consommer le même TOML spécialisé par les deux hôtes.
+> Un mouvement qui porte `playbook` vise toujours le livret spécialisé du jeu.
 
-1. Adapter le générateur et les descripteurs d’aperçu.
-2. Préserver les styles et ajouter les régions spécifiques.
-3. Vérifier le package candidat et documenter v4 sans publication externe.
+1. Déclarer la correspondance jeu → type de livret spécialisé près des cibles de schéma et vérifier qu'elle couvre exactement une cible par jeu publié.
+2. Faire résoudre `move.playbook` uniquement dans cette cible, avec un diagnostic qui nomme le dossier spécialisé attendu.
+3. Compléter les fixtures de validation, notamment le cas où un homonyme générique ne doit pas satisfaire la référence.
+4. Retirer les quatre fixtures génériques désormais redondantes et compléter le corpus d'audit Urban Shadows.
 
 ## Test acceptance criteria
 
 | Task | Acceptance criteria |
 | --- | --- |
-| 1 | Chaque aperçu est généré depuis un TOML spécialisé et la chaîne complète passe. |
+| 1 | Chaque jeu publié possède exactement une cible canonique spécialisée ; chaque référence de mouvement la résout et échoue si seul un livret générique homonyme existe. |

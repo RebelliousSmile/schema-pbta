@@ -9,5 +9,11 @@
   "corruption": {
     "trigger": "Ignore mortal commitments to confront the supernatural.",
     "advances": ["Take a corruption move."]
+  },
+  "editorial": {
+    "opening": { "heading": "Between worlds", "paragraphs": ["You have seen what the city hides."] },
+    "playAdvice": { "heading": "Playing the Aware", "paragraphs": ["Make every relationship matter."] },
+    "identity": { "heading": "Identity", "paragraphs": ["Choose who keeps you grounded."] },
+    "progression": { "heading": "Progression", "paragraphs": ["Corruption changes what you become."] }
   }
 }

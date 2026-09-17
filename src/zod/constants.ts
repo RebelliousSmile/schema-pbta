@@ -140,3 +140,16 @@ export const TARGETS: Array<SchemaTarget> = [
   },
   { name: "monster-of-the-week-playbook", zod: monsterOfTheWeekPlaybookSchema, game: GAMES.motw },
 ];
+
+/**
+ * The single canonical playbook target for each published game. Generic
+ * `playbook` remains import/export surface only; a move's `playbook` slug is
+ * always resolved against this specialised target.
+ */
+export const SPECIALIZED_PLAYBOOK_TARGET_BY_GAME: Readonly<Record<string, string>> = {
+  [GAMES.masks.folder]: "masks-playbook",
+  [GAMES.motw.folder]: "monster-of-the-week-playbook",
+  [GAMES.monsterhearts.folder]: "monsterhearts-playbook",
+  [GAMES["urban-shadows"].folder]: "urban-shadows-playbook",
+  [GAMES["the-sprawl"].folder]: "the-sprawl-playbook",
+};

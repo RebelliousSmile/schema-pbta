@@ -1,6 +1,6 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { GAMES, TARGETS } from "../src/zod/constants";
+import { GAMES, SPECIALIZED_PLAYBOOK_TARGET_BY_GAME, TARGETS } from "../src/zod/constants";
 import { listDataFiles, loadData } from "./read-data";
 
 /**
@@ -161,6 +161,28 @@ function checkGame(game: Game, root: string) {
     return;
   }
   const definition = definitionData;
+  const canonicalPlaybookType = SPECIALIZED_PLAYBOOK_TARGET_BY_GAME[game.folder];
+  const specialisedTargets = TARGETS.filter(
+    (target) =>
+      target.game.folder === game.folder &&
+      target.name.endsWith("-playbook"),
+  ).map((target) => target.name);
+  if (canonicalPlaybookType === undefined) {
+    error(
+      definitionFile,
+      "playbook",
+      `no canonical specialised playbook target is declared for ${game.folder}`,
+    );
+  } else if (
+    specialisedTargets.length !== 1 ||
+    specialisedTargets[0] !== canonicalPlaybookType
+  ) {
+    error(
+      definitionFile,
+      "playbook",
+      `expected exactly one canonical specialised playbook target (${canonicalPlaybookType}); found ${list(specialisedTargets)}`,
+    );
+  }
   const character = isDict(definition.character) ? definition.character : {};
   const npc = isDict(definition.npc) ? definition.npc : {};
   const mc = isDict(definition.mc) ? definition.mc : {};
@@ -271,7 +293,8 @@ function checkGame(game: Game, root: string) {
     }
 
     // Rule 1: stat and attribute keys exist in the game definition.
-    if (type === "playbook") {
+    const isPlaybook = type === "playbook" || type === canonicalPlaybookType;
+    if (isPlaybook) {
       for (const key of keysOf(data.stats)) {
         if (statKeys.includes(key)) continue;
         error(
@@ -281,7 +304,7 @@ function checkGame(game: Game, root: string) {
         );
       }
     }
-    const declaredAttributes = attributeKeys[type];
+    const declaredAttributes = isPlaybook ? attributeKeys.playbook : attributeKeys[type];
     if (declaredAttributes !== undefined) {
       for (const key of keysOf(data.attributes)) {
         if (declaredAttributes.includes(key)) continue;
@@ -414,12 +437,14 @@ function checkGame(game: Game, root: string) {
     // Rule 4: every reference field resolves, all of them alike. Content files
     // only: the game definition carries vocabularies, not references.
     for (const reference of type === "game-definition" ? [] : collectReferences(data)) {
-      const known = slugsByType.get(reference.type);
+      const resolvedType =
+        reference.type === "playbook" ? canonicalPlaybookType : reference.type;
+      const known = resolvedType === undefined ? undefined : slugsByType.get(resolvedType);
       if (known !== undefined && known.has(reference.slug)) continue;
       error(
         file,
         reference.key,
-        `unresolved ${reference.type} reference "${reference.slug}": no such ${reference.type} in ${path.join("examples", game.folder, reference.type)}`
+        `unresolved ${resolvedType ?? reference.type} reference "${reference.slug}": no such ${resolvedType ?? reference.type} in ${path.join("examples", game.folder, resolvedType ?? reference.type)}`
       );
     }
   }
