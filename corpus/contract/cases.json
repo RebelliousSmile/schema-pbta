@@ -25,6 +25,7 @@
     { "path": "invalid/monsterhearts-playbook-invalid-ascendant.toml", "target": "monsterhearts-playbook", "expect": "reject" },
     { "path": "invalid/masks-playbook-missing-editorial.toml", "target": "masks-playbook", "expect": "reject" },
     { "path": "invalid/monster-of-the-week-playbook-missing-editorial.toml", "target": "monster-of-the-week-playbook", "expect": "reject" },
+    { "path": "invalid/monster-of-the-week-playbook-invalid-improvement-checked.toml", "target": "monster-of-the-week-playbook", "expect": "reject" },
     { "path": "invalid/the-sprawl-playbook-missing-editorial.toml", "target": "the-sprawl-playbook", "expect": "reject" },
     { "path": "invalid/salvage-run-playbook-unknown-field.toml", "target": "salvage-run-playbook", "expect": "reject" },
     { "path": "invalid/npc-unknown-field.toml", "target": "npc", "expect": "reject" },

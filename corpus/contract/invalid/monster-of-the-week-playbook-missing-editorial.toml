@@ -4,4 +4,4 @@ game = "monster-of-the-week"
 description = "Invalid fixture."
 stats = { charm = 1 }
 moves = []
-improvements = ["Take a move."]
+improvements = [{ label = "Take a move." }]

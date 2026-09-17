@@ -5,7 +5,7 @@
   "description": "An invalid specialized playbook fixture.",
   "stats": { "hot": 0, "cold": 0, "volatile": 0, "dark": 0 },
   "moves": [],
-  "advances": ["Take a move from another skin."],
+  "advances": [{ "label": "Take a move from another skin." }],
   "editorial": {
     "opening": { "heading": "Opening", "paragraphs": ["An invalid fixture."] },
     "playAdvice": { "heading": "Advice", "paragraphs": ["A region is missing."] },

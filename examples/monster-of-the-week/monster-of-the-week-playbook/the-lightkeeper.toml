@@ -6,7 +6,7 @@ stats = { charm = 1, cool = 0, sharp = 2, tough = -1, weird = 0 }
 moves = [{ name = "Hold the Dark", moveType = "class", description = "Keep a dangerous truth in the light." }]
 luck = 0
 ratings = { lantern = 2 }
-improvements = ["Take another hunter move."]
+improvements = [{ label = "Take another hunter move.", checked = true }]
 
 [editorial.opening]
 heading = "Keep watch"

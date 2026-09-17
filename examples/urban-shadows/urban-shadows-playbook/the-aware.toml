@@ -33,7 +33,7 @@ critical = 2
 
 [corruption]
 trigger = "When you ignore mortal commitments or relationships to deal with the supernatural, mark corruption."
-advances = ["Take +1 to any stat.", "Take a corruption move.", "Retire the character as a Threat."]
+advances = [{ label = "Take +1 to any stat." }, { label = "Take a corruption move.", checked = true }, { label = "Retire the character as a Threat." }]
 moves = ["In Too Deep", "Free Agent"]
 
 [editorial.opening]

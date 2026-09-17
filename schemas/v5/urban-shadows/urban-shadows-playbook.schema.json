@@ -654,8 +654,23 @@
           "minItems": 1,
           "type": "array",
           "items": {
-            "type": "string",
-            "minLength": 1
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Human-readable advancement option."
+              },
+              "checked": {
+                "description": "Whether this advancement has been acquired.",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "label"
+            ],
+            "additionalProperties": false,
+            "description": "One advancement option and its optional acquisition state."
           },
           "description": "Corruption advances offered by the playbook."
         },

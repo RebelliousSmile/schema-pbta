@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { nonEmptyString, portableCount, portableInteger } from "./shared.js";
-import { playbookSchema } from "./playbook.js";
+import { advancementEntrySchema, playbookSchema } from "./playbook.js";
 import { playbookEditorialSchema } from "./playbook-editorial.js";
 
 const relationshipSchema = z.strictObject({
@@ -23,7 +23,7 @@ const harmSchema = z.strictObject({
 
 const corruptionSchema = z.strictObject({
   trigger: nonEmptyString.meta({ description: "Fictional trigger that marks corruption." }),
-  advances: z.array(nonEmptyString).min(1).meta({ description: "Corruption advances offered by the playbook." }),
+  advances: z.array(advancementEntrySchema).min(1).meta({ description: "Corruption advances offered by the playbook." }),
   moves: z.array(nonEmptyString).optional().meta({ description: "Corruption moves available to the playbook." }),
 }).meta({ description: "Corruption track and its consequences." });
 

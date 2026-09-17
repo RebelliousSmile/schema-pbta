@@ -50,7 +50,7 @@ const playbookMoveEntry = z.union([
   moveInlineEntry.extend({ checked: z.boolean().optional().meta({ description: "Whether this move is currently acquired." }) }),
 ]).meta({ description: "A move carried by this playbook, with its optional acquisition state." });
 
-const advancementSchema = z.strictObject({
+export const advancementEntrySchema = z.strictObject({
   label: nonEmptyString.meta({ description: "Human-readable advancement option." }),
   checked: z.boolean().optional().meta({ description: "Whether this advancement has been acquired." }),
 }).meta({ description: "One advancement option and its optional acquisition state." });
@@ -101,7 +101,7 @@ export const playbookSchema = z.strictObject({
   /** Slugs granted outright at creation, distinct from what is available. */
   startingMoves: z.array(slugSchema).optional().meta({ description: "Slugs of moves granted at character creation." }),
   choiceSets: z.array(choiceSetSchema).optional().meta({ description: "Move choices available during creation or advancement." }),
-  advancement: z.array(advancementSchema).optional().meta({ description: "Advancement options offered by the playbook." }),
+  advancement: z.array(advancementEntrySchema).optional().meta({ description: "Advancement options offered by the playbook." }),
   creation: z.array(creationQuestionSchema).optional().meta({ description: "Questions asked during character creation." }),
   gear: z.array(gearSchema).optional().meta({ description: "Starting or selectable gear." }),
 }).meta({
