@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.0.0] - 2026-09-17
+
+### Added
+
+- Canonical, single-TOML specialized playbook contracts for Masks, Monster of
+  the Week and The Sprawl, joining Monsterhearts and Urban Shadows.
+- Handbook previews now render editorial regions and game-specific playbook
+  mechanics directly from every canonical specialized fixture.
+- Public v4 codecs, JSON Schemas, corpus coverage and installed-tarball checks
+  for all five specialized playbook targets.
+
+### Changed
+
+- A move's `playbook` reference now resolves only to its game's specialized
+  canonical target; generic `playbook` remains an interchange format and can
+  no longer act as a second canonical fixture.
+
 ## [3.0.0] - 2026-09-17
 
 ### Added
