@@ -1,6 +1,6 @@
 ---
 objective: "Chaque donnée interactive de playbook est soit un résultat de création structuré, soit une acquisition cochable, sans dénaturer les ressources éditables."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Création et acquisitions des playbooks
