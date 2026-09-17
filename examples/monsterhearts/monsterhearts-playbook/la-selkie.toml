@@ -8,6 +8,7 @@ moves = [
   { name = "Peau des Profondeurs", moveType = "skin", description = "Revêts ta peau pour ressembler à une otarie, respirer sous l’eau et nager incroyablement vite." }
 ]
 advances = ["Choisis l’océan ou la terre ferme.", "Gagne 1 point d’expérience quand tu fais le mauvais choix."]
+creation = [{ label = "Apparence", options = ["brillante", "débraillée", "ébouriffée", "étrangère", "fascinante", "moite"], attribute = "look" }]
 
 [strings]
 max = 5

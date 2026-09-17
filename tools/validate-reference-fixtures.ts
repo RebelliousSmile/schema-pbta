@@ -55,6 +55,87 @@ description = "Fixture for reference validation."
     "a reserved MC type without audience mc must produce an audience error",
   );
 
+  const monsterheartsDefinition = path.join(
+    temporaryRoot,
+    "examples",
+    "monsterhearts",
+    "game-definition",
+    "monsterhearts.toml",
+  );
+  fs.writeFileSync(
+    monsterheartsDefinition,
+    fs.readFileSync(monsterheartsDefinition, "utf-8").replace(
+      /label = "Identité"\r?\nposition = "left"/,
+      'label = "Identité"\nposition = "left"\nvisibleFor = "la-selkie"',
+    ),
+  );
+  const monsterheartsPlaybookDirectory = path.join(
+    temporaryRoot,
+    "examples",
+    "monsterhearts",
+    "monsterhearts-playbook",
+  );
+  fs.writeFileSync(
+    path.join(monsterheartsPlaybookDirectory, "fixture-creation-unknown-attribute.toml"),
+    `slug = "fixture-creation-unknown-attribute"
+name = "Unknown Creation Attribute"
+game = "monsterhearts"
+description = "Fixture for reference validation."
+stats = { hot = 0 }
+moves = []
+creation = [{ label = "Choose an identity", options = ["A", "B"], attribute = "unknown" }]
+
+[strings]
+max = 1
+`,
+  );
+  fs.writeFileSync(
+    path.join(monsterheartsPlaybookDirectory, "fixture-creation-non-text-attribute.toml"),
+    `slug = "fixture-creation-non-text-attribute"
+name = "Non-text Creation Attribute"
+game = "monsterhearts"
+description = "Fixture for reference validation."
+stats = { hot = 0 }
+moves = []
+creation = [{ label = "Choose an identity", options = ["A", "B"], attribute = "harm" }]
+
+[strings]
+max = 1
+`,
+  );
+  fs.writeFileSync(
+    path.join(monsterheartsPlaybookDirectory, "fixture-creation-hidden-attribute.toml"),
+    `slug = "fixture-creation-hidden-attribute"
+name = "Hidden Creation Attribute"
+game = "monsterhearts"
+description = "Fixture for reference validation."
+stats = { hot = 0 }
+moves = []
+creation = [{ label = "Choose an identity", options = ["A", "B"], attribute = "look" }]
+
+[strings]
+max = 1
+`,
+  );
+
+  const creationDiagnostics = validateReferences(temporaryRoot);
+  for (const [fileName, message] of [
+    ["fixture-creation-unknown-attribute.toml", "unknown character attribute"],
+    ["fixture-creation-non-text-attribute.toml", "must be Text or LongText"],
+    ["fixture-creation-hidden-attribute.toml", "is not visible for playbook"],
+  ]) {
+    assert.ok(
+      creationDiagnostics.some(
+        (diagnostic) =>
+          diagnostic.file.endsWith(fileName) &&
+          diagnostic.key === "creation[0].attribute" &&
+          diagnostic.message.includes(message) &&
+          diagnostic.severity === "error",
+      ),
+      `${fileName} must produce a creation attribute error`,
+    );
+  }
+
   const specialisedPlaybook = path.join(
     temporaryRoot,
     "examples",

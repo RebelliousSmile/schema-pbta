@@ -45,6 +45,13 @@ function keysOf(v: unknown): string[] {
   return isDict(v) ? Object.keys(v) : [];
 }
 
+function attributeIsVisibleFor(attribute: Dict, playbookSlug: string): boolean {
+  const visibleFor = attribute.visibleFor;
+  if (visibleFor === undefined || visibleFor === true) return true;
+  if (typeof visibleFor === "string") return visibleFor === playbookSlug;
+  return Array.isArray(visibleFor) && visibleFor.includes(playbookSlug);
+}
+
 /** Every plain object of a document, with the key path that leads to it. */
 function* walk(node: unknown, keyPath: string): Generator<[Dict, string]> {
   if (Array.isArray(node)) {
@@ -315,6 +322,26 @@ function checkGame(game: Game, root: string) {
             declaredAttributes
           )}`
         );
+      }
+    }
+
+    if (isPlaybook && Array.isArray(data.creation) && typeof data.slug === "string") {
+      const characterAttributes = isDict(character.attributes) ? character.attributes : {};
+      for (const [index, question] of data.creation.entries()) {
+        if (!isDict(question) || typeof question.attribute !== "string") continue;
+        const key = `creation[${index}].attribute`;
+        const attribute = characterAttributes[question.attribute];
+        if (!isDict(attribute)) {
+          error(file, key, `unknown character attribute "${question.attribute}"`);
+          continue;
+        }
+        if (attribute.type !== "Text" && attribute.type !== "LongText") {
+          error(file, key, `attribute "${question.attribute}" must be Text or LongText`);
+          continue;
+        }
+        if (!attributeIsVisibleFor(attribute, data.slug)) {
+          error(file, key, `attribute "${question.attribute}" is not visible for playbook "${data.slug}"`);
+        }
       }
     }
 

@@ -281,6 +281,12 @@ function validateHtml(file: string, game: string): void {
     for (const region of ["monsterhearts-opening", "monsterhearts-darkest-self", "monsterhearts-sex-move", "monsterhearts-identity", "monsterhearts-play-advice", "monsterhearts-mc-guidance", "monsterhearts-progression"]) {
       if (!html.includes(`data-region="${region}"`)) errors.push(`${game}: generated preview misses specialized region ${region}`);
     }
+    if (!html.includes('data-schema-block="creation-question"')) {
+      errors.push("monsterhearts: generated preview misses creation question");
+    }
+    if (!html.includes('data-creation-attribute="look"')) {
+      errors.push("monsterhearts: generated preview misses creation attribute target");
+    }
   }
   const specializedFields: Record<string, string[]> = {
     masks: ["moment-of-truth", "potential", "influence"],
