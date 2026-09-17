@@ -1,0 +1,13 @@
+slug = "broken-creation-attribute"
+name = "Broken Creation Attribute"
+game = "masks"
+description = "This fixture must be rejected."
+moves = []
+
+[stats]
+danger = 0
+
+[[creation]]
+label = "Choose an identity"
+options = ["A", "B"]
+attribute = 1

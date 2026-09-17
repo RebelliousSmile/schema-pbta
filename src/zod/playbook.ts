@@ -65,11 +65,14 @@ const choiceSetSchema = z.strictObject({
   choices: z.array(choiceSchema).meta({ description: "Moves offered by this choice set." }),
 }).meta({ description: "A group of moves from which the player chooses." });
 
-/** A creation question: a label, and the options offered under it. */
+/** A creation question, its options, and an optional free-text destination. */
 const creationQuestionSchema = z.strictObject({
   label: nonEmptyString.meta({ description: "Question or prompt shown during character creation." }),
   options: z.array(nonEmptyString).min(1).meta({ description: "Non-empty list of answers offered to the player." }),
-}).meta({ description: "One character-creation question and its answers." });
+  attribute: nonEmptyString.optional().meta({
+    description: "Character attribute initialized by the selected answer; it remains freely editable afterwards.",
+  }),
+}).meta({ description: "One character-creation question, its answers, and optional attribute destination." });
 
 /** A piece of gear. Only `name` is required: gear is often cited bare. */
 const gearSchema = z.strictObject({

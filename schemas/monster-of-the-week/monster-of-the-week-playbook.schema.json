@@ -488,6 +488,11 @@
               "minLength": 1
             },
             "description": "Non-empty list of answers offered to the player."
+          },
+          "attribute": {
+            "description": "Character attribute initialized by the selected answer; it remains freely editable afterwards.",
+            "type": "string",
+            "minLength": 1
           }
         },
         "required": [
@@ -495,7 +500,7 @@
           "options"
         ],
         "additionalProperties": false,
-        "description": "One character-creation question and its answers."
+        "description": "One character-creation question, its answers, and optional attribute destination."
       }
     },
     "gear": {

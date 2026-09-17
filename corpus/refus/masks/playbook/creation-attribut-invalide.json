@@ -1,0 +1,9 @@
+{
+  "slug": "invalid-creation-attribute",
+  "name": "Invalid Creation Attribute",
+  "game": "masks",
+  "description": "An invalid original fixture.",
+  "stats": { "danger": 0 },
+  "moves": [],
+  "creation": [{ "label": "Choose an identity", "options": ["A", "B"], "attribute": 1 }]
+}

@@ -32,6 +32,7 @@ tags = ["contract", "round-trip"]
 [[creation]]
 label = "Which tool exported this document?"
 options = ["Lantern", "Handbook"]
+attribute = "quoted key"
 
 [[gear]]
 name = "Pinned schema"
