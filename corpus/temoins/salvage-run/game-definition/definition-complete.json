@@ -1,0 +1,11 @@
+{
+  "game": "salvage-run",
+  "name": "Salvage Run",
+  "version": "1.0.0",
+  "rollFormula": "2d6",
+  "rollResults": {},
+  "character": {
+    "stats": {},
+    "moveTypes": {}
+  }
+}
