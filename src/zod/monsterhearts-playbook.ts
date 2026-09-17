@@ -13,6 +13,11 @@ const stringSchema = z.strictObject({
   starting: portableCount.optional().meta({ description: "Strings held at character creation." }),
 }).meta({ description: "String economy configuration." });
 
+const ascendantSchema = z.strictObject({
+  name: nonEmptyString.meta({ description: "Name of the character over whom the skin holds Ascendants." }),
+  value: portableCount.meta({ description: "Current Ascendants held over that named character." }),
+}).meta({ description: "Current Ascendants held over one named character." });
+
 const editorialSchema = playbookEditorialSchema.extend({
   darkestSelf: editorialSectionSchema.meta({ description: "The skin's Darkest Self region." }),
   sexMove: editorialSectionSchema.meta({ description: "The skin's intimacy move region." }),
@@ -22,6 +27,7 @@ const editorialSchema = playbookEditorialSchema.extend({
 /** Monsterhearts skin data in one portable TOML document. */
 export const monsterheartsPlaybookSchema = playbookSchema.extend({
   strings: stringSchema.optional().meta({ description: "Starting String economy." }),
+  ascendants: z.array(ascendantSchema).optional().meta({ description: "Current Ascendants held over named characters." }),
   conditions: z.array(conditionSchema).optional().meta({ description: "Conditions named by this skin." }),
   backstory: z.array(nonEmptyString).optional().meta({ description: "Backstory prompts and choices." }),
   advances: z.array(nonEmptyString).min(1).meta({ description: "Skin-specific advances." }),

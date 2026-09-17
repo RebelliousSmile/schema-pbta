@@ -3,20 +3,10 @@ name = "The Hollow"
 game = "monsterhearts"
 description = "A beautiful imitation trying to become real."
 stats = { hot = 1, cold = 0, volatile = -1, dark = 1 }
-moves = [{ name = "What Are You?", moveType = "playbook", description = "Ask a question nobody wants to answer." }]
+moves = []
 advances = ["Take a new skin move."]
-[[ascendants]]
-name = "Alex"
-value = 2
-[[ascendants]]
-name = "Morgan"
-value = 1
-[strings]
-max = 5
-starting = 1
-[[conditions]]
-name = "Artificial"
-description = "Someone has named the thing you fear is true."
+ascendants = []
+conditions = []
 
 [editorial.opening]
 heading = "Opening"
