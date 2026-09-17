@@ -287,6 +287,25 @@ function validateHtml(file: string, game: string): void {
     if (!html.includes('data-creation-attribute="look"')) {
       errors.push("monsterhearts: generated preview misses creation attribute target");
     }
+    if (!html.includes('data-creation-min="1" data-creation-max="1"')) {
+      errors.push("monsterhearts: generated preview misses single creation cardinality");
+    }
+  }
+  if (game === "salvage-run") {
+    if (!html.includes('data-creation-attribute="name"') || !html.includes('data-creation-attribute="look"')) {
+      errors.push("salvage-run: generated preview misses free-text creation destinations");
+    }
+    if (!html.includes('data-schema-block="stat-profiles"') || !html.includes('data-stat-profile-key="salvage-specialist"')) {
+      errors.push("salvage-run: generated preview misses structured starting stat profile");
+    }
+  }
+  if (game === "urban-shadows") {
+    if (!html.includes('data-creation-attribute="mortalRelationships"') || !html.includes('data-creation-min="3" data-creation-max="3"')) {
+      errors.push("urban-shadows: generated preview misses multiple creation destination or cardinality");
+    }
+    if (!html.includes('data-creation-option-value="younger-sibling"')) {
+      errors.push("urban-shadows: generated preview misses stable creation option value");
+    }
   }
   const specializedFields: Record<string, string[]> = {
     masks: ["moment-of-truth", "potential", "influence"],

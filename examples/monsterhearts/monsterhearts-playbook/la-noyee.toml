@@ -4,7 +4,7 @@ game = "monsterhearts"
 description = "Tu es revenue du lac avec une voix plus calme et des souvenirs qui ne sont pas tous les tiens."
 stats = { hot = 1, cold = 2, volatile = -1, dark = 0 }
 moves = [{ name = "Écouter sous la surface", moveType = "skin", description = "Le silence te livre des fragments de ce que les autres taisent.", trigger = "Quand tu restes immobile au bord de l’eau, lance avec Ténébreux." }]
-advances = ["Prends une autre action de ta mue.", "Augmente une caractéristique de +1."]
+advances = [{ label = "Prends une autre action de ta mue." }, { label = "Augmente une caractéristique de +1." }]
 harm = 0
 
 [strings]

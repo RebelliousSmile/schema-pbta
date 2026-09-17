@@ -7,7 +7,7 @@ moves = [
   { name = "Dragée haute", moveType = "skin", description = "On peut voler ta peau, mais jamais la détruire.", trigger = "Quand tu cherches à accomplir une tâche pour la personne qui la détient, ajoute +1 sur tous tes jets." },
   { name = "Peau des Profondeurs", moveType = "skin", description = "Revêts ta peau pour ressembler à une otarie, respirer sous l’eau et nager incroyablement vite." }
 ]
-advances = ["Choisis l’océan ou la terre ferme.", "Gagne 1 point d’expérience quand tu fais le mauvais choix."]
+advances = [{ label = "Choisis l’océan ou la terre ferme." }, { label = "Gagne 1 point d’expérience quand tu fais le mauvais choix." }]
 creation = [{ label = "Apparence", options = ["brillante", "débraillée", "ébouriffée", "étrangère", "fascinante", "moite"], attribute = "look" }]
 
 [strings]

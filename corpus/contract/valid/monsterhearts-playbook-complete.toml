@@ -4,7 +4,7 @@ game = "monsterhearts"
 description = "A beautiful imitation trying to become real."
 stats = { hot = 1, cold = 0, volatile = -1, dark = 1 }
 moves = [{ name = "What Are You?", moveType = "playbook", description = "Ask a question nobody wants to answer." }]
-advances = ["Take a new skin move."]
+advances = [{ label = "Take a new skin move.", checked = true }]
 [[ascendants]]
 name = "Alex"
 value = 2

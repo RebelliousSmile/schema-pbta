@@ -8,7 +8,7 @@ endMove = "Entrust your mortal relationships to another character."
 
 [corruption]
 trigger = "Ignore mortal commitments to confront the supernatural."
-advances = ["Take a corruption move."]
+advances = [{ label = "Take a corruption move.", checked = true }]
 
 [editorial.opening]
 heading = "Opening"

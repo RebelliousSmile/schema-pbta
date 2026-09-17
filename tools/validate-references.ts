@@ -52,6 +52,18 @@ function attributeIsVisibleFor(attribute: Dict, playbookSlug: string): boolean {
   return Array.isArray(visibleFor) && visibleFor.includes(playbookSlug);
 }
 
+function creationOptionValue(option: unknown): string | undefined {
+  if (typeof option === "string") return option;
+  return isDict(option) && typeof option.value === "string" ? option.value : undefined;
+}
+
+function creationBounds(question: Dict): { min: number; max: number } | undefined {
+  if (question.selection === undefined) return { min: 1, max: 1 };
+  if (!isDict(question.selection)) return undefined;
+  const { min, max } = question.selection;
+  return typeof min === "number" && typeof max === "number" ? { min, max } : undefined;
+}
+
 /** Every plain object of a document, with the key path that leads to it. */
 function* walk(node: unknown, keyPath: string): Generator<[Dict, string]> {
   if (Array.isArray(node)) {
@@ -310,6 +322,15 @@ function checkGame(game: Game, root: string) {
           `unknown stat "${key}"; the game declares: ${list(statKeys)}`
         );
       }
+      if (Array.isArray(data.statProfiles)) {
+        for (const [index, profile] of data.statProfiles.entries()) {
+          if (!isDict(profile)) continue;
+          const profileStats = keysOf(profile.stats);
+          if (profileStats.length !== statKeys.length || profileStats.some((key) => !statKeys.includes(key))) {
+            error(file, `statProfiles[${index}].stats`, `stat profile must declare exactly the game stats: ${list(statKeys)}`);
+          }
+        }
+      }
     }
     const declaredAttributes = isPlaybook ? attributeKeys.playbook : attributeKeys[type];
     if (declaredAttributes !== undefined) {
@@ -330,13 +351,32 @@ function checkGame(game: Game, root: string) {
       for (const [index, question] of data.creation.entries()) {
         if (!isDict(question) || typeof question.attribute !== "string") continue;
         const key = `creation[${index}].attribute`;
+        const questionKey = `creation[${index}]`;
+        const bounds = creationBounds(question);
+        const options = Array.isArray(question.options) ? question.options : [];
+        const optionValues = options.map(creationOptionValue).filter((value): value is string => value !== undefined);
+        if (bounds === undefined) {
+          error(file, `${questionKey}.selection`, "selection must declare numeric min and max bounds");
+          continue;
+        }
+        if (bounds.min > bounds.max) {
+          error(file, `${questionKey}.selection`, "selection min must not exceed max");
+        }
+        if (bounds.max > options.length) {
+          error(file, `${questionKey}.selection`, "selection max must not exceed the number of proposed options");
+        }
+        if (new Set(optionValues).size !== optionValues.length) {
+          error(file, `${questionKey}.options`, "creation option values must be unique");
+        }
         const attribute = characterAttributes[question.attribute];
         if (!isDict(attribute)) {
           error(file, key, `unknown character attribute "${question.attribute}"`);
           continue;
         }
-        if (attribute.type !== "Text" && attribute.type !== "LongText") {
-          error(file, key, `attribute "${question.attribute}" must be Text or LongText`);
+        const single = bounds.max <= 1;
+        const expectedTypes = single ? ["Text", "LongText"] : ["ListMany"];
+        if (!expectedTypes.includes(attribute.type as string)) {
+          error(file, key, `attribute "${question.attribute}" must be ${single ? "Text or LongText" : "ListMany"} for this selection cardinality`);
           continue;
         }
         if (!attributeIsVisibleFor(attribute, data.slug)) {

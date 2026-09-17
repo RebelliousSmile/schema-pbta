@@ -1,0 +1,9 @@
+{
+  "slug": "invalid-stat-profile",
+  "name": "Invalid Stat Profile",
+  "game": "masks",
+  "description": "Invalid stat profile fixture.",
+  "stats": { "danger": 0 },
+  "moves": [],
+  "statProfiles": [{ "key": "broken", "label": "Broken", "stats": { "danger": "high" } }]
+}

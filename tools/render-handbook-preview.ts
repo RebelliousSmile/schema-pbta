@@ -107,6 +107,18 @@ function renderStats(definition: Data, playbook: Data): string {
   return `<dl class="handbook-stats">${rows}\n  </dl>`;
 }
 
+function renderStatProfiles(definition: Data, playbook: Data): string {
+  if (!Array.isArray(playbook.statProfiles) || playbook.statProfiles.length === 0) return "";
+  const labels = asData(asData(definition.character, "character").stats, "character.stats");
+  const profiles = playbook.statProfiles.map((raw) => {
+    const profile = asData(raw, "stat profile");
+    const values = asData(profile.stats, "stat profile stats");
+    const stats = entries(values).map(([key, value]) => `${escapeHtml(labels[key] ?? key)} ${escapeHtml(value)}`).join(", ");
+    return `<li data-stat-profile-key="${escapeHtml(profile.key)}" data-schema-block="stat-profile"><strong>${escapeHtml(profile.label)}</strong><span>${stats}</span></li>`;
+  }).join("");
+  return `<section class="handbook-stat-profiles" data-schema-block="stat-profiles"><h3>Profils de départ</h3><ul>${profiles}</ul></section>`;
+}
+
 function renderAttributes(definition: Data, playbook: Data): string {
   if (!playbook.attributes || typeof playbook.attributes !== "object" || Array.isArray(playbook.attributes)) return "";
   const declared = asData(asData(definition.character, "character").attributes, "character.attributes");
@@ -180,7 +192,7 @@ function renderSpecializedDetails(game: string, playbook: Data): string {
       + section("mortal-relationships", "Relations mortelles", Array.isArray(playbook.mortalRelationships)
         ? `<ul class="handbook-value-list">${playbook.mortalRelationships.map((raw) => {
           const relationship = asData(raw, "mortal relationship");
-          return `<li><strong>${escapeHtml(relationship.name)}</strong>${relationship.description ? ` — ${escapeHtml(relationship.description)}` : ""}</li>`;
+          return `<li data-mortal-relationship-key="${escapeHtml(relationship.key)}"><strong>${escapeHtml(relationship.label)}</strong>${relationship.description ? ` — ${escapeHtml(relationship.description)}` : ""}</li>`;
         }).join("")}</ul>`
         : "")
       + section("scars", "Cicatrices", Array.isArray(playbook.scars)
@@ -270,7 +282,23 @@ function renderCreation(playbook: Data): string {
     const attribute = typeof item.attribute === "string"
       ? ` data-creation-attribute="${escapeHtml(item.attribute)}"`
       : "";
-    return `<section class="handbook-creation__item" data-schema-block="creation-question"${attribute}><h3>${escapeHtml(item.label)}</h3>${list(item.options, "handbook-options")}</section>`;
+    const selection = item.selection && typeof item.selection === "object" && !Array.isArray(item.selection)
+      ? item.selection as Data
+      : {};
+    const cardinality = typeof selection.min === "number" && typeof selection.max === "number"
+      ? ` data-creation-min="${selection.min}" data-creation-max="${selection.max}"`
+      : ' data-creation-min="1" data-creation-max="1"';
+    const options = Array.isArray(item.options)
+      ? `<ul class="handbook-options">${item.options.map((option) => {
+        const detail = option && typeof option === "object" && !Array.isArray(option)
+          ? option as Data
+          : {};
+        const value = typeof option === "string" ? option : detail.value;
+        const label = typeof option === "string" ? option : detail.label;
+        return `<li data-creation-option-value="${escapeHtml(value)}">${escapeHtml(label)}</li>`;
+      }).join("")}</ul>`
+      : "";
+    return `<section class="handbook-creation__item" data-schema-block="creation-question"${attribute}${cardinality}><h3>${escapeHtml(item.label)}</h3>${options}</section>`;
   }).join("");
   return questions ? `<div class="handbook-creation">${questions}</div>` : "";
 }
@@ -305,7 +333,7 @@ function renderMonsterheartsPage(
       ${renderEditorialSection("darkest-self", asData(editorial.darkestSelf, "Monsterhearts Darkest Self"))}
       ${renderEditorialSection("sex-move", asData(editorial.sexMove, "Monsterhearts sex move"))}
       <section class="handbook-panel handbook-editorial handbook-editorial--moves" data-region="playbook-moves"><h2>Actions</h2>${renderPlaybookMoves(playbook, moves, definition)}</section>
-      <section class="handbook-panel handbook-editorial handbook-editorial--identity" data-region="character-identity">${identity}${creation}<h3>Caractéristiques</h3>${renderStats(definition, playbook)}</section>
+      <section class="handbook-panel handbook-editorial handbook-editorial--identity" data-region="character-identity">${identity}${creation}<h3>Caractéristiques</h3>${renderStats(definition, playbook)}${renderStatProfiles(definition, playbook)}</section>
       <section class="handbook-panel handbook-editorial handbook-editorial--progression" data-region="character-state">${renderEditorialSection("play-advice", asData(editorial.playAdvice, "Monsterhearts play advice"))}${renderEditorialSection("mc-guidance", asData(editorial.mcGuidance, "Monsterhearts MC guidance"))}${renderEditorialSection("progression", asData(editorial.progression, "Monsterhearts progression"))}${list(playbook.advances, "handbook-advancement")}</section>
     </div>
     <footer class="handbook-panel handbook-mc" data-region="mc-actions"><span class="handbook-kicker">Référence MC</span><h2>Pour la MC</h2>${mcGuidanceParagraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}</footer>
@@ -376,7 +404,7 @@ ${renderChoiceSets(playbook, moves)}
 ${Array.isArray(playbook.advancement) && playbook.advancement.length ? `<section class="handbook-subsection"><span class="handbook-kicker">Évolution</span><h2>Progression</h2>${list(playbook.advancement, "handbook-advancement")}</section>` : ""}
       </section>
       <aside class="handbook-panel handbook-state" data-region="character-state">
-        <span class="handbook-kicker">État</span><h2>Caractéristiques</h2>${renderStats(definition, playbook)}
+        <span class="handbook-kicker">État</span><h2>Caractéristiques</h2>${renderStats(definition, playbook)}${renderStatProfiles(definition, playbook)}
         <h2>Attributs</h2>${renderAttributes(definition, playbook) || `<span data-schema-block="attribute" hidden></span>`}
       </aside>
     </div>

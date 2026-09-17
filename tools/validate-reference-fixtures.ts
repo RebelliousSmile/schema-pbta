@@ -117,6 +117,76 @@ creation = [{ label = "Choose an identity", options = ["A", "B"], attribute = "l
 max = 1
 `,
   );
+  fs.writeFileSync(
+    path.join(monsterheartsPlaybookDirectory, "fixture-creation-text-multiple.toml"),
+    `slug = "fixture-creation-text-multiple"
+name = "Text Multiple Creation"
+game = "monsterhearts"
+description = "Fixture for reference validation."
+stats = { hot = 0 }
+moves = []
+creation = [{ label = "Choose identities", options = ["A", "B"], selection = { min = 1, max = 2 }, attribute = "look" }]
+
+[strings]
+max = 1
+`,
+  );
+  fs.writeFileSync(
+    path.join(monsterheartsPlaybookDirectory, "fixture-creation-invalid-bounds.toml"),
+    `slug = "fixture-creation-invalid-bounds"
+name = "Invalid Creation Bounds"
+game = "monsterhearts"
+description = "Fixture for reference validation."
+stats = { hot = 0 }
+moves = []
+creation = [{ label = "Choose identities", options = ["A", "B"], selection = { min = 2, max = 1 }, attribute = "look" }]
+
+[strings]
+max = 1
+`,
+  );
+  fs.writeFileSync(
+    path.join(monsterheartsPlaybookDirectory, "fixture-creation-duplicate-values.toml"),
+    `slug = "fixture-creation-duplicate-values"
+name = "Duplicate Creation Values"
+game = "monsterhearts"
+description = "Fixture for reference validation."
+stats = { hot = 0 }
+moves = []
+creation = [{ label = "Choose an identity", options = [{ value = "same", label = "First" }, { value = "same", label = "Second" }], attribute = "look" }]
+
+[strings]
+max = 1
+`,
+  );
+  fs.writeFileSync(
+    path.join(monsterheartsPlaybookDirectory, "fixture-stat-profile-unknown-stat.toml"),
+    `slug = "fixture-stat-profile-unknown-stat"
+name = "Unknown Stat Profile"
+game = "monsterhearts"
+description = "Fixture for reference validation."
+stats = { hot = 0 }
+moves = []
+statProfiles = [{ key = "invalid", label = "Invalid", stats = { hot = 0, cold = 0, volatile = 0, dark = 0, impossible = 1 } }]
+
+[strings]
+max = 1
+`,
+  );
+  fs.writeFileSync(
+    path.join(monsterheartsPlaybookDirectory, "fixture-stat-profile-incomplete.toml"),
+    `slug = "fixture-stat-profile-incomplete"
+name = "Incomplete Stat Profile"
+game = "monsterhearts"
+description = "Fixture for reference validation."
+stats = { hot = 0 }
+moves = []
+statProfiles = [{ key = "incomplete", label = "Incomplete", stats = { hot = 0, cold = 0 } }]
+
+[strings]
+max = 1
+`,
+  );
 
   const creationDiagnostics = validateReferences(temporaryRoot);
   for (const [fileName, message] of [
@@ -133,6 +203,34 @@ max = 1
           diagnostic.severity === "error",
       ),
       `${fileName} must produce a creation attribute error`,
+    );
+  }
+  for (const [fileName, key, message] of [
+    ["fixture-creation-text-multiple.toml", "creation[0].attribute", "must be ListMany"],
+    ["fixture-creation-invalid-bounds.toml", "creation[0].selection", "min must not exceed max"],
+    ["fixture-creation-duplicate-values.toml", "creation[0].options", "values must be unique"],
+  ]) {
+    assert.ok(
+      creationDiagnostics.some(
+        (diagnostic) =>
+          diagnostic.file.endsWith(fileName) &&
+          diagnostic.key === key &&
+          diagnostic.message.includes(message) &&
+          diagnostic.severity === "error",
+      ),
+      `${fileName} must produce its creation cardinality error`,
+    );
+  }
+  for (const fileName of ["fixture-stat-profile-unknown-stat.toml", "fixture-stat-profile-incomplete.toml"]) {
+    assert.ok(
+      creationDiagnostics.some(
+        (diagnostic) =>
+          diagnostic.file.endsWith(fileName) &&
+          diagnostic.key === "statProfiles[0].stats" &&
+          diagnostic.message.includes("must declare exactly the game stats") &&
+          diagnostic.severity === "error",
+      ),
+      `${fileName} must reject an incompatible stat profile`,
     );
   }
 

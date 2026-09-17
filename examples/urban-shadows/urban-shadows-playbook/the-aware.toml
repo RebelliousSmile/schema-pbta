@@ -24,6 +24,7 @@ wild = 0
 
 [attributes]
 corruption = 0
+mortalRelationships = ["younger-sibling", "loyal-significant-other", "struggling-best-friend"]
 
 [harm]
 armor = 0
@@ -33,7 +34,7 @@ critical = 2
 
 [corruption]
 trigger = "When you ignore mortal commitments or relationships to deal with the supernatural, mark corruption."
-advances = ["Take +1 to any stat.", "Take a corruption move.", "Retire the character as a Threat."]
+advances = [{ label = "Take +1 to any stat." }, { label = "Take a corruption move.", checked = true }, { label = "Retire the character as a Threat." }]
 moves = ["In Too Deep", "Free Agent"]
 
 [editorial.opening]
@@ -55,11 +56,18 @@ moveType = "playbook"
 description = "When you hit the streets to get what you need from a member of your Circle, roll with Heart instead."
 
 [[mortalRelationships]]
-name = "Younger sibling"
+key = "younger-sibling"
+label = "Younger sibling"
 description = "Relies on you for transportation and advice."
 
 [[mortalRelationships]]
-name = "Struggling best friend"
+key = "loyal-significant-other"
+label = "Loyal significant other"
+description = "Keeps choosing you even when the city makes that dangerous."
+
+[[mortalRelationships]]
+key = "struggling-best-friend"
+label = "Struggling best friend"
 description = "Always gets into messy altercations."
 
 [[scars]]
@@ -69,4 +77,6 @@ modifier = -1
 
 [[creation]]
 label = "Choose three mortal relationships."
-options = ["Younger sibling", "Loyal significant other", "Struggling best friend"]
+options = [{ value = "younger-sibling", label = "Younger sibling" }, { value = "loyal-significant-other", label = "Loyal significant other" }, { value = "struggling-best-friend", label = "Struggling best friend" }]
+selection = { min = 3, max = 3 }
+attribute = "mortalRelationships"

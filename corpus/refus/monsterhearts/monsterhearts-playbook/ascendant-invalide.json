@@ -5,7 +5,7 @@
   "description": "An invalid original fixture.",
   "stats": { "hot": 0, "cold": 0, "volatile": 0, "dark": 0 },
   "moves": [],
-  "advances": ["Take a new skin move."],
+  "advances": [{ "label": "Take a new skin move." }],
   "ascendants": [{ "name": "Alex" }],
   "editorial": {
     "opening": { "heading": "Opening", "paragraphs": ["An invalid fixture."] },

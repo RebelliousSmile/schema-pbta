@@ -1,10 +1,11 @@
-slug = "the-lightkeeper"
-name = "The Lightkeeper"
+slug = "invalid-improvement-checked"
+name = "Invalid Improvement Checked"
 game = "monster-of-the-week"
-description = "An original fixture."
+description = "This fixture must be rejected."
 stats = { charm = 1 }
 moves = []
-improvements = [{ label = "Take a move.", checked = true }]
+improvements = [{ label = "Take a move.", checked = "yes" }]
+
 [editorial.opening]
 heading = "Opening"
 paragraphs = ["Original fixture."]

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { nonEmptyString, portableCount, portableInteger } from "./shared.js";
-import { playbookSchema } from "./playbook.js";
+import { advancementEntrySchema, playbookSchema } from "./playbook.js";
 import { editorialSectionSchema, playbookEditorialSchema } from "./playbook-editorial.js";
 
 const conditionSchema = z.strictObject({
@@ -30,7 +30,7 @@ export const monsterheartsPlaybookSchema = playbookSchema.extend({
   ascendants: z.array(ascendantSchema).optional().meta({ description: "Current Ascendants held over named characters." }),
   conditions: z.array(conditionSchema).optional().meta({ description: "Conditions named by this skin." }),
   backstory: z.array(nonEmptyString).optional().meta({ description: "Backstory prompts and choices." }),
-  advances: z.array(nonEmptyString).min(1).meta({ description: "Skin-specific advances." }),
+  advances: z.array(advancementEntrySchema).min(1).meta({ description: "Skin-specific advances." }),
   harm: portableInteger.optional().meta({ description: "Starting harm value when the skin configures one." }),
   editorial: editorialSchema.meta({ description: "Complete editorial copy rendered with the skin." }),
 }).meta({ title: "Monsterhearts playbook", description: "Portable single-document representation of a Monsterhearts skin." });

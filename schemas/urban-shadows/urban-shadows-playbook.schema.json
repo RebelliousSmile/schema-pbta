@@ -49,6 +49,44 @@
       "type": "string",
       "minLength": 1
     },
+    "statProfiles": {
+      "description": "Named starting-stat profiles offered during character creation.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "description": "Stable key identifying this starting-stat profile."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable name of this starting-stat profile."
+          },
+          "stats": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": -2147483648,
+              "maximum": 2147483647
+            },
+            "description": "Signed starting values keyed by game stat."
+          }
+        },
+        "required": [
+          "key",
+          "label",
+          "stats"
+        ],
+        "additionalProperties": false,
+        "description": "A named stat profile available during character creation."
+      }
+    },
     "attributes": {
       "description": "Starting values keyed by game attribute.",
       "type": "object",
@@ -484,13 +522,61 @@
             "minItems": 1,
             "type": "array",
             "items": {
-              "type": "string",
-              "minLength": 1
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Stable value persisted when this option is selected."
+                    },
+                    "label": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Human-readable label shown for this option."
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "label"
+                  ],
+                  "additionalProperties": false,
+                  "description": "Creation option with a stable persisted value and display label."
+                }
+              ]
             },
             "description": "Non-empty list of answers offered to the player."
           },
+          "selection": {
+            "description": "Selection bounds; omitted questions select exactly one answer.",
+            "type": "object",
+            "properties": {
+              "min": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 2147483647,
+                "description": "Minimum number of options selected during creation."
+              },
+              "max": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 2147483647,
+                "description": "Maximum number of options selected during creation."
+              }
+            },
+            "required": [
+              "min",
+              "max"
+            ],
+            "additionalProperties": false
+          },
           "attribute": {
-            "description": "Character attribute initialized by the selected answer; it remains freely editable afterwards.",
+            "description": "Character attribute initialized by the selection; it remains freely editable afterwards.",
             "type": "string",
             "minLength": 1
           }
@@ -500,7 +586,7 @@
           "options"
         ],
         "additionalProperties": false,
-        "description": "One character-creation question, its answers, and optional attribute destination."
+        "description": "One character-creation question, its answers, cardinality, and optional attribute destination."
       }
     },
     "gear": {
@@ -559,15 +645,20 @@
       }
     },
     "mortalRelationships": {
-      "description": "Mortal relationships selected by the playbook.",
+      "description": "Editorial catalogue of mortal relationships available to the playbook.",
       "type": "array",
       "items": {
         "type": "object",
         "properties": {
-          "name": {
+          "key": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "description": "Stable key persisted when this mortal relationship is selected."
+          },
+          "label": {
             "type": "string",
             "minLength": 1,
-            "description": "Name or concise label of the mortal relationship."
+            "description": "Human-readable label of the mortal relationship."
           },
           "description": {
             "description": "Why this mortal relationship matters.",
@@ -575,10 +666,11 @@
           }
         },
         "required": [
-          "name"
+          "key",
+          "label"
         ],
         "additionalProperties": false,
-        "description": "One mortal relationship that anchors the character."
+        "description": "One editorially described mortal relationship available during creation."
       }
     },
     "harm": {
@@ -654,8 +746,23 @@
           "minItems": 1,
           "type": "array",
           "items": {
-            "type": "string",
-            "minLength": 1
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Human-readable advancement option."
+              },
+              "checked": {
+                "description": "Whether this advancement has been acquired.",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "label"
+            ],
+            "additionalProperties": false,
+            "description": "One advancement option and its optional acquisition state."
           },
           "description": "Corruption advances offered by the playbook."
         },

@@ -42,6 +42,14 @@ description = "Fills as the crew strips a wreck."
 max = 6
 default = 0
 position = "left"
+[character.attributes.name]
+type = "Text"
+label = "Name"
+position = "left"
+[character.attributes.look]
+type = "LongText"
+label = "Look"
+position = "left"
 [character.statToggle]
 label = "Overdrawn"
 modifier = -1
