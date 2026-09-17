@@ -1,6 +1,6 @@
 ---
 objective: "Chaque jeu PbtA publié possède un livret spécialisé, canonique et monobloc, lisible par Handbook et Lantern."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Livrets spécialisés pour tous les jeux
