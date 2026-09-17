@@ -531,5 +531,5 @@
   "additionalProperties": false,
   "title": "PbtA playbook",
   "description": "Portable representation of a Powered by the Apocalypse character playbook.",
-  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v4.0.0/schemas/v4/monsterhearts/playbook.schema.json"
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v5.0.0/schemas/v5/monsterhearts/playbook.schema.json"
 }

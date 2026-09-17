@@ -665,5 +665,5 @@
   "additionalProperties": false,
   "title": "Masks playbook",
   "description": "Portable single-document representation of a Masks playbook.",
-  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v4.0.0/schemas/v4/masks/masks-playbook.schema.json"
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v5.0.0/schemas/v5/masks/masks-playbook.schema.json"
 }

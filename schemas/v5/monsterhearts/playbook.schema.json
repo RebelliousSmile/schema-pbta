@@ -529,7 +529,7 @@
     "moves"
   ],
   "additionalProperties": false,
-  "title": "Salvage Run playbook",
-  "description": "Portable single-document representation of a Salvage Run playbook.",
-  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v4.0.0/schemas/v4/salvage-run/salvage-run-playbook.schema.json"
+  "title": "PbtA playbook",
+  "description": "Portable representation of a Powered by the Apocalypse character playbook.",
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v5.0.0/schemas/v5/monsterhearts/playbook.schema.json"
 }

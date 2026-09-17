@@ -12,7 +12,7 @@ const schemaRoot = `schemas/v${PBTA_CONTRACT_VERSION}`;
 const packageJson = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8")) as {
   version: string;
 };
-const archivedVersions = [1, 2, 3];
+const archivedVersions = [1, 2, 3, 4];
 
 function git(args: string[], allowFailure = false): string | null {
   const result = spawnSync("git", args, { cwd: root, encoding: "utf8" });
@@ -59,8 +59,8 @@ function assertFrozenSchema(version: number): void {
   const currentFiles = filesAt(directory);
   assert.deepEqual(currentFiles, publishedFiles, `${directory} file list differs from immutable ${tag}`);
   for (const relative of currentFiles) {
-    const published = git(["show", `${tag}:${relative}`]);
-    const current = fs.readFileSync(path.join(root, relative), "utf8");
+    const published = git(["rev-parse", `${tag}:${relative}`]);
+    const current = git(["hash-object", "--path", relative, relative]);
     assert.equal(current, published, `${relative} differs from immutable ${tag}`);
   }
   console.log(`✓ ${directory} is byte-for-byte compatible with ${tag}`);
