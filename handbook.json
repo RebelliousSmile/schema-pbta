@@ -39,6 +39,13 @@
       "path": "handbook/the-sprawl/pack.json",
       "label": "The Sprawl",
       "description": "Dark neon presentation for corporate cyberpunk missions."
+    },
+    {
+      "id": "salvage-run",
+      "version": "0.1.0",
+      "path": "handbook/salvage-run/pack.json",
+      "label": "Salvage Run",
+      "description": "Original wreck-field salvage playtest presentation."
     }
   ]
 }

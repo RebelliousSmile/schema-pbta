@@ -1,0 +1,31 @@
+slug = "the-hollow"
+name = "The Hollow"
+game = "monsterhearts"
+description = "A beautiful imitation trying to become real."
+stats = { hot = 1, cold = 0, volatile = -1, dark = 1 }
+moves = []
+advances = ["Take a new skin move."]
+ascendants = []
+conditions = []
+
+[editorial.opening]
+heading = "Opening"
+paragraphs = ["A complete original fixture."]
+[editorial.playAdvice]
+heading = "Advice"
+paragraphs = ["Play the Hollow with uncertainty."]
+[editorial.darkestSelf]
+heading = "Darkest Self"
+paragraphs = ["You are empty until somebody proves otherwise."]
+[editorial.sexMove]
+heading = "Sex Move"
+paragraphs = ["When you share intimacy, take a String on them."]
+[editorial.mcGuidance]
+heading = "For the MC"
+paragraphs = ["Ask who made the Hollow."]
+[editorial.identity]
+heading = "Identity"
+paragraphs = ["Choose a face that almost looks real."]
+[editorial.progression]
+heading = "Progression"
+paragraphs = ["Take a new skin move."]

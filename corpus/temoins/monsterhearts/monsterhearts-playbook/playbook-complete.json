@@ -8,6 +8,7 @@
   "backstory": ["You first appeared during a blackout."],
   "advances": ["Take a move from another skin."],
   "harm": 0,
+  "ascendants": [{ "name": "Alex", "value": 2 }, { "name": "Morgan", "value": 1 }],
   "strings": { "max": 5, "starting": 1 },
   "conditions": [{ "name": "Unsettling", "description": "The darkness reacts to you." }],
   "editorial": {

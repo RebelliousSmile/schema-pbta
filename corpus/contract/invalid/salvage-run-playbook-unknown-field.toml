@@ -1,0 +1,7 @@
+slug = "the-wrench"
+name = "The Wrench"
+game = "salvage-run"
+description = "Original Lantern Salvage Run demonstration playbook."
+stats = { grit = 1 }
+moves = []
+unexpected = true

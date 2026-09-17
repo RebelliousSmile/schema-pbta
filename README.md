@@ -25,7 +25,7 @@ generated schema.
 
 ## What's in here
 
-- `src/zod/` contains the source Zod v4 definitions
+- `src/zod/` contains the source Zod v5 definitions
 - `schemas/` contains the generated JSON Schemas
 - `examples/` contains JSON/TOML examples per schema
 - `corpus/temoins/` contains legitimate JSON documents that every target must accept

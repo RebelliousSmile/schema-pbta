@@ -1,0 +1,8 @@
+game = "salvage-run"
+gameDefinition = "salvage-run"
+playbookKind = "salvage-run-playbook"
+playbook = "the-wrench"
+moves = ["act-under-fire"]
+mcMoves = []
+variants = ["base"]
+defaultVariant = "base"

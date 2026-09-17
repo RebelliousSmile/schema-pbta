@@ -1,0 +1,16 @@
+slug = "overdrive"
+name = "Overdrive"
+game = "salvage-run"
+moveType = "rig"
+audience = "character"
+playbook = "the-wrench"
+description = "Force the rig past safe tolerances."
+trigger = "When you burn fuel for a burst of power, roll +Reflex."
+[roll]
+rollType = "reflex"
+[results.strong]
+label = "10+"
+text = "Choose two benefits and keep control."
+[results.weak]
+label = "7-9"
+text = "Choose one benefit and mark 1 Fuel."

@@ -5,6 +5,12 @@ description = "A beautiful imitation trying to become real."
 stats = { hot = 1, cold = 0, volatile = -1, dark = 1 }
 moves = [{ name = "What Are You?", moveType = "playbook", description = "Ask a question nobody wants to answer." }]
 advances = ["Take a new skin move."]
+[[ascendants]]
+name = "Alex"
+value = 2
+[[ascendants]]
+name = "Morgan"
+value = 1
 [strings]
 max = 5
 starting = 1

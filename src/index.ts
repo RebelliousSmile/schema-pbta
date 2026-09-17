@@ -14,6 +14,7 @@ export {
   parseMasksPlaybookToml,
   parseMonsterOfTheWeekPlaybookToml,
   parseTheSprawlPlaybookToml,
+  parseSalvageRunPlaybookToml,
   parseUrbanShadowsPlaybookToml,
   parseMonsterheartsPlaybookToml,
   stringifyFrontToml,
@@ -24,6 +25,7 @@ export {
   stringifyMasksPlaybookToml,
   stringifyMonsterOfTheWeekPlaybookToml,
   stringifyTheSprawlPlaybookToml,
+  stringifySalvageRunPlaybookToml,
   stringifyUrbanShadowsPlaybookToml,
   stringifyMonsterheartsPlaybookToml,
 } from "./codecs/toml.js";
@@ -39,6 +41,7 @@ export type {
   MasksPlaybook,
   MonsterOfTheWeekPlaybook,
   TheSprawlPlaybook,
+  SalvageRunPlaybook,
   UrbanShadowsPlaybook,
   MonsterheartsPlaybook,
 } from "./codecs/toml.js";
@@ -52,3 +55,4 @@ export { monsterheartsPlaybookSchema } from "./zod/monsterhearts-playbook.js";
 export { masksPlaybookSchema } from "./zod/masks-playbook.js";
 export { monsterOfTheWeekPlaybookSchema } from "./zod/monster-of-the-week-playbook.js";
 export { theSprawlPlaybookSchema } from "./zod/the-sprawl-playbook.js";
+export { salvageRunPlaybookSchema } from "./zod/salvage-run-playbook.js";
