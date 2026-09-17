@@ -518,6 +518,146 @@
         "additionalProperties": false,
         "description": "A piece of starting or selectable gear."
       }
+    },
+    "luck": {
+      "description": "Starting Luck marks.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    },
+    "ratings": {
+      "description": "Playbook resources keyed by their rating name.",
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647
+      }
+    },
+    "improvements": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Improvements offered by the playbook."
+    },
+    "editorial": {
+      "type": "object",
+      "properties": {
+        "opening": {
+          "type": "object",
+          "properties": {
+            "heading": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Heading shown for this playbook section."
+            },
+            "paragraphs": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": "Ordered plain-text paragraphs shown in this section."
+            }
+          },
+          "required": [
+            "heading",
+            "paragraphs"
+          ],
+          "additionalProperties": false,
+          "description": "Opening fiction for the playbook."
+        },
+        "playAdvice": {
+          "type": "object",
+          "properties": {
+            "heading": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Heading shown for this playbook section."
+            },
+            "paragraphs": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": "Ordered plain-text paragraphs shown in this section."
+            }
+          },
+          "required": [
+            "heading",
+            "paragraphs"
+          ],
+          "additionalProperties": false,
+          "description": "Advice for playing the character."
+        },
+        "identity": {
+          "type": "object",
+          "properties": {
+            "heading": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Heading shown for this playbook section."
+            },
+            "paragraphs": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": "Ordered plain-text paragraphs shown in this section."
+            }
+          },
+          "required": [
+            "heading",
+            "paragraphs"
+          ],
+          "additionalProperties": false,
+          "description": "Identity choices and descriptive prompts."
+        },
+        "progression": {
+          "type": "object",
+          "properties": {
+            "heading": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Heading shown for this playbook section."
+            },
+            "paragraphs": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": "Ordered plain-text paragraphs shown in this section."
+            }
+          },
+          "required": [
+            "heading",
+            "paragraphs"
+          ],
+          "additionalProperties": false,
+          "description": "Advancement and continuation guidance."
+        }
+      },
+      "required": [
+        "opening",
+        "playAdvice",
+        "identity",
+        "progression"
+      ],
+      "additionalProperties": false,
+      "description": "Complete editorial copy rendered with the playbook."
     }
   },
   "required": [
@@ -526,10 +666,12 @@
     "game",
     "description",
     "stats",
-    "moves"
+    "moves",
+    "improvements",
+    "editorial"
   ],
   "additionalProperties": false,
-  "title": "PbtA playbook",
-  "description": "Portable representation of a Powered by the Apocalypse character playbook.",
-  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v4.0.0/schemas/v4/urban-shadows/playbook.schema.json"
+  "title": "Monster of the Week playbook",
+  "description": "Portable single-document representation of a Monster of the Week playbook.",
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v4.0.0/schemas/v4/monster-of-the-week/monster-of-the-week-playbook.schema.json"
 }

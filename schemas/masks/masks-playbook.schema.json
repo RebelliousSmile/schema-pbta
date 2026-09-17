@@ -518,6 +518,138 @@
         "additionalProperties": false,
         "description": "A piece of starting or selectable gear."
       }
+    },
+    "influence": {
+      "description": "Characters over whom the playbook starts with Influence.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "potential": {
+      "description": "Starting Potential marks.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    },
+    "momentOfTruth": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The playbook's Moment of Truth text."
+    },
+    "editorial": {
+      "type": "object",
+      "properties": {
+        "opening": {
+          "type": "object",
+          "properties": {
+            "heading": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Heading shown for this playbook section."
+            },
+            "paragraphs": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": "Ordered plain-text paragraphs shown in this section."
+            }
+          },
+          "required": [
+            "heading",
+            "paragraphs"
+          ],
+          "additionalProperties": false,
+          "description": "Opening fiction for the playbook."
+        },
+        "playAdvice": {
+          "type": "object",
+          "properties": {
+            "heading": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Heading shown for this playbook section."
+            },
+            "paragraphs": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": "Ordered plain-text paragraphs shown in this section."
+            }
+          },
+          "required": [
+            "heading",
+            "paragraphs"
+          ],
+          "additionalProperties": false,
+          "description": "Advice for playing the character."
+        },
+        "identity": {
+          "type": "object",
+          "properties": {
+            "heading": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Heading shown for this playbook section."
+            },
+            "paragraphs": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": "Ordered plain-text paragraphs shown in this section."
+            }
+          },
+          "required": [
+            "heading",
+            "paragraphs"
+          ],
+          "additionalProperties": false,
+          "description": "Identity choices and descriptive prompts."
+        },
+        "progression": {
+          "type": "object",
+          "properties": {
+            "heading": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Heading shown for this playbook section."
+            },
+            "paragraphs": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": "Ordered plain-text paragraphs shown in this section."
+            }
+          },
+          "required": [
+            "heading",
+            "paragraphs"
+          ],
+          "additionalProperties": false,
+          "description": "Advancement and continuation guidance."
+        }
+      },
+      "required": [
+        "opening",
+        "playAdvice",
+        "identity",
+        "progression"
+      ],
+      "additionalProperties": false,
+      "description": "Complete editorial copy rendered with the playbook."
     }
   },
   "required": [
@@ -526,10 +658,12 @@
     "game",
     "description",
     "stats",
-    "moves"
+    "moves",
+    "momentOfTruth",
+    "editorial"
   ],
   "additionalProperties": false,
-  "title": "PbtA playbook",
-  "description": "Portable representation of a Powered by the Apocalypse character playbook.",
-  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v4.0.0/schemas/v4/urban-shadows/playbook.schema.json"
+  "title": "Masks playbook",
+  "description": "Portable single-document representation of a Masks playbook.",
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v4.0.0/schemas/v4/masks/masks-playbook.schema.json"
 }

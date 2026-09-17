@@ -6,6 +6,9 @@ import { npcSchema } from "./npc.js";
 import { playbookSchema } from "./playbook.js";
 import { urbanShadowsPlaybookSchema } from "./urban-shadows-playbook.js";
 import { monsterheartsPlaybookSchema } from "./monsterhearts-playbook.js";
+import { masksPlaybookSchema } from "./masks-playbook.js";
+import { monsterOfTheWeekPlaybookSchema } from "./monster-of-the-week-playbook.js";
+import { theSprawlPlaybookSchema } from "./the-sprawl-playbook.js";
 
 type Game = {
   name: string;
@@ -83,6 +86,7 @@ export const TARGETS: Array<SchemaTarget> = [
   },
   { name: "move", zod: moveSchema, game: GAMES["the-sprawl"] },
   { name: "playbook", zod: playbookSchema, game: GAMES["the-sprawl"] },
+  { name: "the-sprawl-playbook", zod: theSprawlPlaybookSchema, game: GAMES["the-sprawl"] },
   {
     name: "game-definition",
     zod: gameDefinitionSchema,
@@ -108,6 +112,7 @@ export const TARGETS: Array<SchemaTarget> = [
     zod: frontSchema,
     game: GAMES.masks,
   },
+  { name: "masks-playbook", zod: masksPlaybookSchema, game: GAMES.masks },
   {
     name: "game-definition",
     zod: gameDefinitionSchema,
@@ -133,4 +138,5 @@ export const TARGETS: Array<SchemaTarget> = [
     zod: frontSchema,
     game: GAMES.motw,
   },
+  { name: "monster-of-the-week-playbook", zod: monsterOfTheWeekPlaybookSchema, game: GAMES.motw },
 ];

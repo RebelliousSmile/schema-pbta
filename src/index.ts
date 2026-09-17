@@ -11,6 +11,9 @@ export {
   parseMoveToml,
   parseNpcToml,
   parsePlaybookToml,
+  parseMasksPlaybookToml,
+  parseMonsterOfTheWeekPlaybookToml,
+  parseTheSprawlPlaybookToml,
   parseUrbanShadowsPlaybookToml,
   parseMonsterheartsPlaybookToml,
   stringifyFrontToml,
@@ -18,6 +21,9 @@ export {
   stringifyMoveToml,
   stringifyNpcToml,
   stringifyPlaybookToml,
+  stringifyMasksPlaybookToml,
+  stringifyMonsterOfTheWeekPlaybookToml,
+  stringifyTheSprawlPlaybookToml,
   stringifyUrbanShadowsPlaybookToml,
   stringifyMonsterheartsPlaybookToml,
 } from "./codecs/toml.js";
@@ -30,6 +36,9 @@ export type {
   PbtaDocumentCodec,
   PbtaDocumentTarget,
   Playbook,
+  MasksPlaybook,
+  MonsterOfTheWeekPlaybook,
+  TheSprawlPlaybook,
   UrbanShadowsPlaybook,
   MonsterheartsPlaybook,
 } from "./codecs/toml.js";
@@ -40,3 +49,6 @@ export { npcSchema } from "./zod/npc.js";
 export { playbookSchema } from "./zod/playbook.js";
 export { urbanShadowsPlaybookSchema } from "./zod/urban-shadows-playbook.js";
 export { monsterheartsPlaybookSchema } from "./zod/monsterhearts-playbook.js";
+export { masksPlaybookSchema } from "./zod/masks-playbook.js";
+export { monsterOfTheWeekPlaybookSchema } from "./zod/monster-of-the-week-playbook.js";
+export { theSprawlPlaybookSchema } from "./zod/the-sprawl-playbook.js";
