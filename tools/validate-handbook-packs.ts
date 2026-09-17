@@ -295,6 +295,9 @@ function validateHtml(file: string, game: string): void {
     if (!html.includes('data-creation-attribute="name"') || !html.includes('data-creation-attribute="look"')) {
       errors.push("salvage-run: generated preview misses free-text creation destinations");
     }
+    if (!html.includes('data-schema-block="stat-profiles"') || !html.includes('data-stat-profile-key="salvage-specialist"')) {
+      errors.push("salvage-run: generated preview misses structured starting stat profile");
+    }
   }
   if (game === "urban-shadows") {
     if (!html.includes('data-creation-attribute="mortalRelationships"') || !html.includes('data-creation-min="3" data-creation-max="3"')) {

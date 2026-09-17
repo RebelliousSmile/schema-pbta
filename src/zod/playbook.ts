@@ -90,6 +90,13 @@ const creationQuestionSchema = z.strictObject({
   }),
 }).meta({ description: "One character-creation question, its answers, cardinality, and optional attribute destination." });
 
+/** One named starting-stat spread offered during character creation. */
+const statProfileSchema = z.strictObject({
+  key: slugSchema.meta({ description: "Stable key identifying this starting-stat profile." }),
+  label: nonEmptyString.meta({ description: "Human-readable name of this starting-stat profile." }),
+  stats: z.record(z.string(), portableInteger).meta({ description: "Signed starting values keyed by game stat." }),
+}).meta({ description: "A named stat profile available during character creation." });
+
 /** A piece of gear. Only `name` is required: gear is often cited bare. */
 const gearSchema = z.strictObject({
   name: nonEmptyString.meta({ description: "Human-readable gear name." }),
@@ -111,6 +118,8 @@ export const playbookSchema = z.strictObject({
   stats: z.record(z.string(), portableInteger).meta({ description: "Starting signed 32-bit stat values keyed by game stat." }),
   /** The line of text that comes with the spread, as upstream carries it. */
   statsDetail: nonEmptyString.optional().meta({ description: "Text accompanying the starting stat spread." }),
+  /** Explicit starting-stat spreads. Choosing one initializes `stats`; it is not retained as character state. */
+  statProfiles: z.array(statProfileSchema).optional().meta({ description: "Named starting-stat profiles offered during character creation." }),
   /** Keys must exist in `character.attributes` of the game definition. */
   attributes: z.record(z.string(), attributeValue).optional().meta({ description: "Starting values keyed by game attribute." }),
   moves: z.array(playbookMoveEntry).meta({ description: "Moves available to this playbook." }),

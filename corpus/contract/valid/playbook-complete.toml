@@ -7,6 +7,7 @@ playbookImage = "contract-keeper.webp"
 startingMoves = ["keep-the-shape"]
 advancement = [{ label = "Record a compatible change.", checked = true }]
 statsDetail = "Assign every value exactly as written."
+statProfiles = [{ key = "balanced", label = "Balanced", stats = { danger = 0, freak = -1 } }, { key = "bold", label = "Bold", stats = { danger = 1, freak = 0 } }]
 
 [stats]
 danger = 0

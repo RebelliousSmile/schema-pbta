@@ -322,6 +322,15 @@ function checkGame(game: Game, root: string) {
           `unknown stat "${key}"; the game declares: ${list(statKeys)}`
         );
       }
+      if (Array.isArray(data.statProfiles)) {
+        for (const [index, profile] of data.statProfiles.entries()) {
+          if (!isDict(profile)) continue;
+          const profileStats = keysOf(profile.stats);
+          if (profileStats.length !== statKeys.length || profileStats.some((key) => !statKeys.includes(key))) {
+            error(file, `statProfiles[${index}].stats`, `stat profile must declare exactly the game stats: ${list(statKeys)}`);
+          }
+        }
+      }
     }
     const declaredAttributes = isPlaybook ? attributeKeys.playbook : attributeKeys[type];
     if (declaredAttributes !== undefined) {

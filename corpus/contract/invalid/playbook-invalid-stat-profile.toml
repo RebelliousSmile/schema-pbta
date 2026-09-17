@@ -1,0 +1,10 @@
+slug = "broken-stat-profile"
+name = "Broken Stat Profile"
+game = "masks"
+description = "This fixture must be rejected."
+moves = []
+
+[stats]
+danger = 0
+
+statProfiles = [{ key = "broken", label = "Broken", stats = { danger = "high" } }]

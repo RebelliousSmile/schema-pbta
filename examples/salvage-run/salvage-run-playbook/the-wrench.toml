@@ -4,7 +4,8 @@ game = "salvage-run"
 actorType = "character"
 description = "The crew member who keeps the rig running past what the manual allows."
 stats = { grit = 1, nerve = 0, reflex = 1, wits = 2, sway = -1 }
-statsDetail = "Choose one stat at +1 and lower another by 1 to taste."
+statsDetail = "Choose one of the listed starting profiles."
+statProfiles = [{ key = "salvage-specialist", label = "Salvage Specialist", stats = { grit = 1, nerve = 0, reflex = 1, wits = 2, sway = -1 } }, { key = "steady-hand", label = "Steady Hand", stats = { grit = 1, nerve = 1, reflex = 2, wits = 1, sway = -1 } }, { key = "hardcase", label = "Hardcase", stats = { grit = 2, nerve = 1, reflex = 1, wits = 1, sway = -1 } }]
 attributes = { fuel = 3, name = "Bram", look = "grease-stained" }
 moves = [{ ref = "act-under-fire" }, { name = "Field Fix", moveType = "rig", audience = "character", playbook = "the-wrench", description = "When you jury-rig a fix under pressure, roll +Reflex.", trigger = "you jury-rig a fix under pressure", roll = { rollType = "reflex" }, results = { strong = { label = "10+", text = "The fix holds until you can do it properly." }, weak = { label = "7-9", text = "It holds, but mark 1 Fuel to keep it together." } }, tags = ["rig"] }]
 startingMoves = ["act-under-fire"]

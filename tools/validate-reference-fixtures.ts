@@ -159,6 +159,34 @@ creation = [{ label = "Choose an identity", options = [{ value = "same", label =
 max = 1
 `,
   );
+  fs.writeFileSync(
+    path.join(monsterheartsPlaybookDirectory, "fixture-stat-profile-unknown-stat.toml"),
+    `slug = "fixture-stat-profile-unknown-stat"
+name = "Unknown Stat Profile"
+game = "monsterhearts"
+description = "Fixture for reference validation."
+stats = { hot = 0 }
+moves = []
+statProfiles = [{ key = "invalid", label = "Invalid", stats = { hot = 0, cold = 0, volatile = 0, dark = 0, impossible = 1 } }]
+
+[strings]
+max = 1
+`,
+  );
+  fs.writeFileSync(
+    path.join(monsterheartsPlaybookDirectory, "fixture-stat-profile-incomplete.toml"),
+    `slug = "fixture-stat-profile-incomplete"
+name = "Incomplete Stat Profile"
+game = "monsterhearts"
+description = "Fixture for reference validation."
+stats = { hot = 0 }
+moves = []
+statProfiles = [{ key = "incomplete", label = "Incomplete", stats = { hot = 0, cold = 0 } }]
+
+[strings]
+max = 1
+`,
+  );
 
   const creationDiagnostics = validateReferences(temporaryRoot);
   for (const [fileName, message] of [
@@ -191,6 +219,18 @@ max = 1
           diagnostic.severity === "error",
       ),
       `${fileName} must produce its creation cardinality error`,
+    );
+  }
+  for (const fileName of ["fixture-stat-profile-unknown-stat.toml", "fixture-stat-profile-incomplete.toml"]) {
+    assert.ok(
+      creationDiagnostics.some(
+        (diagnostic) =>
+          diagnostic.file.endsWith(fileName) &&
+          diagnostic.key === "statProfiles[0].stats" &&
+          diagnostic.message.includes("must declare exactly the game stats") &&
+          diagnostic.severity === "error",
+      ),
+      `${fileName} must reject an incompatible stat profile`,
     );
   }
 
