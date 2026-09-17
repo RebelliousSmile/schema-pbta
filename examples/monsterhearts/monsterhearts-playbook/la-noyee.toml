@@ -1,0 +1,40 @@
+slug = "la-noyee"
+name = "La Noyée"
+game = "monsterhearts"
+description = "Tu es revenue du lac avec une voix plus calme et des souvenirs qui ne sont pas tous les tiens."
+stats = { hot = 1, cold = 2, volatile = -1, dark = 0 }
+moves = [{ name = "Écouter sous la surface", moveType = "skin", description = "Le silence te livre des fragments de ce que les autres taisent.", trigger = "Quand tu restes immobile au bord de l’eau, lance avec Ténébreux." }]
+advances = ["Prends une autre action de ta mue.", "Augmente une caractéristique de +1."]
+harm = 0
+
+[strings]
+max = 5
+starting = 1
+
+[editorial.opening]
+heading = "Sous la surface"
+paragraphs = ["Tu es revenue du lac avec une voix plus calme et des souvenirs qui ne sont pas tous les tiens."]
+
+[editorial.playAdvice]
+heading = "Conseils de jeu"
+paragraphs = ["Fais sentir ce que l’eau conserve et ce qu’elle efface."]
+
+[editorial.darkestSelf]
+heading = "Démon intérieur"
+paragraphs = ["Le lac réclame une vérité que tu as refusé de lui donner."]
+
+[editorial.sexMove]
+heading = "Action sexuelle"
+paragraphs = ["Quand tu couches avec quelqu’un, donne-lui un souvenir qu’il ne peut pas vérifier."]
+
+[editorial.mcGuidance]
+heading = "Pour la MC"
+paragraphs = ["Demande ce que le lac sait déjà de la ville."]
+
+[editorial.identity]
+heading = "Identité"
+paragraphs = ["Choisis ce que tu as laissé au fond du lac : un souvenir, une promesse ou une autre version de toi."]
+
+[editorial.progression]
+heading = "Actions, suite et progression"
+paragraphs = ["Prends une autre action de ta mue ou augmente une caractéristique de +1."]

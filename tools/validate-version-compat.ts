@@ -12,6 +12,7 @@ const schemaRoot = `schemas/v${PBTA_CONTRACT_VERSION}`;
 const packageJson = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8")) as {
   version: string;
 };
+const archivedVersions = [1, 2];
 
 function git(args: string[], allowFailure = false): string | null {
   const result = spawnSync("git", args, { cwd: root, encoding: "utf8" });
@@ -38,6 +39,35 @@ const publishedCommit = git(
   ["rev-parse", "--verify", `${PBTA_CONTRACT_SCHEMA_TAG}^{commit}`],
   true,
 );
+
+function filesAt(directory: string): string[] {
+  return fs
+    .readdirSync(path.join(root, directory), { recursive: true, encoding: "utf8" })
+    .filter((relative) => relative.endsWith(".schema.json"))
+    .map((relative) => path.posix.join(directory, relative.replaceAll(path.sep, "/")))
+    .sort();
+}
+
+function assertFrozenSchema(version: number): void {
+  const tag = `v${version}.0.0`;
+  const directory = `schemas/v${version}`;
+  const publishedFiles = (git(["ls-tree", "-r", "--name-only", tag, directory]) ?? "")
+    .trim()
+    .split("\n")
+    .filter(Boolean)
+    .sort();
+  const currentFiles = filesAt(directory);
+  assert.deepEqual(currentFiles, publishedFiles, `${directory} file list differs from immutable ${tag}`);
+  for (const relative of currentFiles) {
+    const published = git(["show", `${tag}:${relative}`]);
+    const current = fs.readFileSync(path.join(root, relative), "utf8");
+    assert.equal(current, published, `${relative} differs from immutable ${tag}`);
+  }
+  console.log(`✓ ${directory} is byte-for-byte compatible with ${tag}`);
+}
+
+for (const version of archivedVersions) assertFrozenSchema(version);
+
 if (publishedCommit === null) {
   console.log(
     `✓ ${PBTA_CONTRACT_SCHEMA_TAG} is not published yet; committed ${schemaRoot} is the candidate baseline`,
@@ -56,11 +86,7 @@ const publishedFiles = (git([
   .split("\n")
   .filter(Boolean)
   .sort();
-const currentFiles = fs
-  .readdirSync(path.join(root, schemaRoot), { recursive: true, encoding: "utf8" })
-  .filter((relative) => relative.endsWith(".schema.json"))
-  .map((relative) => path.posix.join(schemaRoot, relative.replaceAll(path.sep, "/")))
-  .sort();
+const currentFiles = filesAt(schemaRoot);
 
 assert.deepEqual(
   currentFiles,

@@ -5,6 +5,13 @@
   "description": "An invalid specialized playbook fixture.",
   "stats": { "hot": 0, "cold": 0, "volatile": 0, "dark": 0 },
   "moves": [],
-  "sexMove": "Share a secret that cannot safely be repeated.",
-  "advances": ["Take a move from another skin."]
+  "advances": ["Take a move from another skin."],
+  "editorial": {
+    "opening": { "heading": "Opening", "paragraphs": ["An invalid fixture."] },
+    "playAdvice": { "heading": "Advice", "paragraphs": ["A region is missing."] },
+    "sexMove": { "heading": "Sex Move", "paragraphs": ["Share a secret."] },
+    "mcGuidance": { "heading": "For the MC", "paragraphs": ["Ask a question."] },
+    "identity": { "heading": "Identity", "paragraphs": ["Choose a name."] },
+    "progression": { "heading": "Progression", "paragraphs": ["Take a move."] }
+  }
 }
