@@ -1,6 +1,6 @@
 ---
 objective: "Chaque livret Monsterhearts est un document TOML v3 autonome qui contient ses mécaniques et ses textes éditoriaux, et l’aperçu conserve la composition de référence de La Selkie."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Livrets Monsterhearts complets en un document
