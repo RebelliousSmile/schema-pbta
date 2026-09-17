@@ -10,7 +10,7 @@ npm registry.
 | --- | --- | --- | --- | --- | --- |
 | `1.0.x` | `schemas/v1` | `v1.0.0` | `1.0.0` | `2.8.0+` | pending consumer issue #2 |
 | `2.0.x` | `schemas/v2` | `v2.0.0` | `1.0.0` | `2.8.0+` | pending specialized-playbook issue |
-| `3.0.x` | `schemas/v3` | `v3.0.0` | `1.0.0` | `2.8.0+` | pending consumer upgrade |
+| `3.0.x` candidate | `schemas/v3` | `v3.0.0` (not yet published) | `1.0.0` | `2.8.0+` | pending consumer upgrade |
 | `4.0.x` candidate | `schemas/v4` | `v4.0.0` (not yet published) | `1.0.0` | `2.8.0+` | pending consumer upgrade |
 
 The schema path groups compatible artifacts by contract major. Every `$id`
@@ -29,8 +29,9 @@ uses its exact immutable release tag so it never depends on a movable major alia
   never edits older schema lines.
 
 `npm run validate:version` compares every archived schema line with its release
-tag byte-for-byte. A divergent v1, v2 or v3 artifact fails instead of silently
-moving its `$id`; v4 remains a candidate baseline until `v4.0.0` is published.
+tag byte-for-byte. A divergent v1 or v2 artifact fails instead of silently
+moving its `$id`; v3 and v4 remain candidate baselines until their immutable
+GitHub releases are published.
 
 ## Specialized playbooks v4
 

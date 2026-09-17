@@ -72,15 +72,16 @@ each game exposes this minimum structured editing surface.
 
 ### Install the canonical contract
 
-The latest published package is distributed as the immutable asset of GitHub Release `v3.0.0`;
-the v4 source is a candidate for its own immutable release and is not yet an install URL.
+The latest published package is distributed as the immutable asset of GitHub Release `v2.0.0`.
+The v3 and v4 Git tags are candidate baselines, not installable releases; v4 is
+not an install URL yet.
 The package is not published to the npm registry. Package managers accept the HTTPS
 tarball directly:
 
 ```json
 {
   "dependencies": {
-    "schema-pbta": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v3.0.0/schema-pbta-3.0.0.tgz"
+    "schema-pbta": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v2.0.0/schema-pbta-2.0.0.tgz"
   }
 }
 ```
