@@ -61,6 +61,10 @@ position = "left"
 type = "ListMany"
 label = "Scars"
 position = "left"
+[character.attributes.mortalRelationships]
+type = "ListMany"
+label = "Mortal Relationships"
+position = "left"
 
 [mc]
 description = "Moves used by the Master of Ceremonies."

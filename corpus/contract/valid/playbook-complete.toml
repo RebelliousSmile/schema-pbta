@@ -31,7 +31,8 @@ tags = ["contract", "round-trip"]
 
 [[creation]]
 label = "Which tool exported this document?"
-options = ["Lantern", "Handbook"]
+options = [{ value = "lantern", label = "Lantern" }, { value = "handbook", label = "Handbook" }]
+selection = { min = 1, max = 1 }
 attribute = "quoted key"
 
 [[gear]]

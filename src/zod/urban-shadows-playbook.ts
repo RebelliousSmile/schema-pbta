@@ -1,12 +1,13 @@
 import { z } from "zod";
-import { nonEmptyString, portableCount, portableInteger } from "./shared.js";
+import { nonEmptyString, portableCount, portableInteger, slugSchema } from "./shared.js";
 import { advancementEntrySchema, playbookSchema } from "./playbook.js";
 import { playbookEditorialSchema } from "./playbook-editorial.js";
 
 const relationshipSchema = z.strictObject({
-  name: nonEmptyString.meta({ description: "Name or concise label of the mortal relationship." }),
+  key: slugSchema.meta({ description: "Stable key persisted when this mortal relationship is selected." }),
+  label: nonEmptyString.meta({ description: "Human-readable label of the mortal relationship." }),
   description: z.string().optional().meta({ description: "Why this mortal relationship matters." }),
-}).meta({ description: "One mortal relationship that anchors the character." });
+}).meta({ description: "One editorially described mortal relationship available during creation." });
 
 const scarSchema = z.strictObject({
   name: nonEmptyString.meta({ description: "Human-readable scar label." }),
@@ -34,7 +35,7 @@ const corruptionSchema = z.strictObject({
  */
 export const urbanShadowsPlaybookSchema = playbookSchema.extend({
   statuses: z.record(z.string(), portableInteger).optional().meta({ description: "Starting Circle status values keyed by Circle." }),
-  mortalRelationships: z.array(relationshipSchema).optional().meta({ description: "Mortal relationships selected by the playbook." }),
+  mortalRelationships: z.array(relationshipSchema).optional().meta({ description: "Editorial catalogue of mortal relationships available to the playbook." }),
   harm: harmSchema.optional().meta({ description: "Harm track configuration." }),
   scars: z.array(scarSchema).optional().meta({ description: "Scars offered by the playbook." }),
   corruption: corruptionSchema.meta({ description: "Urban Shadows corruption mechanics." }),

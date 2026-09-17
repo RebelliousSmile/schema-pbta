@@ -180,7 +180,7 @@ function renderSpecializedDetails(game: string, playbook: Data): string {
       + section("mortal-relationships", "Relations mortelles", Array.isArray(playbook.mortalRelationships)
         ? `<ul class="handbook-value-list">${playbook.mortalRelationships.map((raw) => {
           const relationship = asData(raw, "mortal relationship");
-          return `<li><strong>${escapeHtml(relationship.name)}</strong>${relationship.description ? ` — ${escapeHtml(relationship.description)}` : ""}</li>`;
+          return `<li data-mortal-relationship-key="${escapeHtml(relationship.key)}"><strong>${escapeHtml(relationship.label)}</strong>${relationship.description ? ` — ${escapeHtml(relationship.description)}` : ""}</li>`;
         }).join("")}</ul>`
         : "")
       + section("scars", "Cicatrices", Array.isArray(playbook.scars)
@@ -270,7 +270,23 @@ function renderCreation(playbook: Data): string {
     const attribute = typeof item.attribute === "string"
       ? ` data-creation-attribute="${escapeHtml(item.attribute)}"`
       : "";
-    return `<section class="handbook-creation__item" data-schema-block="creation-question"${attribute}><h3>${escapeHtml(item.label)}</h3>${list(item.options, "handbook-options")}</section>`;
+    const selection = item.selection && typeof item.selection === "object" && !Array.isArray(item.selection)
+      ? item.selection as Data
+      : {};
+    const cardinality = typeof selection.min === "number" && typeof selection.max === "number"
+      ? ` data-creation-min="${selection.min}" data-creation-max="${selection.max}"`
+      : ' data-creation-min="1" data-creation-max="1"';
+    const options = Array.isArray(item.options)
+      ? `<ul class="handbook-options">${item.options.map((option) => {
+        const detail = option && typeof option === "object" && !Array.isArray(option)
+          ? option as Data
+          : {};
+        const value = typeof option === "string" ? option : detail.value;
+        const label = typeof option === "string" ? option : detail.label;
+        return `<li data-creation-option-value="${escapeHtml(value)}">${escapeHtml(label)}</li>`;
+      }).join("")}</ul>`
+      : "";
+    return `<section class="handbook-creation__item" data-schema-block="creation-question"${attribute}${cardinality}><h3>${escapeHtml(item.label)}</h3>${options}</section>`;
   }).join("");
   return questions ? `<div class="handbook-creation">${questions}</div>` : "";
 }

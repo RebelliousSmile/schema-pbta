@@ -1,0 +1,9 @@
+{
+  "slug": "invalid-creation-selection",
+  "name": "Invalid Creation Selection",
+  "game": "masks",
+  "description": "Invalid creation selection fixture.",
+  "stats": { "danger": 0 },
+  "moves": [],
+  "creation": [{ "label": "Choose an identity", "options": [{ "value": "first", "label": "First" }], "selection": { "min": 1, "max": "one" } }]
+}

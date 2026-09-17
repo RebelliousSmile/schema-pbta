@@ -484,13 +484,61 @@
             "minItems": 1,
             "type": "array",
             "items": {
-              "type": "string",
-              "minLength": 1
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Stable value persisted when this option is selected."
+                    },
+                    "label": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Human-readable label shown for this option."
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "label"
+                  ],
+                  "additionalProperties": false,
+                  "description": "Creation option with a stable persisted value and display label."
+                }
+              ]
             },
             "description": "Non-empty list of answers offered to the player."
           },
+          "selection": {
+            "description": "Selection bounds; omitted questions select exactly one answer.",
+            "type": "object",
+            "properties": {
+              "min": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 2147483647,
+                "description": "Minimum number of options selected during creation."
+              },
+              "max": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 2147483647,
+                "description": "Maximum number of options selected during creation."
+              }
+            },
+            "required": [
+              "min",
+              "max"
+            ],
+            "additionalProperties": false
+          },
           "attribute": {
-            "description": "Character attribute initialized by the selected answer; it remains freely editable afterwards.",
+            "description": "Character attribute initialized by the selection; it remains freely editable afterwards.",
             "type": "string",
             "minLength": 1
           }
@@ -500,7 +548,7 @@
           "options"
         ],
         "additionalProperties": false,
-        "description": "One character-creation question, its answers, and optional attribute destination."
+        "description": "One character-creation question, its answers, cardinality, and optional attribute destination."
       }
     },
     "gear": {

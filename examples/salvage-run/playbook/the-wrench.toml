@@ -5,11 +5,11 @@ actorType = "character"
 description = "The crew member who keeps the rig running past what the manual allows."
 stats = { grit = 1, nerve = 0, reflex = 1, wits = 2, sway = -1 }
 statsDetail = "Choose one stat at +1 and lower another by 1 to taste."
-attributes = { fuel = 3 }
+attributes = { fuel = 3, name = "Bram", look = "grease-stained" }
 moves = [{ ref = "act-under-fire" }, { name = "Field Fix", moveType = "rig", audience = "character", playbook = "the-wrench", description = "When you jury-rig a fix under pressure, roll +Reflex.", trigger = "you jury-rig a fix under pressure", roll = { rollType = "reflex" }, results = { strong = { label = "10+", text = "The fix holds until you can do it properly." }, weak = { label = "7-9", text = "It holds, but mark 1 Fuel to keep it together." } }, tags = ["rig"] }]
 startingMoves = ["act-under-fire"]
 advancement = [{ label = "Get +1 to a stat (max +3)" }, { label = "Get a new rig move", checked = true }, { label = "Get a move from another playbook" }]
-creation = [{ label = "Name", options = ["Bram", "Kessa", "Oren"] }, { label = "Look", options = ["grease-stained", "patched coveralls"] }]
+creation = [{ label = "Name", options = ["Bram", "Kessa", "Oren"], attribute = "name" }, { label = "Look", options = ["grease-stained", "patched coveralls"], attribute = "look" }]
 gear = [{ name = "Toolkit", equipmentType = "gear", description = "Everything short of a welder.", quantity = 1 }, { name = "Scrap", equipmentType = "salvage", quantity = 3, tags = ["barter"] }]
 [[choiceSets]]
 title = "Rig Moves"

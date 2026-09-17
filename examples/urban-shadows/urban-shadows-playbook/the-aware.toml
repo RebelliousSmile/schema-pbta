@@ -24,6 +24,7 @@ wild = 0
 
 [attributes]
 corruption = 0
+mortalRelationships = ["younger-sibling", "loyal-significant-other", "struggling-best-friend"]
 
 [harm]
 armor = 0
@@ -55,11 +56,18 @@ moveType = "playbook"
 description = "When you hit the streets to get what you need from a member of your Circle, roll with Heart instead."
 
 [[mortalRelationships]]
-name = "Younger sibling"
+key = "younger-sibling"
+label = "Younger sibling"
 description = "Relies on you for transportation and advice."
 
 [[mortalRelationships]]
-name = "Struggling best friend"
+key = "loyal-significant-other"
+label = "Loyal significant other"
+description = "Keeps choosing you even when the city makes that dangerous."
+
+[[mortalRelationships]]
+key = "struggling-best-friend"
+label = "Struggling best friend"
 description = "Always gets into messy altercations."
 
 [[scars]]
@@ -69,4 +77,6 @@ modifier = -1
 
 [[creation]]
 label = "Choose three mortal relationships."
-options = ["Younger sibling", "Loyal significant other", "Struggling best friend"]
+options = [{ value = "younger-sibling", label = "Younger sibling" }, { value = "loyal-significant-other", label = "Loyal significant other" }, { value = "struggling-best-friend", label = "Struggling best friend" }]
+selection = { min = 3, max = 3 }
+attribute = "mortalRelationships"

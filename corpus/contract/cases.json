@@ -20,6 +20,7 @@
     { "path": "invalid/playbook-unknown-field.toml", "target": "playbook", "expect": "reject" },
     { "path": "invalid/playbook-invalid-checked.toml", "target": "playbook", "expect": "reject" },
     { "path": "invalid/playbook-invalid-creation-attribute.toml", "target": "playbook", "expect": "reject" },
+    { "path": "invalid/playbook-invalid-creation-selection.toml", "target": "playbook", "expect": "reject" },
     { "path": "invalid/urban-shadows-playbook-missing-corruption.toml", "target": "urban-shadows-playbook", "expect": "reject" },
     { "path": "invalid/monsterhearts-playbook-missing-darkest-self.toml", "target": "monsterhearts-playbook", "expect": "reject" },
     { "path": "invalid/monsterhearts-playbook-invalid-ascendant.toml", "target": "monsterhearts-playbook", "expect": "reject" },

@@ -18,7 +18,7 @@
       <section class="handbook-panel handbook-identity" data-region="character-identity">
         <span class="handbook-kicker">Livret</span><h2>The Wrench</h2><p>The crew member who keeps the rig running past what the manual allows.</p>
 <aside class="handbook-callout handbook-stats-detail" data-callout="rule"><strong>Répartition de départ</strong><p>Choose one stat at +1 and lower another by 1 to taste.</p></aside>
-<div class="handbook-creation"><section class="handbook-creation__item" data-schema-block="creation-question"><h3>Name</h3><ul class="handbook-options"><li>Bram</li><li>Kessa</li><li>Oren</li></ul></section><section class="handbook-creation__item" data-schema-block="creation-question"><h3>Look</h3><ul class="handbook-options"><li>grease-stained</li><li>patched coveralls</li></ul></section></div>
+<div class="handbook-creation"><section class="handbook-creation__item" data-schema-block="creation-question" data-creation-attribute="name" data-creation-min="1" data-creation-max="1"><h3>Name</h3><ul class="handbook-options"><li data-creation-option-value="Bram">Bram</li><li data-creation-option-value="Kessa">Kessa</li><li data-creation-option-value="Oren">Oren</li></ul></section><section class="handbook-creation__item" data-schema-block="creation-question" data-creation-attribute="look" data-creation-min="1" data-creation-max="1"><h3>Look</h3><ul class="handbook-options"><li data-creation-option-value="grease-stained">grease-stained</li><li data-creation-option-value="patched coveralls">patched coveralls</li></ul></section></div>
 <section class="handbook-subsection handbook-gear-list"><span class="handbook-kicker">Inventaire</span><h2>Équipement</h2><ul><li class="handbook-gear" data-schema-block="gear"><div><strong>Toolkit</strong><small>gear</small></div><span class="handbook-gear__quantity">×1</span><p>Everything short of a welder.</p></li><li class="handbook-gear" data-schema-block="gear"><div><strong>Scrap</strong><small>salvage</small></div><span class="handbook-gear__quantity">×3</span><ul class="handbook-tags" aria-label="Tags"><li>barter</li></ul></li></ul></section>
 
 
@@ -61,6 +61,12 @@
         <h2>Attributs</h2><dl class="handbook-attributes">
     <div class="handbook-attribute" data-attribute="fuel" data-attribute-type="Resource" data-schema-block="attribute">
       <dt>Fuel<small>Resource</small></dt><dd><span class="handbook-track" aria-label="3 sur 6"><span class="handbook-track__segments" aria-hidden="true"><span data-filled="true"></span><span data-filled="true"></span><span data-filled="true"></span><span></span><span></span><span></span></span><strong>3 / 6</strong></span></dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="name" data-attribute-type="Text" data-schema-block="attribute">
+      <dt>Name<small>Text</small></dt><dd><span class="handbook-attribute__value">Bram</span></dd>
+    </div>
+    <div class="handbook-attribute" data-attribute="look" data-attribute-type="LongText" data-schema-block="attribute">
+      <dt>Look<small>LongText</small></dt><dd><span class="handbook-attribute__value">grease-stained</span></dd>
     </div>
   </dl>
       </aside>

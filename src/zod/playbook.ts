@@ -65,14 +65,30 @@ const choiceSetSchema = z.strictObject({
   choices: z.array(choiceSchema).meta({ description: "Moves offered by this choice set." }),
 }).meta({ description: "A group of moves from which the player chooses." });
 
-/** A creation question, its options, and an optional free-text destination. */
+/** A stable creation value may have a separate human-facing label. */
+const creationOptionSchema = z.union([
+  nonEmptyString,
+  z.strictObject({
+    value: nonEmptyString.meta({ description: "Stable value persisted when this option is selected." }),
+    label: nonEmptyString.meta({ description: "Human-readable label shown for this option." }),
+  }).meta({ description: "Creation option with a stable persisted value and display label." }),
+]);
+
+/** Inclusive selection bounds. Omission retains the historical single-choice form. */
+const creationSelectionSchema = z.strictObject({
+  min: portableCount.meta({ description: "Minimum number of options selected during creation." }),
+  max: portableCount.meta({ description: "Maximum number of options selected during creation." }),
+}).meta({ description: "Inclusive selection cardinality for a creation question." });
+
+/** A creation question, its options, and an optional editable attribute destination. */
 const creationQuestionSchema = z.strictObject({
   label: nonEmptyString.meta({ description: "Question or prompt shown during character creation." }),
-  options: z.array(nonEmptyString).min(1).meta({ description: "Non-empty list of answers offered to the player." }),
+  options: z.array(creationOptionSchema).min(1).meta({ description: "Non-empty list of answers offered to the player." }),
+  selection: creationSelectionSchema.optional().meta({ description: "Selection bounds; omitted questions select exactly one answer." }),
   attribute: nonEmptyString.optional().meta({
-    description: "Character attribute initialized by the selected answer; it remains freely editable afterwards.",
+    description: "Character attribute initialized by the selection; it remains freely editable afterwards.",
   }),
-}).meta({ description: "One character-creation question, its answers, and optional attribute destination." });
+}).meta({ description: "One character-creation question, its answers, cardinality, and optional attribute destination." });
 
 /** A piece of gear. Only `name` is required: gear is often cited bare. */
 const gearSchema = z.strictObject({
