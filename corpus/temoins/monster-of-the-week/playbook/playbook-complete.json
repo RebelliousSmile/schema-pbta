@@ -11,7 +11,7 @@
   "moves": [{ "ref": "read-the-water" }],
   "startingMoves": ["read-the-water"],
   "choiceSets": [{ "title": "Keeper moves", "type": "multi", "choices": [{ "ref": "read-the-water", "granted": 1, "advancement": 0 }] }],
-  "advancement": ["Take another move."],
+  "advancement": [{ "label": "Take another move.", "checked": true }],
   "creation": [{ "label": "What did you see offshore?", "options": ["A light", "A shape"] }],
   "gear": [{ "name": "Signal lamp", "equipmentType": "weapon", "quantity": 1, "tags": ["bright"] }]
 }

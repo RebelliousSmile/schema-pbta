@@ -21,7 +21,7 @@
     "grantOn": "creation",
     "choices": [{ "ref": "hold-the-line", "granted": 1, "advancement": 0 }]
   }],
-  "advancement": ["Take another move."],
+  "advancement": [{ "label": "Take another move.", "checked": true }],
   "creation": [{ "label": "What did the fire take?", "options": ["A home", "A name"] }],
   "gear": [{ "name": "Scorched coat", "equipmentType": "gear", "description": "Warm and heavy.", "quantity": 1, "tags": ["signature"] }]
 }

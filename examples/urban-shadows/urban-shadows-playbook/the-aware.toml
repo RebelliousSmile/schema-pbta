@@ -3,7 +3,7 @@ name = "The Aware"
 game = "urban-shadows"
 description = "A mortal who has seen what the city hides and cannot look away."
 statsDetail = "Blood 0, Heart 1, Mind -1, Spirit 1."
-advancement = ["Take a new Aware move.", "Open a new mortal relationship."]
+advancement = [{ label = "Take a new Aware move." }, { label = "Open a new mortal relationship.", checked = true }]
 endMove = "When you die, ask another PC to look after up to three mortal relationships."
 
 [stats]

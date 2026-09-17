@@ -5,7 +5,7 @@ actorType = "character"
 description = "A complete original fixture.\n\nIts formatting exercises multiline semantic content."
 playbookImage = "contract-keeper.webp"
 startingMoves = ["keep-the-shape"]
-advancement = ["Record a compatible change."]
+advancement = [{ label = "Record a compatible change.", checked = true }]
 statsDetail = "Assign every value exactly as written."
 
 [stats]
