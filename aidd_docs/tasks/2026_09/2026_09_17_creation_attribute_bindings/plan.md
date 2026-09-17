@@ -1,6 +1,6 @@
 ---
 objective: "Les choix de création d’un playbook peuvent initialiser un attribut texte libre sans imposer durablement leurs options."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Lier les choix de création aux attributs libres
