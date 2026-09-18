@@ -1,6 +1,6 @@
 ---
 objective: "Issue #7 publishes a schema-owned Urban Shadows mortal-relationship creation destination, complete with authoritative options, exact selection bounds, and contract coverage that Lantern can consume without a fallback."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Publish the Urban Shadows relationship creation destination
