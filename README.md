@@ -96,8 +96,8 @@ does not make a UI-only state exportable.
 
 ### Install the canonical contract
 
-The latest published package is distributed as the immutable asset of GitHub Release `v5.1.0`.
-The v5 schema major remains anchored to its immutable `v5.0.0` baseline; v5.1
+The latest published package is distributed as the immutable asset of GitHub Release `v5.3.0`.
+The v5 schema major remains anchored to its immutable `v5.0.0` baseline; v5.3
 is available as an installable release asset.
 The package is not published to the npm registry. Package managers accept the HTTPS
 tarball directly:
@@ -105,7 +105,7 @@ tarball directly:
 ```json
 {
   "dependencies": {
-    "schema-pbta": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v5.1.0/schema-pbta-5.1.0.tgz"
+    "schema-pbta": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v5.3.0/schema-pbta-5.3.0.tgz"
   }
 }
 ```
