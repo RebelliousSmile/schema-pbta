@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.1.0] - 2026-09-18
+
+### Added
+
+- Urban Shadows now publishes canonical mortal-relationship labels, stable
+  creation choices, exact selection bounds and a complete specialised TOML
+  round-trip witness for downstream consumers.
+
+### Changed
+
+- Reference validation rejects Urban Shadows relationship creation data whose
+  stable values or display labels diverge from the canonical fixtures.
+
 ## [5.0.0] - 2026-09-18
 
 ### Added
