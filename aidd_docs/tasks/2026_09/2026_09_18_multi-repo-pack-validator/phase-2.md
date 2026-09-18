@@ -1,5 +1,5 @@
 ---
-status: pending
+status: done
 ---
 
 # Instruction: Preuves mécaniques dans Lantern et Handbook
