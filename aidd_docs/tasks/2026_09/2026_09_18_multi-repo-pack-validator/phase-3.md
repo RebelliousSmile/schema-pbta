@@ -1,5 +1,5 @@
 ---
-status: pending
+status: done
 ---
 
 # Instruction: Orchestrateur multi-dépôts et intégration continue
