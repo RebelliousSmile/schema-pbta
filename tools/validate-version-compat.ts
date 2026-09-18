@@ -94,8 +94,10 @@ assert.deepEqual(
   `${schemaRoot} file list differs from immutable ${PBTA_CONTRACT_SCHEMA_TAG}; create a new schema major`,
 );
 for (const relative of currentFiles) {
-  const published = git(["show", `${PBTA_CONTRACT_SCHEMA_TAG}:${relative}`]);
-  const current = fs.readFileSync(path.join(root, relative), "utf8");
+  // Compare Git blobs, not worktree bytes: a Windows checkout may materialize
+  // the same tracked JSON with CRLF while the immutable release blob uses LF.
+  const published = git(["rev-parse", `${PBTA_CONTRACT_SCHEMA_TAG}:${relative}`]);
+  const current = git(["hash-object", "--path", relative, relative]);
   assert.equal(
     current,
     published,

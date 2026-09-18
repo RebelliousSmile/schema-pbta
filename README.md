@@ -68,6 +68,30 @@ values, rolls and results. Narrative helpers such as `statsDetail` must not be
 parsed to recover mechanical values. `npm run handbook:validate` checks that
 each game exposes this minimum structured editing surface.
 
+### Persistent acquisition states
+
+The v5 contract persists an acquired state only on a move embedded in a
+playbook: `playbook.moves[].checked`. A standalone `move` is a reusable
+definition and deliberately has no `checked` field; choices under `choiceSets`
+are likewise proposals, not acquired moves. The optional state is false when
+absent. Progression entries are `{ label, checked? }`: use `advancement` for a
+generic playbook, or the target's specialized progression field (for example
+`advances` or `improvements`).
+
+### Collection presentation metadata
+
+The package also exports `PBTA_COLLECTION_PRESENTATIONS` and
+`getPbtaCollectionPresentation(target, path)`. This registry is presentation
+metadata, never TOML data: it declares each specialized playbook array's
+label, item-editor family, valid creation variant, cardinality and ordering
+policy. PbtA collections are `mutable` and reorderable by default. A future
+`fixed` descriptor may prevent adding and removing items, but must still allow
+editing and reordering its existing items.
+
+`itemCapabilities` describes document state that an editor may expose. The
+`checked` capability is present only where the published codec accepts it; it
+does not make a UI-only state exportable.
+
 ## Using the schemas in your tool
 
 ### Install the canonical contract

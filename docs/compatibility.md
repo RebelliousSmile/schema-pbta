@@ -12,7 +12,7 @@ npm registry.
 | `2.0.x` | `schemas/v2` | `v2.0.0` | `1.0.0` | `2.8.0+` | pending specialized-playbook issue |
 | `3.0.x` candidate | `schemas/v3` | `v3.0.0` (not yet published) | `1.0.0` | `2.8.0+` | pending consumer upgrade |
 | `4.0.x` | `schemas/v4` | `v4.0.0` | `1.0.0` | `2.8.0+` | consumer integration tracked in Lantern #5 |
-| `5.0.x` candidate | `schemas/v5` | `v5.0.0` (not yet published) | `1.0.0` | `2.8.0+` | requires consumer upgrade |
+| `5.1.0` | `schemas/v5` | `v5.0.0` | `1.0.0` | `2.8.0+` | pin this release before integrating acquisition states |
 
 The schema path groups compatible artifacts by contract major. Every `$id`
 uses its exact immutable release tag so it never depends on a movable major alias.
@@ -29,10 +29,9 @@ uses its exact immutable release tag so it never depends on a movable major alia
   `schemas/v<major>` directory and an immutable `v<major>.0.0` baseline; it
   never edits older schema lines.
 
-`npm run validate:version` compares every archived schema line with its release
-tag byte-for-byte. A divergent v1, v2, v3 or v4 artifact fails instead of silently
-moving its `$id`; v5 remains a candidate baseline until its immutable GitHub
-release is published.
+`npm run validate:version` compares every schema line with its immutable release
+tag as a Git blob, so a Windows CRLF checkout does not create a false contract
+diff. A divergent artifact fails instead of silently moving its `$id`.
 
 ## Specialized playbooks v4
 
