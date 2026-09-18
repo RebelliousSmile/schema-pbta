@@ -1,15 +1,12 @@
 import assert from "node:assert/strict";
 import {
   PBTA_COLLECTION_PRESENTATIONS,
+  PBTA_COLLECTION_ITEM_EDITORS,
   type PbtaCollectionPresentation,
 } from "../src/presentation/collections.js";
 
 const keys = new Set<string>();
-const allowedEditors = new Set([
-  "pbta-ascendant", "pbta-advancement", "pbta-choice-move", "pbta-choice-set",
-  "pbta-condition", "pbta-creation-option", "pbta-creation-question", "pbta-gear",
-  "pbta-move", "pbta-relationship", "pbta-scar", "pbta-stat-profile", "pbta-text",
-]);
+const allowedEditors = new Set(PBTA_COLLECTION_ITEM_EDITORS);
 
 for (const entry of PBTA_COLLECTION_PRESENTATIONS) {
   const key = `${entry.target}:${entry.path}`;

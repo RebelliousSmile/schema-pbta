@@ -58,11 +58,13 @@ export { theSprawlPlaybookSchema } from "./zod/the-sprawl-playbook.js";
 export { salvageRunPlaybookSchema } from "./zod/salvage-run-playbook.js";
 export {
   getPbtaCollectionPresentation,
+  PBTA_COLLECTION_ITEM_EDITORS,
   PBTA_COLLECTION_PRESENTATIONS,
 } from "./presentation/index.js";
 export type {
   PbtaCollectionCardinality,
   PbtaCollectionCreationVariant,
   PbtaCollectionItemCapability,
+  PbtaCollectionItemEditor,
   PbtaCollectionPresentation,
 } from "./presentation/index.js";

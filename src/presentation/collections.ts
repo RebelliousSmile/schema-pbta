@@ -3,19 +3,25 @@ import type { PbtaDocumentTarget } from "../codecs/toml.js";
 export type PbtaCollectionCardinality = "fixed" | "mutable";
 export type PbtaCollectionItemCapability = "checked";
 export type PbtaCollectionCreationVariant = "inline" | "object" | "text";
+export const PBTA_COLLECTION_ITEM_EDITORS = [
+  "pbta-ascendant", "pbta-advancement", "pbta-choice-move", "pbta-choice-set",
+  "pbta-condition", "pbta-creation-option", "pbta-creation-question", "pbta-gear",
+  "pbta-move", "pbta-relationship", "pbta-scar", "pbta-stat-profile", "pbta-text",
+] as const;
+export type PbtaCollectionItemEditor = typeof PBTA_COLLECTION_ITEM_EDITORS[number];
 
 export interface PbtaCollectionPresentation {
   target: Extract<PbtaDocumentTarget, `${string}-playbook`>;
   path: string;
   label: string;
-  itemEditor: string;
+  itemEditor: PbtaCollectionItemEditor;
   creationVariant: PbtaCollectionCreationVariant;
   cardinality: PbtaCollectionCardinality;
   reorder: true;
   itemCapabilities?: readonly PbtaCollectionItemCapability[];
 }
 
-type CollectionEntry = readonly [string, string, string, PbtaCollectionCreationVariant];
+type CollectionEntry = readonly [string, string, PbtaCollectionItemEditor, PbtaCollectionCreationVariant];
 
 const common = [
   ["statProfiles", "Stat profiles", "pbta-stat-profile", "object"],
