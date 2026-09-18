@@ -1,6 +1,6 @@
 ---
 objective: "Un manifeste de pack validé par son contrat de schéma transforme les règles inter-dépôts existantes en contrôles mécaniques et crée un socle de pack vérifiable."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Validateur multi-dépôts et manifeste de pack
