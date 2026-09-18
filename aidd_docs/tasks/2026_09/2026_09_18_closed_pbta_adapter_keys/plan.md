@@ -1,6 +1,6 @@
 ---
 objective: "schema-pbta publishes a finite, validated vocabulary of declarative collection adapter keys that a consumer registry can exhaustively resolve without importing consumer code."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Issue #9 closed PbtA adapter keys
