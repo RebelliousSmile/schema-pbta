@@ -1,0 +1,5 @@
+{
+  "providers": [".", "../schema-in-the-mist", "../schema-adrenaline"],
+  "lantern": "../lantern",
+  "handbook": "../handbook"
+}

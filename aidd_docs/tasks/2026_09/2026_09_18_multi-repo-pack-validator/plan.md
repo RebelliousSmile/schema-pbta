@@ -9,7 +9,7 @@ status: implemented
 
 | Field | Value |
 | --- | --- |
-| **Goal** | Prouver mécaniquement le flux PbtA complet, puis étendre le même protocole explicitement configuré à chaque fournisseur de schéma. |
+| **Goal** | Prouver mécaniquement chaque pack publié par chaque fournisseur de schéma, selon un protocole explicitement configuré. |
 | **Source** | Brainstorm de cette conversation du 18 septembre 2026. |
 
 ## Phases
@@ -20,6 +20,7 @@ status: implemented
 | 2 | Preuves mécaniques dans Lantern et Handbook | [phase-2.md](./phase-2.md) |
 | 3 | Orchestrateur multi-dépôts et intégration continue | [phase-3.md](./phase-3.md) |
 | 4 | Génération guidée d’un nouveau pack | [phase-4.md](./phase-4.md) |
+| 5 | Matrice complète des fournisseurs publiés | [phase-5.md](./phase-5.md) |
 
 ## Decisions
 

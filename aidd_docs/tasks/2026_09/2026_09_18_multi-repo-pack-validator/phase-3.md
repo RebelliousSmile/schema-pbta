@@ -1,5 +1,5 @@
 ---
-status: done
+status: in-progress
 ---
 
 # Instruction: Orchestrateur multi-dépôts et intégration continue
@@ -58,7 +58,7 @@ journey
 
 > Composer les assertions mécaniques depuis des clones voisins, la CI ou des chemins explicitement fournis, sans supposer une arborescence personnelle ni recourir à un jugement LLM.
 
-1. Charger une table explicite de fournisseurs, chacun avec son checkout, son manifeste de corpus et ses portes hôte ; livrer la première entrée PbtA et refuser toute entrée incomplète.
+1. Charger une table explicite de fournisseurs, chacun avec son checkout, son manifeste de corpus et ses portes hôte ; exiger une entrée complète pour PbtA, Mist Engine et Adrenaline, puis refuser toute entrée incomplète.
 2. Lancer le corpus Schema puis les assertions des hôtes, collecter leurs sorties JSON et comparer les objets normalisés aux attentes déclarées.
 3. Produire des diagnostics stables par pack, cible, invariant, dépôt et version.
 
@@ -80,6 +80,6 @@ journey
 
 | Task | Acceptance criteria |
 | --- | --- |
-| 1 | Le même contrôle fonctionne avec des chemins explicites et ne dépend pas de checkouts frères implicites. |
+| 1 | Le même contrôle parcourt tous les packs PbtA, Mist Engine et Adrenaline avec des chemins explicites et ne dépend pas de checkouts frères implicites. |
 | 2 | Une version ou une capacité incompatible échoue avant tout faux positif de rendu. |
 | 3 | La CI échoue lorsqu’un hôte perd un champ, accepte un TOML invalide ou ne satisfait plus une capacité déclarée. |
