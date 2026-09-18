@@ -12,12 +12,10 @@ status: done
 lantern/
 ├── tools/assert-contracts.mjs                   ✏️ couvre chaque cible et invariant déclarés par un pack
 ├── tools/assert-cross-repo.mjs                  ✏️ généralise le corpus au-delà du seul contrat Mist
-├── tools/assert-contract-editing.mjs            ✅ applique une mutation supportée puis vérifie son export TOML
 └── package.json                                 ✏️ expose une porte de conformité stable
 handbook/
 ├── tools/assert-game-pack-contract.mjs          ✏️ vérifie manifests, capacités, assets et styles déclarés
 ├── tools/assert-*-contract.mjs                  ✏️ vérifie les cibles rendables et les codecs des contrats installés
-├── tools/assert-contract-editing.mjs            ✅ applique une mutation supportée puis vérifie son export TOML
 └── package.json                                 ✏️ expose une porte de conformité stable
 ```
 
@@ -26,7 +24,7 @@ handbook/
 ```mermaid
 flowchart LR
   A[Invariants du manifeste] --> B[Assertions Lantern et mutation supportée]
-  A --> C[Assertions Handbook et mutation supportée]
+  A --> C[Assertions Handbook, rendu et export]
   B --> D[Preuves TOML et capacités]
   C --> D
   D --> E[Comparaison avec le contrat]
@@ -42,7 +40,7 @@ journey
   section Setup
     Charger une fixture canonique depuis schema-pbta => document valide disponible: 5: cli
   section Happy path
-    Appliquer une mutation via le chemin d’édition supporté de chaque hôte puis exporter => TOML normalisé avec mutation conservée: 5: cli
+    Modifier dans Lantern puis lire et exporter depuis Handbook => TOML normalisé avec données conservées: 5: cli
   section Edge case - TOML invalide
     Importer une fixture refusée => erreur catégorisée sans document éditable: 1: cli
   section Edge case - cible non prise en charge
@@ -71,7 +69,7 @@ journey
 > Rendre les garanties Handbook déjà attendues par les règles exécutables sur chaque cible déclarée.
 
 1. Exécuter les codecs, manifests et registre de blocks sur les fixtures canoniques sans dépendre du DOM d’un coffre réel.
-2. Ajouter une assertion qui utilise le chemin de mutation réellement supporté par Handbook, puis vérifie le TOML réimporté et la capacité attendue.
+2. Vérifier qu’une cible déclarée est reconnue, rendue et exportée par Handbook ; l’édition reste explicitement un parcours Lantern.
 3. Exposer les verdicts dans une forme stable pour l’orchestrateur.
 
 ## Test acceptance criteria
@@ -80,4 +78,4 @@ journey
 | --- | --- |
 | 1 | Chaque invariant du manifeste est rattaché à une assertion Lantern ou Handbook déterministe. |
 | 2 | Un champ modifié par le chemin d’édition Lantern réapparaît dans le TOML normalisé et satisfait le codec du fournisseur. |
-| 3 | Un champ modifié par le chemin d’édition Handbook réapparaît dans le TOML normalisé, ou la cible est refusée explicitement ; aucun rendu silencieux ne compte comme succès. |
+| 3 | Handbook reconnaît, rend et exporte sans perte un document édité dans Lantern, ou refuse explicitement la cible ; aucun rendu silencieux ne compte comme succès. |
