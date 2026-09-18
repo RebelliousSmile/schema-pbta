@@ -18,6 +18,7 @@
     "validate:contract": "tsx tools/validate-contract.ts && npm run validate:presentation",
     "validate:pack": "tsx tools/validate-pack-manifest.ts",
     "validate:cross-tool": "tsx tools/validate-cross-tool-contract.ts",
+    "create:pack": "tsx tools/create-pack.ts",
     "validate:presentation": "tsx tools/validate-presentation-contract.ts",
     "validate:package": "tsx tools/validate-package.ts",
     "validate:release": "tsx tools/prepare-release.ts --verify",
