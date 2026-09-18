@@ -92,6 +92,13 @@ editing and reordering its existing items.
 `checked` capability is present only where the published codec accepts it; it
 does not make a UI-only state exportable.
 
+`itemEditor` is a finite, validated vocabulary for **collection** presentation
+descriptors. It names a stable consumer capability, never a React component,
+module path, CSS class, runtime configuration, or fallback editor. Consumers
+must keep an exhaustive closed registry for these keys and reject unknown keys;
+other presentation descriptor families must publish their own vocabulary rather
+than overloading `itemEditor`.
+
 ## Using the schemas in your tool
 
 ### Install the canonical contract

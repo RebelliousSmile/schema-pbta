@@ -10,6 +10,20 @@ export const PBTA_COLLECTION_ITEM_EDITORS = [
 ] as const;
 export type PbtaCollectionItemEditor = typeof PBTA_COLLECTION_ITEM_EDITORS[number];
 
+const collectionItemEditors = new Set<string>(PBTA_COLLECTION_ITEM_EDITORS);
+
+/**
+ * Rejects a collection adapter key that the published presentation contract does
+ * not name. Consumers map this stable vocabulary to their own implementation.
+ */
+export function validatePbtaCollectionItemEditor(
+  itemEditor: unknown,
+): asserts itemEditor is PbtaCollectionItemEditor {
+  if (typeof itemEditor !== "string" || !collectionItemEditors.has(itemEditor)) {
+    throw new Error(`unknown PbtA collection item editor: ${JSON.stringify(itemEditor)}`);
+  }
+}
+
 export interface PbtaCollectionPresentation {
   target: Extract<PbtaDocumentTarget, `${string}-playbook`>;
   path: string;
@@ -72,6 +86,10 @@ export const PBTA_COLLECTION_PRESENTATIONS: readonly PbtaCollectionPresentation[
   collection("urban-shadows-playbook", ["corruption.advances", "Corruption advances", "pbta-advancement", "object"], ["checked"]),
   collection("urban-shadows-playbook", ["corruption.moves", "Corruption moves", "pbta-text", "text"]),
 ];
+
+for (const entry of PBTA_COLLECTION_PRESENTATIONS) {
+  validatePbtaCollectionItemEditor(entry.itemEditor);
+}
 
 export function getPbtaCollectionPresentation(
   target: PbtaCollectionPresentation["target"],

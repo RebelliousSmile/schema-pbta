@@ -60,6 +60,7 @@ export {
   getPbtaCollectionPresentation,
   PBTA_COLLECTION_ITEM_EDITORS,
   PBTA_COLLECTION_PRESENTATIONS,
+  validatePbtaCollectionItemEditor,
 } from "./presentation/index.js";
 export type {
   PbtaCollectionCardinality,

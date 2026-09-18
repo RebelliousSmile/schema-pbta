@@ -54,6 +54,7 @@
     "./schemas/v4/*": "./schemas/v4/*",
     "./schemas/v5/*": "./schemas/v5/*",
     "./schemas/*": "./schemas/v2/*",
+    "./corpus/presentation/*": "./corpus/presentation/*",
     "./corpus/*": "./corpus/contract/*"
   },
   "files": [
@@ -64,6 +65,7 @@
     "schemas/v4",
     "schemas/v5",
     "corpus/contract",
+    "corpus/presentation",
     "README.md",
     "LICENSE"
   ],
