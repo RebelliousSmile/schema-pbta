@@ -2,7 +2,7 @@
 status: done
 ---
 
-# Instruction: Vérifier le contrat publié et clôturer l’issue
+# Instruction: Canonical relationship source and semantic validation
 
 ## Architecture projection
 
@@ -10,24 +10,21 @@ status: done
 
 ```txt
 .
-├── examples/urban-shadows/game-definition/urban-shadows.toml ✏️ Conserve l’attribut de personnage `mortalRelationships` de type `ListMany` comme destination autoritaire.
-├── examples/urban-shadows/urban-shadows-playbook/the-aware.toml ✏️ Conserve le catalogue des trois relations, leurs clés stables, la question liée et la sélection `3..3`.
-├── corpus/contract/cases.json ✏️ Conserve le témoin spécialisé Urban Shadows dans le manifeste de round-trip.
-├── corpus/contract/valid/urban-shadows-playbook-complete.toml ✏️ Conserve le témoin TOML canonique qui porte la création liée.
-├── tools/validate-contract.ts ✏️ Valide l’acceptation et le round-trip TOML des cas du manifeste.
-├── tools/validate-references.ts ✏️ Vérifie la destination, la cardinalité, les options stables et le type `ListMany`.
-└── aidd_docs/tasks/2026_09/2026_09_18_urban_shadows_creation_relationship_destination/ ✅ Crée la traçabilité de l’issue et ce plan de clôture.
+├── examples/urban-shadows/game-definition/urban-shadows.toml ✏️ Declare `mortalRelationships` as the ListMany destination and its canonical relationship labels.
+├── examples/urban-shadows/urban-shadows-playbook/the-aware.toml ✏️ Keep the three editorial relationships, stable values, structured creation options, exact `3..3` bounds, and destination aligned with the game fixture.
+├── tools/validate-references.ts ✏️ Enforce the Urban Shadows creation destination, multi-select type, bounds, and vocabulary alignment across the game and specialised playbook fixtures.
+└── tools/validate-reference-fixtures.ts ✏️ Add focused rejected fixture coverage for invalid relationship creation semantics.
 ```
 
 ## User Journey
 
 ```mermaid
 flowchart TD
-  A[Consommateur lit le jeu Urban Shadows] --> B[Obtient mortalRelationships ListMany]
-  B --> C[Lit The Aware et ses trois options stables]
-  C --> D[Applique exactement trois clés à la destination]
-  D --> E[Valide le round-trip canonique]
-  E --> F[Issue #7 peut être clôturée]
+  A[Consumer reads Urban Shadows definition] --> B[Finds mortalRelationships ListMany and valid labels]
+  B --> C[Consumer reads The Aware creation question]
+  C --> D[Receives three stable relationship values and labels]
+  D --> E[Selection initializes the declared ListMany destination]
+  E --> F[Reference validator rejects divergent fixture data]
 ```
 
 ## Test Scope
@@ -38,29 +35,37 @@ title: Test scope
 ---
 journey
   section Setup
-    Charger le manifeste contractuel et les exemples Urban Shadows => témoin et définition disponibles: 5: cli
+    Load Urban Shadows game and The Aware fixtures => destination and editorial catalogue are available: 5: cli
   section Happy path
-    Valider le contrat, les références et la préparation de release => la destination ListMany, les trois clés et les bornes 3..3 sont publiées et reproductibles: 5: cli
-  section Edge case - destination ambiguë
-    Rencontrer une destination inconnue, non visible ou incompatible avec une sélection multiple => le validateur de références refuse le document: 5: cli
+    Validate fixture references => exactly three structured relationship choices target mortalRelationships with bounds 3 through 3: 5: cli
+  section Edge case - divergent relationship vocabulary
+    Supply an unknown, duplicate, or non-ListMany relationship choice => reference validation rejects the specialised playbook: 5: cli
 ```
 
 ## Tasks to do
 
-### `1)` Réconcilier la livraison v5 avec l’issue #7
+### `1)` Establish the canonical Urban Shadows relationship vocabulary
 
-> Établir que le contrat déjà publié est la seule source de vérité consommable par Lantern, puis clôturer l’issue avec les liens de preuve.
+> Put the destination key and allowed relationship labels in the game-definition fixture, while The Aware owns the stable keys and binds them to that vocabulary through its editorial and creation data.
 
-1. Contrôler dans la définition Urban Shadows que `mortalRelationships` est l’attribut `ListMany` autoritaire.
-2. Contrôler dans le témoin The Aware les trois relations éditoriales, leurs valeurs stables, la destination et les bornes de sélection exactes.
-3. Exécuter les validateurs de contrat, de références et de release pour démontrer le round-trip et la reproductibilité.
-4. Ajouter à l’issue le lien de la release v5.0.0, ses assets et ces preuves, puis la clôturer sans modification du contrat.
+1. Add the three valid mortal-relationship labels to the `mortalRelationships` ListMany attribute without changing its stable key or type.
+2. Retain exactly the three editorial entries with stable keys, labels, and descriptions in The Aware.
+3. Keep the structured creation options mapped to those stable keys, target `mortalRelationships`, and require exactly three selections.
+
+### `2)` Prove the specialised relationship data cannot drift
+
+> Extend reference validation so an accepted Urban Shadows playbook has a visible ListMany destination and matching canonical relationship vocabulary.
+
+1. Add specialised cross-reference checks only where the existing generic creation validation cannot establish the required relationship correspondence.
+2. Add temporary rejected fixtures covering a relationship value or label that diverges from the canonical source; retain the existing generic wrong-destination-type coverage.
+3. Preserve generic creation-question behavior for other games and existing fixtures.
 
 ## Test acceptance criteria
 
 | Task | Acceptance criteria |
-| ---- | ------------------- |
-| 1 | Un consommateur peut obtenir la clé `mortalRelationships` et constater qu’elle désigne un `ListMany` Urban Shadows. |
-| 1 | Le témoin spécialisé fournit exactement les clés `younger-sibling`, `loyal-significant-other` et `struggling-best-friend`, avec leurs libellés et descriptions. |
-| 1 | La question de création cible `mortalRelationships`, accepte exactement trois choix et ne nécessite aucune interprétation locale par Lantern. |
-| 1 | Le manifeste contractuel, les références et le paquet reproductible valident la livraison v5.0.0 avant la clôture de l’issue. |
+| --- | --- |
+| 1 | The Urban Shadows game definition exposes `mortalRelationships` as a `ListMany` attribute with the three valid relationship labels. |
+| 1 | The Aware offers exactly `younger-sibling`, `loyal-significant-other`, and `struggling-best-friend`, each with a label and optional description, through structured options. |
+| 1 | The creation question targets `mortalRelationships` and its inclusive selection bounds are exactly `min = 3`, `max = 3`. |
+| 2 | Reference validation rejects a relationship creation fixture whose destination, values, or labels do not match the canonical Urban Shadows source. |
+| 2 | Existing single-choice and other-game creation fixtures retain their current validation behavior. |

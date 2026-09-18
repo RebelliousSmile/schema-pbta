@@ -57,6 +57,11 @@ function creationOptionValue(option: unknown): string | undefined {
   return isDict(option) && typeof option.value === "string" ? option.value : undefined;
 }
 
+function creationOptionLabel(option: unknown): string | undefined {
+  if (typeof option === "string") return option;
+  return isDict(option) && typeof option.label === "string" ? option.label : undefined;
+}
+
 function creationBounds(question: Dict): { min: number; max: number } | undefined {
   if (question.selection === undefined) return { min: 1, max: 1 };
   if (!isDict(question.selection)) return undefined;
@@ -381,6 +386,44 @@ function checkGame(game: Game, root: string) {
         }
         if (!attributeIsVisibleFor(attribute, data.slug)) {
           error(file, key, `attribute "${question.attribute}" is not visible for playbook "${data.slug}"`);
+        }
+
+        if (
+          game.folder === "urban-shadows" &&
+          type === "urban-shadows-playbook" &&
+          question.attribute === "mortalRelationships"
+        ) {
+          const relationshipList = Array.isArray(data.mortalRelationships)
+            ? data.mortalRelationships
+            : [];
+          const relationships = relationshipList.filter(isDict);
+          const relationshipKeys = relationships
+            .map((relationship) => relationship.key)
+            .filter((value): value is string => typeof value === "string");
+          const relationshipLabels = relationships
+            .map((relationship) => relationship.label)
+            .filter((value): value is string => typeof value === "string");
+          const optionLabels = options
+            .map(creationOptionLabel)
+            .filter((value): value is string => value !== undefined);
+          const canonicalLabels = Array.isArray(attribute.options)
+            ? attribute.options.filter((value): value is string => typeof value === "string")
+            : [];
+          const sameValues = (left: string[], right: string[]) =>
+            left.length === right.length && left.every((value) => right.includes(value));
+
+          if (bounds.min !== 3 || bounds.max !== 3) {
+            error(file, `${questionKey}.selection`, "mortal relationship creation must select exactly three options");
+          }
+          if (!sameValues(optionValues, relationshipKeys)) {
+            error(file, `${questionKey}.options`, "mortal relationship option values must match the editorial relationship keys");
+          }
+          if (!sameValues(optionLabels, relationshipLabels)) {
+            error(file, `${questionKey}.options`, "mortal relationship option labels must match the editorial relationship labels");
+          }
+          if (!sameValues(relationshipLabels, canonicalLabels)) {
+            error(file, key, "mortal relationship labels must match the game definition options");
+          }
         }
       }
     }

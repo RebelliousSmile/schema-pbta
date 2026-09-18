@@ -6,6 +6,9 @@ stats = { blood = 0, heart = 1, mind = -1, spirit = 1, mortalis = 1, night = 0, 
 moves = [{ name = "I Know a Guy", moveType = "playbook", description = "Find help through your Circle." }]
 endMove = "Entrust your mortal relationships to another character."
 
+[attributes]
+mortalRelationships = ["younger-sibling", "loyal-significant-other", "struggling-best-friend"]
+
 [corruption]
 trigger = "Ignore mortal commitments to confront the supernatural."
 advances = [{ label = "Take a corruption move.", checked = true }]
@@ -22,3 +25,24 @@ paragraphs = ["Choose."]
 [editorial.progression]
 heading = "Progression"
 paragraphs = ["Grow."]
+
+[[mortalRelationships]]
+key = "younger-sibling"
+label = "Younger sibling"
+description = "Relies on you for transportation and advice."
+
+[[mortalRelationships]]
+key = "loyal-significant-other"
+label = "Loyal significant other"
+description = "Keeps choosing you when the city makes that dangerous."
+
+[[mortalRelationships]]
+key = "struggling-best-friend"
+label = "Struggling best friend"
+description = "Always gets into messy altercations."
+
+[[creation]]
+label = "Choose three mortal relationships."
+options = [{ value = "younger-sibling", label = "Younger sibling" }, { value = "loyal-significant-other", label = "Loyal significant other" }, { value = "struggling-best-friend", label = "Struggling best friend" }]
+selection = { min = 3, max = 3 }
+attribute = "mortalRelationships"

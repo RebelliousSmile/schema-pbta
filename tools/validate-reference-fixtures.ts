@@ -234,6 +234,48 @@ max = 1
     );
   }
 
+  const urbanShadowsPlaybookDirectory = path.join(
+    temporaryRoot,
+    "examples",
+    "urban-shadows",
+    "urban-shadows-playbook",
+  );
+  const awareFixture = fs.readFileSync(
+    path.join(urbanShadowsPlaybookDirectory, "the-aware.toml"),
+    "utf-8",
+  );
+  fs.writeFileSync(
+    path.join(urbanShadowsPlaybookDirectory, "fixture-relationship-value.toml"),
+    awareFixture.replace(
+      'value = "younger-sibling"',
+      'value = "unknown-mortal"',
+    ),
+  );
+  fs.writeFileSync(
+    path.join(urbanShadowsPlaybookDirectory, "fixture-relationship-label.toml"),
+    awareFixture.replace(
+      'value = "younger-sibling", label = "Younger sibling"',
+      'value = "younger-sibling", label = "Unknown mortal"',
+    ),
+  );
+
+  const relationshipDiagnostics = validateReferences(temporaryRoot);
+  for (const [fileName, message] of [
+    ["fixture-relationship-value.toml", "option values must match the editorial relationship keys"],
+    ["fixture-relationship-label.toml", "option labels must match the editorial relationship labels"],
+  ]) {
+    assert.ok(
+      relationshipDiagnostics.some(
+        (diagnostic) =>
+          diagnostic.file.endsWith(fileName) &&
+          diagnostic.key === "creation[0].options" &&
+          diagnostic.message.includes(message) &&
+          diagnostic.severity === "error",
+      ),
+      `${fileName} must reject relationship creation data that diverges from the canonical source`,
+    );
+  }
+
   const specialisedPlaybook = path.join(
     temporaryRoot,
     "examples",
