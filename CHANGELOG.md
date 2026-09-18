@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.4.0] - 2026-09-18
+
+### Added
+
+- A closed, runtime-validated vocabulary of PbtA collection adapter keys, with
+  a published invalid presentation fixture for unknown keys.
+
+### Changed
+
+- Collection presentation documentation now makes the schema-to-consumer
+  boundary explicit: consumer registries own implementations and fail closed.
+
 ## [5.1.0] - 2026-09-18
 
 ### Added
