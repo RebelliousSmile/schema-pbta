@@ -65,6 +65,7 @@ position = "left"
 type = "ListMany"
 label = "Mortal Relationships"
 position = "left"
+options = ["Younger sibling", "Loyal significant other", "Struggling best friend"]
 
 [mc]
 description = "Moves used by the Master of Ceremonies."

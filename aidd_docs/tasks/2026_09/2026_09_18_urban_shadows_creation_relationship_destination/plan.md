@@ -1,32 +1,33 @@
 ---
-objective: "Issue #7 is traceable to an immutable v5.0.0 release that exposes the complete Urban Shadows mortal-relationship creation destination without a Lantern fallback."
-status: implemented
+objective: "Issue #7 publishes a schema-owned Urban Shadows mortal-relationship creation destination, complete with authoritative options, exact selection bounds, and contract coverage that Lantern can consume without a fallback."
+status: in-progress
 ---
 
-# Plan: Réconcilier la destination de création Urban Shadows
+# Plan: Publish the Urban Shadows relationship creation destination
 
 ## Overview
 
 | Field | Value |
 | --- | --- |
-| **Goal** | Vérifier la livraison v5 déjà présente, rattacher la preuve à l’issue #7 et la clôturer sans introduire de nouveau contrat. |
+| **Goal** | Complete the canonical Urban Shadows fixtures and validation evidence for the mortal-relationship creation path. |
 | **Source** | [GitHub issue #7](https://github.com/RebelliousSmile/schema-pbta/issues/7) |
 
 ## Phases
 
 | # | Phase | File |
 | --- | --- | --- |
-| 1 | Vérifier le contrat publié et clôturer l’issue | [phase-1.md](./phase-1.md) |
+| 1 | Canonical relationship source and semantic validation | [phase-1.md](./phase-1.md) |
+| 2 | Contract witness and completion gates | [phase-2.md](./phase-2.md) |
 
 ## Resources
 
 | Source | Verified |
-| ------ | -------- |
-| https://github.com/RebelliousSmile/schema-pbta/issues/7 | Les données demandées sont une définition Urban Shadows, un témoin spécialisé, une question structurée et une couverture de round-trip. |
-| https://github.com/RebelliousSmile/schema-pbta/releases/tag/v5.0.0 | La version immuable v5.0.0 publie l’archive versionnée et sa somme SHA-256. |
+| --- | --- |
+| https://github.com/RebelliousSmile/schema-pbta/issues/7 | Requires a canonical ListMany destination and options, three editorial relationships, a structured exactly-three-choice creation question, and manifest-backed round-trip coverage. |
 
 ## Decisions
 
 | Decision | Why |
-| -------- | --- |
-| Ne pas modifier le contrat v5. | Le dépôt contient déjà l’attribut `mortalRelationships`, les trois options stables, les bornes `3..3`, le témoin TOML et les validations qui les couvrent ; ajouter une variante créerait une seconde source de vérité. |
+| --- | --- |
+| Make the Urban Shadows game fixture the destination and display-vocabulary owner; keep stable relationship keys and the creation binding in the specialised playbook. | Lantern receives the destination key, allowed relationship labels, stable persisted keys, and selection cardinality from schema-pbta rather than local game semantics. |
+| Treat the specialised contract witness as the end-to-end proof. | The existing witness is registered but omits the relationship catalogue and creation binding, so it cannot demonstrate issue #7's required round trip. |
