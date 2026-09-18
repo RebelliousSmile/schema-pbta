@@ -1,0 +1,1 @@
+{"manifestVersion":1,"provider":"schema-pbta","contractVersion":5,"pack":{"id":"monsterhearts","label":"Monsterhearts"},"documents":[{"target":"monsterhearts-playbook","fixture":"valid/monsterhearts-playbook-complete.toml","mutation":"name"}],"requirements":{"lantern":["edit:pbta"],"handbook":["block:pbta-playbook","style:pbta"]}}
