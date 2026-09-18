@@ -1,6 +1,6 @@
 ---
 objective: "Issue #7 is traceable to an immutable v5.0.0 release that exposes the complete Urban Shadows mortal-relationship creation destination without a Lantern fallback."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Réconcilier la destination de création Urban Shadows
