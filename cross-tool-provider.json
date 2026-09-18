@@ -4,5 +4,5 @@
   "contractVersion": 5,
   "corpus": "corpus/contract/cases.json",
   "packManifest": "packs/*/pack-contract.json",
-  "commands": { "validatePack": "npm run validate:pack --" }
+  "commands": { "validatePack": ["npm", "run", "validate:pack", "--"] }
 }
