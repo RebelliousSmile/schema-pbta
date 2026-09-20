@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.5.0] - 2026-09-20
+
+### Added
+
+- The published tarball now carries `packs/` and `cross-tool-provider.json`,
+  so a consumer installed from a release can read each `pack-contract.json`
+  and check pack coverage instead of inferring it from the contract corpus.
+- `schema-pbta/packs/*` and `schema-pbta/cross-tool-provider.json` are exported
+  subpaths, resolvable with `import.meta.resolve`.
+
+### Changed
+
+- The package guard installs the tarball and walks every published pack
+  manifest: each pack id matches its directory, each declared fixture resolves
+  through the published corpus and parses under its codec, and every
+  specialised codec target is documented by a pack the consumer can read.
+
 ## [5.4.0] - 2026-09-18
 
 ### Added
