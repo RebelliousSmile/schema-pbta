@@ -12,3 +12,14 @@ la correction appartient à son propriétaire.
 
 Les deux dernières n'alimentent pas la liste d'écarts enregistrés : `capabilities` n'est
 pas vérifié par ce plan, donc rien n'y est inscrit à retirer.
+
+## État au 2026-09-20
+
+Les quatre issues sont **ouvertes**, aucune fermée. Les trois écarts qu'elles suivent
+sont inscrits dans `KNOWN_DEVIATIONS` (`tools/validate-cross-tool-contract.ts`) et
+imprimés à chaque exécution de `validate:cross-tool`.
+
+La fermeture d'une issue ne se contente pas d'autoriser le retrait de son écart : elle
+l'**impose**. Dès que le correctif est atteint par un pin avancé dans
+`cross-tool.config.json`, l'entrée correspondante fait échouer la porte tant qu'elle
+n'est pas retirée — prouvé par mutation, voir `verification.md`.
