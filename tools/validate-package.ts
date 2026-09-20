@@ -69,6 +69,7 @@ import {
   PBTA_DOCUMENT_CODECS,
   PBTA_TOML_VERSION,
   packManifestSchema,
+  crossToolProviderSchema,
   parseFrontToml,
   parseGameDefinitionToml,
   parseMoveToml,
@@ -127,11 +128,18 @@ for (const testCase of cases.cases) {
   else assert.throws(() => codec.parseToml(source));
 }
 
+// The descriptor is validated by the schema the package publishes, not by hand: a
+// consumer reads it the same way the provider does, or the two drift apart silently.
 const providerUrl = import.meta.resolve("schema-pbta/cross-tool-provider.json");
-const provider = JSON.parse(fs.readFileSync(new URL(providerUrl), "utf8"));
-assert.equal(provider.providerVersion, 1);
+const provider = crossToolProviderSchema.parse(
+  JSON.parse(fs.readFileSync(new URL(providerUrl), "utf8")),
+);
 assert.equal(provider.provider, "schema-pbta");
 assert.equal(provider.contractVersion, PBTA_CONTRACT_VERSION);
+assert.throws(() =>
+  crossToolProviderSchema.parse({ ...provider, packManifest: "packs/pack-contract.json" })
+);
+assert.throws(() => crossToolProviderSchema.parse({ ...provider, unexpected: true }));
 
 // A consumer installed from the tarball must reach every pack contract by the
 // path the descriptor advertises; without them it can only check the corpus

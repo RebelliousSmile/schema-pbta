@@ -7,6 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `crossToolProviderSchema` types `cross-tool-provider.json` and is exported from
+  the package. It is deliberately provider-agnostic: `provider` is a free string
+  and `contractVersion` optional, because the same descriptor exists in
+  schema-in-the-mist and schema-adrenaline without that field, and a schema that
+  rejected two of the three descriptors it validates would be useless.
+- `validate:cross-tool:provider` joins the `check` chain: it resolves this
+  repository's `corpus` and pack manifest glob on disk, requires `provider` to
+  equal the package name, requires `contractVersion` to be present and match
+  `PBTA_CONTRACT_VERSION`, and proves the shared schema still accepts both
+  foreign descriptor shapes from frozen witnesses.
+- The consumer check in `validate:package` parses the published descriptor with
+  the published schema instead of asserting three fields by hand.
+
+### Changed
+
+- `validate:cross-tool` parses every provider descriptor through the schema and
+  resolves each declared `corpus` on disk. A dead corpus path used to cost
+  nothing, because the orchestrator read only three of the descriptor's fields.
+- Deviations the neighbouring repositories have not fixed yet are recorded in
+  `KNOWN_DEVIATIONS` with the issue that tracks each one, and printed on every
+  run. The list fails on an unrecorded deviation and fails again on a recorded
+  one that has been repaired without being removed, so it cannot outlive the
+  anomalies it records.
+
+### Fixed
+
+- `validate:release` no longer hands `tar` an absolute Windows path. GNU tar reads
+  the `C:` of such a path as a remote host and fails; the tarball is now named
+  relatively from the extraction directory, which both GNU tar and the bsdtar
+  Windows ships accept.
+
 ## [5.5.0] - 2026-09-20
 
 ### Added
