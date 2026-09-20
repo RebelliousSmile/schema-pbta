@@ -1,5 +1,27 @@
 {
-  "providers": [".", "../schema-in-the-mist", "../schema-adrenaline"],
-  "lantern": "../lantern",
-  "handbook": "../handbook"
+  "providers": [
+    {
+      "path": "."
+    },
+    {
+      "path": "../schema-in-the-mist",
+      "repository": "https://github.com/RebelliousSmile/schema-in-the-mist.git",
+      "ref": "e1dc0d5b75f9215d2913acd7fa7a19ef1eb1c34b"
+    },
+    {
+      "path": "../schema-adrenaline",
+      "repository": "https://github.com/RebelliousSmile/schema-adrenaline.git",
+      "ref": "48f247ea099bad7c0001cf151c89f66cdd3ffa74"
+    }
+  ],
+  "lantern": {
+    "path": "../lantern",
+    "repository": "https://github.com/RebelliousSmile/lantern.git",
+    "ref": "e2f1ce7313b5a0118954cd8cacbbc9e1329f2397"
+  },
+  "handbook": {
+    "path": "../handbook",
+    "repository": "https://github.com/RebelliousSmile/obsidian-handbook.git",
+    "ref": "51951f54c9b40f38e6272dc33ae1ebfd4a2f1584"
+  }
 }
