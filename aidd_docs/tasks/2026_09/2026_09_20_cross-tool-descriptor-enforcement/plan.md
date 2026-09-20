@@ -1,6 +1,6 @@
 ---
 objective: "Le descripteur inter-dépôts est un contrat vérifié et non plus déclaratif : schema-pbta le valide, le publie et le fait respecter, et les défauts des dépôts voisins sont ouverts en issues plutôt que corrigés sur place."
-status: in-progress
+status: implemented
 ---
 
 <!-- Fill or omit these sections; never add, rename, or reorder one. -->
