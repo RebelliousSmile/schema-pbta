@@ -13,12 +13,21 @@ for (const root of config.providers) {
   assert.equal(provider.providerVersion, 1, `${root}: unsupported provider descriptor`);
   const commands = provider.commands as Record<string, unknown>;
   assert.ok(commands && Array.isArray(commands.validatePack) && commands.validatePack.every((part) => typeof part === "string"), `${root}: missing validatePack command`);
-  const packs = provider.provider === "schema-pbta" ? path.join(root, "packs") : path.join(root, "handbook");
-  for (const entry of fs.readdirSync(packs, { withFileTypes: true })) {
+  /* Each provider declares its own layout; trusting the descriptor keeps new providers from needing a branch here. */
+  const declared = provider.packManifest;
+  assert.ok(typeof declared === "string", `${root}: provider declares no packManifest`);
+  const [directory, manifestName, ...rest] = declared.split("/*/");
+  assert.ok(directory && manifestName && rest.length === 0, `${root}: packManifest must read <directory>/*/<file>: ${declared}`);
+  let validated = 0;
+  for (const entry of fs.readdirSync(path.join(root, directory), { withFileTypes: true })) {
     if (!entry.isDirectory()) continue;
-    const manifest = provider.provider === "schema-pbta" ? path.join("packs", entry.name, "pack-contract.json") : path.join("handbook", entry.name, "pack.json");
-    if (fs.existsSync(path.join(root, manifest))) runCommand(root, [...commands.validatePack as string[], manifest]);
+    const manifest = path.join(directory, entry.name, manifestName);
+    if (!fs.existsSync(path.join(root, manifest))) continue;
+    runCommand(root, [...commands.validatePack as string[], manifest]);
+    validated += 1;
   }
+  /* A provider whose manifests all went missing would otherwise pass silently. */
+  assert.ok(validated > 0, `${root}: packManifest ${declared} matched no manifest`);
 }
 run(config.lantern, "run", "assert:contracts");
 execFileSync(process.execPath, ["tools/assert-pbta-contract.mjs"], { cwd: config.handbook, stdio: "inherit" });

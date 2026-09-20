@@ -4,7 +4,7 @@
   "contractVersion": 5,
   "pack": { "id": "salvage-run", "label": "Salvage Run" },
   "documents": [
-    { "target": "game-definition", "fixture": "valid/game-definition-complete.toml", "mutation": "title" },
+    { "target": "game-definition", "fixture": "valid/game-definition-complete.toml", "mutation": "name" },
     { "target": "salvage-run-playbook", "fixture": "valid/salvage-run-playbook-complete.toml", "mutation": "name" }
   ],
   "requirements": { "lantern": ["edit:pbta"], "handbook": ["block:pbta-playbook", "style:pbta"] }
