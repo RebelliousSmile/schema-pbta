@@ -59,3 +59,8 @@ retiré. Elle ne peut donc pas survivre aux anomalies qu'elle enregistre.
 Bash de cette machine : le `tar` de Git Bash lit le `C:\…` d'un chemin Windows comme un
 hôte distant (`tar (child): Cannot connect to C: resolve failed`). Sous PowerShell, la
 chaîne passe entièrement. Ce n'est pas une régression du code.
+
+Réparé après coup : `canonicalContents` extrait depuis le dossier de destination et
+nomme le tarball relativement, en séparateurs POSIX, donc sans `:` dans l'argument.
+`npm run check` sort 0 sous les deux shells. `--force-local` était écarté : il répare
+GNU tar et casse le bsdtar que PowerShell utilise.
