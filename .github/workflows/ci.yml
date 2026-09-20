@@ -1,13 +1,10 @@
 name: Check
-
 on:
   push:
     branches: [main]
   pull_request:
-
 permissions:
   contents: read
-
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -22,3 +19,37 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: git diff --exit-code
+
+  # The cross-tool gate: the two hosts read this contract, so a change that
+  # satisfies this repository alone proves nothing until they have run on it.
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      # The layout mirrors a developer machine: every participant is a sibling
+      # of the provider under test, which is this commit rather than a pin.
+      - uses: actions/checkout@v4
+        with:
+          path: schema-pbta
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Materialise the pinned checkouts
+        working-directory: schema-pbta
+        run: node tools/checkout-cross-tool.mjs cross-tool.config.json
+      # The layout is read back from the configuration so it is stated once.
+      - name: Install every participant
+        working-directory: schema-pbta
+        run: |
+          node tools/checkout-cross-tool.mjs cross-tool.config.json --paths | while read -r participant; do
+            # Handbook also carries a stale package-lock.json: its pnpm lockfile is the one it asserts.
+            if [ -f "$participant/pnpm-lock.yaml" ]; then
+              npx --yes pnpm@10 install --dir "$participant" --frozen-lockfile
+            elif [ -f "$participant/package-lock.json" ]; then
+              npm ci --prefix "$participant"
+            else
+              npm install --no-audit --no-fund --prefix "$participant"
+            fi
+          done
+      - name: Run the cross-tool contract
+        working-directory: schema-pbta
+        run: npm run validate:cross-tool -- cross-tool.config.json

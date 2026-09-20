@@ -46,6 +46,8 @@ export type {
   MonsterheartsPlaybook,
 } from "./codecs/toml.js";
 export { frontSchema } from "./zod/front.js";
+export { packManifestSchema, packDocumentSchema, PBTA_PACK_PROVIDER } from "./pack-manifest.js";
+export type { PackManifest } from "./pack-manifest.js";
 export { gameDefinitionSchema } from "./zod/game-definition.js";
 export { moveEntry, moveInlineEntry, moveRefEntry, moveSchema } from "./zod/move.js";
 export { npcSchema } from "./zod/npc.js";

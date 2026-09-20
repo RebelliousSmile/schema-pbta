@@ -68,6 +68,7 @@ import {
   PBTA_CONTRACT_VERSION,
   PBTA_DOCUMENT_CODECS,
   PBTA_TOML_VERSION,
+  packManifestSchema,
   parseFrontToml,
   parseGameDefinitionToml,
   parseMoveToml,
@@ -124,6 +125,55 @@ for (const testCase of cases.cases) {
   assert.ok(codec, "missing codec for " + testCase.target);
   if (testCase.expect === "accept") codec.parseToml(source);
   else assert.throws(() => codec.parseToml(source));
+}
+
+const providerUrl = import.meta.resolve("schema-pbta/cross-tool-provider.json");
+const provider = JSON.parse(fs.readFileSync(new URL(providerUrl), "utf8"));
+assert.equal(provider.providerVersion, 1);
+assert.equal(provider.provider, "schema-pbta");
+assert.equal(provider.contractVersion, PBTA_CONTRACT_VERSION);
+
+// A consumer installed from the tarball must reach every pack contract by the
+// path the descriptor advertises; without them it can only check the corpus
+// as a whole, never pack by pack.
+const [packDirectory, manifestName] = provider.packManifest.split("/*/");
+const packIds = fs
+  .readdirSync(new URL(packDirectory + "/", providerUrl), { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name)
+  .sort();
+assert.ok(packIds.length > 0, "the published tarball carries no pack");
+
+const documented = new Set();
+for (const id of packIds) {
+  const manifestUrl = import.meta.resolve(
+    "schema-pbta/" + packDirectory + "/" + id + "/" + manifestName,
+  );
+  const manifest = packManifestSchema.parse(
+    JSON.parse(fs.readFileSync(new URL(manifestUrl), "utf8")),
+  );
+  assert.equal(manifest.pack.id, id);
+  assert.equal(manifest.contractVersion, PBTA_CONTRACT_VERSION);
+  for (const document of manifest.documents) {
+    documented.add(document.target);
+    const fixtureUrl = import.meta.resolve("schema-pbta/corpus/" + document.fixture);
+    const canonical = PBTA_DOCUMENT_CODECS[document.target].parseToml(
+      fs.readFileSync(new URL(fixtureUrl), "utf8"),
+    );
+    assert.equal(
+      typeof canonical[document.mutation],
+      "string",
+      id + ": mutation " + document.mutation + " names no text field",
+    );
+  }
+}
+
+// Coverage is the question the corpus alone could not answer: every
+// specialised codec target is documented by a pack the consumer can read.
+const genericTargets = new Set(["game-definition", "move", "playbook", "npc", "front"]);
+for (const target of Object.keys(PBTA_DOCUMENT_CODECS)) {
+  if (genericTargets.has(target)) continue;
+  assert.ok(documented.has(target), "no published pack documents " + target);
 }
 
 await assert.rejects(

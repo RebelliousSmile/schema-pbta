@@ -1,0 +1,12 @@
+{
+  "providerVersion": 1,
+  "provider": "schema-pbta",
+  "contractVersion": 5,
+  "corpus": "corpus/contract/cases.json",
+  "packManifest": "packs/*/pack-contract.json",
+  "capabilities": {
+    "lantern": ["edit:pbta"],
+    "handbook": ["block:pbta-playbook", "block:pbta-move", "style:pbta"]
+  },
+  "commands": { "validatePack": ["npm", "run", "validate:pack", "--"] }
+}
