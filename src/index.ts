@@ -48,6 +48,8 @@ export type {
 export { frontSchema } from "./zod/front.js";
 export { packManifestSchema, packDocumentSchema, PBTA_PACK_PROVIDER } from "./pack-manifest.js";
 export type { PackManifest } from "./pack-manifest.js";
+export { crossToolProviderSchema } from "./cross-tool-provider.js";
+export type { CrossToolProvider } from "./cross-tool-provider.js";
 export { gameDefinitionSchema } from "./zod/game-definition.js";
 export { moveEntry, moveInlineEntry, moveRefEntry, moveSchema } from "./zod/move.js";
 export { npcSchema } from "./zod/npc.js";
