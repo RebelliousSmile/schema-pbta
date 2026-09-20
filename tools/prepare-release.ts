@@ -72,7 +72,10 @@ function listFiles(directory: string, relative = ""): string[] {
 function canonicalContents(tarball: string): Record<string, string> {
   const extracted = fs.mkdtempSync(path.join(os.tmpdir(), "schema-pbta-unpack-"));
   try {
-    run("tar", ["-xzf", tarball, "-C", extracted]);
+    /* An absolute Windows path reaches GNU tar as the host "C:", so extract from inside the
+       destination and name the tarball relatively, in POSIX form both tar flavours accept. */
+    const local = path.relative(extracted, tarball).split(path.sep).join("/");
+    run("tar", ["-xzf", local], extracted);
     return Object.fromEntries(
       listFiles(extracted)
         .sort()

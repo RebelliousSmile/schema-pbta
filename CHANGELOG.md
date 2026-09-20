@@ -33,6 +33,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   one that has been repaired without being removed, so it cannot outlive the
   anomalies it records.
 
+### Fixed
+
+- `validate:release` no longer hands `tar` an absolute Windows path. GNU tar reads
+  the `C:` of such a path as a remote host and fails; the tarball is now named
+  relatively from the extraction directory, which both GNU tar and the bsdtar
+  Windows ships accept.
+
 ## [5.5.0] - 2026-09-20
 
 ### Added
