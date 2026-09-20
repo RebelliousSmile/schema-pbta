@@ -11,6 +11,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Pack manifests: `packs/<id>/pack-contract.json` declares which codec targets a
+  pack documents, with a corpus fixture and a mutable field per target.
+  `npm run validate:packs` checks every manifest and proves that each
+  specialised target is documented by exactly one pack.
+- `create:pack` scaffolds a manifest from an accepted corpus witness.
+- `cross-tool-provider.json` describes this provider to its hosts: corpus, pack
+  manifest glob, capabilities and the command that validates one pack.
+- `validate:cross-tool` runs the three schema providers and both hosts from a
+  single configuration, so a change is measured where it is consumed.
+- Every cross-tool checkout is pinned: `cross-tool.config.json` carries a clone
+  URL and a full commit sha per participant, `tools/checkout-cross-tool.mjs`
+  materialises them without dependencies, and `validate:cross-tool:pins`
+  refuses a mutable ref, a missing origin or a CI job that stopped running the
+  gate.
 - The published tarball now carries `packs/` and `cross-tool-provider.json`,
   so a consumer installed from a release can read each `pack-contract.json`
   and check pack coverage instead of inferring it from the contract corpus.
