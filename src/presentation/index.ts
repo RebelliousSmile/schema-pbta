@@ -11,3 +11,5 @@ export type {
   PbtaCollectionItemEditor,
   PbtaCollectionPresentation,
 } from "./collections.js";
+export { getPbtaStatRangePresentation, PBTA_STAT_RANGE_PRESENTATIONS } from "./stat-ranges.js";
+export type { PbtaStatRangePresentation, PbtaStatRangeValue } from "./stat-ranges.js";

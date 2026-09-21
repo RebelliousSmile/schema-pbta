@@ -26,6 +26,8 @@
     { "path": "invalid/urban-shadows-playbook-missing-corruption.toml", "target": "urban-shadows-playbook", "expect": "reject" },
     { "path": "invalid/monsterhearts-playbook-missing-darkest-self.toml", "target": "monsterhearts-playbook", "expect": "reject" },
     { "path": "invalid/monsterhearts-playbook-invalid-ascendant.toml", "target": "monsterhearts-playbook", "expect": "reject" },
+    { "path": "invalid/monsterhearts-playbook-stat-range-non-integer.toml", "target": "monsterhearts-playbook", "expect": "reject" },
+    { "path": "invalid/monsterhearts-playbook-stat-range-unknown-field.toml", "target": "monsterhearts-playbook", "expect": "reject" },
     { "path": "invalid/masks-playbook-missing-editorial.toml", "target": "masks-playbook", "expect": "reject" },
     { "path": "invalid/monster-of-the-week-playbook-missing-editorial.toml", "target": "monster-of-the-week-playbook", "expect": "reject" },
     { "path": "invalid/monster-of-the-week-playbook-invalid-improvement-checked.toml", "target": "monster-of-the-week-playbook", "expect": "reject" },

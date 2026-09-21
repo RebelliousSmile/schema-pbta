@@ -18,6 +18,11 @@ const ascendantSchema = z.strictObject({
   value: portableCount.meta({ description: "Current Ascendants held over that named character." }),
 }).meta({ description: "Current Ascendants held over one named character." });
 
+const statRangeSchema = z.strictObject({
+  min: portableInteger.meta({ description: "Lowest displayed value for this stat." }),
+  max: portableInteger.meta({ description: "Highest displayed value for this stat." }),
+}).meta({ description: "Display bounds for one Monsterhearts stat; they do not constrain its current value." });
+
 const editorialSchema = playbookEditorialSchema.omit({
   playAdvice: true,
 }).extend({
@@ -27,6 +32,7 @@ const editorialSchema = playbookEditorialSchema.omit({
 
 /** Monsterhearts skin data in one portable TOML document. */
 export const monsterheartsPlaybookSchema = playbookSchema.extend({
+  statRanges: z.record(z.string(), statRangeSchema).optional().meta({ description: "Optional display bounds keyed by Monsterhearts stat." }),
   strings: stringSchema.optional().meta({ description: "Starting String economy." }),
   ascendants: z.array(ascendantSchema).optional().meta({ description: "Current Ascendants held over named characters." }),
   conditions: z.array(conditionSchema).optional().meta({ description: "Conditions named by this skin." }),

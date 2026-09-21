@@ -1,0 +1,24 @@
+slug = "invalid-stat-range-bound"
+name = "Invalid Stat Range Bound"
+game = "monsterhearts"
+description = "An invalid original fixture."
+stats = { hot = 0, cold = 0, volatile = 0, dark = 0 }
+statRanges = { hot = { min = "low", max = 3 } }
+moves = []
+advances = [{ label = "Take a new skin move." }]
+
+[editorial.opening]
+heading = "Opening"
+paragraphs = ["An invalid fixture."]
+[editorial.darkestSelf]
+heading = "Darkest Self"
+paragraphs = ["Become an absence."]
+[editorial.sexMove]
+heading = "Sex Move"
+paragraphs = ["Share a secret."]
+[editorial.identity]
+heading = "Identity"
+paragraphs = ["Choose a name."]
+[editorial.progression]
+heading = "Progression"
+paragraphs = ["Take a move."]
