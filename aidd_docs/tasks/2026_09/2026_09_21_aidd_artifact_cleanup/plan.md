@@ -1,6 +1,6 @@
 ---
 objective: "The worktree contains no unexplained AIDD artifact directories: the completed audit is intentionally versioned, and the Monsterhearts plan remains attached to its original issue."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Reconcile untracked AIDD artifacts
