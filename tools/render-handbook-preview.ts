@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadData } from "./read-data.js";
+import { PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION } from "../src/presentation/monsterhearts-playbook.js";
 
 type Data = Record<string, unknown>;
 
@@ -312,7 +313,57 @@ function renderMonsterheartsPage(
   creation: string,
 ): string {
   const editorial = asData(playbook.editorial, "Monsterhearts editorial");
-  const identity = renderEditorialSection("identity", asData(editorial.identity, "Monsterhearts identity"));
+  const regional = (region: string): string => {
+    const section = (name: string): Data => asData(editorial[name], `Monsterhearts ${name}`);
+    const editorialRegion = (name: string, field = name): string => {
+      const value = section(field);
+      return `<section class="handbook-panel handbook-editorial handbook-editorial--${escapeHtml(name)}" data-region="monsterhearts-${escapeHtml(name)}"><h2>${escapeHtml(value.heading)}</h2>${Array.isArray(value.paragraphs) ? value.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("") : ""}</section>`;
+    };
+    const panel = (name: string, title: string, content: string): string =>
+      `<section class="handbook-panel handbook-editorial handbook-editorial--${escapeHtml(name)}" data-region="${escapeHtml(name)}"><h2>${escapeHtml(title)}</h2>${content}</section>`;
+    switch (region) {
+      case "monsterhearts-opening": return editorialRegion("opening");
+      case "monsterhearts-darkest-self": return editorialRegion("darkest-self", "darkestSelf");
+      case "monsterhearts-sex-move": return editorialRegion("sex-move", "sexMove");
+      case "character-identity": {
+        const identity = section("identity");
+        return panel(region, String(identity.heading), `${Array.isArray(identity.paragraphs) ? identity.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("") : ""}${creation}${list(playbook.backstory, "handbook-value-list")}`);
+      }
+      case "stat-profiles": return panel(region, "Caractéristiques", `${renderStats(definition, playbook)}${renderStatProfiles(definition, playbook)}`);
+      case "playbook-moves": return panel(region, "Actions", renderPlaybookMoves(playbook, moves, definition));
+      case "relationships": {
+        const strings = playbook.strings && typeof playbook.strings === "object" ? asData(playbook.strings, "Monsterhearts strings") : {};
+        const ascendants = Array.isArray(playbook.ascendants) ? `<ul class="handbook-value-list">${playbook.ascendants.map((raw) => {
+          const ascendant = asData(raw, "Monsterhearts ascendant");
+          return `<li><strong>${escapeHtml(ascendant.name)}</strong> — ${escapeHtml(ascendant.value)}</li>`;
+        }).join("")}</ul>` : "";
+        return panel(region, "Strings et Ascendants", `<p>Strings : ${escapeHtml(strings.starting ?? 0)} / ${escapeHtml(strings.max ?? 0)}</p>${ascendants}`);
+      }
+      case "conditions-and-harm": {
+        const conditions = Array.isArray(playbook.conditions) ? `<ul class="handbook-value-list">${playbook.conditions.map((raw) => {
+          const condition = asData(raw, "Monsterhearts condition");
+          return `<li><strong>${escapeHtml(condition.name)}</strong>${condition.description ? ` — ${escapeHtml(condition.description)}` : ""}</li>`;
+        }).join("")}</ul>` : "";
+        return panel(region, "Conditions et blessures", `<p>Harm : ${escapeHtml(playbook.harm ?? 0)}</p>${conditions}`);
+      }
+      case "gear": return panel(region, "Équipement", renderGear(playbook));
+      case "monsterhearts-progression": {
+        const progression = section("progression");
+        const advances = Array.isArray(playbook.advances) ? `<ul class="handbook-advancement">${playbook.advances.map((raw) => {
+          const advance = asData(raw, "Monsterhearts advance");
+          return `<li data-checked="${advance.checked === true}">${escapeHtml(advance.label)}</li>`;
+        }).join("")}</ul>` : "";
+        return panel(region, String(progression.heading), `${Array.isArray(progression.paragraphs) ? progression.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("") : ""}${advances}`);
+      }
+      default: throw new Error(`Monsterhearts preview cannot render declared region: ${region}`);
+    }
+  };
+  const columns = PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION.columns ?? [];
+  const placed = new Set(columns.flat());
+  const unplaced = PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION.canonicalOrder.filter((region) => region !== "game-identity" && !placed.has(region));
+  const layout = [...columns, unplaced].filter((column) => column.length > 0).map((column, index) =>
+    `<div class="handbook-monsterhearts-column" data-layout-column="${index + 1}">${column.map(regional).join("\n")}</div>`,
+  ).join("\n");
   return `<!doctype html>
 <html lang="fr" data-game="monsterhearts" data-variant="${escapeHtml(descriptor.defaultVariant)}">
 <head>
@@ -327,12 +378,7 @@ function renderMonsterheartsPage(
   <main class="handbook-sheet handbook-monsterhearts-sheet" data-handbook-preview>
     <header class="handbook-monsterhearts-title" data-region="game-identity"><span class="handbook-kicker">Livret Monsterhearts</span><h1>${escapeHtml(playbook.name)}</h1><p>${escapeHtml(playbook.description)}</p><label class="handbook-variant">Variante<select data-variant-picker>${variantOptions}</select></label></header>
     <div class="handbook-monsterhearts-layout">
-      ${renderEditorialSection("opening", asData(editorial.opening, "Monsterhearts opening"))}
-      ${renderEditorialSection("darkest-self", asData(editorial.darkestSelf, "Monsterhearts Darkest Self"))}
-      ${renderEditorialSection("sex-move", asData(editorial.sexMove, "Monsterhearts sex move"))}
-      <section class="handbook-panel handbook-editorial handbook-editorial--moves" data-region="playbook-moves"><h2>Actions</h2>${renderPlaybookMoves(playbook, moves, definition)}</section>
-      <section class="handbook-panel handbook-editorial handbook-editorial--identity" data-region="character-identity">${identity}${creation}<h3>Caractéristiques</h3>${renderStats(definition, playbook)}${renderStatProfiles(definition, playbook)}</section>
-      <section class="handbook-panel handbook-editorial handbook-editorial--progression" data-region="character-state">${renderEditorialSection("progression", asData(editorial.progression, "Monsterhearts progression"))}${list(playbook.advances, "handbook-advancement")}</section>
+      ${layout}
     </div>
   </main>
   <script>

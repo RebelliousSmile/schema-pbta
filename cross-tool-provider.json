@@ -5,8 +5,8 @@
   "corpus": "corpus/contract/cases.json",
   "packManifest": "packs/*/pack-contract.json",
   "capabilities": {
-    "lantern": ["edit:pbta"],
-    "handbook": ["block:pbta-playbook", "block:pbta-move", "style:pbta"]
+    "lantern": ["edit:pbta", "presentation:pbta-layout"],
+    "handbook": ["block:pbta-playbook", "block:pbta-move", "style:pbta", "presentation:pbta-layout"]
   },
   "commands": { "validatePack": ["npm", "run", "validate:pack", "--"] }
 }

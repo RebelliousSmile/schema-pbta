@@ -99,6 +99,21 @@ must keep an exhaustive closed registry for these keys and reject unknown keys;
 other presentation descriptor families must publish their own vocabulary rather
 than overloading `itemEditor`.
 
+### Monsterhearts playbook presentation
+
+`PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION` is the producer-owned description of
+the complete Monsterhearts sheet. It names consumer-neutral regions, their
+portable field bindings, compact primitives, canonical order, optional ordered
+columns, narrow-pane/print fallback, and pack-scoped tokens, assets and visual
+variants. `getPbtaMonsterheartsPlaybookPresentation("monsterhearts-playbook")`
+returns the same descriptor.
+
+Lantern imports this ESM export. Handbook source consumers read the byte-identical
+`schema-pbta/packs/monsterhearts/presentation-contract.json` artifact. A runtime
+adapter maps primitives to its own components; it must not infer or add
+Monsterhearts layout semantics locally. The `drowned-lake` variant is explicitly
+presentation-only, so user TOML stays portable.
+
 ## Using the schemas in your tool
 
 ### Install the canonical contract

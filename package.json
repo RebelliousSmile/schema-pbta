@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "prepack": "npm run build && npm run gen",
-    "gen": "tsx tools/gen-schemas.ts",
+    "gen": "tsx tools/gen-schemas.ts && tsx tools/gen-presentation-contracts.ts",
     "validate": "tsx tools/validate-examples.ts",
     "validate:refs": "tsx tools/validate-references.ts",
     "validate:refs:fixtures": "tsx tools/validate-reference-fixtures.ts",

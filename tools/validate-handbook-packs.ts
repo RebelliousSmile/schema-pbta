@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { GAMES } from "../src/zod/constants.js";
 import { loadData } from "./read-data.js";
+import { PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION } from "../src/presentation/monsterhearts-playbook.js";
 
 type Data = Record<string, unknown>;
 
@@ -189,6 +190,11 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
       }
     }
     if (id === "monsterhearts") {
+      const presentationFile = path.join(root, "packs", "monsterhearts", "presentation-contract.json");
+      const presentation = JSON.parse(fs.readFileSync(presentationFile, "utf8"));
+      if (JSON.stringify(presentation) !== JSON.stringify(PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION)) {
+        issues.push("monsterhearts: source presentation artifact diverges from the npm export");
+      }
       const monsterheartsVariants = Array.isArray(manifest.variants) ? manifest.variants.map(data) : [];
       const monsterheartsBaseNote = data(data(data(pack.style).base).note);
       for (const token of [
@@ -269,8 +275,9 @@ function validateLocalCssReferences(file: string, context: string): void {
 function validateHtml(file: string, game: string): void {
   if (!fs.existsSync(file)) return;
   const html = fs.readFileSync(file, "utf8");
-  const regions = ["game-identity", "character-identity", "playbook-moves", "character-state"];
-  if (game !== "monsterhearts") regions.push("mc-actions");
+  const regions = game === "monsterhearts"
+    ? [...PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION.canonicalOrder]
+    : ["game-identity", "character-identity", "playbook-moves", "character-state", "mc-actions"];
   for (const region of regions) {
     if (!html.includes(`data-region="${region}"`)) errors.push(`${game}: generated preview misses region ${region}`);
   }
@@ -279,10 +286,7 @@ function validateHtml(file: string, game: string): void {
     if (!html.includes(`data-schema-block="${block}"`)) errors.push(`${game}: generated preview misses schema block ${block}`);
   }
   if (game === "monsterhearts") {
-    for (const region of ["monsterhearts-opening", "monsterhearts-darkest-self", "monsterhearts-sex-move", "monsterhearts-identity", "monsterhearts-progression"]) {
-      if (!html.includes(`data-region="${region}"`)) errors.push(`${game}: generated preview misses specialized region ${region}`);
-    }
-    for (const region of ["monsterhearts-play-advice", "monsterhearts-mc-guidance", "mc-actions"]) {
+    for (const region of ["monsterhearts-identity", "monsterhearts-play-advice", "monsterhearts-mc-guidance", "character-state", "mc-actions"]) {
       if (html.includes(`data-region="${region}"`)) errors.push(`${game}: generated preview retains removed region ${region}`);
     }
     if (!html.includes('data-schema-block="creation-question"')) {

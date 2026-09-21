@@ -87,11 +87,17 @@ import {
   parseTheSprawlPlaybookToml,
   parseUrbanShadowsPlaybookToml,
   parseSalvageRunPlaybookToml,
+  PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
+  getPbtaMonsterheartsPlaybookPresentation,
 } from "schema-pbta";
 
 assert.equal(PBTA_CONTRACT_VERSION, 7);
 assert.equal(PBTA_CONTRACT_SCHEMA_TAG, "v7.0.0");
 assert.equal(PBTA_TOML_VERSION, "1.0.0");
+assert.deepEqual(
+  getPbtaMonsterheartsPlaybookPresentation("monsterhearts-playbook"),
+  PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
+);
 assert.deepEqual(Object.keys(PBTA_DOCUMENT_CODECS).sort(), [
   "front", "game-definition", "masks-playbook", "monster-of-the-week-playbook", "monsterhearts-playbook", "move", "npc", "playbook", "salvage-run-playbook", "the-sprawl-playbook", "urban-shadows-playbook",
 ]);
@@ -115,6 +121,13 @@ assert.match(schema.$id, /\\/v7\\.0\\.0\\/schemas\\/v7\\/monsterhearts\\/monster
 assert.throws(
   () => import.meta.resolve("schema-pbta/schemas/monsterhearts/monsterhearts-playbook.schema.json"),
   { code: "ERR_PACKAGE_PATH_NOT_EXPORTED" },
+);
+
+const presentationUrl = import.meta.resolve("schema-pbta/packs/monsterhearts/presentation-contract.json");
+assert.deepEqual(
+  JSON.parse(fs.readFileSync(new URL(presentationUrl), "utf8")),
+  PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
+  "the package presentation artifact must equal its ESM export",
 );
 
 const corpusUrl = import.meta.resolve("schema-pbta/corpus/valid/playbook-minimal.toml");

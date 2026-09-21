@@ -6,6 +6,7 @@ export const PBTA_PACK_PROVIDER = "schema-pbta" as const;
 
 const token = z.string().regex(/^[a-z0-9]+(?:[-:][a-z0-9]+)*$/);
 const relativeFixture = z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._/-]*\.toml$/);
+const relativePresentation = z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._/-]*\.json$/);
 
 export const packDocumentSchema = z.strictObject({
   target: z.enum(Object.keys(PBTA_DOCUMENT_CODECS) as [keyof typeof PBTA_DOCUMENT_CODECS, ...Array<keyof typeof PBTA_DOCUMENT_CODECS>]),
@@ -23,6 +24,10 @@ export const packManifestSchema = z.strictObject({
     lantern: z.array(token),
     handbook: z.array(token),
   }),
+  presentation: z.strictObject({
+    target: z.literal("monsterhearts-playbook"),
+    artifact: relativePresentation,
+  }).optional(),
 });
 
 export type PackManifest = z.infer<typeof packManifestSchema>;
