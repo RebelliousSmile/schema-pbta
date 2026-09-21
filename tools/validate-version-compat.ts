@@ -12,7 +12,7 @@ const schemaRoot = `schemas/v${PBTA_CONTRACT_VERSION}`;
 const packageJson = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8")) as {
   version: string;
 };
-const archivedVersions = [1, 2, 3, 4, 5];
+const archivedVersions = [1, 2, 3, 4, 5, 6];
 
 function git(args: string[], allowFailure = false): string | null {
   const result = spawnSync("git", args, { cwd: root, encoding: "utf8" });

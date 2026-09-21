@@ -1,6 +1,6 @@
 ---
 objective: "Monsterhearts skins can optionally publish strict per-stat display bounds alongside independent current values, with a consumer-readable min/current/max presentation contract in a new immutable schema major."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Monsterhearts per-stat display bounds
