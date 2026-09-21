@@ -8,9 +8,7 @@
   "advances": [{ "label": "Take a move from another skin." }],
   "editorial": {
     "opening": { "heading": "Opening", "paragraphs": ["An invalid fixture."] },
-    "playAdvice": { "heading": "Advice", "paragraphs": ["A region is missing."] },
     "sexMove": { "heading": "Sex Move", "paragraphs": ["Share a secret."] },
-    "mcGuidance": { "heading": "For the MC", "paragraphs": ["Ask a question."] },
     "identity": { "heading": "Identity", "paragraphs": ["Choose a name."] },
     "progression": { "heading": "Progression", "paragraphs": ["Take a move."] }
   }

@@ -20,10 +20,6 @@ description = "People remember the room becoming darker when you arrived."
 heading = "When the lights go out"
 paragraphs = ["You learned to live where no one looks for long."]
 
-[editorial.playAdvice]
-heading = "Playing the Eclipse"
-paragraphs = ["Make absence feel like a choice before it becomes a threat."]
-
 [editorial.darkestSelf]
 heading = "Darkest Self"
 paragraphs = ["You become an absence until someone gives you something irreplaceable."]
@@ -31,10 +27,6 @@ paragraphs = ["You become an absence until someone gives you something irreplace
 [editorial.sexMove]
 heading = "Sex Move"
 paragraphs = ["When you share intimacy with someone, tell them a secret they cannot safely repeat."]
-
-[editorial.mcGuidance]
-heading = "For the MC"
-paragraphs = ["Ask what certainty the Eclipse can take from the room."]
 
 [editorial.identity]
 heading = "Identity"

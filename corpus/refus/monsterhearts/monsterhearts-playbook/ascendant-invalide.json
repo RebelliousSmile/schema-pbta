@@ -9,10 +9,8 @@
   "ascendants": [{ "name": "Alex" }],
   "editorial": {
     "opening": { "heading": "Opening", "paragraphs": ["An invalid fixture."] },
-    "playAdvice": { "heading": "Advice", "paragraphs": ["A required value is absent."] },
     "darkestSelf": { "heading": "Darkest Self", "paragraphs": ["Become an absence."] },
     "sexMove": { "heading": "Sex Move", "paragraphs": ["Share a secret."] },
-    "mcGuidance": { "heading": "For the MC", "paragraphs": ["Ask a question."] },
     "identity": { "heading": "Identity", "paragraphs": ["Choose a name."] },
     "progression": { "heading": "Progression", "paragraphs": ["Take a move."] }
   }

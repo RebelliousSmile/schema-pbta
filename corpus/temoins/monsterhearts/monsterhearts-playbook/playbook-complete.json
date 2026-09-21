@@ -13,10 +13,8 @@
   "conditions": [{ "name": "Unsettling", "description": "The darkness reacts to you." }],
   "editorial": {
     "opening": { "heading": "Opening", "paragraphs": ["An original fixture."] },
-    "playAdvice": { "heading": "Advice", "paragraphs": ["Play with uncertainty."] },
     "darkestSelf": { "heading": "Darkest Self", "paragraphs": ["Become an absence until someone gives you something irreplaceable."] },
     "sexMove": { "heading": "Sex Move", "paragraphs": ["Share a secret that cannot safely be repeated."] },
-    "mcGuidance": { "heading": "For the MC", "paragraphs": ["Ask what the room has forgotten."] },
     "identity": { "heading": "Identity", "paragraphs": ["Choose a name and a shadow."] },
     "progression": { "heading": "Progression", "paragraphs": ["Take a move from another skin."] }
   }
