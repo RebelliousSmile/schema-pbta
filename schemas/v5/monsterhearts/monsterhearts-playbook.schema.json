@@ -769,6 +769,31 @@
           "additionalProperties": false,
           "description": "Opening fiction for the playbook."
         },
+        "playAdvice": {
+          "type": "object",
+          "properties": {
+            "heading": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Heading shown for this playbook section."
+            },
+            "paragraphs": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": "Ordered plain-text paragraphs shown in this section."
+            }
+          },
+          "required": [
+            "heading",
+            "paragraphs"
+          ],
+          "additionalProperties": false,
+          "description": "Advice for playing the character."
+        },
         "identity": {
           "type": "object",
           "properties": {
@@ -868,14 +893,41 @@
           ],
           "additionalProperties": false,
           "description": "The skin's intimacy move region."
+        },
+        "mcGuidance": {
+          "type": "object",
+          "properties": {
+            "heading": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Heading shown for this playbook section."
+            },
+            "paragraphs": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": "Ordered plain-text paragraphs shown in this section."
+            }
+          },
+          "required": [
+            "heading",
+            "paragraphs"
+          ],
+          "additionalProperties": false,
+          "description": "Guidance addressed to the MC."
         }
       },
       "required": [
         "opening",
+        "playAdvice",
         "identity",
         "progression",
         "darkestSelf",
-        "sexMove"
+        "sexMove",
+        "mcGuidance"
       ],
       "additionalProperties": false,
       "description": "Complete editorial copy rendered with the skin."

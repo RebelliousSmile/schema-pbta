@@ -25,7 +25,7 @@ generated schema.
 
 ## What's in here
 
-- `src/zod/` contains the source Zod v5 definitions
+- `src/zod/` contains the source Zod v6 definitions
 - `schemas/` contains the generated JSON Schemas
 - `examples/` contains JSON/TOML examples per schema
 - `corpus/temoins/` contains legitimate JSON documents that every target must accept
@@ -104,8 +104,8 @@ than overloading `itemEditor`.
 ### Install the canonical contract
 
 The latest published package is distributed as the immutable asset of GitHub Release `v5.4.0`.
-The v5 schema major remains anchored to its immutable `v5.0.0` baseline; v5.3
-is available as an installable release asset.
+The v6 schema major is the next candidate baseline, anchored to `v6.0.0` when
+published; consumers must not adopt it until its immutable release asset exists.
 The package is not published to the npm registry. Package managers accept the HTTPS
 tarball directly:
 

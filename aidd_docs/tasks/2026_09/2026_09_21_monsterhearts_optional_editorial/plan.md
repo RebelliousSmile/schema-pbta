@@ -19,6 +19,7 @@ status: in-progress
 | 1 | Narrow the Monsterhearts data contract | [`phase-1.md`](./phase-1.md) |
 | 2 | Align presentation metadata | [`phase-2.md`](./phase-2.md) |
 | 3 | Align preview and validation surfaces | [`phase-3.md`](./phase-3.md) |
+| 4 | Prepare the immutable v6 contract line | [`phase-4.md`](./phase-4.md) |
 
 ## Resources
 
