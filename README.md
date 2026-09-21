@@ -26,7 +26,7 @@ generated schema.
 ## What's in here
 
 - `src/zod/` contains the source Zod v6 definitions
-- `schemas/` contains the generated JSON Schemas
+- `schemas/v*/` contains the generated, immutable JSON Schemas for each contract major
 - `examples/` contains JSON/TOML examples per schema
 - `corpus/temoins/` contains legitimate JSON documents that every target must accept
 - `corpus/refus/` contains intentionally malformed JSON documents, one named defect per file
@@ -155,7 +155,10 @@ import Ajv from "ajv";
 import addFormats from "ajv-formats";
 
 const schema = JSON.parse(
-  fs.readFileSync("schemas/apocalypse-world/example.schema.json", "utf8")
+  fs.readFileSync(
+    "schemas/v7/monsterhearts/monsterhearts-playbook.schema.json",
+    "utf8",
+  )
 );
 
 const ajv = new Ajv({ allErrors: true, strict: false });

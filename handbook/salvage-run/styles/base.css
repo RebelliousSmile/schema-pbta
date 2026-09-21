@@ -1,1 +1,1 @@
-.handbook-preview { --salvage-accent: #e99b42; }
+html[data-game="salvage-run"] { --salvage-accent: #e99b42; }

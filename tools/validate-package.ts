@@ -106,6 +106,10 @@ for (const parser of [
 const schemaUrl = import.meta.resolve("schema-pbta/schemas/v7/monsterhearts/monsterhearts-playbook.schema.json");
 const schema = JSON.parse(fs.readFileSync(new URL(schemaUrl), "utf8"));
 assert.match(schema.$id, /\\/v7\\.0\\.0\\/schemas\\/v7\\/monsterhearts\\/monsterhearts-playbook\\.schema\\.json$/);
+assert.throws(
+  () => import.meta.resolve("schema-pbta/schemas/monsterhearts/monsterhearts-playbook.schema.json"),
+  { code: "ERR_PACKAGE_PATH_NOT_EXPORTED" },
+);
 
 const corpusUrl = import.meta.resolve("schema-pbta/corpus/valid/playbook-minimal.toml");
 const playbookSource = fs.readFileSync(new URL(corpusUrl), "utf8");

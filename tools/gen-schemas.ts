@@ -17,7 +17,6 @@ for (const t of TARGETS) {
   const serialized = JSON.stringify(json, null, 2);
   const destinations = [
     `schemas/v${CONTRACT_MAJOR}/${t.game.folder}/${t.name}.schema.json`,
-    `schemas/${t.game.folder}/${t.name}.schema.json`,
   ];
   for (const destination of destinations) {
     fs.mkdirSync(destination.slice(0, destination.lastIndexOf("/")), { recursive: true });

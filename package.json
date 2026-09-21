@@ -14,7 +14,7 @@
     "handbook:validate:fixtures": "tsx tools/validate-handbook-catalog-fixtures.ts",
     "handbook:validate:install": "tsx tools/validate-handbook-install.ts",
     "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && npm run build && npm run gen && npm run validate && npm run validate:contract && npm run validate:refs && npm run validate:refs:fixtures && npm run audit && npm run validate:version && npm run validate:package && npm run validate:release && npm run handbook:render && npm run handbook:validate && npm run handbook:validate:fixtures && npm run validate:packs && npm run validate:cross-tool:provider && npm run validate:cross-tool:pins",
+    "check": "npm run typecheck && npm run build && npm run gen && npm run validate && npm run validate:contract && npm run validate:refs && npm run validate:refs:fixtures && npm run audit && npm run validate:version && npm run validate:package && npm run validate:release && npm run handbook:render && npm run handbook:validate && npm run handbook:validate:fixtures && npm run handbook:validate:install && npm run validate:pack -- packs/monsterhearts/pack-contract.json && npm run validate:packs && npm run validate:cross-tool:provider && npm run validate:cross-tool:pins",
     "validate:contract": "tsx tools/validate-contract.ts && npm run validate:presentation",
     "validate:pack": "tsx tools/validate-pack-manifest.ts",
     "validate:packs": "tsx tools/validate-packs.ts && tsx tools/validate-pack-coverage.ts",
@@ -61,7 +61,6 @@
     "./schemas/v5/*": "./schemas/v5/*",
     "./schemas/v6/*": "./schemas/v6/*",
     "./schemas/v7/*": "./schemas/v7/*",
-    "./schemas/*": "./schemas/v2/*",
     "./corpus/presentation/*": "./corpus/presentation/*",
     "./corpus/*": "./corpus/contract/*",
     "./packs/*": "./packs/*",
@@ -92,7 +91,7 @@
     "@types/node": "^24.5.2",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
-    "tsx": "^4.20.5",
+    "tsx": "^4.23.15",
     "typescript": "^5.9.2"
   }
 }

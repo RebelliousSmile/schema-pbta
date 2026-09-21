@@ -10,7 +10,7 @@ status: implemented
 | Field | Value |
 | --- | --- |
 | **Goal** | Promote Lantern's original Salvage Run demonstration into a supported game. |
-| **Source** | User request and `C:\\Users\\fxgui\\Documents\\Code\\Perso\\lantern\\src\\templates\\pbta\\{game-definition,playbook}\\sample.ts` |
+| **Source** | User request and `../lantern/src/templates/pbta/{game-definition,playbook}/sample.ts` |
 
 ## Phases
 
