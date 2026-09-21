@@ -1,6 +1,6 @@
 ---
 objective: "Publish a versioned Monsterhearts playbook presentation contract, including validated optional column layouts, for npm and Handbook source consumers."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Publish the Monsterhearts presentation layout contract
