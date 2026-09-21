@@ -91,8 +91,8 @@ import {
   getPbtaMonsterheartsPlaybookPresentation,
 } from "schema-pbta";
 
-assert.equal(PBTA_CONTRACT_VERSION, 7);
-assert.equal(PBTA_CONTRACT_SCHEMA_TAG, "v7.0.0");
+assert.equal(PBTA_CONTRACT_VERSION, 8);
+assert.equal(PBTA_CONTRACT_SCHEMA_TAG, "v8.0.0");
 assert.equal(PBTA_TOML_VERSION, "1.0.0");
 assert.deepEqual(
   getPbtaMonsterheartsPlaybookPresentation("monsterhearts-playbook"),
@@ -115,9 +115,9 @@ for (const parser of [
   parseSalvageRunPlaybookToml,
 ]) assert.equal(typeof parser, "function");
 
-const schemaUrl = import.meta.resolve("schema-pbta/schemas/v7/monsterhearts/monsterhearts-playbook.schema.json");
+const schemaUrl = import.meta.resolve("schema-pbta/schemas/v8/monsterhearts/monsterhearts-playbook.schema.json");
 const schema = JSON.parse(fs.readFileSync(new URL(schemaUrl), "utf8"));
-assert.match(schema.$id, /\\/v7\\.0\\.0\\/schemas\\/v7\\/monsterhearts\\/monsterhearts-playbook\\.schema\\.json$/);
+assert.match(schema.$id, /\\/v8\\.0\\.0\\/schemas\\/v8\\/monsterhearts\\/monsterhearts-playbook\\.schema\\.json$/);
 assert.throws(
   () => import.meta.resolve("schema-pbta/schemas/monsterhearts/monsterhearts-playbook.schema.json"),
   { code: "ERR_PACKAGE_PATH_NOT_EXPORTED" },
@@ -217,7 +217,7 @@ await assert.rejects(
 
   const major = Number(packageJson.version.split(".")[0]);
   if (major >= 1) {
-    assert.equal(major, 7, "stable package major must equal PBTA_CONTRACT_VERSION");
+    assert.equal(major, 8, "stable package major must equal PBTA_CONTRACT_VERSION");
   }
 
   console.log(

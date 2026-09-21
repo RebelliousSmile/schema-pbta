@@ -21,7 +21,7 @@
     },
     {
       "id": "monsterhearts",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "path": "handbook/monsterhearts/pack.json",
       "label": "Monsterhearts",
       "description": "Intimate gothic editorial presentation with an optional Drowned Lake variant."

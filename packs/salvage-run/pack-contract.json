@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "provider": "schema-pbta",
-  "contractVersion": 7,
+  "contractVersion": 8,
   "pack": { "id": "salvage-run", "label": "Salvage Run" },
   "documents": [
     { "target": "game-definition", "fixture": "valid/game-definition-complete.toml", "mutation": "name" },
