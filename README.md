@@ -103,16 +103,16 @@ than overloading `itemEditor`.
 
 ### Install the canonical contract
 
-The latest published package is distributed as the immutable asset of GitHub Release `v5.4.0`.
-The v6 schema major is the next candidate baseline, anchored to `v6.0.0` when
-published; consumers must not adopt it until its immutable release asset exists.
+The latest published package is distributed as the immutable asset of GitHub Release `v5.6.0`.
+The v6 and v7 schema majors are candidate baselines only; consumers must not
+adopt either until its immutable release asset exists.
 The package is not published to the npm registry. Package managers accept the HTTPS
 tarball directly:
 
 ```json
 {
   "dependencies": {
-    "schema-pbta": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v5.4.0/schema-pbta-5.4.0.tgz"
+    "schema-pbta": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v5.6.0/schema-pbta-5.6.0.tgz"
   }
 }
 ```
