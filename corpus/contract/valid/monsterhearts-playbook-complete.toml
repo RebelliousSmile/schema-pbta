@@ -2,7 +2,8 @@ slug = "the-hollow"
 name = "The Hollow"
 game = "monsterhearts"
 description = "A beautiful imitation trying to become real."
-stats = { hot = 1, cold = 0, volatile = -1, dark = 1 }
+stats = { hot = 4, cold = 0, volatile = -1, dark = 1 }
+statRanges = { hot = { min = -2, max = 3 }, cold = { min = -3, max = 3 }, volatile = { min = -1, max = 2 }, dark = { min = 0, max = 4 } }
 moves = [{ name = "What Are You?", moveType = "playbook", description = "Ask a question nobody wants to answer." }]
 advances = [{ label = "Take a new skin move.", checked = true }]
 [[ascendants]]
