@@ -21,7 +21,9 @@ jobs:
 
       - run: npm ci
       - name: Verify the tag names its package version
-        run: test "$(node -p \"require('./package.json').version\")" = "${GITHUB_REF_NAME#v}"
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          test "${version}" = "${GITHUB_REF_NAME#v}"
       - name: Build reproducible release assets
         run: npx --no-install tsx tools/prepare-release.ts --output release-assets
       - name: Validate the final tarball and checksum
