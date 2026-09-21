@@ -69,7 +69,9 @@ function collection(
 }
 
 export const PBTA_COLLECTION_PRESENTATIONS: readonly PbtaCollectionPresentation[] = [
-  ...targets.flatMap((target) => common.map((entry) => collection(target, entry, entry[0] === "moves" || entry[0] === "advancement" ? ["checked"] : undefined))),
+  ...targets.flatMap((target) => common
+    .filter(([path]) => target !== "monsterhearts-playbook" || path !== "editorial.playAdvice.paragraphs")
+    .map((entry) => collection(target, entry, entry[0] === "moves" || entry[0] === "advancement" ? ["checked"] : undefined))),
   collection("masks-playbook", ["influence", "Influence", "pbta-text", "text"]),
   collection("monster-of-the-week-playbook", ["improvements", "Improvements", "pbta-advancement", "object"], ["checked"]),
   collection("monsterhearts-playbook", ["ascendants", "Ascendants", "pbta-ascendant", "object"]),
@@ -78,7 +80,6 @@ export const PBTA_COLLECTION_PRESENTATIONS: readonly PbtaCollectionPresentation[
   collection("monsterhearts-playbook", ["advances", "Advances", "pbta-advancement", "object"], ["checked"]),
   collection("monsterhearts-playbook", ["editorial.darkestSelf.paragraphs", "Darkest Self paragraphs", "pbta-text", "text"]),
   collection("monsterhearts-playbook", ["editorial.sexMove.paragraphs", "Sex Move paragraphs", "pbta-text", "text"]),
-  collection("monsterhearts-playbook", ["editorial.mcGuidance.paragraphs", "MC guidance paragraphs", "pbta-text", "text"]),
   collection("the-sprawl-playbook", ["directives", "Directives", "pbta-text", "text"]),
   collection("the-sprawl-playbook", ["missionGear", "Mission gear", "pbta-text", "text"]),
   collection("urban-shadows-playbook", ["mortalRelationships", "Mortal relationships", "pbta-relationship", "object"]),

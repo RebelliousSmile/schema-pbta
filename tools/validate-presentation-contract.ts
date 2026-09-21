@@ -27,6 +27,16 @@ for (const entry of PBTA_COLLECTION_PRESENTATIONS) {
 }
 for (const [target, count] of targetCounts) assert.ok(count > 0, `${target}: no collection presentation`);
 
+const monsterheartsPaths = PBTA_COLLECTION_PRESENTATIONS
+  .filter((entry) => entry.target === "monsterhearts-playbook")
+  .map((entry) => entry.path);
+assert.ok(!monsterheartsPaths.includes("editorial.playAdvice.paragraphs"), "Monsterhearts must not publish play advice editing");
+assert.ok(!monsterheartsPaths.includes("editorial.mcGuidance.paragraphs"), "Monsterhearts must not publish MC guidance editing");
+assert.ok(
+  PBTA_COLLECTION_PRESENTATIONS.some((entry) => entry.target === "masks-playbook" && entry.path === "editorial.playAdvice.paragraphs"),
+  "other playbook targets retain play advice editing",
+);
+
 const unknownItemEditorFixture = JSON.parse(
   fs.readFileSync(
     new URL("../corpus/presentation/invalid/unknown-item-editor.json", import.meta.url),
