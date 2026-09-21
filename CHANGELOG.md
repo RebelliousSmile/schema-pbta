@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.0.0] - 2026-09-21
+
+### Added
+
+- `schemas/v6` establishes the next immutable contract line, including the
+  canonical Monsterhearts playbook schema and matching package exports.
+
+### Changed
+
+- Monsterhearts collection metadata and Handbook previews now expose only the
+  canonical editorial regions: opening, darkest self, sex move, identity and
+  progression.
+
+### Removed
+
+- The Monsterhearts specialised playbook contract no longer accepts or requires
+  `editorial.playAdvice` and `editorial.mcGuidance`; their prose belongs in the
+  surrounding Markdown description rather than the playbook data block.
+
 ## [5.6.0] - 2026-09-20
 
 ### Added
