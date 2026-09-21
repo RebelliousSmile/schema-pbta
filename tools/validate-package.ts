@@ -6,6 +6,7 @@ import { spawnSync } from "node:child_process";
 
 const root = process.cwd();
 const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "schema-pbta-package-"));
+const suppliedTarball = process.argv.slice(2).find((argument) => argument.endsWith(".tgz"));
 const npmCli = process.env.npm_execpath ?? path.join(
   path.dirname(process.execPath),
   "node_modules",
@@ -34,19 +35,24 @@ function run(command: string, args: string[], cwd = root): string {
 }
 
 try {
-  const packOutput = run(process.execPath, [npmCli,
-    "pack",
-    "--json",
-    "--silent",
-    "--pack-destination",
-    temporaryRoot,
-  ]);
-  const jsonStart = packOutput.lastIndexOf("\n[");
-  const packed = JSON.parse(
-    jsonStart === -1 ? packOutput : packOutput.slice(jsonStart + 1),
-  ) as Array<{ filename: string }>;
-  assert.equal(packed.length, 1, "npm pack must produce exactly one tarball");
-  const tarball = path.join(temporaryRoot, packed[0].filename);
+  const tarball = suppliedTarball
+    ? path.resolve(root, suppliedTarball)
+    : (() => {
+      const packOutput = run(process.execPath, [npmCli,
+        "pack",
+        "--json",
+        "--silent",
+        "--pack-destination",
+        temporaryRoot,
+      ]);
+      const jsonStart = packOutput.lastIndexOf("\n[");
+      const packed = JSON.parse(
+        jsonStart === -1 ? packOutput : packOutput.slice(jsonStart + 1),
+      ) as Array<{ filename: string }>;
+      assert.equal(packed.length, 1, "npm pack must produce exactly one tarball");
+      return path.join(temporaryRoot, packed[0].filename);
+    })();
+  assert.ok(fs.statSync(tarball).isFile(), `missing tarball: ${tarball}`);
 
   const consumerRoot = path.join(temporaryRoot, "consumer");
   fs.mkdirSync(consumerRoot);

@@ -1,0 +1,58 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+      - name: Verify the tag names its package version
+        run: test "$(node -p \"require('./package.json').version\")" = "${GITHUB_REF_NAME#v}"
+      - name: Build reproducible release assets
+        run: npx --no-install tsx tools/prepare-release.ts --output release-assets
+      - name: Validate the final tarball and checksum
+        run: |
+          archive="release-assets/schema-pbta-${GITHUB_REF_NAME#v}.tgz"
+          sha256sum --check "${archive}.sha256"
+          npm run validate:package -- "${archive}"
+
+      - name: Create draft, attach every asset, then publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          archive="release-assets/schema-pbta-${version}.tgz"
+
+          # Creating a release that already exists can create an untagged draft.
+          # Adopt a draft when present; published releases are immutable and must
+          # instead be verified as a successful no-op.
+          if ! gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
+            gh release create "${GITHUB_REF_NAME}" --verify-tag --draft --generate-notes --title "schema-pbta ${version}"
+          fi
+
+          if [ "$(gh release view "${GITHUB_REF_NAME}" --json isDraft --jq .isDraft)" = "true" ]; then
+            gh release upload "${GITHUB_REF_NAME}" --clobber "${archive}" "${archive}.sha256"
+            gh release edit "${GITHUB_REF_NAME}" --draft=false --latest
+          else
+            for asset in "${archive##*/}" "${archive##*/}.sha256"; do
+              gh release view "${GITHUB_REF_NAME}" --json assets --jq '.assets[].name' | grep -qxF "${asset}" \
+                || { echo "::error::${GITHUB_REF_NAME} is already published without ${asset}"; exit 1; }
+            done
+          fi
+
+          gh release view "${GITHUB_REF_NAME}" --json tagName,isDraft,isImmutable,url,assets
+          test "$(gh release view "${GITHUB_REF_NAME}" --json isImmutable --jq .isImmutable)" = "true"
