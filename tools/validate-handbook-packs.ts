@@ -269,7 +269,8 @@ function validateLocalCssReferences(file: string, context: string): void {
 function validateHtml(file: string, game: string): void {
   if (!fs.existsSync(file)) return;
   const html = fs.readFileSync(file, "utf8");
-  const regions = ["game-identity", "character-identity", "playbook-moves", "character-state", "mc-actions"];
+  const regions = ["game-identity", "character-identity", "playbook-moves", "character-state"];
+  if (game !== "monsterhearts") regions.push("mc-actions");
   for (const region of regions) {
     if (!html.includes(`data-region="${region}"`)) errors.push(`${game}: generated preview misses region ${region}`);
   }
@@ -278,8 +279,11 @@ function validateHtml(file: string, game: string): void {
     if (!html.includes(`data-schema-block="${block}"`)) errors.push(`${game}: generated preview misses schema block ${block}`);
   }
   if (game === "monsterhearts") {
-    for (const region of ["monsterhearts-opening", "monsterhearts-darkest-self", "monsterhearts-sex-move", "monsterhearts-identity", "monsterhearts-play-advice", "monsterhearts-mc-guidance", "monsterhearts-progression"]) {
+    for (const region of ["monsterhearts-opening", "monsterhearts-darkest-self", "monsterhearts-sex-move", "monsterhearts-identity", "monsterhearts-progression"]) {
       if (!html.includes(`data-region="${region}"`)) errors.push(`${game}: generated preview misses specialized region ${region}`);
+    }
+    for (const region of ["monsterhearts-play-advice", "monsterhearts-mc-guidance", "mc-actions"]) {
+      if (html.includes(`data-region="${region}"`)) errors.push(`${game}: generated preview retains removed region ${region}`);
     }
     if (!html.includes('data-schema-block="creation-question"')) {
       errors.push("monsterhearts: generated preview misses creation question");
@@ -337,7 +341,7 @@ function validateEditorSurface(game: string, definition: Data, playbook: Data): 
   if (game === "monsterhearts" || Object.keys(data(playbook.editorial)).length > 0) {
     const editorial = data(playbook.editorial);
     const regions = game === "monsterhearts"
-      ? ["opening", "playAdvice", "darkestSelf", "sexMove", "mcGuidance", "identity", "progression"]
+      ? ["opening", "darkestSelf", "sexMove", "identity", "progression"]
       : ["opening", "playAdvice", "identity", "progression"];
     for (const region of regions) {
       if (typeof data(editorial[region]).heading !== "string") errors.push(`${game}: specialized playbook misses ${region} editorial region`);
