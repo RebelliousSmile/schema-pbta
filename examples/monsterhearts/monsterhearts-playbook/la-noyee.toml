@@ -15,10 +15,6 @@ starting = 1
 heading = "Sous la surface"
 paragraphs = ["Tu es revenue du lac avec une voix plus calme et des souvenirs qui ne sont pas tous les tiens."]
 
-[editorial.playAdvice]
-heading = "Conseils de jeu"
-paragraphs = ["Fais sentir ce que l’eau conserve et ce qu’elle efface."]
-
 [editorial.darkestSelf]
 heading = "Démon intérieur"
 paragraphs = ["Le lac réclame une vérité que tu as refusé de lui donner."]
@@ -26,10 +22,6 @@ paragraphs = ["Le lac réclame une vérité que tu as refusé de lui donner."]
 [editorial.sexMove]
 heading = "Action sexuelle"
 paragraphs = ["Quand tu couches avec quelqu’un, donne-lui un souvenir qu’il ne peut pas vérifier."]
-
-[editorial.mcGuidance]
-heading = "Pour la MC"
-paragraphs = ["Demande ce que le lac sait déjà de la ville."]
 
 [editorial.identity]
 heading = "Identité"

@@ -83,8 +83,8 @@ import {
   parseSalvageRunPlaybookToml,
 } from "schema-pbta";
 
-assert.equal(PBTA_CONTRACT_VERSION, 5);
-assert.equal(PBTA_CONTRACT_SCHEMA_TAG, "v5.0.0");
+assert.equal(PBTA_CONTRACT_VERSION, 6);
+assert.equal(PBTA_CONTRACT_SCHEMA_TAG, "v6.0.0");
 assert.equal(PBTA_TOML_VERSION, "1.0.0");
 assert.deepEqual(Object.keys(PBTA_DOCUMENT_CODECS).sort(), [
   "front", "game-definition", "masks-playbook", "monster-of-the-week-playbook", "monsterhearts-playbook", "move", "npc", "playbook", "salvage-run-playbook", "the-sprawl-playbook", "urban-shadows-playbook",
@@ -103,9 +103,9 @@ for (const parser of [
   parseSalvageRunPlaybookToml,
 ]) assert.equal(typeof parser, "function");
 
-const schemaUrl = import.meta.resolve("schema-pbta/schemas/v5/monsterhearts/monsterhearts-playbook.schema.json");
+const schemaUrl = import.meta.resolve("schema-pbta/schemas/v6/monsterhearts/monsterhearts-playbook.schema.json");
 const schema = JSON.parse(fs.readFileSync(new URL(schemaUrl), "utf8"));
-assert.match(schema.$id, /\\/v5\\.0\\.0\\/schemas\\/v5\\/monsterhearts\\/monsterhearts-playbook\\.schema\\.json$/);
+assert.match(schema.$id, /\\/v6\\.0\\.0\\/schemas\\/v6\\/monsterhearts\\/monsterhearts-playbook\\.schema\\.json$/);
 
 const corpusUrl = import.meta.resolve("schema-pbta/corpus/valid/playbook-minimal.toml");
 const playbookSource = fs.readFileSync(new URL(corpusUrl), "utf8");
@@ -194,7 +194,7 @@ await assert.rejects(
 
   const major = Number(packageJson.version.split(".")[0]);
   if (major >= 1) {
-    assert.equal(major, 5, "stable package major must equal PBTA_CONTRACT_VERSION");
+    assert.equal(major, 6, "stable package major must equal PBTA_CONTRACT_VERSION");
   }
 
   console.log(

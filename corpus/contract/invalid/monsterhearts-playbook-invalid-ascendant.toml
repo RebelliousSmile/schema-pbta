@@ -10,18 +10,12 @@ ascendants = [{ name = "Alex" }]
 [editorial.opening]
 heading = "Opening"
 paragraphs = ["An invalid fixture."]
-[editorial.playAdvice]
-heading = "Advice"
-paragraphs = ["A required value is absent."]
 [editorial.darkestSelf]
 heading = "Darkest Self"
 paragraphs = ["Become an absence."]
 [editorial.sexMove]
 heading = "Sex Move"
 paragraphs = ["Share a secret."]
-[editorial.mcGuidance]
-heading = "For the MC"
-paragraphs = ["Ask a question."]
 [editorial.identity]
 heading = "Identity"
 paragraphs = ["Choose a name."]

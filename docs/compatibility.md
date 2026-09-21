@@ -13,6 +13,7 @@ npm registry.
 | `3.0.x` candidate | `schemas/v3` | `v3.0.0` (not yet published) | `1.0.0` | `2.8.0+` | pending consumer upgrade |
 | `4.0.x` | `schemas/v4` | `v4.0.0` | `1.0.0` | `2.8.0+` | consumer integration tracked in Lantern #5 |
 | `5.2.0` | `schemas/v5` | `v5.0.0` | `1.0.0` | `2.8.0+` | pin this release before integrating collection presentation metadata |
+| `6.0.x` candidate | `schemas/v6` | `v6.0.0` (not yet published) | `1.0.0` | requires consumer upgrade | requires consumer upgrade |
 
 The schema path groups compatible artifacts by contract major. Every `$id`
 uses its exact immutable release tag so it never depends on a movable major alias.

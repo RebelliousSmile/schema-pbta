@@ -18,10 +18,6 @@ starting = 1
 heading = "Entre deux mondes"
 paragraphs = ["Tu es née sous la surface et tu peux enlever ta peau lorsque tu le souhaites. Quand tu la portes, tu ressembles à une otarie ; sans elle, tu te sens aussi pure et belle qu’un diamant brut.", "Tu vis désormais sur la terre ferme, attirée par ses possibilités et hantée par l’envie de retourner d’où tu viens."]
 
-[editorial.playAdvice]
-heading = "Conseils de jeu"
-paragraphs = ["Quelqu’un t’a probablement volé ta peau : accomplir ses tâches te donne de bonnes raisons de gagner des ascendants et de rester impliquée avec les autres personnages."]
-
 [editorial.darkestSelf]
 heading = "Faire monter les eaux"
 paragraphs = ["Les gens t’ont maltraitée et rejetée. Il est temps de leur montrer ce que cela fait de se sentir perdue en mer, séparée de ce que tu aimes, et de te faire voler des parts de toi-même.", "Tu veux faire disparaître la Terre sous les flots, détruire ce qu’ils chérissent et voler leur peau. Tu échappes à ton démon intérieur lorsqu’un lieu te rappelle d’où tu viens, ou lorsque tu fais face à la raison pour laquelle tu as choisi la terre ferme."]
@@ -29,10 +25,6 @@ paragraphs = ["Les gens t’ont maltraitée et rejetée. Il est temps de leur mo
 [editorial.sexMove]
 heading = "Quand tu couches avec quelqu’un"
 paragraphs = ["C’est comme si tu t’immergeais entièrement dans l’eau. Comme les océans n’ont aucun secret pour toi, gagne un ascendant sur quelqu’un d’autre avec qui ton partenaire a déjà couché."]
-
-[editorial.mcGuidance]
-heading = "Pour la MC"
-paragraphs = ["Pose des questions sur le royaume des Profondeurs : un endroit merveilleux et attirant, qui manque pourtant de tout ce qui rend la vie sur la terre ferme si fantastique."]
 
 [editorial.identity]
 heading = "Identité"

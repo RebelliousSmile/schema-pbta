@@ -18,10 +18,11 @@ const ascendantSchema = z.strictObject({
   value: portableCount.meta({ description: "Current Ascendants held over that named character." }),
 }).meta({ description: "Current Ascendants held over one named character." });
 
-const editorialSchema = playbookEditorialSchema.extend({
+const editorialSchema = playbookEditorialSchema.omit({
+  playAdvice: true,
+}).extend({
   darkestSelf: editorialSectionSchema.meta({ description: "The skin's Darkest Self region." }),
   sexMove: editorialSectionSchema.meta({ description: "The skin's intimacy move region." }),
-  mcGuidance: editorialSectionSchema.meta({ description: "Guidance addressed to the MC." }),
 }).meta({ description: "All editorial regions rendered as part of a Monsterhearts playbook." });
 
 /** Monsterhearts skin data in one portable TOML document. */

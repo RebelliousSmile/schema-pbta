@@ -8,13 +8,20 @@ advances = [{ label = "Take a new skin move." }]
 
 [editorial.opening]
 heading = "Opening"
-paragraphs = ["An invalid fixture."]
+paragraphs = ["A complete original fixture."]
+
+[editorial.darkestSelf]
+heading = "Darkest Self"
+paragraphs = ["You are empty until somebody proves otherwise."]
+
 [editorial.sexMove]
 heading = "Sex Move"
 paragraphs = ["When you share intimacy, take a String on them."]
+
 [editorial.identity]
 heading = "Identity"
-paragraphs = ["Choose a name."]
+paragraphs = ["Choose a face that almost looks real."]
+
 [editorial.progression]
 heading = "Progression"
 paragraphs = ["Take a new skin move."]

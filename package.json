@@ -1,6 +1,6 @@
 {
   "name": "schema-pbta",
-  "version": "5.6.0",
+  "version": "6.0.0",
   "description": "Open, versioned data schemas for Powered by the Apocalypse games, to make digital tools interoperable.",
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
@@ -59,6 +59,7 @@
     "./schemas/v3/*": "./schemas/v3/*",
     "./schemas/v4/*": "./schemas/v4/*",
     "./schemas/v5/*": "./schemas/v5/*",
+    "./schemas/v6/*": "./schemas/v6/*",
     "./schemas/*": "./schemas/v2/*",
     "./corpus/presentation/*": "./corpus/presentation/*",
     "./corpus/*": "./corpus/contract/*",
@@ -72,6 +73,7 @@
     "schemas/v3",
     "schemas/v4",
     "schemas/v5",
+    "schemas/v6",
     "corpus/contract",
     "corpus/presentation",
     "packs",

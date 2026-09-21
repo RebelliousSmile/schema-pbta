@@ -313,8 +313,6 @@ function renderMonsterheartsPage(
 ): string {
   const editorial = asData(playbook.editorial, "Monsterhearts editorial");
   const identity = renderEditorialSection("identity", asData(editorial.identity, "Monsterhearts identity"));
-  const mcGuidance = asData(editorial.mcGuidance, "Monsterhearts MC guidance");
-  const mcGuidanceParagraphs = asStrings(mcGuidance.paragraphs, "Monsterhearts MC guidance paragraphs");
   return `<!doctype html>
 <html lang="fr" data-game="monsterhearts" data-variant="${escapeHtml(descriptor.defaultVariant)}">
 <head>
@@ -334,9 +332,8 @@ function renderMonsterheartsPage(
       ${renderEditorialSection("sex-move", asData(editorial.sexMove, "Monsterhearts sex move"))}
       <section class="handbook-panel handbook-editorial handbook-editorial--moves" data-region="playbook-moves"><h2>Actions</h2>${renderPlaybookMoves(playbook, moves, definition)}</section>
       <section class="handbook-panel handbook-editorial handbook-editorial--identity" data-region="character-identity">${identity}${creation}<h3>Caractéristiques</h3>${renderStats(definition, playbook)}${renderStatProfiles(definition, playbook)}</section>
-      <section class="handbook-panel handbook-editorial handbook-editorial--progression" data-region="character-state">${renderEditorialSection("play-advice", asData(editorial.playAdvice, "Monsterhearts play advice"))}${renderEditorialSection("mc-guidance", asData(editorial.mcGuidance, "Monsterhearts MC guidance"))}${renderEditorialSection("progression", asData(editorial.progression, "Monsterhearts progression"))}${list(playbook.advances, "handbook-advancement")}</section>
+      <section class="handbook-panel handbook-editorial handbook-editorial--progression" data-region="character-state">${renderEditorialSection("progression", asData(editorial.progression, "Monsterhearts progression"))}${list(playbook.advances, "handbook-advancement")}</section>
     </div>
-    <footer class="handbook-panel handbook-mc" data-region="mc-actions"><span class="handbook-kicker">Référence MC</span><h2>Pour la MC</h2>${mcGuidanceParagraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}</footer>
   </main>
   <script>
     const picker = document.querySelector("[data-variant-picker]");
