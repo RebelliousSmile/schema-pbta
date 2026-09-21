@@ -68,6 +68,16 @@ export {
 } from "./presentation/index.js";
 export { getPbtaStatRangePresentation, PBTA_STAT_RANGE_PRESENTATIONS } from "./presentation/index.js";
 export type { PbtaStatRangePresentation, PbtaStatRangeValue } from "./presentation/index.js";
+export {
+  getPbtaMonsterheartsPlaybookPresentation,
+  monsterheartsPlaybookPresentationSchema,
+  PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
+} from "./presentation/index.js";
+export type {
+  PbtaMonsterheartsPlaybookPresentation,
+  PbtaMonsterheartsPrimitive,
+  PbtaMonsterheartsRegionId,
+} from "./presentation/index.js";
 export type {
   PbtaCollectionCardinality,
   PbtaCollectionCreationVariant,

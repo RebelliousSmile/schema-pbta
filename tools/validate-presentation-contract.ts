@@ -6,6 +6,10 @@ import {
   validatePbtaCollectionItemEditor,
 } from "../src/presentation/collections.js";
 import { PBTA_STAT_RANGE_PRESENTATIONS, getPbtaStatRangePresentation } from "../src/presentation/stat-ranges.js";
+import {
+  monsterheartsPlaybookPresentationSchema,
+  PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
+} from "../src/presentation/monsterhearts-playbook.js";
 
 const keys = new Set<string>();
 
@@ -46,6 +50,45 @@ assert.equal(statRange.statsPath, "stats");
 assert.equal(statRange.rangesPath, "statRanges");
 assert.equal(getPbtaStatRangePresentation("masks-playbook"), undefined, "other targets do not publish Monsterhearts ranges");
 
+const monsterheartsPresentation = PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION;
+assert.equal(monsterheartsPresentation.regions.length, 11, "Monsterhearts publishes every complete-playbook region");
+assert.deepEqual(
+  monsterheartsPresentation.canonicalOrder,
+  monsterheartsPresentation.regions.map((region) => region.id),
+  "Monsterhearts canonical order follows the declared regions",
+);
+assert.deepEqual(monsterheartsPresentation.fallbacks, {
+  unplaced: "canonical-order", narrowPane: "canonical-flow", print: "canonical-flow",
+});
+assert.deepEqual(
+  monsterheartsPresentation.pack.variants.map((variant) => [variant.id, variant.presentationOnly]),
+  [["base", true], ["drowned-lake", true]],
+  "Monsterhearts variants remain presentation-only pack metadata",
+);
+
+function layoutFixture(name: string): Record<string, unknown> {
+  return JSON.parse(fs.readFileSync(
+    new URL(`../corpus/presentation/${name}`, import.meta.url),
+    "utf8",
+  )) as Record<string, unknown>;
+}
+
+const unplaced = monsterheartsPlaybookPresentationSchema.parse({
+  ...monsterheartsPresentation,
+  ...layoutFixture("valid/monsterhearts-layout-unplaced.json"),
+});
+assert.deepEqual(unplaced.columns, [["game-identity"]], "unplaced regions are valid and retain canonical fallback");
+for (const invalid of [
+  "invalid/monsterhearts-layout-unknown-region.json",
+  "invalid/monsterhearts-layout-duplicate-region.json",
+  "invalid/monsterhearts-layout-empty-column.json",
+]) {
+  assert.throws(
+    () => monsterheartsPlaybookPresentationSchema.parse({ ...monsterheartsPresentation, ...layoutFixture(invalid) }),
+    `presentation corpus rejects ${invalid}`,
+  );
+}
+
 const unknownItemEditorFixture = JSON.parse(
   fs.readFileSync(
     new URL("../corpus/presentation/invalid/unknown-item-editor.json", import.meta.url),
@@ -58,4 +101,4 @@ assert.throws(
   "presentation corpus rejects an unknown collection item editor",
 );
 
-console.log(`✓ validated ${PBTA_COLLECTION_PRESENTATIONS.length} PbtA collection presentations`);
+console.log(`✓ validated ${PBTA_COLLECTION_PRESENTATIONS.length} PbtA collection presentations and Monsterhearts layout semantics`);

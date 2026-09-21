@@ -13,3 +13,13 @@ export type {
 } from "./collections.js";
 export { getPbtaStatRangePresentation, PBTA_STAT_RANGE_PRESENTATIONS } from "./stat-ranges.js";
 export type { PbtaStatRangePresentation, PbtaStatRangeValue } from "./stat-ranges.js";
+export {
+  getPbtaMonsterheartsPlaybookPresentation,
+  monsterheartsPlaybookPresentationSchema,
+  PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
+} from "./monsterhearts-playbook.js";
+export type {
+  PbtaMonsterheartsPlaybookPresentation,
+  PbtaMonsterheartsPrimitive,
+  PbtaMonsterheartsRegionId,
+} from "./monsterhearts-playbook.js";
