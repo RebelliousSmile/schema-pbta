@@ -1,6 +1,6 @@
 ---
 objective: "Every semantic-version tag publishes an immutable schema-pbta tarball and checksum, including the previously missed v5.6.0 release."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Publish immutable schema-pbta releases
