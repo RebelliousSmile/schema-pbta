@@ -5,6 +5,7 @@ import {
   type PbtaCollectionPresentation,
   validatePbtaCollectionItemEditor,
 } from "../src/presentation/collections.js";
+import { PBTA_STAT_RANGE_PRESENTATIONS, getPbtaStatRangePresentation } from "../src/presentation/stat-ranges.js";
 
 const keys = new Set<string>();
 
@@ -36,6 +37,14 @@ assert.ok(
   PBTA_COLLECTION_PRESENTATIONS.some((entry) => entry.target === "masks-playbook" && entry.path === "editorial.playAdvice.paragraphs"),
   "other playbook targets retain play advice editing",
 );
+
+assert.equal(PBTA_STAT_RANGE_PRESENTATIONS.length, 1, "exactly one stat-range descriptor is published");
+const statRange = getPbtaStatRangePresentation("monsterhearts-playbook");
+assert.ok(statRange, "Monsterhearts publishes stat-range presentation metadata");
+assert.deepEqual(statRange.order, ["min", "current", "max"], "stat range order is min/current/max");
+assert.equal(statRange.statsPath, "stats");
+assert.equal(statRange.rangesPath, "statRanges");
+assert.equal(getPbtaStatRangePresentation("masks-playbook"), undefined, "other targets do not publish Monsterhearts ranges");
 
 const unknownItemEditorFixture = JSON.parse(
   fs.readFileSync(

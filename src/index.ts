@@ -66,6 +66,8 @@ export {
   PBTA_COLLECTION_PRESENTATIONS,
   validatePbtaCollectionItemEditor,
 } from "./presentation/index.js";
+export { getPbtaStatRangePresentation, PBTA_STAT_RANGE_PRESENTATIONS } from "./presentation/index.js";
+export type { PbtaStatRangePresentation, PbtaStatRangeValue } from "./presentation/index.js";
 export type {
   PbtaCollectionCardinality,
   PbtaCollectionCreationVariant,
