@@ -1,6 +1,6 @@
 ---
 objective: "Monsterhearts playbooks accept and present only their canonical editorial regions, without requiring play advice or MC guidance."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Optional non-Monsterhearts editorial regions
