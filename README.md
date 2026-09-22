@@ -265,6 +265,22 @@ in [`handbook/shared/callout-contract.md`](./handbook/shared/callout-contract.md
 The compatibility and release policy is documented in
 [`docs/compatibility.md`](./docs/compatibility.md).
 
+### Cross-repository release train
+
+Daily CI keeps a fixed compatibility baseline: it checks the schema commit under
+test against the immutable consumer and provider pins in
+[`cross-tool.config.json`](./cross-tool.config.json). It does not publish a
+release.
+
+Promotion uses the separate release-train contract. A candidate release stages
+the final-version tarball once, records its SHA-256 and the exact Lantern and
+Handbook commits, and runs each consumer's `npm run release-train:assert --
+<manifest>` proof. Only evidence from both consumers for that same archive may
+promote it; the final GitHub Release attaches the already verified bytes without
+rebuilding them. The protocol is checked locally with
+`npm run validate:release-train` and is described in
+[`docs/compatibility.md`](./docs/compatibility.md).
+
 ## Derived work
 
 This repository is derived from

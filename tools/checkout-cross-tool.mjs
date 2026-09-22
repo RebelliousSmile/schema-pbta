@@ -27,11 +27,13 @@ function git(args, cwd = root) {
   return result.stdout.trim();
 }
 
-const participants = [
-  ...entries(raw.providers, "provider"),
-  ...entries(raw.lantern, "lantern"),
-  ...entries(raw.handbook, "handbook"),
-];
+const participants = Array.isArray(raw.consumers)
+  ? raw.consumers.map((consumer) => ({ ...consumer, ...consumer.proof }))
+  : [
+    ...entries(raw.providers, "provider"),
+    ...entries(raw.lantern, "lantern"),
+    ...entries(raw.handbook, "handbook"),
+  ];
 
 if (printPaths) {
   for (const participant of participants) console.log(participant.path);

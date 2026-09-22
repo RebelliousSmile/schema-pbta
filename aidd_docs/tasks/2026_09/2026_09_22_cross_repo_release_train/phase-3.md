@@ -1,0 +1,59 @@
+---
+status: pending
+---
+
+# Instruction: Require consumer adoption evidence
+
+## Architecture projection
+
+> Tree of the final files. ✅ create · ✏️ modify · ❌ delete
+
+```txt
+.
+├── docs/compatibility.md ✏️ link consumer proof protocol and exact final-pin policy
+├── cross-tool.release-train.fixture.json ✏️ name real consumer proof command contracts once their issues land
+├── aidd_docs/tasks/2026_09/2026_09_22_cross_repo_release_train/ ✏️ record linked consumer issue and release-train verification evidence
+├── RebelliousSmile/lantern#20 ↗️ consumer-owned active-lockfile, Vite, and variant proof
+└── RebelliousSmile/obsidian-handbook#49 ↗️ consumer-owned package-pin, source-pack, and render proof
+```
+
+## User Journey
+
+```mermaid
+flowchart TD
+  A[Lantern #20 proof] --> C[Release-train protocol]
+  B[Handbook #49 proof] --> C
+  C --> D[Schema final release]
+  D --> E[Consumers pin final asset]
+```
+
+## Test Scope
+
+```mermaid
+---
+title: Test scope
+---
+journey
+  section Setup
+    consumer tickets publish the canonical proof interface => train fixture references both consumer implementations: 5: cli
+  section Happy path
+    run candidate train => Lantern Vite and Handbook install/render proofs pass: 5: cli
+  section Edge case - lock divergence
+    make an active consumer lock resolve another version => consumer proof and train fail: 5: cli
+  section Edge case - local fallback
+    introduce a consumer-local path map or semantic fallback => consumer proof fails: 5: cli
+```
+
+## Tasks to do
+
+### `1)` Integrate consumer-owned proofs
+
+1. Track Lantern #20 and Handbook #49 as prerequisites; do not replace their adapters or renderers from schema-pbta.
+2. Register their implementations of the canonical proof interface in the train fixture after the consumer tickets provide them.
+3. Verify the first complete Monsterhearts train against Lantern #19, including base and drowned-lake resources; after byte-identical promotion, pin both consumers to the final immutable release.
+
+## Test acceptance criteria
+
+| Task | Acceptance criteria |
+| --- | --- |
+| 1 | The first Monsterhearts promotion proves both consumers use the selected release and no consumer needs a local semantic or resource-path fallback. |

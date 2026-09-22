@@ -1,0 +1,25 @@
+{
+  "candidate": {
+    "releaseUrl": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v8.4.2-rc.1/schema-pbta-8.4.2.tgz",
+    "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "stagingTag": "v8.4.2-rc.1",
+    "finalTag": "v8.4.2",
+    "providerCommit": "0123456789abcdef0123456789abcdef01234567"
+  },
+  "consumers": [
+    {
+      "role": "lantern",
+      "repository": "https://github.com/RebelliousSmile/lantern.git",
+      "ref": "1234567890abcdef1234567890abcdef12345678",
+      "path": "lantern",
+      "proof": { "interface": "npm-run-release-train-assert", "manifest": "release-train.manifest.json" }
+    },
+    {
+      "role": "handbook",
+      "repository": "https://github.com/RebelliousSmile/obsidian-handbook.git",
+      "ref": "abcdef0123456789abcdef0123456789abcdef01",
+      "path": "handbook",
+      "proof": { "interface": "npm-run-release-train-assert", "manifest": "release-train.manifest.json" }
+    }
+  ]
+}
