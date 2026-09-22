@@ -288,6 +288,12 @@ instead of proving package manifest, lock and installed candidate agree.
 Consumer evidence names the canonical `owner/repository` identity; the runner
 derives its HTTPS clone URL separately.
 
+Before a train can run, each consumer prepares a dedicated candidate-adoption
+branch: it pins the candidate URL in `package.json`, regenerates and verifies its
+active lockfile SRI, then commits that frozen dependency graph. The train receives
+only that resulting commit SHA. It checks it out detached in a disposable
+workspace and never rewrites a published consumer checkout or lockfile.
+
 `schema-pbta` is the first rollout, not an exception: the peer providers
 `schema-in-the-mist` and `schema-adrenaline` must apply the same candidate,
 consumer-evidence and byte-identical-promotion rule to their own releases. Their

@@ -76,6 +76,20 @@ repository and commit.
 The runner derives the HTTPS clone URL from that identity; the evidence never
 depends on a transport-specific clone URL.
 
+### Consumer candidate adoption
+
+The producer supplies a staged archive URL, SHA-256 and npm SHA-512 SRI. Each
+consumer then owns one short-lived candidate-adoption branch: it writes the URL
+to `package.json`, regenerates its active lockfile until the stable release URL
+and SRI are recorded, verifies its own application proof, and commits the result.
+The train manifest names the resulting full commit SHA, never the branch name.
+
+The central runner does not edit that ref, its package manifest, or its lockfile.
+It only creates a disposable detached checkout, runs the package manager with the
+frozen committed lock, writes the ephemeral proof manifest/evidence there, and
+executes the consumer-owned assertion. This preserves consumer ownership while
+making the promoted graph reproducible.
+
 Promotion downloads those candidate bytes and attaches the SHA-verified asset to
 the final immutable tag without invoking `npm pack` again. A missing consumer,
 wrong SHA, or a rebuild blocks promotion.

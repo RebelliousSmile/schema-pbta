@@ -51,7 +51,7 @@ journey
 
 ### `1)` Integrate consumer-owned proofs
 
-1. Track Lantern #20 as the remaining host prerequisite; #49 supplies Handbook's proof foundation and #52 (Handbook v2.26.0) supplies its canonical manifest/evidence interface. Do not replace their adapters or renderers from schema-pbta.
+1. Track Lantern #20 as the remaining host prerequisite. Lantern must first commit its candidate URL and SRI-bearing active pnpm lock on a dedicated adoption branch, then provide that immutable commit to the train; #49 supplies Handbook's proof foundation and #52 (Handbook v2.26.0) supplies its canonical manifest/evidence interface. Do not replace their adapters or renderers from schema-pbta.
 2. Register their implementations of the canonical proof interface in the train fixture after the consumer tickets provide them.
 3. Verify the first complete Monsterhearts train against Lantern #19, including base and drowned-lake resources; after byte-identical promotion, pin both consumers to the final immutable release.
 4. Track Mist #23 and Adrenaline #21 as independent provider rollouts: each must apply this protocol to its own archive and preserve the daily shared cross-tool gate. Do not add either as a consumer of the schema-pbta tarball.
