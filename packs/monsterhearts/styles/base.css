@@ -1,0 +1,67 @@
+@import url("./theme-tokens.css");
+
+@font-face {
+  font-family: "IM Fell English";
+  src: url("../assets/fonts/im-fell-english-latin-400-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Averia Serif Libre";
+  src: url("../assets/fonts/averia-serif-libre-latin-700-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+html[data-game="monsterhearts"] {
+  --hb-paper: #fff;
+  --hb-paper-alt: #f3f4f5;
+  --hb-ink: #171416;
+  --hb-muted: #5f5758;
+  --hb-accent: #292326;
+  --hb-accent-2: #643f4b;
+  --hb-line: #857c7e;
+  --hb-radius: .1rem;
+  --hb-body: "IM Fell English", Garamond, Georgia, serif;
+  --hb-display: "IM Fell English", Garamond, Georgia, serif;
+  --hb-texture: url("../assets/images/thorn-heart.svg");
+}
+
+html[data-game="monsterhearts"] body { background: #fff; }
+html[data-game="monsterhearts"] .handbook-sheet { box-shadow: 0 2rem 7rem #29232638; font-size: 1rem; line-height: 1.35; }
+html[data-game="monsterhearts"] .handbook-monsterhearts-sheet { position: relative; padding-inline-end: 3rem; background: var(--hb-paper); }
+html[data-game="monsterhearts"] .handbook-monsterhearts-spine { position: absolute; inset: 0 0 0 auto; z-index: 1; display: flex; align-items: center; width: 3rem; padding-block: 1.5rem; background: #171416; color: #fff; font-family: "IM Fell English", Garamond, Georgia, serif; font-size: 1.15rem; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; }
+html[data-game="monsterhearts"] .handbook-game { min-height: 11rem; background: var(--hb-paper) var(--hb-texture) 94% 50% / 10rem no-repeat; border-block: 1px solid var(--hb-accent); }
+html[data-game="monsterhearts"] h1, html[data-game="monsterhearts"] h2, html[data-game="monsterhearts"] h3 { font-family: var(--hb-display); font-weight: 700; }
+html[data-game="monsterhearts"] h1 { font-size: clamp(2.4rem, 5vw, 4.4rem); font-weight: 400; letter-spacing: .055em; text-transform: uppercase; }
+html[data-game="monsterhearts"] h1, html[data-game="monsterhearts"] h2 { color: var(--hb-ink); }
+html[data-game="monsterhearts"] .handbook-kicker { color: var(--hb-accent-2); }
+html[data-game="monsterhearts"] .handbook-panel { border-color: color-mix(in srgb, var(--hb-accent), transparent 55%); }
+html[data-game="monsterhearts"] .handbook-move h3::after { content: " ◆"; color: var(--hb-accent); font-size: .55em; }
+html[data-game="monsterhearts"] .handbook-result { --line: var(--hb-accent); }
+html[data-game="monsterhearts"] .handbook-panel { border-radius: 0; background: #fff; box-shadow: .18rem .18rem 0 #2923261f; }
+html[data-game="monsterhearts"] .handbook-choice input, html[data-game="monsterhearts"] input[type="checkbox"] { accent-color: var(--hb-accent-2); }
+html[data-game="monsterhearts"] .handbook-monsterhearts-title { position: relative; padding: 1.5rem; border-block-end: 1px solid var(--hb-accent); }
+html[data-game="monsterhearts"] .handbook-monsterhearts-title h1 { margin-block-end: .7rem; font-size: clamp(2rem, 4vw, 3.2rem); text-transform: none; }
+html[data-game="monsterhearts"] .handbook-monsterhearts-title > p { max-width: 72rem; font-style: italic; }
+html[data-game="monsterhearts"] .handbook-monsterhearts-title .handbook-variant { position: absolute; inset: 1rem 1rem auto auto; }
+html[data-game="monsterhearts"] .handbook-monsterhearts-layout { display: grid; gap: 2.5rem; padding: 1.5rem; }
+html[data-game="monsterhearts"] .handbook-monsterhearts-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem; }
+html[data-game="monsterhearts"] .handbook-monsterhearts-column { display: grid; align-content: start; gap: var(--pbta-column-gap, 2.4rem); }
+html[data-game="monsterhearts"] .handbook-monsterhearts-portrait { display: grid; place-items: center; overflow: hidden; width: 100%; aspect-ratio: 4 / 5; max-height: 22rem; margin: 0; border: 1px solid var(--hb-accent); background: var(--hb-paper-alt); color: var(--hb-muted); font-size: .85rem; font-style: italic; text-align: center; }
+html[data-game="monsterhearts"] .handbook-monsterhearts-portrait img { width: 100%; height: 100%; object-fit: cover; }
+html[data-game="monsterhearts"] .handbook-editorial { padding: 0; border: 0; background: transparent; box-shadow: none; }
+html[data-game="monsterhearts"] .handbook-editorial h2 { margin-block-end: .45rem; padding-block-end: .45rem; border-block-end: 1px solid var(--hb-accent); }
+html[data-game="monsterhearts"] .handbook-editorial--darkest-self { padding: .8rem; border: 1px solid var(--hb-accent); background: var(--hb-paper-alt); }
+html[data-game="monsterhearts"] .handbook-editorial--moves .handbook-move { padding: 0 0 1rem; border: 0; border-block-end: 1px solid var(--hb-accent); background: transparent; }
+html[data-game="monsterhearts"] .handbook-editorial--identity .handbook-editorial { margin-block-end: 1rem; }
+html[data-game="monsterhearts"] .handbook-editorial--identity .handbook-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+html[data-game="monsterhearts"] .handbook-editorial--identity .handbook-stat { min-height: auto; padding: .25rem; border: 0; background: transparent; }
+html[data-game="monsterhearts"] .handbook-editorial--identity .handbook-stat dd { font-size: 1.15rem; }
+html[data-game="monsterhearts"] .handbook-editorial--progression .handbook-editorial { margin-block-end: 1rem; }
+html[data-game="monsterhearts"] .handbook-monsterhearts-sheet .handbook-mc { display: none; }
+@media (max-width: 850px) { html[data-game="monsterhearts"] .handbook-monsterhearts-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { html[data-game="monsterhearts"] .handbook-monsterhearts-sheet { padding-inline-end: 2rem; } html[data-game="monsterhearts"] .handbook-monsterhearts-spine { width: 2rem; padding-block: 1rem; font-size: .85rem; } html[data-game="monsterhearts"] .handbook-monsterhearts-title .handbook-variant { position: static; margin-block-start: 1rem; } html[data-game="monsterhearts"] .handbook-monsterhearts-layout { gap: 1.5rem; padding: 1rem; } html[data-game="monsterhearts"] .handbook-monsterhearts-row { grid-template-columns: 1fr; gap: 1.5rem; } }
