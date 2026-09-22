@@ -54,3 +54,22 @@ lockfile. The release SHA-256 is an independent published checksum; the
 lockfile's SRI value is the integrity actually enforced by the package manager.
 Handbook proves esbuild compatibility in its issue #27 and Lantern proves Vite
 compatibility in its issue #2, avoiding a circular producer release.
+
+## Cross-repository release train
+
+The daily `cross-tool.config.json` gate is a fixed regression baseline; it is
+not evidence that a new archive can be promoted. A release candidate instead
+uses a committed release-train manifest with the staged asset URL, its SHA-256,
+the provider commit, and one full commit SHA for each consumer. The staged asset
+has the final package version but lives under an `-rc.N` tag.
+
+`npm run validate:release-train -- <manifest>` rejects mutable refs, arbitrary
+commands, missing consumer roles, or an asset whose URL does not identify the
+staged final-version archive. The only permitted consumer interface is `npm run
+release-train:assert -- <manifest>`. The runner installs the verified archive in
+isolated Lantern and Handbook workspaces and accepts only structured evidence
+that repeats the configured URL, SHA-256, repository and commit.
+
+Promotion downloads those candidate bytes and attaches the SHA-verified asset to
+the final immutable tag without invoking `npm pack` again. A missing consumer,
+wrong SHA, or a rebuild blocks promotion.

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-import { parseReleaseTrainConfig, readReleaseTrainConfig } from "./release-train-config.js";
+import { parseReleaseTrainConfig, parseReleaseTrainEvidence, readReleaseTrainConfig } from "./release-train-config.js";
 
 const source = process.argv[2] ?? "cross-tool.release-train.fixture.json";
 const train = readReleaseTrainConfig(source);
@@ -8,6 +8,15 @@ const train = readReleaseTrainConfig(source);
 assert.throws(
   () => parseReleaseTrainConfig({ ...train, consumers: train.consumers.slice(0, 1) }),
   /Lantern and Handbook exactly once/,
+);
+const evidence = parseReleaseTrainEvidence({
+  status: "passed",
+  artifact: { releaseUrl: train.candidate.releaseUrl, sha256: train.candidate.sha256 },
+  consumer: { role: train.consumers[0].role, repository: train.consumers[0].repository, ref: train.consumers[0].ref },
+}, train.consumers[0], train.candidate);
+assert.throws(
+  () => parseReleaseTrainEvidence({ ...evidence, artifact: { ...evidence.artifact, sha256: "f".repeat(64) } }, train.consumers[0], train.candidate),
+  /another archive SHA-256/,
 );
 assert.throws(
   () => parseReleaseTrainConfig({ ...train, consumers: train.consumers.map((consumer) => ({ ...consumer, ref: "main" })) }),

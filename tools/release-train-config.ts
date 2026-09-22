@@ -28,6 +28,12 @@ export type ReleaseTrainConfig = {
   consumers: ReleaseTrainConsumer[];
 };
 
+export type ReleaseTrainEvidence = {
+  status: "passed";
+  artifact: { releaseUrl: string; sha256: string };
+  consumer: { role: ReleaseTrainConsumerRole; repository: string; ref: string };
+};
+
 const SHA256 = /^[0-9a-f]{64}$/;
 const COMMIT = /^[0-9a-f]{40}$/;
 const FINAL_TAG = /^v(\d+)\.(\d+)\.(\d+)$/;
@@ -108,4 +114,24 @@ export function parseReleaseTrainConfig(raw: unknown): ReleaseTrainConfig {
 
 export function readReleaseTrainConfig(source: string): ReleaseTrainConfig {
   return parseReleaseTrainConfig(JSON.parse(fs.readFileSync(path.resolve(process.cwd(), source), "utf8")));
+}
+
+export function parseReleaseTrainEvidence(raw: unknown, consumer: ReleaseTrainConsumer, candidate: ReleaseTrainConfig["candidate"]): ReleaseTrainEvidence {
+  const source = object(raw, `${consumer.role} proof evidence`);
+  exactKeys(source, ["status", "artifact", "consumer"], `${consumer.role} proof evidence`);
+  assert.equal(source.status, "passed", `${consumer.role} proof did not pass`);
+  const artifact = object(source.artifact, `${consumer.role} proof artifact`);
+  exactKeys(artifact, ["releaseUrl", "sha256"], `${consumer.role} proof artifact`);
+  assert.equal(artifact.releaseUrl, candidate.releaseUrl, `${consumer.role} proof names another release URL`);
+  assert.equal(artifact.sha256, candidate.sha256, `${consumer.role} proof names another archive SHA-256`);
+  const consumerEvidence = object(source.consumer, `${consumer.role} proof consumer`);
+  exactKeys(consumerEvidence, ["role", "repository", "ref"], `${consumer.role} proof consumer`);
+  assert.equal(consumerEvidence.role, consumer.role, `${consumer.role} proof names another role`);
+  assert.equal(consumerEvidence.repository, consumer.repository, `${consumer.role} proof names another repository`);
+  assert.equal(consumerEvidence.ref, consumer.ref, `${consumer.role} proof names another commit`);
+  return {
+    status: "passed",
+    artifact: { releaseUrl: candidate.releaseUrl, sha256: candidate.sha256 },
+    consumer: { role: consumer.role, repository: consumer.repository, ref: consumer.ref },
+  };
 }
