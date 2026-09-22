@@ -34,6 +34,13 @@ function run(command: string, args: string[], cwd = root): string {
   return result.stdout;
 }
 
+function listFiles(directory: string): string[] {
+  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const child = path.join(directory, entry.name);
+    return entry.isDirectory() ? listFiles(child) : [child];
+  });
+}
+
 try {
   const tarball = suppliedTarball
     ? path.resolve(root, suppliedTarball)
@@ -89,6 +96,7 @@ import {
   parseSalvageRunPlaybookToml,
   PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
   PBTA_MONSTERHEARTS_APPEARANCE,
+  PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS,
   getPbtaMonsterheartsPlaybookPresentation,
 } from "schema-pbta";
 
@@ -227,6 +235,38 @@ await assert.rejects(
 `;
   fs.writeFileSync(path.join(consumerRoot, "check.mjs"), checkSource);
   run(process.execPath, ["check.mjs"], consumerRoot);
+
+  const viteRoot = path.join(consumerRoot, "vite-fixture");
+  fs.mkdirSync(path.join(viteRoot, "src"), { recursive: true });
+  fs.writeFileSync(
+    path.join(viteRoot, "index.html"),
+    '<!doctype html><html><body><script type="module" src="/src/main.js"></script></body></html>',
+  );
+  fs.writeFileSync(
+    path.join(viteRoot, "src", "main.js"),
+    `import { PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS } from "schema-pbta";
+const urls = [
+  ...Object.values(PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS.fonts),
+  ...Object.values(PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS.assets),
+  ...Object.values(PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS.variants["drowned-lake"].assetOverrides),
+];
+document.body.innerHTML = urls.map((url) => '<img src="' + url + '">').join("");
+`,
+  );
+  fs.writeFileSync(
+    path.join(viteRoot, "vite.config.js"),
+    "export default { build: { assetsInlineLimit: 0 } };\n",
+  );
+  run(process.execPath, [path.join(root, "node_modules", "vite", "bin", "vite.js"), "build"], viteRoot);
+  const viteOutput = path.join(viteRoot, "dist");
+  const emittedAssets = listFiles(viteOutput).filter((file) => /\.(woff2|svg)$/i.test(file));
+  assert.equal(emittedAssets.length, 4, "Vite must emit every Monsterhearts browser resource");
+  const bundledScript = listFiles(viteOutput)
+    .filter((file) => file.endsWith(".js"))
+    .map((file) => fs.readFileSync(file, "utf8"))
+    .join("\n");
+  assert.match(bundledScript, /assets\/.+\.(?:woff2|svg)/, "Vite entry must contain emitted asset URLs");
+  assert.doesNotMatch(bundledScript, /handbook\//, "Vite entry must not depend on handbook source paths");
 
   const major = Number(packageJson.version.split(".")[0]);
   if (major >= 1) {

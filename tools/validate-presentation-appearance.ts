@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { PBTA_MONSTERHEARTS_APPEARANCE, monsterheartsAppearanceSchema } from "../src/presentation/monsterhearts-appearance.js";
+import { PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS } from "../src/presentation/monsterhearts-appearance-assets.js";
 import { PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION } from "../src/presentation/monsterhearts-playbook.js";
 
 const packRoot = path.join(process.cwd(), "packs", "monsterhearts");
@@ -19,6 +20,28 @@ assert.deepEqual(
   [...PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION.pack.assets].sort(),
   "appearance assets must match the structural descriptor",
 );
+assert.deepEqual(
+  Object.keys(PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS.fonts).sort(),
+  Object.keys(artifact.resources.fonts).sort(),
+  "browser URL fonts must match the appearance descriptor",
+);
+assert.deepEqual(
+  Object.keys(PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS.assets).sort(),
+  Object.keys(artifact.resources.assets).sort(),
+  "browser URL assets must match the appearance descriptor",
+);
+assert.deepEqual(
+  Object.keys(PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS.variants),
+  artifact.variants.map((variant) => variant.id),
+  "browser URL variants must match the appearance descriptor",
+);
+for (const resource of [
+  ...Object.values(PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS.fonts),
+  ...Object.values(PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS.assets),
+  ...Object.values(PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS.variants["drowned-lake"].assetOverrides),
+]) {
+  assert.equal(new URL(resource).protocol, "file:", `invalid browser resource URL: ${resource}`);
+}
 for (const variant of artifact.variants) {
   for (const token of PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION.pack.tokens) {
     assert.equal(typeof variant.tokens[token], "string", `${variant.id} does not resolve ${token}`);

@@ -125,6 +125,13 @@ must not read `handbook/` source paths or provide a local Monsterhearts
 appearance fallback. The bundle contains only original SVGs and OFL-licensed
 fonts. Official artwork remains document-provided through `playbookImage`.
 
+Browser consumers should import `PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS` from
+`schema-pbta`. It exposes Vite-discoverable URLs for every declared font and
+logical SVG asset, including the `drowned-lake` override. The generated
+appearance descriptor deliberately retains its package-relative paths for
+non-browser consumers; neither the URL registry nor visual variants belong in
+portable TOML data.
+
 ## Using the schemas in your tool
 
 ### Install the canonical contract

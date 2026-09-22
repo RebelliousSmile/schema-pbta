@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.4.1] - 2026-09-22
+
+### Fixed
+
+- Export `PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS`, a browser-safe ESM URL API for every Monsterhearts font and logical SVG asset, and verify it through a Vite build from the packed archive.
+
 ## [8.4.0] - 2026-09-22
 
 ### Added
