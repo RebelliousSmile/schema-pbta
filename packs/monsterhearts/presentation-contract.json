@@ -158,6 +158,7 @@
   },
   "pack": {
     "id": "monsterhearts",
+    "appearanceArtifact": "appearance-contract.json",
     "tokens": [
       "--monsterhearts-title-font",
       "--monsterhearts-title-ink",

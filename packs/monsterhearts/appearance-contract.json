@@ -1,0 +1,43 @@
+{
+  "target": "monsterhearts-playbook",
+  "appearanceVersion": 1,
+  "resources": {
+    "fonts": {
+      "IM Fell English": "assets/fonts/im-fell-english-latin-400-normal.woff2",
+      "Averia Serif Libre": "assets/fonts/averia-serif-libre-latin-700-normal.woff2"
+    },
+    "stylesheets": [
+      "styles/theme-tokens.css",
+      "styles/base.css",
+      "styles/variants/drowned-lake.css",
+      "assets/styles/callouts.css"
+    ],
+    "assets": {
+      "game-mark": "assets/images/thorn-heart.svg",
+      "variant-mark": "assets/variants/drowned-lake/zine-lake.svg"
+    }
+  },
+  "variants": [
+    {
+      "id": "base",
+      "tokens": {
+        "--monsterhearts-title-font": "'IM Fell English', 'Averia Serif Libre', Garamond, Georgia, serif",
+        "--monsterhearts-title-ink": "#292326",
+        "--pbta-column-gap": "2.4rem",
+        "--pbta-column-rule": "#292326"
+      }
+    },
+    {
+      "id": "drowned-lake",
+      "tokens": {
+        "--monsterhearts-title-font": "'IM Fell English', 'Averia Serif Libre', Garamond, Georgia, serif",
+        "--monsterhearts-title-ink": "#f4f0ec",
+        "--pbta-column-gap": "2.4rem",
+        "--pbta-column-rule": "#7457bd"
+      },
+      "assetOverrides": {
+        "variant-mark": "assets/variants/drowned-lake/zine-lake.svg"
+      }
+    }
+  ]
+}

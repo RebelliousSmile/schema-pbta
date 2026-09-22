@@ -41,6 +41,7 @@ export const monsterheartsPlaybookPresentationSchema = z.strictObject({
   }),
   pack: z.strictObject({
     id: z.literal("monsterhearts"),
+    appearanceArtifact: z.literal("appearance-contract.json"),
     tokens: z.array(z.string().regex(/^--[a-z0-9-]+$/)).min(1),
     assets: z.array(z.enum(["game-mark", "variant-mark"])).min(1),
     variants: z.array(z.strictObject({
@@ -108,6 +109,7 @@ export const PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION: PbtaMonsterheartsPlaybook
   fallbacks: { unplaced: "canonical-order", narrowPane: "canonical-flow", print: "canonical-flow" },
   pack: {
     id: "monsterhearts",
+    appearanceArtifact: "appearance-contract.json",
     tokens: ["--monsterhearts-title-font", "--monsterhearts-title-ink", "--pbta-column-gap", "--pbta-column-rule"],
     assets: ["game-mark", "variant-mark"],
     variants: [{ id: "base", presentationOnly: true }, { id: "drowned-lake", presentationOnly: true }],

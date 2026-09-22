@@ -78,6 +78,8 @@ export type {
   PbtaMonsterheartsPrimitive,
   PbtaMonsterheartsRegionId,
 } from "./presentation/index.js";
+export { getPbtaMonsterheartsAppearance, monsterheartsAppearanceSchema, PBTA_MONSTERHEARTS_APPEARANCE } from "./presentation/index.js";
+export type { PbtaMonsterheartsAppearance } from "./presentation/index.js";
 export type {
   PbtaCollectionCardinality,
   PbtaCollectionCreationVariant,
