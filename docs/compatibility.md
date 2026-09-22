@@ -90,6 +90,12 @@ their existing-version lock entries to stable URLs and SRI in the same commit.
 This is lock provenance repair, not a coordinated version upgrade: changing a
 peer provider version belongs to that provider's separate release work.
 
+For Lantern, the consumer-owned generator accepts an explicit URL/SRI pair for
+each of `schema-pbta`, `schema-in-the-mist`, and `schema-adrenaline`. It may
+rewrite only those three direct archive entries and their importer records; it
+must reject a version change or any transitive-lock rewrite before the clean
+frozen install, Vite build and evidence run.
+
 The central runner does not edit that ref, its package manifest, or its lockfile.
 It only creates a disposable detached checkout, runs the package manager with the
 frozen committed lock, writes the ephemeral proof manifest/evidence there, and
