@@ -1,6 +1,6 @@
 ---
 objective: "Publish a versioned Monsterhearts appearance bundle that lets consumers resolve every declared presentation token, asset, and variant from the installed schema-pbta package."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Publish the Monsterhearts presentation appearance bundle
