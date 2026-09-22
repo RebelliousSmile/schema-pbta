@@ -330,6 +330,7 @@ function renderMonsterheartsPage(
         return panel(region, String(identity.heading), `${Array.isArray(identity.paragraphs) ? identity.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("") : ""}${creation}${list(playbook.backstory, "handbook-value-list")}`);
       }
       case "stat-profiles": return panel(region, "Caractéristiques", `${renderStats(definition, playbook)}${renderStatProfiles(definition, playbook)}`);
+      case "playbook-portrait": return `<figure class="handbook-monsterhearts-portrait" data-region="playbook-portrait"${playbook.playbookImage ? "" : ' data-empty="true"'}>${playbook.playbookImage ? `<img src="${escapeHtml(playbook.playbookImage)}" alt="Portrait de ${escapeHtml(playbook.name)}">` : `<span>Portrait de ${escapeHtml(playbook.name)}</span>`}</figure>`;
       case "playbook-moves": return panel(region, "Actions", renderPlaybookMoves(playbook, moves, definition));
       case "relationships": {
         const strings = playbook.strings && typeof playbook.strings === "object" ? asData(playbook.strings, "Monsterhearts strings") : {};

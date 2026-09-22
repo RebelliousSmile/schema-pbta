@@ -5,6 +5,7 @@ const regionIds = [
   "monsterhearts-opening",
   "character-identity",
   "stat-profiles",
+  "playbook-portrait",
   "playbook-moves",
   "relationships",
   "conditions-and-harm",
@@ -15,7 +16,7 @@ const regionIds = [
 ] as const;
 
 const primitives = [
-  "identity", "editorial-copy", "stat-spread", "action-list", "relationship-ledger",
+  "identity", "editorial-copy", "stat-spread", "portrait", "action-list", "relationship-ledger",
   "condition-harm-tracker", "gear-list", "progression-list",
 ] as const;
 
@@ -76,6 +77,7 @@ export const PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION: PbtaMonsterheartsPlaybook
     { id: "monsterhearts-opening", group: "editorial", primitive: "editorial-copy", fields: ["editorial.opening"] },
     { id: "character-identity", group: "identity", primitive: "identity", fields: ["editorial.identity", "creation", "backstory"] },
     { id: "stat-profiles", group: "identity", primitive: "stat-spread", fields: ["stats", "statRanges", "statProfiles"] },
+    { id: "playbook-portrait", group: "identity", primitive: "portrait", fields: ["playbookImage"] },
     { id: "playbook-moves", group: "playbook", primitive: "action-list", fields: ["moves", "startingMoves", "choiceSets"] },
     { id: "relationships", group: "relationships", primitive: "relationship-ledger", fields: ["strings", "ascendants"] },
     { id: "conditions-and-harm", group: "state", primitive: "condition-harm-tracker", fields: ["conditions", "harm"] },
@@ -85,13 +87,13 @@ export const PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION: PbtaMonsterheartsPlaybook
     { id: "monsterhearts-progression", group: "state", primitive: "progression-list", fields: ["editorial.progression", "advances"] },
   ],
   canonicalOrder: [
-    "game-identity", "monsterhearts-opening", "character-identity", "stat-profiles",
+    "game-identity", "monsterhearts-opening", "character-identity", "stat-profiles", "playbook-portrait",
     "playbook-moves", "relationships", "conditions-and-harm", "gear",
     "monsterhearts-darkest-self", "monsterhearts-sex-move", "monsterhearts-progression",
   ],
   columns: [
     ["monsterhearts-opening", "character-identity", "stat-profiles", "monsterhearts-darkest-self"],
-    ["playbook-moves", "monsterhearts-sex-move"],
+    ["playbook-portrait", "playbook-moves", "monsterhearts-sex-move"],
     ["relationships", "conditions-and-harm", "gear", "monsterhearts-progression"],
   ],
   fallbacks: { unplaced: "canonical-order", narrowPane: "canonical-flow", print: "canonical-flow" },
