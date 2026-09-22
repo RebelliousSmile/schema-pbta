@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.1.1] - 2026-09-22
+
+### Added
+
+- All six Handbook packs now provide their own CSS presentation for the eight shared PbtA callouts, including the optional clock, move, NPC reaction and playbook change callouts.
+- A shared Markdown note demonstrates the callouts, clock segments, progression, links and NPC reactions.
+
+## [8.1.0] - 2026-09-22
+
+### Added
+
+- A shared, optional visual callout contract for clocks, moves, NPC reactions and playbook changes, independent of game data and rules.
+- Validation of pack stylesheet assets and their scoped callout styles.
+
+## [8.0.0] - 2026-09-21
+
+### Added
+
+- Published Monsterhearts layout and collection presentation semantics, including the presentation artifact.
+- Tagged releases now publish their assets through the release workflow.
+
+### Fixed
+
+- Removed a stale schema mirror and corrected release checksum verification and version quoting.
+
 ## [7.0.0] - 2026-09-21
 
 ### Added
@@ -109,6 +134,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Collection presentation documentation now makes the schema-to-consumer
   boundary explicit: consumer registries own implementations and fail closed.
 
+## [5.3.0] - 2026-09-18
+
+### Added
+
+- Closed adapter keys for PbtA collection presentation metadata.
+
+## [5.2.0] - 2026-09-18
+
+### Added
+
+- Published PbtA collection presentation metadata.
+
 ## [5.1.0] - 2026-09-18
 
 ### Added
@@ -179,6 +216,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Archived v1 and v2 schemas are now verified byte-for-byte against their
   immutable release tags during compatibility validation.
+
+## [2.0.0] - 2026-09-16
+
+### Added
+
+- Specialized Monsterhearts and Urban Shadows playbook contracts and portable Handbook capabilities.
+- Validation of the canonical PbtA corpus outside a network connection.
+
+### Changed
+
+- Specialized playbooks became the v2 contract, superseding the v1 shape.
+
+## [1.0.0] - 2026-09-11
+
+### Added
+
+- The canonical PbtA contract, shared corpus and immutable package release.
+- The PbtA Handbook catalogue and Monsterhearts playbook presentation, including Drowned Lake contrast and table styles.
 
 ## [0.3.0] - 2026-09-10
 
