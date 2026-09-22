@@ -1,6 +1,6 @@
 ---
-objective: "Enforce an immutable schema-pbta release train that promotes a candidate only after Lantern and Handbook prove adoption of the exact same artifact."
-status: blocked
+objective: "Enforce one provider-neutral immutable release-train contract before adapters promote schema candidates through Handbook and Lantern."
+status: in-progress
 ---
 
 # Plan: Enforce the cross-repository release train
@@ -9,7 +9,7 @@ status: blocked
 
 | Field | Value |
 | --- | --- |
-| **Goal** | Preserve the daily pinned contract gate while adding a promotion gate that coordinates one schema-pbta candidate with explicit Lantern and Handbook refs and consumer-owned proofs. |
+| **Goal** | Preserve the daily pinned contract gate while defining one manifest/evidence protocol that coordinates a provider candidate with explicit Handbook and Lantern refs and consumer-owned proofs. |
 | **Source** | GitHub issue `RebelliousSmile/schema-pbta#23` |
 
 ## Phases
@@ -32,6 +32,15 @@ status: blocked
 | https://github.com/RebelliousSmile/schema-in-the-mist/issues/23 | Separate provider rollout: Mist owns its own candidate and dependency-lock migration. |
 | https://github.com/RebelliousSmile/schema-adrenaline/issues/21 | Separate provider rollout: Adrenaline owns its own candidate and dependency-lock migration. |
 
+## Recorded progress — 2026-09-23
+
+- The initial PbtA-only protocol, runner and candidate/final promotion workflows exist locally on `feat/cross-repo-release-train`; they are not sufficient to complete the inter-repository train.
+- Two isolated consumer worktrees are clean and ready for convergent validation.
+- Handbook v2.26.0 exposes a PbtA manifest proof, but its input/output is PbtA-specific and incompatible with the current Adrenaline direct-JSON workflow.
+- Lantern `main` has the Monsterhearts renderer from #19 but no published `release-train:assert` proof; #20 remains the host-adapter ticket.
+- A frozen Lantern installation resolves all three direct schema archives. Its adoption commit must retain their versions while recording stable URLs and SRI for `schema-pbta`, `schema-in-the-mist`, and `schema-adrenaline`; signed redirect URLs are invalid.
+- The next implementation unit is therefore the shared envelope, not a provider-specific consumer script.
+
 ## Decisions
 
 | Decision | Why |
@@ -41,3 +50,26 @@ status: blocked
 | Stage the byte-identical final-version tarball under a candidate release, then attach those verified bytes to the final tag without rebuilding. | Consumer evidence must apply to the archive that final consumers receive, not merely to similarly sourced RC bytes. |
 | Let Lantern and Handbook own their proof commands; schema-pbta validates their protocol and provenance. | Runtime adapters remain consumer-owned while the producer enforces the shared delivery boundary. |
 | Track peer-provider rollout independently. | Mist and Adrenaline are peer providers in the shared gate, not consumers of the schema-pbta artifact or hidden prerequisites for this plan. |
+| Define a protocol-versioned, provider-neutral envelope before consumer adapters. | Handbook and Adrenaline currently exchange incompatible proof shapes; a common contract prevents a special format per provider. |
+| Let the orchestrator compare evidence only, never dispatch provider-specific commands. | It can enforce equality and provenance without owning consumer journeys. |
+
+## Target common envelope
+
+```json
+{
+  "protocol": 1,
+  "candidate": {
+    "provider": "schema-pbta",
+    "releaseUrl": "https://…",
+    "sha256": "…",
+    "integrity": "sha512-…",
+    "version": "8.4.2",
+    "stagingTag": "v8.4.2-rc.1",
+    "finalTag": "v8.4.2",
+    "providerCommit": "<40-char SHA>"
+  },
+  "consumers": [{ "role": "handbook", "repository": "owner/repository", "ref": "<40-char SHA>" }]
+}
+```
+
+Each evidence file repeats the complete candidate, identifies exactly one resolved consumer, attests its lock/integrity state, and records an opaque executed journey (`id`, `status`, `checks`). The orchestrator compares those fields strictly against the manifest and does not interpret a provider-specific command or journey name.

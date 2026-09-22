@@ -4,6 +4,14 @@ status: pending
 
 # Instruction: Require consumer adoption evidence
 
+## Reopened delivery order
+
+1. Implement and fixture-test phase 1's common envelope in schema-pbta.
+2. Adapt Handbook's reusable PbtA proof to emit common evidence for PbtA and Adrenaline candidates.
+3. Implement Lantern's same adapter, including a clean frozen installation of its complete schema graph and its Vite journey.
+4. Refactor the Adrenaline workflow from provider-specific direct JSON to common evidence consumption.
+5. Run the first isolated, convergent train; only then mark any phase done.
+
 ## Architecture projection
 
 > Tree of the final files. ✅ create · ✏️ modify · ❌ delete
@@ -13,11 +21,11 @@ status: pending
 ├── docs/compatibility.md ✏️ link consumer proof protocol and exact final-pin policy
 ├── cross-tool.release-train.fixture.json ✏️ name real consumer proof command contracts once their issues land
 ├── aidd_docs/tasks/2026_09/2026_09_22_cross_repo_release_train/ ✏️ record linked consumer issue and release-train verification evidence
-├── RebelliousSmile/lantern#20 ↗️ consumer-owned active-lockfile, Vite, and variant proof
-├── RebelliousSmile/obsidian-handbook#49 ↗️ closed consumer-owned package-pin, source-pack, and render proof
-└── RebelliousSmile/obsidian-handbook#52 ✅ canonical manifest/evidence adapter for the #49 proof (Handbook v2.26.0)
-├── RebelliousSmile/schema-in-the-mist#23 ↗️ peer-provider rollout for its own candidate archives
-└── RebelliousSmile/schema-adrenaline#21 ↗️ peer-provider rollout for its own candidate archives
+├── RebelliousSmile/lantern#20 ↗️ add common-envelope adapter, clean frozen lock and Vite journey
+├── RebelliousSmile/obsidian-handbook#49 ✅ PbtA package-pin, source-pack and render proof foundation
+├── RebelliousSmile/obsidian-handbook#52 ✅ PbtA manifest-proof foundation, to adapt to the common envelope
+├── RebelliousSmile/schema-in-the-mist#23 ↗️ provider rollout after common-envelope convergence
+└── RebelliousSmile/schema-adrenaline#21 ↗️ refactor direct-JSON workflow to consume common evidence
 ```
 
 ## User Journey

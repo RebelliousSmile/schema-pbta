@@ -1,8 +1,12 @@
 ---
-status: done
+status: pending
 ---
 
 # Instruction: Orchestrate candidate validation and promotion
+
+## Reopened scope
+
+The existing runner and workflows are PbtA-shaped. After phase 1 defines the common envelope, refactor them to read manifest/evidence files only. The orchestrator must compare candidate identity, declared consumer SHA, lock attestation and journey status; it must not know whether a proof is PbtA, Mist or Adrenaline, nor consume a provider-specific direct JSON result.
 
 ## Architecture projection
 
