@@ -376,6 +376,7 @@ function renderMonsterheartsPage(
 </head>
 <body>
   <main class="handbook-sheet handbook-monsterhearts-sheet" data-handbook-preview>
+    <div class="handbook-monsterhearts-spine" aria-hidden="true">${escapeHtml(playbook.name)}</div>
     <header class="handbook-monsterhearts-title" data-region="game-identity"><span class="handbook-kicker">Livret Monsterhearts</span><h1>${escapeHtml(playbook.name)}</h1><p>${escapeHtml(playbook.description)}</p><label class="handbook-variant">Variante<select data-variant-picker>${variantOptions}</select></label></header>
     <div class="handbook-monsterhearts-layout">
       ${layout}
