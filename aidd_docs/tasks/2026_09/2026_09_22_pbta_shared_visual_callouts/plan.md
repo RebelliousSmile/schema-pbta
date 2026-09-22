@@ -1,6 +1,6 @@
 ---
 objective: "Every PbtA pack exposes the same optional visual callouts for clocks, moves, NPC reactions, and playbook changes, while each pack controls their appearance without changing game data."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Callouts visuels PbtA communs
