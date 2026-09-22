@@ -290,8 +290,11 @@ derives its HTTPS clone URL separately.
 
 Before a train can run, each consumer prepares a dedicated candidate-adoption
 branch: it pins the candidate URL in `package.json`, regenerates and verifies its
-active lockfile SRI, then commits that frozen dependency graph. The train receives
-only that resulting commit SHA. It checks it out detached in a disposable
+active lockfile SRI, then commits that frozen dependency graph. If the consumer
+installs other direct schema release archives in the same graph, their existing
+versions stay fixed but their lock entries must also be normalized to stable URLs
+with SRI; otherwise a clean frozen install cannot prove anything. The train
+receives only that resulting commit SHA. It checks it out detached in a disposable
 workspace and never rewrites a published consumer checkout or lockfile.
 
 `schema-pbta` is the first rollout, not an exception: the peer providers

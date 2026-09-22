@@ -84,6 +84,12 @@ to `package.json`, regenerates its active lockfile until the stable release URL
 and SRI are recorded, verifies its own application proof, and commits the result.
 The train manifest names the resulting full commit SHA, never the branch name.
 
+The branch must make the whole frozen dependency graph installable in a clean
+store. A consumer with other direct schema release archives therefore normalizes
+their existing-version lock entries to stable URLs and SRI in the same commit.
+This is lock provenance repair, not a coordinated version upgrade: changing a
+peer provider version belongs to that provider's separate release work.
+
 The central runner does not edit that ref, its package manifest, or its lockfile.
 It only creates a disposable detached checkout, runs the package manager with the
 frozen committed lock, writes the ephemeral proof manifest/evidence there, and
