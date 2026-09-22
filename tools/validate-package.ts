@@ -88,6 +88,7 @@ import {
   parseUrbanShadowsPlaybookToml,
   parseSalvageRunPlaybookToml,
   PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
+  PBTA_MONSTERHEARTS_APPEARANCE,
   getPbtaMonsterheartsPlaybookPresentation,
 } from "schema-pbta";
 
@@ -129,6 +130,18 @@ assert.deepEqual(
   PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
   "the package presentation artifact must equal its ESM export",
 );
+
+const appearanceUrl = import.meta.resolve("schema-pbta/packs/monsterhearts/appearance-contract.json");
+const appearance = JSON.parse(fs.readFileSync(new URL(appearanceUrl), "utf8"));
+assert.deepEqual(appearance, PBTA_MONSTERHEARTS_APPEARANCE, "the package appearance artifact must equal its ESM export");
+for (const resource of [
+  ...Object.values(appearance.resources.fonts),
+  ...appearance.resources.stylesheets,
+  ...Object.values(appearance.resources.assets),
+]) {
+  const resourceUrl = import.meta.resolve("schema-pbta/packs/monsterhearts/" + resource);
+  assert.ok(fs.statSync(new URL(resourceUrl)).isFile(), "missing exported appearance resource " + resource);
+}
 
 const corpusUrl = import.meta.resolve("schema-pbta/corpus/valid/playbook-minimal.toml");
 const playbookSource = fs.readFileSync(new URL(corpusUrl), "utf8");

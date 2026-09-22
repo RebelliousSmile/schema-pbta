@@ -1,0 +1,13 @@
+{
+  "variant": "base",
+  "tokens": {
+    "--monsterhearts-title-font": "'IM Fell English', 'Averia Serif Libre', Garamond, Georgia, serif",
+    "--monsterhearts-title-ink": "#292326",
+    "--pbta-column-gap": "2.4rem",
+    "--pbta-column-rule": "#292326"
+  },
+  "assets": {
+    "game-mark": "assets/images/thorn-heart.svg",
+    "variant-mark": "assets/variants/drowned-lake/zine-lake.svg"
+  }
+}
