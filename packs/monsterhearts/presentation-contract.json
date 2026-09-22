@@ -122,23 +122,33 @@
     "monsterhearts-sex-move",
     "monsterhearts-progression"
   ],
-  "columns": [
+  "rows": [
     [
-      "monsterhearts-opening",
-      "character-identity",
-      "stat-profiles",
-      "monsterhearts-darkest-self"
+      [
+        "monsterhearts-opening",
+        "monsterhearts-darkest-self",
+        "monsterhearts-sex-move"
+      ],
+      [
+        "playbook-portrait"
+      ],
+      [
+        "playbook-moves"
+      ]
     ],
     [
-      "playbook-portrait",
-      "playbook-moves",
-      "monsterhearts-sex-move"
-    ],
-    [
-      "relationships",
-      "conditions-and-harm",
-      "gear",
-      "monsterhearts-progression"
+      [
+        "conditions-and-harm",
+        "gear"
+      ],
+      [
+        "character-identity",
+        "stat-profiles",
+        "relationships"
+      ],
+      [
+        "monsterhearts-progression"
+      ]
     ]
   ],
   "fallbacks": {

@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.3.0] - 2026-09-22
+
+### Changed
+
+- Give the Monsterhearts portrait its own middle cell in the first three-column row, between editorial content and moves. A second row holds the remaining playbook regions.
+
 ## [8.2.0] - 2026-09-22
 
 ### Added

@@ -359,12 +359,12 @@ function renderMonsterheartsPage(
       default: throw new Error(`Monsterhearts preview cannot render declared region: ${region}`);
     }
   };
-  const columns = PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION.columns ?? [];
-  const placed = new Set(columns.flat());
+  const rows = PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION.rows ?? [];
+  const placed = new Set(rows.flat(2));
   const unplaced = PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION.canonicalOrder.filter((region) => region !== "game-identity" && !placed.has(region));
-  const layout = [...columns, unplaced].filter((column) => column.length > 0).map((column, index) =>
+  const layout = rows.map((row, rowIndex) => `<div class="handbook-monsterhearts-row" data-layout-row="${rowIndex + 1}">${row.map((column, index) =>
     `<div class="handbook-monsterhearts-column" data-layout-column="${index + 1}">${column.map(regional).join("\n")}</div>`,
-  ).join("\n");
+  ).join("\n")}</div>`).join("\n") + (unplaced.length ? `<div class="handbook-monsterhearts-row"><div class="handbook-monsterhearts-column">${unplaced.map(regional).join("\n")}</div></div>` : "");
   return `<!doctype html>
 <html lang="fr" data-game="monsterhearts" data-variant="${escapeHtml(descriptor.defaultVariant)}">
 <head>

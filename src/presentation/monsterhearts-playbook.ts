@@ -33,6 +33,7 @@ export const monsterheartsPlaybookPresentationSchema = z.strictObject({
   })).length(regionIds.length),
   canonicalOrder: z.array(regionId).length(regionIds.length),
   columns: z.array(z.array(regionId).min(1)).min(1).optional(),
+  rows: z.array(z.array(z.array(regionId).min(1)).length(3)).min(1).optional(),
   fallbacks: z.strictObject({
     unplaced: z.literal("canonical-order"),
     narrowPane: z.literal("canonical-flow"),
@@ -55,9 +56,10 @@ export const monsterheartsPlaybookPresentationSchema = z.strictObject({
   if (canonical.size !== layout.canonicalOrder.length || canonical.size !== distinct.size || [...canonical].some((id) => !distinct.has(id))) {
     context.addIssue({ code: "custom", message: "canonicalOrder must contain every declared region exactly once" });
   }
-  const placed = layout.columns?.flat() ?? [];
-  if (new Set(placed).size !== placed.length) context.addIssue({ code: "custom", message: "columns contain a duplicate region" });
-  if (placed.some((id) => !canonical.has(id))) context.addIssue({ code: "custom", message: "columns contain an unknown region" });
+  for (const placed of [layout.columns?.flat() ?? [], layout.rows?.flat(2) ?? []]) {
+    if (new Set(placed).size !== placed.length) context.addIssue({ code: "custom", message: "layout contains a duplicate region" });
+    if (placed.some((id) => !canonical.has(id))) context.addIssue({ code: "custom", message: "layout contains an unknown region" });
+  }
   const variants = layout.pack.variants.map((variant) => variant.id);
   if (variants.join(",") !== "base,drowned-lake") context.addIssue({ code: "custom", message: "pack variants must be base then drowned-lake" });
 });
@@ -91,10 +93,17 @@ export const PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION: PbtaMonsterheartsPlaybook
     "playbook-moves", "relationships", "conditions-and-harm", "gear",
     "monsterhearts-darkest-self", "monsterhearts-sex-move", "monsterhearts-progression",
   ],
-  columns: [
-    ["monsterhearts-opening", "character-identity", "stat-profiles", "monsterhearts-darkest-self"],
-    ["playbook-portrait", "playbook-moves", "monsterhearts-sex-move"],
-    ["relationships", "conditions-and-harm", "gear", "monsterhearts-progression"],
+  rows: [
+    [
+      ["monsterhearts-opening", "monsterhearts-darkest-self", "monsterhearts-sex-move"],
+      ["playbook-portrait"],
+      ["playbook-moves"],
+    ],
+    [
+      ["conditions-and-harm", "gear"],
+      ["character-identity", "stat-profiles", "relationships"],
+      ["monsterhearts-progression"],
+    ],
   ],
   fallbacks: { unplaced: "canonical-order", narrowPane: "canonical-flow", print: "canonical-flow" },
   pack: {
