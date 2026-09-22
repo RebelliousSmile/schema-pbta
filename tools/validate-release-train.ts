@@ -11,7 +11,7 @@ assert.throws(
 );
 const evidence = parseReleaseTrainEvidence({
   status: "passed",
-  artifact: { releaseUrl: train.candidate.releaseUrl, sha256: train.candidate.sha256 },
+  artifact: { releaseUrl: train.candidate.releaseUrl, sha256: train.candidate.sha256, integrity: train.candidate.integrity },
   consumer: { role: train.consumers[0].role, repository: train.consumers[0].repository, ref: train.consumers[0].ref },
 }, train.consumers[0], train.candidate);
 assert.throws(
@@ -19,8 +19,16 @@ assert.throws(
   /another archive SHA-256/,
 );
 assert.throws(
+  () => parseReleaseTrainEvidence({ ...evidence, artifact: { ...evidence.artifact, integrity: "sha512-invalid" } }, train.consumers[0], train.candidate),
+  /another archive integrity/,
+);
+assert.throws(
   () => parseReleaseTrainConfig({ ...train, consumers: train.consumers.map((consumer) => ({ ...consumer, ref: "main" })) }),
   /full commit SHA/,
+);
+assert.throws(
+  () => parseReleaseTrainConfig({ ...train, candidate: { ...train.candidate, integrity: "sha512-not-base64!" } }),
+  /npm SHA-512 SRI/,
 );
 assert.throws(
   () => parseReleaseTrainConfig({ ...train, candidate: { ...train.candidate, releaseUrl: train.candidate.releaseUrl.replace(train.candidate.stagingTag, train.candidate.finalTag) } }),

@@ -60,6 +60,7 @@ compatibility in its issue #2, avoiding a circular producer release.
 The daily `cross-tool.config.json` gate is a fixed regression baseline; it is
 not evidence that a new archive can be promoted. A release candidate instead
 uses a committed release-train manifest with the staged asset URL, its SHA-256,
+its npm SHA-512 SRI,
 the provider commit, and one full commit SHA for each consumer. The staged asset
 has the final package version but lives under an `-rc.N` tag.
 
@@ -67,8 +68,10 @@ has the final package version but lives under an `-rc.N` tag.
 commands, missing consumer roles, or an asset whose URL does not identify the
 staged final-version archive. The only permitted consumer interface is `npm run
 release-train:assert -- <manifest>`. The runner installs the verified archive in
-isolated Lantern and Handbook workspaces and accepts only structured evidence
-that repeats the configured URL, SHA-256, repository and commit.
+isolated Lantern and Handbook workspaces using the consumer's frozen active
+lockfile; it never overlays the candidate with a no-save install. It accepts
+only structured evidence that repeats the configured URL, SHA-256, SRI,
+repository and commit.
 
 Promotion downloads those candidate bytes and attaches the SHA-verified asset to
 the final immutable tag without invoking `npm pack` again. A missing consumer,

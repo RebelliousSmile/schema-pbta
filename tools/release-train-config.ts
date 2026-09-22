@@ -21,6 +21,7 @@ export type ReleaseTrainConfig = {
   candidate: {
     releaseUrl: string;
     sha256: string;
+    integrity: string;
     stagingTag: string;
     finalTag: string;
     providerCommit: string;
@@ -30,7 +31,7 @@ export type ReleaseTrainConfig = {
 
 export type ReleaseTrainEvidence = {
   status: "passed";
-  artifact: { releaseUrl: string; sha256: string };
+  artifact: { releaseUrl: string; sha256: string; integrity: string };
   consumer: { role: ReleaseTrainConsumerRole; repository: string; ref: string };
 };
 
@@ -87,13 +88,15 @@ export function parseReleaseTrainConfig(raw: unknown): ReleaseTrainConfig {
   const source = object(raw, "release train");
   exactKeys(source, ["candidate", "consumers"], "release train");
   const candidate = object(source.candidate, "candidate");
-  exactKeys(candidate, ["releaseUrl", "sha256", "stagingTag", "finalTag", "providerCommit"], "candidate");
+  exactKeys(candidate, ["releaseUrl", "sha256", "integrity", "stagingTag", "finalTag", "providerCommit"], "candidate");
   const releaseUrl = string(candidate.releaseUrl, "candidate.releaseUrl");
   const sha256 = string(candidate.sha256, "candidate.sha256");
+  const integrity = string(candidate.integrity, "candidate.integrity");
   const stagingTag = string(candidate.stagingTag, "candidate.stagingTag");
   const finalTag = string(candidate.finalTag, "candidate.finalTag");
   const providerCommit = string(candidate.providerCommit, "candidate.providerCommit");
   assert.match(sha256, SHA256, "candidate.sha256 must be a lowercase SHA-256");
+  assert.match(integrity, /^sha512-[A-Za-z0-9+/]+={0,2}$/, "candidate.integrity must be an npm SHA-512 SRI value");
   assert.match(providerCommit, COMMIT, "candidate.providerCommit must be a full commit SHA");
   const finalVersion = version(finalTag, FINAL_TAG, "candidate.finalTag");
   assert.equal(version(stagingTag, STAGING_TAG, "candidate.stagingTag"), finalVersion, "candidate tags must name the same final version");
@@ -109,7 +112,7 @@ export function parseReleaseTrainConfig(raw: unknown): ReleaseTrainConfig {
   const consumers = source.consumers.map(readConsumer);
   assert.deepEqual(consumers.map((consumer) => consumer.role).sort(), [...ROLES].sort(), "consumers must name Lantern and Handbook exactly once");
   assert.equal(new Set(consumers.map((consumer) => consumer.path)).size, consumers.length, "consumers must use distinct workspace paths");
-  return { candidate: { releaseUrl, sha256, stagingTag, finalTag, providerCommit }, consumers };
+  return { candidate: { releaseUrl, sha256, integrity, stagingTag, finalTag, providerCommit }, consumers };
 }
 
 export function readReleaseTrainConfig(source: string): ReleaseTrainConfig {
@@ -121,9 +124,10 @@ export function parseReleaseTrainEvidence(raw: unknown, consumer: ReleaseTrainCo
   exactKeys(source, ["status", "artifact", "consumer"], `${consumer.role} proof evidence`);
   assert.equal(source.status, "passed", `${consumer.role} proof did not pass`);
   const artifact = object(source.artifact, `${consumer.role} proof artifact`);
-  exactKeys(artifact, ["releaseUrl", "sha256"], `${consumer.role} proof artifact`);
+  exactKeys(artifact, ["releaseUrl", "sha256", "integrity"], `${consumer.role} proof artifact`);
   assert.equal(artifact.releaseUrl, candidate.releaseUrl, `${consumer.role} proof names another release URL`);
   assert.equal(artifact.sha256, candidate.sha256, `${consumer.role} proof names another archive SHA-256`);
+  assert.equal(artifact.integrity, candidate.integrity, `${consumer.role} proof names another archive integrity`);
   const consumerEvidence = object(source.consumer, `${consumer.role} proof consumer`);
   exactKeys(consumerEvidence, ["role", "repository", "ref"], `${consumer.role} proof consumer`);
   assert.equal(consumerEvidence.role, consumer.role, `${consumer.role} proof names another role`);
@@ -131,7 +135,7 @@ export function parseReleaseTrainEvidence(raw: unknown, consumer: ReleaseTrainCo
   assert.equal(consumerEvidence.ref, consumer.ref, `${consumer.role} proof names another commit`);
   return {
     status: "passed",
-    artifact: { releaseUrl: candidate.releaseUrl, sha256: candidate.sha256 },
+    artifact: { releaseUrl: candidate.releaseUrl, sha256: candidate.sha256, integrity: candidate.integrity },
     consumer: { role: consumer.role, repository: consumer.repository, ref: consumer.ref },
   };
 }

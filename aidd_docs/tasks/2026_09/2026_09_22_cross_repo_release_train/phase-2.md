@@ -51,7 +51,7 @@ journey
 
 ### `1)` Make train results promotion gates
 
-1. Add a runner that checks out only the supplied SHAs, installs the staged final-version archive into each isolated consumer workspace, invokes only the canonical proof interface, and records structured provenance.
+1. Add a runner that checks out only the supplied SHAs, verifies the staged final-version archive's SHA-256 and npm SHA-512 SRI, then lets each consumer's frozen active lock materialize that exact candidate URL before invoking only the canonical proof interface and recording structured provenance. Never overlay it with a no-save install.
 2. Add a dedicated CI workflow for candidate runs; keep it separate from push/PR daily checks so release inputs are explicit.
 3. Make the final-release workflow refuse publication and issue closing without passing Lantern and Handbook evidence for the candidate SHA, then verify the bytes attached to the final tag have that same SHA without rebuilding.
 

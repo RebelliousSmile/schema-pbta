@@ -28,6 +28,10 @@ function sha256(file: string): string {
   return createHash("sha256").update(fs.readFileSync(file)).digest("hex");
 }
 
+function integrity(file: string): string {
+  return `sha512-${createHash("sha512").update(fs.readFileSync(file)).digest("base64")}`;
+}
+
 async function download(url: string, destination: string): Promise<void> {
   const response = await fetch(url, { redirect: "error" });
   assert.ok(response.ok, `candidate archive download failed: ${response.status} ${response.statusText}`);
@@ -54,15 +58,17 @@ async function main(): Promise<void> {
   if (!suppliedArchive) await download(train.candidate.releaseUrl, archive);
   assert.ok(fs.statSync(archive).isFile(), `candidate archive is missing: ${archive}`);
   assert.equal(sha256(archive), train.candidate.sha256, "candidate archive does not match its declared SHA-256");
+  assert.equal(integrity(archive), train.candidate.integrity, "candidate archive does not match its declared npm integrity");
 
   run(process.execPath, [path.join(root, "tools", "checkout-cross-tool.mjs"), path.resolve(source)], workspace);
   const evidence = [];
   for (const consumer of train.consumers) {
     const consumerRoot = path.join(workspace, consumer.path);
     installDependencies(consumerRoot);
-    // Install the verified bytes without changing the committed lockfile. The consumer proof
-    // independently proves that its active lock also names this release URL and integrity.
-    run("npm", ["install", "--no-save", "--package-lock=false", "--ignore-scripts", archive], consumerRoot);
+    // The package manager materialises the candidate from the consumer's committed URL and
+    // frozen active lock. An overlay install would hide a stale lock instead of proving it.
+    const installed = JSON.parse(fs.readFileSync(path.join(consumerRoot, "node_modules", "schema-pbta", "package.json"), "utf8")) as { version?: unknown };
+    assert.equal(installed.version, train.candidate.finalTag.slice(1), `${consumer.role} did not materialise the candidate package version from its frozen lock`);
     const manifest = path.join(consumerRoot, consumer.proof.manifest);
     fs.mkdirSync(path.dirname(manifest), { recursive: true });
     const evidencePath = `${manifest}.evidence.json`;

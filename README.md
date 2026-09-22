@@ -281,6 +281,11 @@ rebuilding them. The protocol is checked locally with
 `npm run validate:release-train` and is described in
 [`docs/compatibility.md`](./docs/compatibility.md).
 
+The runner verifies both the archive SHA-256 and its npm SHA-512 SRI, then uses
+each consumer's frozen active lockfile to materialize the package. It never
+overlays `node_modules` with a no-save install: that would conceal a stale lock
+instead of proving package manifest, lock and installed candidate agree.
+
 `schema-pbta` is the first rollout, not an exception: the peer providers
 `schema-in-the-mist` and `schema-adrenaline` must apply the same candidate,
 consumer-evidence and byte-identical-promotion rule to their own releases. Their

@@ -47,9 +47,12 @@ jobs:
         run: |
           npx --no-install tsx tools/prepare-release.ts --output release-assets
           expected="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.sha256)')"
+          expected_integrity="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.integrity)')"
           archive="release-assets/$(node -p "require('./package.json').name")-$(node -p "require('./package.json').version").tgz"
           actual="$(sha256sum "$archive" | cut -d " " -f 1)"
+          actual_integrity="$(node --input-type=module -e 'import fs from "node:fs"; import { createHash } from "node:crypto"; console.log("sha512-" + createHash("sha512").update(fs.readFileSync(process.argv[1])).digest("base64"))' "$archive")"
           test "$actual" = "$expected"
+          test "$actual_integrity" = "$expected_integrity"
           npm run validate:package -- "$archive"
       - name: Publish the immutable candidate asset
         env:
@@ -91,11 +94,13 @@ jobs:
         run: |
           url="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.releaseUrl)')"
           expected="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.sha256)')"
+          expected_integrity="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.integrity)')"
           archive="schema-pbta-$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.finalTag.slice(1))').tgz"
           curl --fail --location --output "$archive" "$url"
           curl --fail --location --output "$archive.sha256" "$url.sha256"
           (sha256sum --check "$archive.sha256")
           test "$(sha256sum "$archive" | cut -d " " -f 1)" = "$expected"
+          test "$(node --input-type=module -e 'import fs from "node:fs"; import { createHash } from "node:crypto"; console.log("sha512-" + createHash("sha512").update(fs.readFileSync(process.argv[1])).digest("base64"))' "$archive")" = "$expected_integrity"
       - name: Attach the verified bytes to a new immutable final tag
         env:
           GH_TOKEN: ${{ github.token }}
