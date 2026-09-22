@@ -61,7 +61,8 @@ The daily `cross-tool.config.json` gate is a fixed regression baseline; it is
 not evidence that a new archive can be promoted. A release candidate instead
 uses a committed release-train manifest with the staged asset URL, its SHA-256,
 its npm SHA-512 SRI,
-the provider commit, and one full commit SHA for each consumer. The staged asset
+the provider commit, and one canonical GitHub identity plus full commit SHA for
+each consumer. The staged asset
 has the final package version but lives under an `-rc.N` tag.
 
 `npm run validate:release-train -- <manifest>` rejects mutable refs, arbitrary
@@ -72,6 +73,8 @@ isolated Lantern and Handbook workspaces using the consumer's frozen active
 lockfile; it never overlays the candidate with a no-save install. It accepts
 only structured evidence that repeats the configured URL, SHA-256, SRI,
 repository and commit.
+The runner derives the HTTPS clone URL from that identity; the evidence never
+depends on a transport-specific clone URL.
 
 Promotion downloads those candidate bytes and attaches the SHA-verified asset to
 the final immutable tag without invoking `npm pack` again. A missing consumer,

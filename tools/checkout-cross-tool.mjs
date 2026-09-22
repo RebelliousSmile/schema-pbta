@@ -28,7 +28,11 @@ function git(args, cwd = root) {
 }
 
 const participants = Array.isArray(raw.consumers)
-  ? raw.consumers.map((consumer) => ({ ...consumer, ...consumer.proof }))
+  ? raw.consumers.map((consumer) => ({
+    ...consumer,
+    repository: `https://github.com/${consumer.repository}.git`,
+    ...consumer.proof,
+  }))
   : [
     ...entries(raw.providers, "provider"),
     ...entries(raw.lantern, "lantern"),

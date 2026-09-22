@@ -27,7 +27,7 @@ status: blocked
 | https://github.com/RebelliousSmile/schema-pbta/issues/23 | Central release-train goal and promotion conditions. |
 | https://github.com/RebelliousSmile/lantern/issues/20 | Lantern must prove active-lockfile agreement and Vite consumption of the candidate asset API. |
 | https://github.com/RebelliousSmile/obsidian-handbook/issues/49 | Closed foundation: Handbook proves its archive pin and source-pack installation/render path. |
-| https://github.com/RebelliousSmile/obsidian-handbook/issues/52 | Handbook must expose that proof through the canonical manifest/evidence interface. |
+| https://github.com/RebelliousSmile/obsidian-handbook/issues/52 | Closed in Handbook v2.26.0: canonical manifest/evidence interface is available. |
 | https://github.com/RebelliousSmile/lantern/issues/19 | The Monsterhearts adapter is the first concrete consumer of the browser asset contract. |
 | https://github.com/RebelliousSmile/schema-in-the-mist/issues/23 | Mist must adopt the same candidate-evidence-promotion protocol for its own archives. |
 | https://github.com/RebelliousSmile/schema-adrenaline/issues/21 | Adrenaline must adopt the same candidate-evidence-promotion protocol for its own archives. |

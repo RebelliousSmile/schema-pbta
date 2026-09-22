@@ -10,14 +10,14 @@
   "consumers": [
     {
       "role": "lantern",
-      "repository": "https://github.com/RebelliousSmile/lantern.git",
+      "repository": "RebelliousSmile/lantern",
       "ref": "1234567890abcdef1234567890abcdef12345678",
       "path": "lantern",
       "proof": { "interface": "npm-run-release-train-assert", "manifest": "release-train.manifest.json" }
     },
     {
       "role": "handbook",
-      "repository": "https://github.com/RebelliousSmile/obsidian-handbook.git",
+      "repository": "RebelliousSmile/obsidian-handbook",
       "ref": "abcdef0123456789abcdef0123456789abcdef01",
       "path": "handbook",
       "proof": { "interface": "npm-run-release-train-assert", "manifest": "release-train.manifest.json" }

@@ -41,8 +41,8 @@ const FINAL_TAG = /^v(\d+)\.(\d+)\.(\d+)$/;
 const STAGING_TAG = /^v(\d+)\.(\d+)\.(\d+)-rc\.\d+$/;
 const ROLES: ReleaseTrainConsumerRole[] = ["lantern", "handbook"];
 const REPOSITORIES: Record<ReleaseTrainConsumerRole, string> = {
-  lantern: "https://github.com/RebelliousSmile/lantern.git",
-  handbook: "https://github.com/RebelliousSmile/obsidian-handbook.git",
+  lantern: "RebelliousSmile/lantern",
+  handbook: "RebelliousSmile/obsidian-handbook",
 };
 
 function object(value: unknown, label: string): Record<string, unknown> {
@@ -71,7 +71,7 @@ function readConsumer(value: unknown, index: number): ReleaseTrainConsumer {
   const role = string(source.role, `consumers[${index}].role`) as ReleaseTrainConsumerRole;
   assert.ok(ROLES.includes(role), `consumers[${index}].role must be lantern or handbook`);
   const repository = string(source.repository, `consumers[${index}].repository`);
-  assert.equal(repository, REPOSITORIES[role], `consumers[${index}] must name the canonical ${role} repository`);
+  assert.equal(repository, REPOSITORIES[role], `consumers[${index}] must name the canonical ${role} GitHub identity`);
   const ref = string(source.ref, `consumers[${index}].ref`);
   assert.match(ref, COMMIT, `consumers[${index}].ref must be a full commit SHA`);
   const consumerPath = string(source.path, `consumers[${index}].path`);
