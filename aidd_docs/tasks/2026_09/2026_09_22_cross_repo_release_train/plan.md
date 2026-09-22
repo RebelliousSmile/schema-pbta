@@ -1,6 +1,6 @@
 ---
 objective: "Enforce an immutable schema-pbta release train that promotes a candidate only after Lantern and Handbook prove adoption of the exact same artifact."
-status: in-progress
+status: blocked
 ---
 
 # Plan: Enforce the cross-repository release train
