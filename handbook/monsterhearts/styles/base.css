@@ -1,5 +1,13 @@
 @import url("../../shared/theme-tokens.css");
 
+@font-face {
+  font-family: "IM Fell English";
+  src: url("../assets/fonts/im-fell-english-latin-400-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 html[data-game="monsterhearts"] {
   --hb-paper: #faf8f2;
   --hb-paper-alt: #eeeae1;

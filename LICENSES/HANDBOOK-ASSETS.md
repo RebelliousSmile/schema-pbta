@@ -18,15 +18,15 @@ official logo, illustration, layout, or game text is included in these files.
 
 ## Fonts
 
-The Urban Shadows presentation pack includes two open typefaces downloaded as
-WOFF2 files from Fontsource:
+The Monsterhearts and Urban Shadows presentation packs include open typefaces
+downloaded as WOFF2 files from Fontsource:
 
 | Family | File | Upstream | License |
 | --- | --- | --- | --- |
+| IM Fell English Roman | `handbook/monsterhearts/assets/fonts/im-fell-english-latin-400-normal.woff2` | `@fontsource/im-fell-english@5.3.0` | SIL Open Font License 1.1 |
 | League Gothic | `handbook/urban-shadows/assets/fonts/league-gothic-latin-400-normal.woff2` | `@fontsource/league-gothic@5.3.0` | SIL Open Font License 1.1 |
 | Source Serif 4 | `handbook/urban-shadows/assets/fonts/source-serif-4-latin-wght-normal.woff2` | `@fontsource-variable/source-serif-4@5.3.0` | SIL Open Font License 1.1 |
 
-These are freely redistributable substitutes selected for the pack; they are
-not claimed to be the original Urban Shadows typefaces. The SIL Open Font
-License text accompanies the files in
-`handbook/urban-shadows/assets/fonts/OFL-1.1.txt`.
+The Urban Shadows faces are freely redistributable substitutes and are not
+claimed to be the original game's typefaces. The SIL Open Font License text
+accompanies each pack's font files in `assets/fonts/OFL-1.1.txt`.
