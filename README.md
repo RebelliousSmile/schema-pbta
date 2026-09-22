@@ -281,6 +281,12 @@ rebuilding them. The protocol is checked locally with
 `npm run validate:release-train` and is described in
 [`docs/compatibility.md`](./docs/compatibility.md).
 
+`schema-pbta` is the first rollout, not an exception: the peer providers
+`schema-in-the-mist` and `schema-adrenaline` must apply the same candidate,
+consumer-evidence and byte-identical-promotion rule to their own releases. Their
+tracked adoption work is [Mist #23](https://github.com/RebelliousSmile/schema-in-the-mist/issues/23)
+and [Adrenaline #21](https://github.com/RebelliousSmile/schema-adrenaline/issues/21).
+
 ## Derived work
 
 This repository is derived from

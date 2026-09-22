@@ -15,6 +15,8 @@ status: pending
 ├── aidd_docs/tasks/2026_09/2026_09_22_cross_repo_release_train/ ✏️ record linked consumer issue and release-train verification evidence
 ├── RebelliousSmile/lantern#20 ↗️ consumer-owned active-lockfile, Vite, and variant proof
 └── RebelliousSmile/obsidian-handbook#49 ↗️ consumer-owned package-pin, source-pack, and render proof
+├── RebelliousSmile/schema-in-the-mist#23 ↗️ peer-provider rollout for its own candidate archives
+└── RebelliousSmile/schema-adrenaline#21 ↗️ peer-provider rollout for its own candidate archives
 ```
 
 ## User Journey
@@ -51,9 +53,11 @@ journey
 1. Track Lantern #20 and Handbook #49 as prerequisites; do not replace their adapters or renderers from schema-pbta.
 2. Register their implementations of the canonical proof interface in the train fixture after the consumer tickets provide them.
 3. Verify the first complete Monsterhearts train against Lantern #19, including base and drowned-lake resources; after byte-identical promotion, pin both consumers to the final immutable release.
+4. Track Mist #23 and Adrenaline #21 as independent provider rollouts: each must apply this protocol to its own archive and preserve the daily shared cross-tool gate. Do not add either as a consumer of the schema-pbta tarball.
 
 ## Test acceptance criteria
 
 | Task | Acceptance criteria |
 | --- | --- |
 | 1 | The first Monsterhearts promotion proves both consumers use the selected release and no consumer needs a local semantic or resource-path fallback. |
+| 4 | The ecosystem method is not considered fully enforced until Mist and Adrenaline each publish their own immutable candidate-evidence-promotion implementation. |

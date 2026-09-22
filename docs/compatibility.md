@@ -73,3 +73,11 @@ that repeats the configured URL, SHA-256, repository and commit.
 Promotion downloads those candidate bytes and attaches the SHA-verified asset to
 the final immutable tag without invoking `npm pack` again. A missing consumer,
 wrong SHA, or a rebuild blocks promotion.
+
+This is a provider-neutral delivery rule. `schema-pbta` hosts its first
+implementation; `schema-in-the-mist` and `schema-adrenaline` must implement the
+same protocol for their own candidate archives, tracked respectively in
+[Mist #23](https://github.com/RebelliousSmile/schema-in-the-mist/issues/23) and
+[Adrenaline #21](https://github.com/RebelliousSmile/schema-adrenaline/issues/21).
+They remain peer providers in the daily shared cross-tool gate, not consumers of
+the `schema-pbta` tarball.
