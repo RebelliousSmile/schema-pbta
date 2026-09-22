@@ -25,6 +25,9 @@ body.brumes--monsterhearts .callout:is(
 body.brumes--monsterhearts .callout[data-brumes-callout-style^="pbta-"] .callout-icon {
   display: none;
 }
+body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] .callout-icon {
+  display: flex;
+}
 body.brumes--monsterhearts .callout[data-brumes-callout-style^="pbta-"] .callout-title {
   color: var(--mh-callout-ink);
   font-family: "Averia Serif Libre", "IM Fell English", Garamond, Georgia, serif;
@@ -57,6 +60,37 @@ body.brumes--monsterhearts .callout:is(
 ) .callout-title {
   justify-content: center;
   text-align: center;
+}
+
+/* Keep the native clock glyph and make checklist items read as progress segments. */
+body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] .callout-content > ul:has(> li input[type="checkbox"]) {
+  display: grid;
+  gap: 0.35em;
+  margin-block: 0.55em 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: mh-clock-segment;
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] .callout-content > ul:has(> li input[type="checkbox"]) > li {
+  display: flex;
+  align-items: baseline;
+  min-width: 0;
+  margin: 0;
+  padding: 0.35em 0.55em;
+  border: 1px solid var(--mh-callout-hatch);
+  background: var(--mh-callout-paper);
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] .callout-content > ul:has(> li input[type="checkbox"]) > li::before {
+  content: counter(mh-clock-segment, decimal-leading-zero);
+  counter-increment: mh-clock-segment;
+  flex: none;
+  margin-inline-end: 0.65em;
+  font-family: "Averia Serif Libre", "IM Fell English", Garamond, Georgia, serif;
+  font-size: 0.85em;
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] .callout-content > ul:has(> li input[type="checkbox"]) > li:has(input:checked) {
+  background: var(--mh-callout-band);
+  border-inline-start: 0.35em solid var(--mh-callout-ink);
 }
 
 /* Moves use a chapter heading above a grey rule passage. */
