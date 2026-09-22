@@ -10,6 +10,7 @@ import {
   monsterheartsPlaybookPresentationSchema,
   PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
 } from "../src/presentation/monsterhearts-playbook.js";
+import { PBTA_MONSTERHEARTS_APPEARANCE } from "../src/presentation/monsterhearts-appearance.js";
 
 const keys = new Set<string>();
 
@@ -66,6 +67,22 @@ assert.deepEqual(
   [["base", true], ["drowned-lake", true]],
   "Monsterhearts variants remain presentation-only pack metadata",
 );
+assert.equal(monsterheartsPresentation.pack.appearanceArtifact, "appearance-contract.json");
+assert.deepEqual(
+  Object.keys(PBTA_MONSTERHEARTS_APPEARANCE.resources.assets).sort(),
+  [...monsterheartsPresentation.pack.assets].sort(),
+  "appearance assets must resolve every structural asset id",
+);
+assert.deepEqual(
+  PBTA_MONSTERHEARTS_APPEARANCE.variants.map((variant) => variant.id),
+  monsterheartsPresentation.pack.variants.map((variant) => variant.id),
+  "appearance variants must match the structural contract",
+);
+for (const variant of PBTA_MONSTERHEARTS_APPEARANCE.variants) {
+  for (const token of monsterheartsPresentation.pack.tokens) {
+    assert.equal(typeof variant.tokens[token], "string", `${variant.id} must resolve ${token}`);
+  }
+}
 
 function layoutFixture(name: string): Record<string, unknown> {
   return JSON.parse(fs.readFileSync(

@@ -22,7 +22,7 @@
     "validate:cross-tool:pins": "tsx tools/validate-cross-tool-pins.ts",
     "validate:cross-tool:provider": "tsx tools/validate-cross-tool-provider.ts",
     "create:pack": "tsx tools/create-pack.ts",
-    "validate:presentation": "tsx tools/validate-presentation-contract.ts",
+    "validate:presentation": "tsx tools/validate-presentation-contract.ts && tsx tools/validate-presentation-appearance.ts",
     "validate:package": "tsx tools/validate-package.ts",
     "validate:release": "tsx tools/prepare-release.ts --verify",
     "validate:version": "tsx tools/validate-version-compat.ts",

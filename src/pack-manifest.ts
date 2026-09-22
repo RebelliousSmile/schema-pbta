@@ -27,6 +27,7 @@ export const packManifestSchema = z.strictObject({
   presentation: z.strictObject({
     target: z.literal("monsterhearts-playbook"),
     artifact: relativePresentation,
+    appearanceArtifact: relativePresentation,
   }).optional(),
 });
 

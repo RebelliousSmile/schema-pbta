@@ -31,6 +31,7 @@ if (manifest.pack.id === "monsterhearts") {
   assert.deepEqual(manifest.presentation, {
     target: "monsterhearts-playbook",
     artifact: "presentation-contract.json",
+    appearanceArtifact: "appearance-contract.json",
   }, "Monsterhearts must advertise its generated presentation contract");
   const artifact = monsterheartsPlaybookPresentationSchema.parse(JSON.parse(fs.readFileSync(
     path.join(path.dirname(file), manifest.presentation.artifact),

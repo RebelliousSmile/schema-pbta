@@ -114,6 +114,17 @@ adapter maps primitives to its own components; it must not infer or add
 Monsterhearts layout semantics locally. The `drowned-lake` variant is explicitly
 presentation-only, so user TOML stays portable.
 
+### Monsterhearts appearance bundle
+
+`schema-pbta/packs/monsterhearts/appearance-contract.json` is the generated,
+consumer-neutral companion to the structural descriptor. It provides the
+variant-resolved values for every declared layout token and maps each logical
+asset id to a package-relative resource. Consumers may resolve its fonts,
+stylesheets and SVGs through the existing `schema-pbta/packs/*` export; they
+must not read `handbook/` source paths or provide a local Monsterhearts
+appearance fallback. The bundle contains only original SVGs and OFL-licensed
+fonts. Official artwork remains document-provided through `playbookImage`.
+
 ## Using the schemas in your tool
 
 ### Install the canonical contract

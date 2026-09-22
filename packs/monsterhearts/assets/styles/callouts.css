@@ -1,0 +1,151 @@
+body.brumes--monsterhearts {
+  --mh-callout-ink: #29272a;
+  --mh-callout-paper: #fff;
+  --mh-callout-band: #f3f4f5;
+  --mh-callout-hatch: #706d70;
+  --mh-callout-link: #493949;
+}
+
+body.brumes--monsterhearts .callout:is(
+  [data-brumes-callout-style="pbta-rule"], [data-brumes-callout-style="pbta-trigger"],
+  [data-brumes-callout-style="pbta-choice"], [data-brumes-callout-style="pbta-result"],
+  [data-brumes-callout-style="pbta-clock"], [data-brumes-callout-style="pbta-move"],
+  [data-brumes-callout-style="pbta-npc-reaction"], [data-brumes-callout-style="pbta-playbook-change"]
+) {
+  border: 0;
+  border-radius: 0;
+  background: var(--mh-callout-paper);
+  color: var(--mh-callout-ink);
+  box-shadow: none;
+  font-family: "IM Fell English", "Iowan Old Style", Garamond, Georgia, serif;
+  font-size: 1.05em;
+  line-height: 1.4;
+}
+
+body.brumes--monsterhearts .callout[data-brumes-callout-style^="pbta-"] .callout-icon {
+  display: none;
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] .callout-icon {
+  display: flex;
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style^="pbta-"] .callout-title {
+  color: var(--mh-callout-ink);
+  font-family: "Averia Serif Libre", "IM Fell English", Garamond, Georgia, serif;
+  font-size: 1.15em;
+  font-variant: normal;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style^="pbta-"] .callout-content {
+  color: var(--mh-callout-ink);
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style^="pbta-"] a {
+  color: var(--mh-callout-link);
+  text-decoration: underline;
+}
+
+/* Editorial notes: the hatched frame used for cautions and advice. */
+body.brumes--monsterhearts .callout:is(
+  [data-brumes-callout-style="pbta-clock"], [data-brumes-callout-style="pbta-rule"],
+  [data-brumes-callout-style="pbta-choice"]
+) {
+  border: 9px solid transparent;
+  padding: 0.65em 0.95em;
+  background: linear-gradient(var(--mh-callout-paper), var(--mh-callout-paper)) padding-box,
+    repeating-linear-gradient(45deg, var(--mh-callout-hatch) 0 2px, transparent 2px 6px) border-box;
+}
+body.brumes--monsterhearts .callout:is(
+  [data-brumes-callout-style="pbta-clock"], [data-brumes-callout-style="pbta-rule"],
+  [data-brumes-callout-style="pbta-choice"]
+) .callout-title {
+  justify-content: center;
+  text-align: center;
+}
+
+/* Keep the native clock glyph and make checklist items read as progress segments. */
+body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] .callout-content > ul:has(> li input[type="checkbox"]) {
+  display: grid;
+  gap: 0.35em;
+  margin-block: 0.55em 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: mh-clock-segment;
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] .callout-content > ul:has(> li input[type="checkbox"]) > li {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  min-width: 0;
+  margin: 0;
+  padding: 0.35em 0.55em;
+  border: 1px solid var(--mh-callout-hatch);
+  background: var(--mh-callout-paper);
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] .callout-content > ul:has(> li input[type="checkbox"]) > li::before {
+  content: counter(mh-clock-segment, decimal-leading-zero);
+  counter-increment: mh-clock-segment;
+  flex: none;
+  min-width: 2ch;
+  text-align: end;
+  font-family: "Averia Serif Libre", "IM Fell English", Garamond, Georgia, serif;
+  font-size: 0.85em;
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] .callout-content > ul:has(> li input[type="checkbox"]) > li input[type="checkbox"] {
+  position: static;
+  flex: none;
+  margin: 0;
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] .callout-content > ul:has(> li input[type="checkbox"]) > li:has(input:checked) {
+  background: var(--mh-callout-band);
+  border-inline-start: 0.35em solid var(--mh-callout-ink);
+}
+
+/* Moves use a chapter heading above a grey rule passage. */
+body.brumes--monsterhearts .callout:is(
+  [data-brumes-callout-style="pbta-move"], [data-brumes-callout-style="pbta-trigger"]
+) .callout-title {
+  justify-content: center;
+  padding-block: 0.5em 0.35em;
+  font-family: "IM Fell English", Garamond, Georgia, serif;
+  font-size: 1.45em;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-align: center;
+  text-transform: uppercase;
+}
+body.brumes--monsterhearts .callout:is(
+  [data-brumes-callout-style="pbta-move"], [data-brumes-callout-style="pbta-trigger"]
+) .callout-content {
+  padding: 0.45em 0.8em;
+  background: var(--mh-callout-band);
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-move"] .callout-content > p:first-child {
+  font-family: "Averia Serif Libre", "IM Fell English", Garamond, Georgia, serif;
+  font-weight: 700;
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-move"] li::marker {
+  content: "✶  ";
+}
+
+/* Reactions and character changes read as individual shaded rows. */
+body.brumes--monsterhearts .callout:is(
+  [data-brumes-callout-style="pbta-npc-reaction"], [data-brumes-callout-style="pbta-playbook-change"],
+  [data-brumes-callout-style="pbta-result"]
+) .callout-title {
+  padding: 0.3em 0.65em 0.15em;
+}
+body.brumes--monsterhearts .callout:is(
+  [data-brumes-callout-style="pbta-npc-reaction"], [data-brumes-callout-style="pbta-playbook-change"],
+  [data-brumes-callout-style="pbta-result"]
+) .callout-content {
+  padding: 0.4em 0.8em;
+  background: var(--mh-callout-band);
+}
+
+body.brumes--monsterhearts.brumes--variant-drowned-lake {
+  --mh-callout-ink: #ebe8e4;
+  --mh-callout-paper: #25262c;
+  --mh-callout-band: #34343d;
+  --mh-callout-hatch: #a88af0;
+  --mh-callout-link: #d4c8f4;
+}
