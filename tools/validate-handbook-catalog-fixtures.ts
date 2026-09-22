@@ -34,6 +34,25 @@ function fixture(label: string, mutate: (root: string) => void, expected: string
 const baseline = validateInstallableHandbookSource(projectRoot);
 if (baseline.length > 0) throw new Error(`valid catalogue was rejected: ${baseline.join(" | ")}`);
 
+{
+  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), "schema-pbta-handbook-css-"));
+  try {
+    fs.copyFileSync(path.join(projectRoot, "handbook.json"), path.join(temporary, "handbook.json"));
+    fs.cpSync(path.join(projectRoot, "handbook"), path.join(temporary, "handbook"), { recursive: true });
+    const file = path.join(temporary, "handbook", "masks", "pack.json");
+    const manifest = readJson(file);
+    manifest.pack.assets.stylesheets = ["styles/callouts.css"];
+    writeJson(file, manifest);
+    const stylesheet = path.join(temporary, "handbook", "masks", "assets", "styles", "callouts.css");
+    fs.mkdirSync(path.dirname(stylesheet), { recursive: true });
+    fs.writeFileSync(stylesheet, "body.brumes--masks .callout { color: inherit; }\n");
+    const issues = validateInstallableHandbookSource(temporary);
+    if (issues.length > 0) throw new Error(`valid stylesheet was rejected: ${issues.join(" | ")}`);
+  } finally {
+    fs.rmSync(temporary, { recursive: true, force: true });
+  }
+}
+
 fixture("catalogue version", (root) => {
   const catalogue = readJson(path.join(root, "handbook.json"));
   catalogue.manifestVersion = 2;
@@ -99,5 +118,33 @@ fixture("executable asset", (root) => {
   manifest.pack.assets.images["game-mark"] = "images/install.js";
   writeJson(path.join(root, "handbook", "masks", "pack.json"), manifest);
 }, "executable or unsupported asset");
+
+fixture("missing stylesheet", (root) => {
+  const file = path.join(root, "handbook", "masks", "pack.json");
+  const manifest = readJson(file);
+  manifest.pack.assets.stylesheets = ["styles/missing.css"];
+  writeJson(file, manifest);
+}, "missing stylesheet");
+
+fixture("unsafe stylesheet", (root) => {
+  const file = path.join(root, "handbook", "masks", "pack.json");
+  const manifest = readJson(file);
+  manifest.pack.assets.stylesheets = ["../escape.css"];
+  writeJson(file, manifest);
+}, "unsafe or unsupported stylesheet");
+
+fixture("unsupported stylesheet", (root) => {
+  const file = path.join(root, "handbook", "masks", "pack.json");
+  const manifest = readJson(file);
+  manifest.pack.assets.stylesheets = ["styles/executable.js"];
+  writeJson(file, manifest);
+}, "unsafe or unsupported stylesheet");
+
+fixture("duplicate stylesheet", (root) => {
+  const file = path.join(root, "handbook", "masks", "pack.json");
+  const manifest = readJson(file);
+  manifest.pack.assets.stylesheets = ["styles/callouts.css", "styles/callouts.css"];
+  writeJson(file, manifest);
+}, "duplicate stylesheet");
 
 console.log("✅ Handbook catalogue rejection fixtures passed validation.");

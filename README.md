@@ -241,6 +241,9 @@ manifest, palette and assets. Neither host may fork the schemas or select
 behavior from a hard-coded game identifier when a portable capability already
 describes it.
 
+The shared visual callout identifiers and their Markdown contract are documented
+in [`handbook/shared/callout-contract.md`](./handbook/shared/callout-contract.md).
+
 The compatibility and release policy is documented in
 [`docs/compatibility.md`](./docs/compatibility.md).
 

@@ -24,7 +24,7 @@ const manifestFields = ["manifestVersion", "version", "minimumHandbookVersion", 
 const packFields = ["id", "label", "style", "polarities", "assets", "shapes"];
 const styleFields = ["base", "light", "dark"];
 const layerFields = ["note", "workspace"];
-const assetFields = ["root", "images", "fonts"];
+const assetFields = ["root", "images", "fonts", "stylesheets"];
 const variantFields = ["id", "label", "style", "polarities"];
 
 function data(value: unknown): Data {
@@ -144,6 +144,23 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
     for (const field of unknownFields(assets, assetFields)) issues.push(`${id}: unknown assets field ${field}`);
     const assetRoot = assets.root === undefined ? "assets" : assets.root;
     if (!safeRelativePath(assetRoot)) issues.push(`${id}: unsafe asset root`);
+    if (assets.stylesheets !== undefined) {
+      if (!Array.isArray(assets.stylesheets) || !assets.stylesheets.every((item) => typeof item === "string")) {
+        issues.push(`${id}: stylesheets must be an array of paths`);
+      } else {
+        const seenStylesheets = new Set<string>();
+        for (const stylesheet of assets.stylesheets) {
+          if (!safeRelativePath(stylesheet) || path.extname(stylesheet).toLowerCase() !== ".css") {
+            issues.push(`${id}: unsafe or unsupported stylesheet ${stylesheet}`);
+            continue;
+          }
+          if (seenStylesheets.has(stylesheet)) issues.push(`${id}: duplicate stylesheet ${stylesheet}`);
+          seenStylesheets.add(stylesheet);
+          const stylesheetAsset = path.join(manifestRoot, String(assetRoot), stylesheet);
+          if (!fs.existsSync(stylesheetAsset)) issues.push(`${id}: missing stylesheet ${stylesheet}`);
+        }
+      }
+    }
     for (const [family, declared] of Object.entries(data(assets.fonts))) {
       if (!family.trim() || /[{};<>\"]/.test(family)) {
         issues.push(`${id}: unsafe font family ${family}`);

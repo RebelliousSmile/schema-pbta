@@ -9,7 +9,7 @@ source.
 
 - `examples/<game>/` contient les données canoniques consommables par Lantern et Handbook.
 - `handbook/<game>/pack.json` est le manifeste installable et la source de vérité de sa version.
-- Les seuls fichiers copiés avec le manifeste sont les images qu’il déclare sous son `assets.root`.
+- Les seuls fichiers copiés avec le manifeste sont les images, polices et feuilles CSS qu’il déclare sous son `assets.root`.
 - `handbook/<game>/preview/preview.toml` sélectionne des documents canoniques par slug ; il ne contient aucune règle.
 - `handbook/<game>/preview/index.html` est régénéré par `npm run handbook:render`.
 - `handbook/<game>/styles/base.css` définit l’identité du jeu.
@@ -18,13 +18,11 @@ source.
 
 Le sélecteur de variante modifie `html[data-variant]` et charge la feuille correspondante en temps réel. Il ne remplace jamais le HTML. Le détail des régions stables se trouve dans `shared/preview-contract.md`.
 
-Les HTML, CSS et TOML de preview ne sont jamais installés. Les packs v1 règlent
-uniquement les variables natives d’Obsidian : ils ne livrent encore ni fences,
-ni callouts PbtA, ni code exécutable. Monsterhearts utilise `base` par défaut et
+Les HTML, CSS et TOML de preview ne sont jamais installés. Une feuille CSS de pack n'est installée que si elle est déclarée dans `pack.assets.stylesheets` et reste limitée au jeu actif. Les packs règlent les variables natives d’Obsidian et peuvent livrer ces styles de présentation ; ils ne livrent aucun code exécutable. La syntaxe des callouts communs se trouve dans [`shared/callout-contract.md`](./shared/callout-contract.md). Monsterhearts utilise `base` par défaut et
 propose également `drowned-lake` à chaud. Les répertoires de polices ne
 contiennent que des indications de design et aucune police distribuée.
 
-Toute modification installable impose le même bump `0.1.x` dans le `pack.json`
+Toute modification installable impose le même bump SemVer dans le `pack.json`
 concerné et dans son entrée de `handbook.json`. La provenance des SVG distribués
 est centralisée dans `../LICENSES/HANDBOOK-ASSETS.md`.
 

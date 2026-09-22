@@ -23,3 +23,5 @@ export type {
   PbtaMonsterheartsPrimitive,
   PbtaMonsterheartsRegionId,
 } from "./monsterhearts-playbook.js";
+export { PBTA_VISUAL_CALLOUTS } from "./callouts.js";
+export type { PbtaVisualCallout } from "./callouts.js";
