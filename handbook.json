@@ -7,42 +7,42 @@
   "packs": [
     {
       "id": "masks",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "path": "handbook/masks/pack.json",
       "label": "Masks: A New Generation",
       "description": "Bright comic-book presentation for young superhero stories."
     },
     {
       "id": "monster-of-the-week",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "path": "handbook/monster-of-the-week/pack.json",
       "label": "Monster of the Week",
       "description": "Field-file presentation for contemporary monster hunting."
     },
     {
       "id": "monsterhearts",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "path": "handbook/monsterhearts/pack.json",
       "label": "Monsterhearts",
       "description": "Intimate gothic editorial presentation with an optional Drowned Lake variant."
     },
     {
       "id": "urban-shadows",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "path": "handbook/urban-shadows/pack.json",
       "label": "Urban Shadows",
       "description": "Occult urban presentation with restrained parchment tones."
     },
     {
       "id": "the-sprawl",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "path": "handbook/the-sprawl/pack.json",
       "label": "The Sprawl",
       "description": "Dark neon presentation for corporate cyberpunk missions."
     },
     {
       "id": "salvage-run",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "path": "handbook/salvage-run/pack.json",
       "label": "Salvage Run",
       "description": "Original wreck-field salvage playtest presentation."

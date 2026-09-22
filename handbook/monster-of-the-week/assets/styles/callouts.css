@@ -1,0 +1,22 @@
+body.brumes--monster-of-the-week .callout:is(
+  [data-brumes-callout-style="pbta-rule"], [data-brumes-callout-style="pbta-trigger"],
+  [data-brumes-callout-style="pbta-choice"], [data-brumes-callout-style="pbta-result"],
+  [data-brumes-callout-style="pbta-clock"], [data-brumes-callout-style="pbta-move"],
+  [data-brumes-callout-style="pbta-npc-reaction"], [data-brumes-callout-style="pbta-playbook-change"]
+) {
+  border: 1px solid var(--background-modifier-border);
+  border-inline-start: 0.35rem solid var(--color-accent);
+  border-radius: 0;
+  background: #f5efe0;
+  color: var(--text-normal);
+  box-shadow: 0 0.15rem 0.35rem #20231f24;
+}
+body.brumes--monster-of-the-week .callout[data-brumes-callout-style^="pbta-"] .callout-title {
+  font-family: var(--font-header-theme);
+  font-size: 0.82em;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+body.brumes--monster-of-the-week .callout[data-brumes-callout-style="pbta-clock"] { border-inline-start-style: dashed; }
+body.brumes--monster-of-the-week .callout[data-brumes-callout-style="pbta-npc-reaction"] { background: #efe6d2; }
+body.brumes--monster-of-the-week .callout[data-brumes-callout-style="pbta-playbook-change"] { border-block-start: 2px solid var(--color-accent); }

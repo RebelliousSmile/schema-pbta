@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { GAMES } from "../src/zod/constants.js";
 import { loadData } from "./read-data.js";
 import { PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION } from "../src/presentation/monsterhearts-playbook.js";
+import { PBTA_VISUAL_CALLOUTS } from "../src/presentation/callouts.js";
 
 type Data = Record<string, unknown>;
 
@@ -17,6 +18,7 @@ const semver = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
 const safeToken = /^--[A-Za-z0-9-]+$/;
 const safeImageExtensions = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"]);
 const safeFontExtensions = new Set([".woff2", ".woff", ".ttf", ".otf"]);
+const requiredCalloutIds = ["pbta-rule", "pbta-trigger", "pbta-choice", "pbta-result", ...PBTA_VISUAL_CALLOUTS.map((entry) => entry.id)];
 
 const catalogueFields = ["manifestVersion", "repository", "name", "description", "author", "packs"];
 const entryFields = ["id", "version", "path", "label", "description"];
@@ -24,7 +26,7 @@ const manifestFields = ["manifestVersion", "version", "minimumHandbookVersion", 
 const packFields = ["id", "label", "style", "polarities", "assets", "shapes"];
 const styleFields = ["base", "light", "dark"];
 const layerFields = ["note", "workspace"];
-const assetFields = ["root", "images", "fonts"];
+const assetFields = ["root", "images", "fonts", "stylesheets"];
 const variantFields = ["id", "label", "style", "polarities"];
 
 function data(value: unknown): Data {
@@ -144,6 +146,40 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
     for (const field of unknownFields(assets, assetFields)) issues.push(`${id}: unknown assets field ${field}`);
     const assetRoot = assets.root === undefined ? "assets" : assets.root;
     if (!safeRelativePath(assetRoot)) issues.push(`${id}: unsafe asset root`);
+    if (assets.stylesheets !== undefined) {
+      if (!Array.isArray(assets.stylesheets) || !assets.stylesheets.every((item) => typeof item === "string")) {
+        issues.push(`${id}: stylesheets must be an array of paths`);
+      } else {
+        const seenStylesheets = new Set<string>();
+        for (const stylesheet of assets.stylesheets) {
+          if (!safeRelativePath(stylesheet) || path.extname(stylesheet).toLowerCase() !== ".css") {
+            issues.push(`${id}: unsafe or unsupported stylesheet ${stylesheet}`);
+            continue;
+          }
+          if (seenStylesheets.has(stylesheet)) issues.push(`${id}: duplicate stylesheet ${stylesheet}`);
+          seenStylesheets.add(stylesheet);
+          const stylesheetAsset = path.join(manifestRoot, String(assetRoot), stylesheet);
+          if (!fs.existsSync(stylesheetAsset)) issues.push(`${id}: missing stylesheet ${stylesheet}`);
+        }
+      }
+    }
+    const calloutStylesheets = strings(assets.stylesheets);
+    if (calloutStylesheets.length === 0) {
+      issues.push(`${id}: missing PbtA callout stylesheet`);
+    } else {
+      const css = calloutStylesheets
+        .filter((file) => safeRelativePath(file) && path.extname(file).toLowerCase() === ".css")
+        .map((file) => path.join(manifestRoot, String(assetRoot), file))
+        .filter((file) => fs.existsSync(file))
+        .map((file) => fs.readFileSync(file, "utf8"))
+        .join("\n");
+      if (!css.includes(`body.brumes--${id}`)) issues.push(`${id}: callout stylesheet misses game scope`);
+      for (const calloutId of requiredCalloutIds) {
+        if (!css.includes(`data-brumes-callout-style="${calloutId}"`)) {
+          issues.push(`${id}: callout stylesheet misses ${calloutId}`);
+        }
+      }
+    }
     for (const [family, declared] of Object.entries(data(assets.fonts))) {
       if (!family.trim() || /[{};<>\"]/.test(family)) {
         issues.push(`${id}: unsafe font family ${family}`);

@@ -1,0 +1,25 @@
+body.brumes--the-sprawl .callout:is(
+  [data-brumes-callout-style="pbta-rule"], [data-brumes-callout-style="pbta-trigger"],
+  [data-brumes-callout-style="pbta-choice"], [data-brumes-callout-style="pbta-result"],
+  [data-brumes-callout-style="pbta-clock"], [data-brumes-callout-style="pbta-move"],
+  [data-brumes-callout-style="pbta-npc-reaction"], [data-brumes-callout-style="pbta-playbook-change"]
+) {
+  border: 1px solid #00e4d0;
+  border-inline-start: 0.3rem solid #ff3d8d;
+  border-radius: 0;
+  background: #102425;
+  color: #d6f7ee;
+  box-shadow: 0 0 0.8rem #00e4d033;
+}
+body.brumes--the-sprawl .callout[data-brumes-callout-style^="pbta-"] .callout-title {
+  color: #00e4d0;
+  font-family: ui-monospace, monospace;
+  font-size: 0.9em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+body.brumes--the-sprawl .callout[data-brumes-callout-style^="pbta-"] .callout-content { color: #d6f7ee; }
+body.brumes--the-sprawl .callout[data-brumes-callout-style^="pbta-"] a { color: #00e4d0; }
+body.brumes--the-sprawl .callout[data-brumes-callout-style="pbta-clock"] { border-inline-start-style: dashed; }
+body.brumes--the-sprawl .callout[data-brumes-callout-style="pbta-npc-reaction"] { border-color: #ff3d8d; }
+body.brumes--the-sprawl .callout[data-brumes-callout-style="pbta-playbook-change"] { background: #182d30; }

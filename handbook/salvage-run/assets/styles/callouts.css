@@ -1,0 +1,23 @@
+body.brumes--salvage-run .callout:is(
+  [data-brumes-callout-style="pbta-rule"], [data-brumes-callout-style="pbta-trigger"],
+  [data-brumes-callout-style="pbta-choice"], [data-brumes-callout-style="pbta-result"],
+  [data-brumes-callout-style="pbta-clock"], [data-brumes-callout-style="pbta-move"],
+  [data-brumes-callout-style="pbta-npc-reaction"], [data-brumes-callout-style="pbta-playbook-change"]
+) {
+  border: 2px solid #755640;
+  border-block-start: 0.4rem solid #a64c22;
+  border-radius: 0.15rem;
+  background: #f0e2c7;
+  color: #29251f;
+  box-shadow: inset 0 0 0 1px #f3ead7;
+}
+body.brumes--salvage-run .callout[data-brumes-callout-style^="pbta-"] .callout-title {
+  font-family: "Arial Narrow", var(--font-header-theme);
+  font-size: 0.95em;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+body.brumes--salvage-run .callout[data-brumes-callout-style="pbta-clock"] { border-style: dashed; }
+body.brumes--salvage-run .callout[data-brumes-callout-style="pbta-npc-reaction"] { border-inline-start: 0.4rem solid #a64c22; }
+body.brumes--salvage-run .callout[data-brumes-callout-style="pbta-playbook-change"] { background: #e8d7b8; }

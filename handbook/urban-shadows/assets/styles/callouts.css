@@ -1,0 +1,23 @@
+body.brumes--urban-shadows .callout:is(
+  [data-brumes-callout-style="pbta-rule"], [data-brumes-callout-style="pbta-trigger"],
+  [data-brumes-callout-style="pbta-choice"], [data-brumes-callout-style="pbta-result"],
+  [data-brumes-callout-style="pbta-clock"], [data-brumes-callout-style="pbta-move"],
+  [data-brumes-callout-style="pbta-npc-reaction"], [data-brumes-callout-style="pbta-playbook-change"]
+) {
+  border: 1px solid #591133;
+  border-inline-start: 0.45rem solid #591133;
+  border-radius: 0;
+  background: #f3edf0;
+  color: #171216;
+  box-shadow: none;
+}
+body.brumes--urban-shadows .callout[data-brumes-callout-style^="pbta-"] .callout-title {
+  font-family: "Urban Shadows Display", var(--font-header-theme);
+  font-size: 1.35em;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+body.brumes--urban-shadows .callout[data-brumes-callout-style="pbta-clock"] { border-inline-start-width: 0.7rem; }
+body.brumes--urban-shadows .callout[data-brumes-callout-style="pbta-npc-reaction"] { border-block-start: 0.3rem solid #591133; }
+body.brumes--urban-shadows .callout[data-brumes-callout-style="pbta-playbook-change"] { background: #e9dfe4; }

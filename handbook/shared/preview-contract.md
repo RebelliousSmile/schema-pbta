@@ -2,6 +2,8 @@
 
 Ces pages rendent les exemples canoniques de `examples/<game>/`. Elles ne définissent ni un format de pack installable, ni un second modèle de données. Les fichiers `index.html` sont générés par `npm run handbook:render` et ne doivent pas être édités à la main.
 
+Les `.handbook-callout` décrits plus bas appartiennent uniquement aux aperçus HTML. Les callouts Markdown installables utilisent les identifiants `pbta-*` et les feuilles CSS déclarées par les packs ; leur syntaxe est définie dans [`callout-contract.md`](./callout-contract.md). La note [`callouts-example.md`](./callouts-example.md) contient les huit types pour les comparer dans Obsidian.
+
 Chaque `preview/preview.toml` contient uniquement l’identifiant du jeu, les slugs des documents canoniques sélectionnés, les variantes visuelles disponibles et la variante par défaut. L’ordre explicite des références garantit qu’un nouvel exemple sans rapport ne modifie pas la page.
 
 ## Surface sémantique
