@@ -237,6 +237,10 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
       if (monsterheartsFont.file !== "fonts/im-fell-english-latin-400-normal.woff2") {
         issues.push("monsterhearts: IM Fell English must be supplied as a pack font asset");
       }
+      const monsterheartsBoldFont = data(data(assets.fonts)["Averia Serif Libre"]);
+      if (monsterheartsBoldFont.file !== "fonts/averia-serif-libre-latin-700-normal.woff2") {
+        issues.push("monsterhearts: Averia Serif Libre must be supplied as a pack font asset");
+      }
       for (const token of ["--font-text-theme", "--font-header-theme", "--inline-title-font"]) {
         if (!String(monsterheartsBaseNote[token] ?? "").includes("IM Fell English")) {
           issues.push(`monsterhearts: ${token} must use the supplied font`);

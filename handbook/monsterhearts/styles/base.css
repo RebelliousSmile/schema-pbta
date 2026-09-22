@@ -8,6 +8,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Averia Serif Libre";
+  src: url("../assets/fonts/averia-serif-libre-latin-700-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 html[data-game="monsterhearts"] {
   --hb-paper: #faf8f2;
   --hb-paper-alt: #eeeae1;

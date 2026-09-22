@@ -1,6 +1,6 @@
 {
   "manifestVersion": 1,
-  "version": "0.3.3",
+  "version": "0.3.4",
   "minimumHandbookVersion": "2.8.0",
   "requires": ["block:pbta-playbook", "block:pbta-move", "style:pbta"],
   "variants": [
@@ -137,6 +137,11 @@
         "IM Fell English": {
           "file": "fonts/im-fell-english-latin-400-normal.woff2",
           "weight": "400",
+          "style": "normal"
+        },
+        "Averia Serif Libre": {
+          "file": "fonts/averia-serif-libre-latin-700-normal.woff2",
+          "weight": "700",
           "style": "normal"
         }
       },

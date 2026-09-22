@@ -24,9 +24,10 @@ downloaded as WOFF2 files from Fontsource:
 | Family | File | Upstream | License |
 | --- | --- | --- | --- |
 | IM Fell English Roman | `handbook/monsterhearts/assets/fonts/im-fell-english-latin-400-normal.woff2` | `@fontsource/im-fell-english@5.3.0` | SIL Open Font License 1.1 |
+| Averia Serif Libre Bold | `handbook/monsterhearts/assets/fonts/averia-serif-libre-latin-700-normal.woff2` | `@fontsource/averia-serif-libre@5.3.0` | SIL Open Font License 1.1 |
 | League Gothic | `handbook/urban-shadows/assets/fonts/league-gothic-latin-400-normal.woff2` | `@fontsource/league-gothic@5.3.0` | SIL Open Font License 1.1 |
 | Source Serif 4 | `handbook/urban-shadows/assets/fonts/source-serif-4-latin-wght-normal.woff2` | `@fontsource-variable/source-serif-4@5.3.0` | SIL Open Font License 1.1 |
 
 The Urban Shadows faces are freely redistributable substitutes and are not
-claimed to be the original game's typefaces. The SIL Open Font License text
-accompanies each pack's font files in `assets/fonts/OFL-1.1.txt`.
+claimed to be the original game's typefaces. The SIL Open Font License texts
+accompany the font files in each pack's `assets/fonts/` directory.

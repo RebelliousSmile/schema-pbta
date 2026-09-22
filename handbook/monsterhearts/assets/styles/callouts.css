@@ -27,7 +27,7 @@ body.brumes--monsterhearts .callout[data-brumes-callout-style^="pbta-"] .callout
 }
 body.brumes--monsterhearts .callout[data-brumes-callout-style^="pbta-"] .callout-title {
   color: var(--mh-callout-ink);
-  font-family: inherit;
+  font-family: "Averia Serif Libre", "IM Fell English", Garamond, Georgia, serif;
   font-size: 1.15em;
   font-variant: normal;
   font-weight: 700;
@@ -65,6 +65,7 @@ body.brumes--monsterhearts .callout:is(
 ) .callout-title {
   justify-content: center;
   padding-block: 0.5em 0.35em;
+  font-family: "IM Fell English", Garamond, Georgia, serif;
   font-size: 1.45em;
   font-weight: 400;
   letter-spacing: 0.05em;
@@ -78,6 +79,7 @@ body.brumes--monsterhearts .callout:is(
   background: var(--mh-callout-band);
 }
 body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-move"] .callout-content > p:first-child {
+  font-family: "Averia Serif Libre", "IM Fell English", Garamond, Georgia, serif;
   font-weight: 700;
 }
 body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-move"] li::marker {
