@@ -17,8 +17,8 @@
 }
 
 html[data-game="monsterhearts"] {
-  --hb-paper: #faf8f2;
-  --hb-paper-alt: #eeeae1;
+  --hb-paper: #fff;
+  --hb-paper-alt: #f3f4f5;
   --hb-ink: #171416;
   --hb-muted: #5f5758;
   --hb-accent: #292326;
@@ -30,7 +30,7 @@ html[data-game="monsterhearts"] {
   --hb-texture: url("../assets/images/thorn-heart.svg");
 }
 
-html[data-game="monsterhearts"] body { background: #d8d3ca; background-image: radial-gradient(circle at 50% 0, #f6f2e9 0, transparent 48%); }
+html[data-game="monsterhearts"] body { background: #fff; }
 html[data-game="monsterhearts"] .handbook-sheet { box-shadow: 0 2rem 7rem #29232638; font-size: 1rem; line-height: 1.35; }
 html[data-game="monsterhearts"] .handbook-game { min-height: 11rem; background: var(--hb-paper) var(--hb-texture) 94% 50% / 10rem no-repeat; border-block: 1px solid var(--hb-accent); }
 html[data-game="monsterhearts"] h1, html[data-game="monsterhearts"] h2, html[data-game="monsterhearts"] h3 { font-family: var(--hb-display); font-weight: 700; }
@@ -40,7 +40,7 @@ html[data-game="monsterhearts"] .handbook-kicker { color: var(--hb-accent-2); }
 html[data-game="monsterhearts"] .handbook-panel { border-color: color-mix(in srgb, var(--hb-accent), transparent 55%); }
 html[data-game="monsterhearts"] .handbook-move h3::after { content: " ◆"; color: var(--hb-accent); font-size: .55em; }
 html[data-game="monsterhearts"] .handbook-result { --line: var(--hb-accent); }
-html[data-game="monsterhearts"] .handbook-panel { border-radius: 0; background: #fffdf8; box-shadow: .18rem .18rem 0 #2923261f; }
+html[data-game="monsterhearts"] .handbook-panel { border-radius: 0; background: #fff; box-shadow: .18rem .18rem 0 #2923261f; }
 html[data-game="monsterhearts"] .handbook-choice input, html[data-game="monsterhearts"] input[type="checkbox"] { accent-color: var(--hb-accent-2); }
 html[data-game="monsterhearts"] .handbook-monsterhearts-title { position: relative; padding: 1.5rem; border-block-end: 1px solid var(--hb-accent); }
 html[data-game="monsterhearts"] .handbook-monsterhearts-title h1 { margin-block-end: .7rem; font-size: clamp(2rem, 4vw, 3.2rem); text-transform: none; }

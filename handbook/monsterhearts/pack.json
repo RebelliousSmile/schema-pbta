@@ -1,6 +1,6 @@
 {
   "manifestVersion": 1,
-  "version": "0.3.4",
+  "version": "0.3.5",
   "minimumHandbookVersion": "2.8.0",
   "requires": ["block:pbta-playbook", "block:pbta-move", "style:pbta"],
   "variants": [
@@ -97,7 +97,7 @@
           "--monsterhearts-title-font": "'IM Fell English', 'Averia Serif Libre', Garamond, Georgia, serif",
           "--monsterhearts-title-ink": "#292326",
           "--monsterhearts-table-ink": "#171416",
-          "--monsterhearts-table-background": "#faf8f2",
+          "--monsterhearts-table-background": "#ffffff",
           "--monsterhearts-table-rule": "#292326",
           "--monsterhearts-table-header": "#e5e3e1",
           "--monsterhearts-table-header-ink": "#171416",
@@ -114,8 +114,8 @@
       },
       "light": {
         "note": {
-          "--background-primary": "#faf8f2",
-          "--background-primary-alt": "#eeeae1",
+          "--background-primary": "#ffffff",
+          "--background-primary-alt": "#f3f4f5",
           "--text-normal": "#171416",
           "--text-muted": "#5f5758",
           "--color-accent": "#292326",
@@ -125,7 +125,7 @@
           "--h1-color": "#292326",
           "--h2-color": "#171416",
           "--h3-color": "#171416",
-          "--tag-color": "#faf8f2",
+          "--tag-color": "#ffffff",
           "--tag-background": "#292326",
           "--checkbox-color": "#292326"
         }
