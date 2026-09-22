@@ -73,7 +73,8 @@ body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] .cal
 }
 body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] .callout-content > ul:has(> li input[type="checkbox"]) > li {
   display: flex;
-  align-items: baseline;
+  align-items: center;
+  gap: 0.6em;
   min-width: 0;
   margin: 0;
   padding: 0.35em 0.55em;
@@ -84,9 +85,15 @@ body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] .cal
   content: counter(mh-clock-segment, decimal-leading-zero);
   counter-increment: mh-clock-segment;
   flex: none;
-  margin-inline-end: 0.65em;
+  min-width: 2ch;
+  text-align: end;
   font-family: "Averia Serif Libre", "IM Fell English", Garamond, Georgia, serif;
   font-size: 0.85em;
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] .callout-content > ul:has(> li input[type="checkbox"]) > li input[type="checkbox"] {
+  position: static;
+  flex: none;
+  margin: 0;
 }
 body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] .callout-content > ul:has(> li input[type="checkbox"]) > li:has(input:checked) {
   background: var(--mh-callout-band);
