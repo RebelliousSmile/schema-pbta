@@ -1,6 +1,6 @@
 {
   "manifestVersion": 1,
-  "version": "0.2.0",
+  "version": "0.2.1",
   "minimumHandbookVersion": "2.8.0",
   "requires": ["block:pbta-playbook", "block:pbta-move", "style:pbta"],
   "pack": {
@@ -37,6 +37,7 @@
     },
     "polarities": ["dark"],
     "assets": {
+      "stylesheets": ["styles/callouts.css"],
       "images": {
         "game-mark": "images/network-grid.svg"
       }

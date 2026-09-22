@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { GAMES } from "../src/zod/constants.js";
 import { loadData } from "./read-data.js";
 import { PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION } from "../src/presentation/monsterhearts-playbook.js";
+import { PBTA_VISUAL_CALLOUTS } from "../src/presentation/callouts.js";
 
 type Data = Record<string, unknown>;
 
@@ -17,6 +18,7 @@ const semver = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
 const safeToken = /^--[A-Za-z0-9-]+$/;
 const safeImageExtensions = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"]);
 const safeFontExtensions = new Set([".woff2", ".woff", ".ttf", ".otf"]);
+const requiredCalloutIds = ["pbta-rule", "pbta-trigger", "pbta-choice", "pbta-result", ...PBTA_VISUAL_CALLOUTS.map((entry) => entry.id)];
 
 const catalogueFields = ["manifestVersion", "repository", "name", "description", "author", "packs"];
 const entryFields = ["id", "version", "path", "label", "description"];
@@ -158,6 +160,23 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
           seenStylesheets.add(stylesheet);
           const stylesheetAsset = path.join(manifestRoot, String(assetRoot), stylesheet);
           if (!fs.existsSync(stylesheetAsset)) issues.push(`${id}: missing stylesheet ${stylesheet}`);
+        }
+      }
+    }
+    const calloutStylesheets = strings(assets.stylesheets);
+    if (calloutStylesheets.length === 0) {
+      issues.push(`${id}: missing PbtA callout stylesheet`);
+    } else {
+      const css = calloutStylesheets
+        .filter((file) => safeRelativePath(file) && path.extname(file).toLowerCase() === ".css")
+        .map((file) => path.join(manifestRoot, String(assetRoot), file))
+        .filter((file) => fs.existsSync(file))
+        .map((file) => fs.readFileSync(file, "utf8"))
+        .join("\n");
+      if (!css.includes(`body.brumes--${id}`)) issues.push(`${id}: callout stylesheet misses game scope`);
+      for (const calloutId of requiredCalloutIds) {
+        if (!css.includes(`data-brumes-callout-style="${calloutId}"`)) {
+          issues.push(`${id}: callout stylesheet misses ${calloutId}`);
         }
       }
     }

@@ -45,7 +45,10 @@ if (baseline.length > 0) throw new Error(`valid catalogue was rejected: ${baseli
     writeJson(file, manifest);
     const stylesheet = path.join(temporary, "handbook", "masks", "assets", "styles", "callouts.css");
     fs.mkdirSync(path.dirname(stylesheet), { recursive: true });
-    fs.writeFileSync(stylesheet, "body.brumes--masks .callout { color: inherit; }\n");
+    fs.writeFileSync(stylesheet, `body.brumes--masks .callout:is(${[
+      "pbta-rule", "pbta-trigger", "pbta-choice", "pbta-result",
+      "pbta-clock", "pbta-move", "pbta-npc-reaction", "pbta-playbook-change",
+    ].map((id) => `[data-brumes-callout-style="${id}"]`).join(",")}) { color: inherit; }\n`);
     const issues = validateInstallableHandbookSource(temporary);
     if (issues.length > 0) throw new Error(`valid stylesheet was rejected: ${issues.join(" | ")}`);
   } finally {
@@ -73,7 +76,7 @@ fixture("unsafe manifest path", (root) => {
 
 fixture("catalogue mismatch", (root) => {
   const manifest = readJson(path.join(root, "handbook", "the-sprawl", "pack.json"));
-  manifest.version = "0.2.1";
+  manifest.version = "9.9.9";
   writeJson(path.join(root, "handbook", "the-sprawl", "pack.json"), manifest);
 }, "manifest version does not match catalogue");
 

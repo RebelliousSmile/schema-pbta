@@ -1,0 +1,21 @@
+body.brumes--masks .callout:is(
+  [data-brumes-callout-style="pbta-rule"], [data-brumes-callout-style="pbta-trigger"],
+  [data-brumes-callout-style="pbta-choice"], [data-brumes-callout-style="pbta-result"],
+  [data-brumes-callout-style="pbta-clock"], [data-brumes-callout-style="pbta-move"],
+  [data-brumes-callout-style="pbta-npc-reaction"], [data-brumes-callout-style="pbta-playbook-change"]
+) {
+  border: 3px solid var(--text-normal);
+  border-radius: 0.5rem;
+  background: var(--background-primary);
+  box-shadow: 0.3rem 0.3rem 0 var(--color-accent);
+  color: var(--text-normal);
+}
+body.brumes--masks .callout[data-brumes-callout-style^="pbta-"] .callout-title {
+  font-family: var(--font-header-theme);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+body.brumes--masks .callout[data-brumes-callout-style="pbta-clock"] { border-style: dashed; }
+body.brumes--masks .callout[data-brumes-callout-style="pbta-npc-reaction"] { box-shadow: 0.3rem 0.3rem 0 #16a4c4; }
+body.brumes--masks .callout[data-brumes-callout-style="pbta-playbook-change"] { border-block-start-width: 0.55rem; }

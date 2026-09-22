@@ -1,6 +1,6 @@
 {
   "manifestVersion": 1,
-  "version": "0.3.0",
+  "version": "0.3.1",
   "minimumHandbookVersion": "2.8.0",
   "requires": ["block:pbta-playbook", "block:pbta-move", "style:pbta"],
   "variants": [
@@ -133,6 +133,7 @@
     },
     "polarities": ["light"],
     "assets": {
+      "stylesheets": ["styles/callouts.css"],
       "images": {
         "game-mark": "images/thorn-heart.svg",
         "variant-mark": "variants/drowned-lake/zine-lake.svg"

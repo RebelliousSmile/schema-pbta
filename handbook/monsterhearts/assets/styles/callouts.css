@@ -1,0 +1,35 @@
+body.brumes--monsterhearts .callout:is(
+  [data-brumes-callout-style="pbta-rule"], [data-brumes-callout-style="pbta-trigger"],
+  [data-brumes-callout-style="pbta-choice"], [data-brumes-callout-style="pbta-result"],
+  [data-brumes-callout-style="pbta-clock"], [data-brumes-callout-style="pbta-move"],
+  [data-brumes-callout-style="pbta-npc-reaction"], [data-brumes-callout-style="pbta-playbook-change"]
+) {
+  border: 0;
+  border-block-start: 1px solid var(--color-accent);
+  border-block-end: 1px solid var(--color-accent);
+  border-radius: 0;
+  background: transparent;
+  color: var(--text-normal);
+  box-shadow: none;
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style^="pbta-"] .callout-title {
+  font-family: var(--monsterhearts-title-font, var(--font-header-theme));
+  font-size: 1.08em;
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] { border-block-start-style: dotted; }
+body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-npc-reaction"] { font-style: italic; }
+body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-playbook-change"] { border-block-start-width: 2px; }
+body.brumes--monsterhearts.brumes--variant-drowned-lake .callout[data-brumes-callout-style^="pbta-"] {
+  border-color: #a88af0;
+  background: #25262c;
+  color: #ebe8e4;
+}
+body.brumes--monsterhearts.brumes--variant-drowned-lake .callout[data-brumes-callout-style^="pbta-"] :is(.callout-title, .callout-content) {
+  color: #ebe8e4;
+}
+body.brumes--monsterhearts.brumes--variant-drowned-lake .callout[data-brumes-callout-style^="pbta-"] a {
+  color: #d4c8f4;
+  text-decoration: underline;
+}
