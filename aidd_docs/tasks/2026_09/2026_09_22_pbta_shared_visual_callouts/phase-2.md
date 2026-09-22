@@ -1,5 +1,5 @@
 ---
-status: pending
+status: done
 ---
 
 # Instruction: Ajouter les callouts au catalogue et au rendu Handbook
