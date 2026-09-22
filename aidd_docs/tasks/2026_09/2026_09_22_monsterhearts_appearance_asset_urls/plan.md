@@ -1,6 +1,6 @@
 ---
 objective: "Expose every published Monsterhearts browser asset through a static public ESM URL API and prove a Vite consumer can build it from the packed schema-pbta archive."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Publish Monsterhearts appearance asset URLs
