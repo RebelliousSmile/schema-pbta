@@ -17,7 +17,15 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - uses: actions/checkout@v4
+        with:
+          repository: RebelliousSmile/obsidian-handbook
+          ref: 691d29c690df5e763012ad391e54f24d8d879281
+          path: obsidian-handbook
+      - run: npx --yes pnpm@10 install --dir obsidian-handbook --frozen-lockfile
       - run: npm run check
+        env:
+          HANDBOOK_ROOT: ${{ github.workspace }}/obsidian-handbook
       - run: git diff --exit-code
 
   # The cross-tool gate: the two hosts read this contract, so a change that

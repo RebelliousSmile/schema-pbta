@@ -6,4 +6,4 @@ La provenance et la licence des deux assets sont centralisées dans [`LICENSES/H
 
 ## Callouts PbtA
 
-Les quatre entrées sont `> [!pbta-clock]`, `> [!pbta-move]`, `> [!pbta-npc-reaction]` et `> [!pbta-playbook-change]`. Leur mise en page utilise des filets fins et des titres en petites capitales ; `drowned-lake` inverse les contrastes. Une horloge peut aider la MC à suivre une intrigue sans être une règle officielle de Monsterhearts. Leur contenu reste du Markdown libre.
+Les quatre entrées sont `> [!pbta-clock]`, `> [!pbta-move]`, `> [!pbta-npc-reaction]` et `> [!pbta-playbook-change]`. Les notes et horloges reprennent un cadre hachuré, les moves un titre de chapitre suivi d'une plage grise, et les réactions ou changements de livret une ligne grisée ; `drowned-lake` adapte ces formes à sa palette sombre. Une horloge peut aider la MC à suivre une intrigue sans être une règle officielle de Monsterhearts. Leur contenu reste du Markdown libre.
