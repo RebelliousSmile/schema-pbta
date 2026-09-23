@@ -2,11 +2,7 @@
 status: pending
 ---
 
-# Instruction: Orchestrate candidate validation and promotion
-
-## Reopened scope
-
-The existing runner and workflows are PbtA-shaped. After phase 1 defines the common envelope, refactor them to read manifest/evidence files only. The orchestrator must compare candidate identity, declared consumer SHA, lock attestation and journey status; it must not know whether a proof is PbtA, Mist or Adrenaline, nor consume a provider-specific direct JSON result.
+# Instruction: Deliver consumer-owned protocol adapters
 
 ## Architecture projection
 
@@ -14,24 +10,23 @@ The existing runner and workflows are PbtA-shaped. After phase 1 defines the com
 
 ```txt
 .
-├── tools/run-release-train.ts ✅ materialize consumer SHAs, install the staged final archive, run canonical proofs, and write provenance summary
-├── tools/validate-release-train.ts ✏️ validate emitted proof evidence against the supplied candidate identity
-├── .github/workflows/release-train.yml ✅ dispatchable candidate-validation workflow with immutable inputs and required statuses
-├── .github/workflows/release.yml ✏️ stage one final-version archive under a candidate, require successful evidence, then attach the same SHA-verified bytes to the final tag
-├── tools/prepare-release.ts ✏️ produce one final-version tarball SHA for staging and final-release handoff
-└── docs/compatibility.md ✏️ distinguish the daily pin gate, candidate train, and final consumer pins
+├── RebelliousSmile/lantern#34 ↗️ adapt the frozen-lock and Vite proof to protocol-1 evidence
+├── RebelliousSmile/lantern#33 ↗️ bundle the thorn-heart SVG so the Vite journey never serves file:
+├── RebelliousSmile/obsidian-handbook#56 ↗️ adapt package/source-pack install and render proof to protocol-1 evidence
+├── cross-tool.release-train.fixture.json ✏️ replace placeholders with the two committed adoption SHAs
+└── ❌ none — consumer adapters, manifests and lockfiles remain owned by their repositories
 ```
 
 ## User Journey
 
 ```mermaid
 flowchart TD
-  A[Staged final-version candidate asset] --> B[Release-train workflow]
-  B --> C[Lantern proof]
-  B --> D[Handbook proof]
-  C --> E[Provenance summary]
-  D --> E
-  E --> F[Final tag receives identical bytes]
+  A[Staged PbtA candidate] --> B[Lantern adoption commit]
+  A --> C[Handbook adoption commit]
+  B --> D[Protocol-1 Lantern evidence]
+  C --> E[Protocol-1 Handbook evidence]
+  D --> F[Central comparison]
+  E --> F
 ```
 
 ## Test Scope
@@ -42,25 +37,46 @@ title: Test scope
 ---
 journey
   section Setup
-    stage one final-version archive under a candidate tag => isolated consumer workspaces receive its SHA: 5: cli
+    consumer owners commit candidate URL and SRI in their active locks => immutable adoption SHAs are available: 5: cli
   section Happy path
-    run both consumer proofs => provenance names the same archive SHA and all statuses pass: 5: cli
-  section Edge case - mismatched archive
-    return a proof for another archive SHA => promotion validation fails: 5: cli
-  section Edge case - missing consumer
-    omit Handbook or Lantern evidence => final release workflow remains blocked: 5: cli
+    invoke each assertion from its detached adoption checkout => each writes matching protocol-1 evidence after its real journey: 5: cli
+  section Edge case - frozen graph divergence
+    alter a direct schema URL, SRI, version or transitive record => consumer assertion rejects the lock before its journey: 5: cli
+  section Edge case - browser filesystem URL
+    expose a file: Monsterhearts asset to the Lantern build => Lantern assertion rejects the broken bundled resource: 5: cli
+  section Teardown
+    remove disposable proof manifests and workspaces => committed consumer checkout remains unchanged: 5: cli
 ```
 
 ## Tasks to do
 
-### `1)` Make train results promotion gates
+### `1)` Adapt Lantern under consumer ownership
 
-1. The producer supplies a staged final-version archive URL, SHA-256 and npm SHA-512 SRI. Each consumer first creates a dedicated candidate-adoption branch, pins that URL, regenerates and verifies its active lockfile SRI, then commits the frozen graph. Add a runner that checks out only the resulting supplied SHAs in disposable detached workspaces, verifies the archive's SHA-256 and SRI, lets each frozen active lock materialize that exact candidate URL, then invokes only the canonical proof interface and records structured provenance. Never overlay it with a no-save install or edit a published consumer checkout.
-2. Add a dedicated CI workflow for candidate runs; keep it separate from push/PR daily checks so release inputs are explicit.
-3. Make the final-release workflow refuse publication and issue closing without passing Lantern and Handbook evidence for the candidate SHA, then verify the bytes attached to the final tag have that same SHA without rebuilding.
+> Complete Lantern #34 and #33 without moving Vite, lock or runtime decisions into schema-pbta.
+
+1. Accept the common manifest and select the Lantern entry only when its repository/ref equal detached `HEAD`.
+2. Normalize only the existing direct PbtA, Mist and Adrenaline archive lock records to stable URL/SRI; reject version or transitive changes before clean frozen install.
+3. Emit the evidence file after the Vite journey confirms bundled Monsterhearts base and drowned-lake resources, including the thorn-heart browser URL.
+
+### `2)` Adapt Handbook under consumer ownership
+
+> Complete Handbook #56 while retaining its existing package, source-pack and render coverage.
+
+1. Accept the common manifest and select the Handbook entry only when its repository/ref equal detached `HEAD`.
+2. Prove the committed frozen lock resolves the candidate URL, SRI and version before installation.
+3. Emit the common evidence file only after the provider manifest, declared assets and actual install/render journey pass.
+
+### `3)` Register immutable adoption refs
+
+> Make the train consume consumer commits, not worktrees or branches.
+
+1. Replace fixture placeholders with full adoption commit SHAs and canonical repository identities.
+2. Confirm each adapter creates no persistent file in its detached checkout and refuses a mismatched candidate or evidence path.
 
 ## Test acceptance criteria
 
 | Task | Acceptance criteria |
 | --- | --- |
-| 1 | A candidate is promotable only when both consumer proofs identify the staged final archive SHA and exact consumer commits; missing, mismatched, or rebuilt final bytes block publication. |
+| 1 | Lantern’s frozen graph and Vite output prove the staged candidate without a `file:` asset URL or a local semantic fallback. |
+| 2 | Handbook’s frozen graph, source-pack installation and render path prove the same staged candidate. |
+| 3 | The central fixture names only commits whose consumer-owned proof produces matching protocol-1 evidence. |

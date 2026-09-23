@@ -272,7 +272,7 @@ test against the immutable consumer and provider pins in
 [`cross-tool.config.json`](./cross-tool.config.json). It does not publish a
 release.
 
-Promotion uses the separate release-train contract. A candidate release stages
+Promotion uses the separate `protocol: 1` release-train contract. A candidate release stages
 the final-version tarball once, records its SHA-256 and the exact Lantern and
 Handbook commits, and runs each consumer's `npm run release-train:assert --
 <manifest>` proof. Only evidence from both consumers for that same archive may

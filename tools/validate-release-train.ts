@@ -10,17 +10,20 @@ assert.throws(
   /Lantern and Handbook exactly once/,
 );
 const evidence = parseReleaseTrainEvidence({
+  protocol: 1,
   status: "passed",
-  artifact: { releaseUrl: train.candidate.releaseUrl, sha256: train.candidate.sha256, integrity: train.candidate.integrity },
-  consumer: { role: train.consumers[0].role, repository: train.consumers[0].repository, ref: train.consumers[0].ref },
+  candidate: train.candidate,
+  consumer: { role: train.consumers[0].role, repository: train.consumers[0].repository, ref: train.consumers[0].ref, resolved: { version: train.candidate.version, releaseUrl: train.candidate.releaseUrl, integrity: train.candidate.integrity } },
+  lock: { file: "pnpm-lock.yaml", releaseUrl: train.candidate.releaseUrl, integrity: train.candidate.integrity },
+  journey: { id: "candidate-adoption", status: "passed", checks: ["frozen-install"] },
 }, train.consumers[0], train.candidate);
 assert.throws(
-  () => parseReleaseTrainEvidence({ ...evidence, artifact: { ...evidence.artifact, sha256: "f".repeat(64) } }, train.consumers[0], train.candidate),
-  /another archive SHA-256/,
+  () => parseReleaseTrainEvidence({ ...evidence, candidate: { ...evidence.candidate, sha256: "f".repeat(64) } }, train.consumers[0], train.candidate),
+  /another candidate/,
 );
 assert.throws(
-  () => parseReleaseTrainEvidence({ ...evidence, artifact: { ...evidence.artifact, integrity: "sha512-invalid" } }, train.consumers[0], train.candidate),
-  /another archive integrity/,
+  () => parseReleaseTrainEvidence({ ...evidence, journey: { ...evidence.journey, status: "failed" } }, train.consumers[0], train.candidate),
+  /journey did not pass/,
 );
 assert.throws(
   () => parseReleaseTrainConfig({ ...train, consumers: train.consumers.map((consumer) => ({ ...consumer, ref: "main" })) }),

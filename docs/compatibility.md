@@ -59,7 +59,7 @@ compatibility in its issue #2, avoiding a circular producer release.
 
 The daily `cross-tool.config.json` gate is a fixed regression baseline; it is
 not evidence that a new archive can be promoted. A release candidate instead
-uses a committed release-train manifest with the staged asset URL, its SHA-256,
+uses a committed `protocol: 1` release-train manifest with the staged asset URL, its SHA-256,
 its npm SHA-512 SRI,
 the provider commit, and one canonical GitHub identity plus full commit SHA for
 each consumer. The staged asset
@@ -96,7 +96,7 @@ rewrite only those three direct archive entries and their importer records; it
 must reject a version change or any transitive-lock rewrite before the clean
 frozen install, Vite build and evidence run.
 
-The central runner does not edit that ref, its package manifest, or its lockfile.
+Each evidence file repeats the complete candidate, its resolved consumer package, its committed lock URL/SRI, and a passed opaque journey. The central runner compares these fields strictly and does not interpret provider-specific commands. It does not edit that ref, its package manifest, or its lockfile.
 It only creates a disposable detached checkout, runs the package manager with the
 frozen committed lock, writes the ephemeral proof manifest/evidence there, and
 executes the consumer-owned assertion. This preserves consumer ownership while
