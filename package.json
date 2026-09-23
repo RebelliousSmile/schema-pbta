@@ -22,6 +22,7 @@
     "validate:cross-tool:pins": "tsx tools/validate-cross-tool-pins.ts",
     "validate:release-train": "tsx tools/validate-release-train.ts",
     "validate:release-stage": "tsx tools/validate-release-stage.ts",
+    "validate:release-candidate": "tsx tools/validate-release-candidate.ts",
     "release-train:run": "tsx tools/run-release-train.ts",
     "validate:cross-tool:provider": "tsx tools/validate-cross-tool-provider.ts",
     "create:pack": "tsx tools/create-pack.ts",

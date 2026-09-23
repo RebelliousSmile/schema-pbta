@@ -1,0 +1,44 @@
+name: Publish candidate
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Candidate tag (vX.Y.Z-rc.N)
+        required: true
+        type: string
+      commit:
+        description: Full source SHA, ancestor of main
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  candidate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.commit }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: git fetch origin main --depth=1
+      - run: npm run validate:release-candidate -- "${{ inputs.tag }}" "${{ inputs.commit }}"
+      - run: npm ci
+      - run: npx --no-install tsx tools/prepare-release.ts --output release-assets
+      - name: Publish immutable prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+        run: |
+          archive="release-assets/schema-pbta-$(node -p "require('./package.json').version").tgz"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            test "$(gh release view "$TAG" --json isPrerelease,targetCommitish,isImmutable,assets --jq '.isPrerelease and .isImmutable and .targetCommitish == "${{ inputs.commit }}" and (.assets | length == 2)')" = true
+          else
+            gh release create "$TAG" --prerelease --target "${{ inputs.commit }}" --title "$TAG" "$archive" "$archive.sha256"
+          fi
+          test "$(gh release view "$TAG" --json isPrerelease,targetCommitish,isImmutable,assets --jq '.isPrerelease and .isImmutable and .targetCommitish == "${{ inputs.commit }}" and (.assets | length == 2)')" = true
