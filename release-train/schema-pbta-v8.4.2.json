@@ -4,7 +4,7 @@
     "provider": "schema-pbta",
     "releaseUrl": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v8.4.2-rc.1/schema-pbta-8.4.2.tgz",
     "sha256": "bca28c7ff3033640efb570fb6c21a05ec79d82c6fb193560d504bd71d3c457ea",
-    "integrity": "sha512-sKof+MqPI1XMuXc2vdvTtPQxpdrF00uDfC45nW80Mr286YqLTeAXSO21ptgZsh9qVnFECUhd8ALuIAoQ==",
+    "integrity": "sha512-sKof+MqPI1XMuXc2vdvTtPQxpdrF00uDfC45nWzfMJxW80Mr286YqLTeAXSO21ptgZsh9qVnFECUhd8ALuIAoQ==",
     "version": "8.4.2",
     "stagingTag": "v8.4.2-rc.1",
     "finalTag": "v8.4.2",
