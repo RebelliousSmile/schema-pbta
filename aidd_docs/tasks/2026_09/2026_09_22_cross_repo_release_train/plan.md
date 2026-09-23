@@ -27,7 +27,7 @@ status: in-progress
 | https://github.com/RebelliousSmile/schema-pbta/issues/23 | Requires an immutable PbtA candidate, explicit Lantern/Handbook refs, their real proofs, and an unchanged daily gate. |
 | https://github.com/RebelliousSmile/lantern/issues/20 | Closed foundation: Lantern proves lock agreement, frozen installation and Vite consumption. |
 | https://github.com/RebelliousSmile/lantern/issues/33 | Tracks the separate thorn-heart Vite asset-bundling regression that the Lantern journey must reject. |
-| https://github.com/RebelliousSmile/lantern/issues/34 | Open owner ticket for Lantern’s protocol-1 manifest/evidence adapter. |
+| https://github.com/RebelliousSmile/lantern/issues/34 | Closed by Lantern PR #36: protocol-1 evidence, frozen lock/install, Vite and Monsterhearts asset proof are delivered. |
 | https://github.com/RebelliousSmile/obsidian-handbook/issues/53 | Closed foundation: Handbook proves Mist candidate adoption with frozen installation and render checks. |
 | https://github.com/RebelliousSmile/obsidian-handbook/issues/56 | Open owner ticket for Handbook’s protocol-1 manifest/evidence adapter. |
 | https://github.com/RebelliousSmile/schema-in-the-mist/issues/23 | Closed peer-provider rollout; not a consumer of the PbtA candidate. |
@@ -40,5 +40,5 @@ status: in-progress
 | Keep `cross-tool.config.json` and the daily CI contract job separate from release promotion. | A fixed compatibility baseline cannot prove that a newly staged archive is the installed consumer dependency. |
 | Make `protocol: 1` the sole manifest/evidence envelope. | The existing PbtA, Mist, Lantern and Adrenaline proof shapes differ; the orchestrator must compare immutable data rather than interpret provider-specific results. |
 | Put complete candidate identity, full consumer refs, lock attestation and an opaque journey in evidence. | Equality and provenance remain centrally verifiable while installation, rendering and bundling stay consumer-owned. |
-| Require consumer adoption commits before invoking the train. | The runner must only use detached disposable checkouts with committed frozen locks; it must never rewrite a consumer manifest or lockfile. |
+| Split immutable staging from the immutable final train manifest. | The candidate archive must exist before consumers can create their adoption commits; only the final train manifest names those commits. |
 | Promote the archive downloaded from the immutable candidate release without rebuilding it. | The final release must contain the exact bytes proved by Lantern and Handbook. |

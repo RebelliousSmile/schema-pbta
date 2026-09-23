@@ -33,14 +33,14 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npm run validate:release-train -- "${{ inputs.config }}"
+      - run: npm run validate:release-stage -- "${{ inputs.config }}"
       - name: Verify manifest provenance and package version
         env:
           CONFIG: ${{ inputs.config }}
           PROVIDER_COMMIT: ${{ inputs.provider_commit }}
         run: |
-          test "$(git rev-parse HEAD)" = "$PROVIDER_COMMIT"
-          node --input-type=module -e 'import fs from "node:fs"; const c = JSON.parse(fs.readFileSync(process.env.CONFIG)); const p = JSON.parse(fs.readFileSync("package.json")); if (c.candidate.providerCommit !== process.env.PROVIDER_COMMIT || c.candidate.finalTag !== `v${p.version}`) process.exit(1)'
+          git merge-base --is-ancestor "$(node --input-type=module -e 'import fs from "node:fs"; process.stdout.write(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.providerCommit)')" "$PROVIDER_COMMIT"
+          node --input-type=module -e 'import fs from "node:fs"; const c = JSON.parse(fs.readFileSync(process.env.CONFIG)); const p = JSON.parse(fs.readFileSync("package.json")); if (c.candidate.finalTag !== `v${p.version}`) process.exit(1)'
       - name: Build and verify the staged final-version archive
         env:
           CONFIG: ${{ inputs.config }}

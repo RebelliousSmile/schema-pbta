@@ -37,7 +37,7 @@ title: Test scope
 ---
 journey
   section Setup
-    stage a final-version PbtA archive under an immutable candidate tag => archive URL, SHA-256, SRI and provider commit are committed: 5: cli
+    load the published immutable candidate and final train manifest => archive identity and both adoption commits are available: 5: cli
   section Happy path
     run the release train from the protocol-1 manifest => both detached consumer proofs and one provenance record pass: 5: cli
   section Edge case - proof or archive mismatch
@@ -56,13 +56,13 @@ journey
 2. Clone each canonical consumer repository at its full manifest ref into a disposable workspace, install only from the frozen committed graph, and invoke the fixed assertion interface.
 3. Read evidence files, compare every candidate and consumer identity plus lock/journey attestation, and write a provenance artifact.
 
-### `2)` Gate staging and promotion
+### `2)` Gate final promotion
 
 > Make GitHub Actions require the same successful train that consumers proved.
 
 1. Keep the release-train workflow separate from daily CI and publish its provenance artifact.
-2. Require a successful matching train, provider commit, manifest digest and candidate archive digests before promotion.
-3. Download the proven candidate asset and attach those verified bytes and checksum to the immutable final tag without a second package build.
+2. Require a successful matching final train manifest, provider commit, manifest digest and candidate archive digests before promotion.
+3. Download the already staged candidate asset and attach those verified bytes and checksum to the immutable final tag without a second package build.
 
 ### `3)` Execute the first convergent PbtA train
 

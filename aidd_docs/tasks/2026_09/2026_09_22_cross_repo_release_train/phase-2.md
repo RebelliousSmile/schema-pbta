@@ -1,8 +1,8 @@
 ---
-status: pending
+status: in-progress
 ---
 
-# Instruction: Deliver consumer-owned protocol adapters
+# Instruction: Stage the candidate and deliver consumer-owned protocol adapters
 
 ## Architecture projection
 
@@ -21,12 +21,13 @@ status: pending
 
 ```mermaid
 flowchart TD
-  A[Staged PbtA candidate] --> B[Lantern adoption commit]
-  A --> C[Handbook adoption commit]
-  B --> D[Protocol-1 Lantern evidence]
-  C --> E[Protocol-1 Handbook evidence]
-  D --> F[Central comparison]
-  E --> F
+  A[Candidate staging manifest] --> B[Immutable RC archive]
+  B --> C[Lantern adoption commit]
+  B --> D[Handbook adoption commit]
+  C --> E[Protocol-1 Lantern evidence]
+  D --> F[Protocol-1 Handbook evidence]
+  E --> G[Central comparison]
+  F --> G
 ```
 
 ## Test Scope
@@ -37,7 +38,7 @@ title: Test scope
 ---
 journey
   section Setup
-    consumer owners commit candidate URL and SRI in their active locks => immutable adoption SHAs are available: 5: cli
+    publish a SHA/SRI-verified RC from a candidate-only staging manifest => immutable candidate archive is available: 5: cli
   section Happy path
     invoke each assertion from its detached adoption checkout => each writes matching protocol-1 evidence after its real journey: 5: cli
   section Edge case - frozen graph divergence
@@ -50,7 +51,15 @@ journey
 
 ## Tasks to do
 
-### `1)` Adapt Lantern under consumer ownership
+### `1)` Stage the immutable candidate
+
+> Materialize the RC before any consumer adoption commit exists.
+
+1. Add a candidate-only protocol-1 staging manifest containing provider identity, final-version archive URL, SHA-256, SRI, version, tags and provider commit; it contains no consumers.
+2. Make the stage workflow validate only this candidate manifest, build once, verify both digests and publish the immutable RC asset.
+3. Keep the final train manifest separate and reject its use for staging.
+
+### `2)` Adapt Lantern under consumer ownership
 
 > Complete Lantern #34 and #33 without moving Vite, lock or runtime decisions into schema-pbta.
 
@@ -58,7 +67,7 @@ journey
 2. Normalize only the existing direct PbtA, Mist and Adrenaline archive lock records to stable URL/SRI; reject version or transitive changes before clean frozen install.
 3. Emit the evidence file after the Vite journey confirms bundled Monsterhearts base and drowned-lake resources, including the thorn-heart browser URL.
 
-### `2)` Adapt Handbook under consumer ownership
+### `3)` Adapt Handbook under consumer ownership
 
 > Complete Handbook #56 while retaining its existing package, source-pack and render coverage.
 
@@ -66,7 +75,7 @@ journey
 2. Prove the committed frozen lock resolves the candidate URL, SRI and version before installation.
 3. Emit the common evidence file only after the provider manifest, declared assets and actual install/render journey pass.
 
-### `3)` Register immutable adoption refs
+### `4)` Register immutable adoption refs
 
 > Make the train consume consumer commits, not worktrees or branches.
 
@@ -77,6 +86,7 @@ journey
 
 | Task | Acceptance criteria |
 | --- | --- |
-| 1 | Lantern’s frozen graph and Vite output prove the staged candidate without a `file:` asset URL or a local semantic fallback. |
-| 2 | Handbook’s frozen graph, source-pack installation and render path prove the same staged candidate. |
-| 3 | The central fixture names only commits whose consumer-owned proof produces matching protocol-1 evidence. |
+| 1 | The immutable RC exists with the declared SHA-256/SRI before any consumer adoption ref is required. |
+| 2 | Lantern’s frozen graph and Vite output prove the staged candidate without a `file:` asset URL or a local semantic fallback. |
+| 3 | Handbook’s frozen graph, source-pack installation and render path prove the same staged candidate. |
+| 4 | The final central manifest names only commits whose consumer-owned proof produces matching protocol-1 evidence. |
