@@ -21,7 +21,7 @@
     {
       "role": "handbook",
       "repository": "RebelliousSmile/obsidian-handbook",
-      "ref": "88422d1ae136904219a29d1e3911ed6a5900eefe",
+      "ref": "775d1ea70e265fc459e65bf1013a845ccc8950c0",
       "path": "handbook",
       "proof": { "interface": "npm-run-release-train-assert", "manifest": "release-train.manifest.json" }
     }
