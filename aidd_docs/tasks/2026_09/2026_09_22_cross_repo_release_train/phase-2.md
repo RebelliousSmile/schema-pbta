@@ -1,5 +1,5 @@
 ---
-status: in-progress
+status: done
 ---
 
 # Instruction: Stage the candidate and deliver consumer-owned protocol adapters
@@ -90,3 +90,8 @@ journey
 | 2 | Lantern’s frozen graph and Vite output prove the staged candidate without a `file:` asset URL or a local semantic fallback. |
 | 3 | Handbook’s frozen graph, source-pack installation and render path prove the same staged candidate. |
 | 4 | The final central manifest names only commits whose consumer-owned proof produces matching protocol-1 evidence. |
+
+## Verification record
+
+- The immutable candidate `v8.4.2-rc.1` was adopted by Lantern `f904ca44fc945ebc320e11bda3d5bfa683ae08e4` and Handbook `775d1ea70e265fc459e65bf1013a845ccc8950c0`.
+- Both detached consumer assertions emitted matching protocol-1 evidence in the convergent train run `35928534571`.

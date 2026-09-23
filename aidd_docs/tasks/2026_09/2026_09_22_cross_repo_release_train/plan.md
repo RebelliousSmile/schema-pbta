@@ -1,6 +1,6 @@
 ---
 objective: "Promote a schema-pbta archive only after immutable Lantern and Handbook commits emit matching protocol-1 adoption evidence."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Enforce the schema-pbta cross-repository release train
@@ -42,3 +42,10 @@ status: in-progress
 | Put complete candidate identity, full consumer refs, lock attestation and an opaque journey in evidence. | Equality and provenance remain centrally verifiable while installation, rendering and bundling stay consumer-owned. |
 | Split immutable staging from the immutable final train manifest. | The candidate archive must exist before consumers can create their adoption commits; only the final train manifest names those commits. |
 | Promote the archive downloaded from the immutable candidate release without rebuilding it. | The final release must contain the exact bytes proved by Lantern and Handbook. |
+
+## Verification record
+
+- Candidate: `v8.4.2-rc.1`, SHA-256 `bca28c7ff3033640efb570fb6c21a05ec79d82c6fb193560d504bd71d3c457ea`, provider commit `83af3354175acd50f4e2bb9ea9bb07ff15529417`.
+- Consumer proofs: Lantern `f904ca44fc945ebc320e11bda3d5bfa683ae08e4`; Handbook `775d1ea70e265fc459e65bf1013a845ccc8950c0`.
+- Convergent train: [run 35928534571](https://github.com/RebelliousSmile/schema-pbta/actions/runs/35928534571).
+- Immutable promotion: [run 35929516864](https://github.com/RebelliousSmile/schema-pbta/actions/runs/35929516864), publishing [v8.4.2](https://github.com/RebelliousSmile/schema-pbta/releases/tag/v8.4.2) on provider commit `83af3354175acd50f4e2bb9ea9bb07ff15529417` with the same archive SHA-256.

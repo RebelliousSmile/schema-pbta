@@ -1,5 +1,5 @@
 ---
-status: pending
+status: done
 ---
 
 # Instruction: Run and gate the immutable PbtA promotion
@@ -79,3 +79,9 @@ journey
 | 1 | A train produces one provenance record only when both immutable consumer proofs match every protocol-1 identity and lock attestation. |
 | 2 | A final release cannot be created from a missing, divergent or rebuilt archive, nor from an unrelated train run. |
 | 3 | One published PbtA release is demonstrably the archive installed and exercised by both consumer journeys. |
+
+## Verification record
+
+- Train run `35928534571` completed successfully with the immutable Lantern and Handbook evidence.
+- Promotion run `35929516864` completed successfully and published immutable `v8.4.2` on `83af3354175acd50f4e2bb9ea9bb07ff15529417`.
+- Release asset `schema-pbta-8.4.2.tgz` has SHA-256 `bca28c7ff3033640efb570fb6c21a05ec79d82c6fb193560d504bd71d3c457ea`, matching the staged candidate and both consumer proofs.
