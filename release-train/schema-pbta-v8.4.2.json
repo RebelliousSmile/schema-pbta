@@ -14,14 +14,14 @@
     {
       "role": "lantern",
       "repository": "RebelliousSmile/lantern",
-      "ref": "128ca1077bc0fdc072a13cc9f5edbe3bf8d3b780",
+      "ref": "c3451dccf72c5504d2ed3b60f43196b1162c45eb",
       "path": "lantern",
       "proof": { "interface": "npm-run-release-train-assert", "manifest": "release-train.manifest.json" }
     },
     {
       "role": "handbook",
       "repository": "RebelliousSmile/obsidian-handbook",
-      "ref": "775d1ea70e265fc459e65bf1013a845ccc8950c0",
+      "ref": "88422d1ae136904219a29d1e3911ed6a5900eefe",
       "path": "handbook",
       "proof": { "interface": "npm-run-release-train-assert", "manifest": "release-train.manifest.json" }
     }
