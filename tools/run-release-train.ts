@@ -33,7 +33,7 @@ function integrity(file: string): string {
 }
 
 async function download(url: string, destination: string): Promise<void> {
-  const response = await fetch(url, { redirect: "error" });
+  const response = await fetch(url);
   assert.ok(response.ok, `candidate archive download failed: ${response.status} ${response.statusText}`);
   fs.writeFileSync(destination, Buffer.from(await response.arrayBuffer()));
 }
