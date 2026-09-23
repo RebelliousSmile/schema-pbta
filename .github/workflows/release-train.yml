@@ -1,0 +1,37 @@
+name: Release train
+
+on:
+  workflow_dispatch:
+    inputs:
+      provider_commit:
+        description: Immutable schema-pbta commit named by the train manifest
+        required: true
+        type: string
+      config:
+        description: Repository-relative immutable release-train manifest
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.provider_commit }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Validate immutable release-train input
+        run: npm run validate:release-train -- "${{ inputs.config }}"
+      - name: Run consumer-owned candidate proofs
+        run: npx --no-install tsx tools/run-release-train.ts "${{ inputs.config }}" --workspace release-train-workspace --output release-train.provenance.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-train-provenance
+          path: release-train.provenance.json

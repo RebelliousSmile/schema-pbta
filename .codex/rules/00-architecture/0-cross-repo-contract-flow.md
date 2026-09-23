@@ -18,3 +18,4 @@
 - Drive Lantern forms from published metadata.
 - Reject consumer-local semantic fallbacks.
 - Verify corpus and cross-tool round trips.
+- Stage the final-version archive under an immutable candidate tag, and promote only the same SHA-256 bytes after Lantern and Handbook have each supplied canonical candidate-adoption evidence at immutable commits.

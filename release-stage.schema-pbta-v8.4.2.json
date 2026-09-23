@@ -1,0 +1,13 @@
+{
+  "protocol": 1,
+  "candidate": {
+    "provider": "schema-pbta",
+    "releaseUrl": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v8.4.2-rc.1/schema-pbta-8.4.2.tgz",
+    "sha256": "632404d234af047a5f94ed4dd7ba1f4a4428cb38cc1b5a09f9ec4c22e49df1bb",
+    "integrity": "sha512-6KOiWhUpFkV+fC8W03c/UIUI9ddec8wJ4xF9B3t1OqgaZnZPVb/gWl0VCHaYCkM42TH5YqP4Of/KYYMovwBimw==",
+    "version": "8.4.2",
+    "stagingTag": "v8.4.2-rc.1",
+    "finalTag": "v8.4.2",
+    "providerCommit": "b3043b208f70ac5ed16a87dc9650b9055db86c3a"
+  }
+}

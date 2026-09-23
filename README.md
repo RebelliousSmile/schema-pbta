@@ -265,6 +265,44 @@ in [`handbook/shared/callout-contract.md`](./handbook/shared/callout-contract.md
 The compatibility and release policy is documented in
 [`docs/compatibility.md`](./docs/compatibility.md).
 
+### Cross-repository release train
+
+Daily CI keeps a fixed compatibility baseline: it checks the schema commit under
+test against the immutable consumer and provider pins in
+[`cross-tool.config.json`](./cross-tool.config.json). It does not publish a
+release.
+
+Promotion uses the separate `protocol: 1` release-train contract. A candidate release stages
+the final-version tarball once, records its SHA-256 and the exact Lantern and
+Handbook commits, and runs each consumer's `npm run release-train:assert --
+<manifest>` proof. Only evidence from both consumers for that same archive may
+promote it; the final GitHub Release attaches the already verified bytes without
+rebuilding them. The protocol is checked locally with
+`npm run validate:release-train` and is described in
+[`docs/compatibility.md`](./docs/compatibility.md).
+
+The runner verifies both the archive SHA-256 and its npm SHA-512 SRI, then uses
+each consumer's frozen active lockfile to materialize the package. It never
+overlays `node_modules` with a no-save install: that would conceal a stale lock
+instead of proving package manifest, lock and installed candidate agree.
+Consumer evidence names the canonical `owner/repository` identity; the runner
+derives its HTTPS clone URL separately.
+
+Before a train can run, each consumer prepares a dedicated candidate-adoption
+branch: it pins the candidate URL in `package.json`, regenerates and verifies its
+active lockfile SRI, then commits that frozen dependency graph. If the consumer
+installs other direct schema release archives in the same graph, their existing
+versions stay fixed but their lock entries must also be normalized to stable URLs
+with SRI; otherwise a clean frozen install cannot prove anything. The train
+receives only that resulting commit SHA. It checks it out detached in a disposable
+workspace and never rewrites a published consumer checkout or lockfile.
+
+`schema-pbta` is the first rollout, not an exception: the peer providers
+`schema-in-the-mist` and `schema-adrenaline` must apply the same candidate,
+consumer-evidence and byte-identical-promotion rule to their own releases. Their
+tracked adoption work is [Mist #23](https://github.com/RebelliousSmile/schema-in-the-mist/issues/23)
+and [Adrenaline #21](https://github.com/RebelliousSmile/schema-adrenaline/issues/21).
+
 ## Derived work
 
 This repository is derived from

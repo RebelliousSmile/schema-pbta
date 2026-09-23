@@ -1,60 +1,116 @@
 name: Release
 
 on:
-  push:
-    tags:
-      - "v*"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Stage a candidate or promote a proven candidate
+        required: true
+        type: choice
+        options: [stage, promote]
+      provider_commit:
+        description: Immutable schema-pbta commit named by the train manifest
+        required: true
+        type: string
+      config:
+        description: Repository-relative immutable release-train manifest
+        required: true
+        type: string
 
 permissions:
   contents: write
 
 jobs:
-  release:
+  stage:
+    if: inputs.mode == 'stage'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
+        with:
+          ref: ${{ inputs.provider_commit }}
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
-
       - run: npm ci
-      - name: Verify the tag names its package version
+      - run: npm run validate:release-stage -- "${{ inputs.config }}"
+      - name: Verify manifest provenance and package version
+        env:
+          CONFIG: ${{ inputs.config }}
+          PROVIDER_COMMIT: ${{ inputs.provider_commit }}
         run: |
-          version="$(node -p "require('./package.json').version")"
-          test "${version}" = "${GITHUB_REF_NAME#v}"
-      - name: Build reproducible release assets
-        run: npx --no-install tsx tools/prepare-release.ts --output release-assets
-      - name: Validate the final tarball and checksum
+          git merge-base --is-ancestor "$(node --input-type=module -e 'import fs from "node:fs"; process.stdout.write(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.providerCommit)')" "$PROVIDER_COMMIT"
+          node --input-type=module -e 'import fs from "node:fs"; const c = JSON.parse(fs.readFileSync(process.env.CONFIG)); const p = JSON.parse(fs.readFileSync("package.json")); if (c.candidate.finalTag !== `v${p.version}`) process.exit(1)'
+      - name: Build and verify the staged final-version archive
+        env:
+          CONFIG: ${{ inputs.config }}
         run: |
-          archive="release-assets/schema-pbta-${GITHUB_REF_NAME#v}.tgz"
-          (cd release-assets && sha256sum --check "${archive##*/}.sha256")
-          npm run validate:package -- "${archive}"
-
-      - name: Create draft, attach every asset, then publish
+          npx --no-install tsx tools/prepare-release.ts --output release-assets
+          expected="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.sha256)')"
+          expected_integrity="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.integrity)')"
+          archive="release-assets/$(node -p "require('./package.json').name")-$(node -p "require('./package.json').version").tgz"
+          actual="$(sha256sum "$archive" | cut -d " " -f 1)"
+          actual_integrity="$(node --input-type=module -e 'import fs from "node:fs"; import { createHash } from "node:crypto"; console.log("sha512-" + createHash("sha512").update(fs.readFileSync(process.argv[1])).digest("base64"))' "$archive")"
+          test "$actual" = "$expected"
+          test "$actual_integrity" = "$expected_integrity"
+          npm run validate:package -- "$archive"
+      - name: Publish the immutable candidate asset
         env:
           GH_TOKEN: ${{ github.token }}
+          CONFIG: ${{ inputs.config }}
         run: |
-          version="${GITHUB_REF_NAME#v}"
-          archive="release-assets/schema-pbta-${version}.tgz"
+          staging_tag="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.stagingTag)')"
+          archive="release-assets/$(node -p "require('./package.json').name")-$(node -p "require('./package.json').version").tgz"
+          ! gh release view "$staging_tag" >/dev/null 2>&1
+          ! git ls-remote --exit-code --tags origin "refs/tags/$staging_tag" >/dev/null 2>&1
+          gh release create "$staging_tag" --target "${{ inputs.provider_commit }}" --generate-notes --title "schema-pbta candidate $staging_tag" "$archive" "${archive}.sha256"
+          test "$(gh release view "$staging_tag" --json isImmutable --jq .isImmutable)" = "true"
 
-          # Creating a release that already exists can create an untagged draft.
-          # Adopt a draft when present; published releases are immutable and must
-          # instead be verified as a successful no-op.
-          if ! gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
-            gh release create "${GITHUB_REF_NAME}" --verify-tag --draft --generate-notes --title "schema-pbta ${version}"
-          fi
-
-          if [ "$(gh release view "${GITHUB_REF_NAME}" --json isDraft --jq .isDraft)" = "true" ]; then
-            gh release upload "${GITHUB_REF_NAME}" --clobber "${archive}" "${archive}.sha256"
-            gh release edit "${GITHUB_REF_NAME}" --draft=false --latest
-          else
-            for asset in "${archive##*/}" "${archive##*/}.sha256"; do
-              gh release view "${GITHUB_REF_NAME}" --json assets --jq '.assets[].name' | grep -qxF "${asset}" \
-                || { echo "::error::${GITHUB_REF_NAME} is already published without ${asset}"; exit 1; }
-            done
-          fi
-
-          gh release view "${GITHUB_REF_NAME}" --json tagName,isDraft,isImmutable,url,assets
-          test "$(gh release view "${GITHUB_REF_NAME}" --json isImmutable --jq .isImmutable)" = "true"
+  promote:
+    if: inputs.mode == 'promote'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.provider_commit }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run validate:release-train -- "${{ inputs.config }}"
+      - name: Verify manifest provenance and package version
+        env:
+          CONFIG: ${{ inputs.config }}
+          PROVIDER_COMMIT: ${{ inputs.provider_commit }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$PROVIDER_COMMIT"
+          node --input-type=module -e 'import fs from "node:fs"; const c = JSON.parse(fs.readFileSync(process.env.CONFIG)); const p = JSON.parse(fs.readFileSync("package.json")); if (c.candidate.providerCommit !== process.env.PROVIDER_COMMIT || c.candidate.finalTag !== `v${p.version}`) process.exit(1)'
+      - name: Require both consumer proofs for the staged archive
+        run: npx --no-install tsx tools/run-release-train.ts "${{ inputs.config }}" --workspace release-train-workspace --output release-train.provenance.json
+      - name: Download and verify the already staged bytes
+        env:
+          CONFIG: ${{ inputs.config }}
+        run: |
+          url="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.releaseUrl)')"
+          expected="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.sha256)')"
+          expected_integrity="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.integrity)')"
+          archive="schema-pbta-$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.finalTag.slice(1))').tgz"
+          curl --fail --location --output "$archive" "$url"
+          curl --fail --location --output "$archive.sha256" "$url.sha256"
+          (sha256sum --check "$archive.sha256")
+          test "$(sha256sum "$archive" | cut -d " " -f 1)" = "$expected"
+          test "$(node --input-type=module -e 'import fs from "node:fs"; import { createHash } from "node:crypto"; console.log("sha512-" + createHash("sha512").update(fs.readFileSync(process.argv[1])).digest("base64"))' "$archive")" = "$expected_integrity"
+      - name: Attach the verified bytes to a new immutable final tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CONFIG: ${{ inputs.config }}
+          PROVIDER_COMMIT: ${{ inputs.provider_commit }}
+        run: |
+          final_tag="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.finalTag)')"
+          archive="schema-pbta-${final_tag#v}.tgz"
+          ! gh release view "$final_tag" >/dev/null 2>&1
+          ! git ls-remote --exit-code --tags origin "refs/tags/$final_tag" >/dev/null 2>&1
+          gh release create "$final_tag" --target "$PROVIDER_COMMIT" --generate-notes --title "schema-pbta ${final_tag#v}" "$archive" "$archive.sha256"
+          test "$(gh release view "$final_tag" --json isImmutable --jq .isImmutable)" = "true"

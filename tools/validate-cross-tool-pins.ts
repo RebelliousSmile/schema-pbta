@@ -7,6 +7,7 @@ import { readCrossToolParticipants } from "./cross-tool-config.js";
 const CONFIG = "cross-tool.config.json";
 const WORKFLOW = ".github/workflows/ci.yml";
 const CHECKOUT = "tools/checkout-cross-tool.mjs";
+const RELEASE_TRAIN_FIXTURE = "cross-tool.release-train.fixture.json";
 
 const root = process.cwd();
 const participants = readCrossToolParticipants(CONFIG);
@@ -61,6 +62,8 @@ assert.ok(
   `${WORKFLOW} must run the orchestrator with "npm run validate:cross-tool -- ${CONFIG}"`,
 );
 assert.ok(fs.statSync(path.join(root, CHECKOUT)).isFile(), `missing ${CHECKOUT}`);
+assert.ok(fs.statSync(path.join(root, RELEASE_TRAIN_FIXTURE)).isFile(), `missing ${RELEASE_TRAIN_FIXTURE}`);
+assert.doesNotMatch(workflow, /release-train/, `${WORKFLOW} must keep the daily contract gate separate from release promotion`);
 
 console.log(
   `✓ ${participants.length} cross-tool checkouts are pinned and the ${WORKFLOW} contract job runs them.`,
