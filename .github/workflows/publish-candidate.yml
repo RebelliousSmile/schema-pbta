@@ -26,9 +26,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - run: npm ci
       - run: git fetch origin main --depth=1
       - run: npm run validate:release-candidate -- "${{ inputs.tag }}" "${{ inputs.commit }}"
-      - run: npm ci
       - run: npx --no-install tsx tools/prepare-release.ts --output release-assets
       - name: Publish immutable prerelease
         env:
