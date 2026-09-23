@@ -60,7 +60,7 @@ jobs:
           npm run validate:package -- "$archive"
       - name: Publish the immutable candidate asset
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           CONFIG: ${{ inputs.config }}
         run: |
           staging_tag="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.stagingTag)')"
@@ -107,7 +107,7 @@ jobs:
           test "$(node --input-type=module -e 'import fs from "node:fs"; import { createHash } from "node:crypto"; console.log("sha512-" + createHash("sha512").update(fs.readFileSync(process.argv[1])).digest("base64"))' "$archive")" = "$expected_integrity"
       - name: Attach the verified bytes to a new immutable final tag
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           CONFIG: ${{ inputs.config }}
           PROVIDER_COMMIT: ${{ inputs.provider_commit }}
         run: |
