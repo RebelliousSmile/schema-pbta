@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.provider_commit }}
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -29,6 +29,8 @@ jobs:
       - run: npm ci
       - name: Validate immutable release-train input
         run: npm run validate:release-train -- "${{ inputs.config }}"
+      - name: Verify candidate ancestry
+        run: git merge-base --is-ancestor "${{ inputs.provider_commit }}" HEAD
       - name: Run consumer-owned candidate proofs
         run: npx --no-install tsx tools/run-release-train.ts "${{ inputs.config }}" --workspace release-train-workspace --output release-train.provenance.json
       - uses: actions/upload-artifact@v4

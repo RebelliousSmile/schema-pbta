@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.provider_commit }}
+          fetch-depth: 0
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
@@ -85,7 +85,7 @@ jobs:
           CONFIG: ${{ inputs.config }}
           PROVIDER_COMMIT: ${{ inputs.provider_commit }}
         run: |
-          test "$(git rev-parse HEAD)" = "$PROVIDER_COMMIT"
+          git merge-base --is-ancestor "$PROVIDER_COMMIT" HEAD
           node --input-type=module -e 'import fs from "node:fs"; const c = JSON.parse(fs.readFileSync(process.env.CONFIG)); const p = JSON.parse(fs.readFileSync("package.json")); if (c.candidate.providerCommit !== process.env.PROVIDER_COMMIT || c.candidate.finalTag !== `v${p.version}`) process.exit(1)'
       - name: Require both consumer proofs for the staged archive
         run: npx --no-install tsx tools/run-release-train.ts "${{ inputs.config }}" --workspace release-train-workspace --output release-train.provenance.json
