@@ -20,6 +20,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: release-${{ inputs.mode }}-${{ inputs.provider_commit }}-${{ inputs.config }}
+  cancel-in-progress: true
+
 jobs:
   stage:
     if: inputs.mode == 'stage'

@@ -72,7 +72,7 @@ async function main(): Promise<void> {
     const manifest = path.join(consumerRoot, consumer.proof.manifest);
     fs.mkdirSync(path.dirname(manifest), { recursive: true });
     const evidencePath = `${manifest}.evidence.json`;
-    fs.writeFileSync(manifest, JSON.stringify({ protocol: 1, candidate: train.candidate, consumers: train.consumers.map(({ role, repository, ref }) => ({ role, repository, ref })), evidencePath }, null, 2));
+    fs.writeFileSync(manifest, JSON.stringify({ protocol: 1, candidate: train.candidate, consumers: train.consumers }, null, 2));
     run("npm", ["run", "release-train:assert", "--", consumer.proof.manifest], consumerRoot);
     assert.ok(fs.existsSync(evidencePath), `${consumer.role} proof wrote no evidence at ${path.relative(consumerRoot, evidencePath)}`);
     evidence.push(parseReleaseTrainEvidence(JSON.parse(fs.readFileSync(evidencePath, "utf8")), consumer, train.candidate));
