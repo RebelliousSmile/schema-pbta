@@ -1,6 +1,6 @@
 ---
 objective: "Publish a manually dispatched immutable schema-pbta candidate tarball whose Linux/Node 20 digest becomes the release-train input."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Publish an immutable candidate tarball
