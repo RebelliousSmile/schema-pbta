@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
-import { buildSync } from "esbuild";
+import { buildSync as buildWithEsbuild } from "esbuild";
 
 const root = process.cwd();
 const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "schema-pbta-package-"));
@@ -77,6 +77,7 @@ try {
   const checkSource = `
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import * as schemaPbta from "schema-pbta";
 import {
   PBTA_CONTRACT_SCHEMA_TAG,
   PBTA_CONTRACT_VERSION,
@@ -103,6 +104,11 @@ import {
 assert.equal(PBTA_CONTRACT_VERSION, 8);
 assert.equal(PBTA_CONTRACT_SCHEMA_TAG, "v8.0.0");
 assert.equal(PBTA_TOML_VERSION, "1.0.0");
+assert.equal(
+  "PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS" in schemaPbta,
+  false,
+  "the package root must not expose the browser-only asset registry",
+);
 assert.deepEqual(
   getPbtaMonsterheartsPlaybookPresentation("monsterhearts-playbook"),
   PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
@@ -236,20 +242,25 @@ await assert.rejects(
   fs.writeFileSync(path.join(consumerRoot, "check.mjs"), checkSource);
   run(process.execPath, ["check.mjs"], consumerRoot);
 
-  const commonJsEntry = path.join(consumerRoot, "root-entry.js");
-  fs.writeFileSync(commonJsEntry, `import { PBTA_CONTRACT_VERSION } from "schema-pbta";
-if (PBTA_CONTRACT_VERSION !== 8) throw new Error("root contract version did not load");
-`);
-  buildSync({
+  const commonJsSource = `
+import assert from "node:assert/strict";
+import { PBTA_CONTRACT_VERSION } from "schema-pbta";
+assert.equal(PBTA_CONTRACT_VERSION, 8);
+`;
+  const commonJsEntry = path.join(consumerRoot, "commonjs-entry.js");
+  const commonJsBundle = path.join(consumerRoot, "commonjs-bundle.cjs");
+  fs.writeFileSync(commonJsEntry, commonJsSource);
+  buildWithEsbuild({
+    absWorkingDir: consumerRoot,
     entryPoints: [commonJsEntry],
-    outfile: path.join(consumerRoot, "root-bundle.cjs"),
     bundle: true,
     format: "cjs",
     platform: "node",
-    treeShaking: false,
+    target: "node20",
+    outfile: commonJsBundle,
     logLevel: "silent",
   });
-  run(process.execPath, ["root-bundle.cjs"], consumerRoot);
+  run(process.execPath, [commonJsBundle], consumerRoot);
 
   const viteRoot = path.join(consumerRoot, "vite-fixture");
   fs.mkdirSync(path.join(viteRoot, "src"), { recursive: true });

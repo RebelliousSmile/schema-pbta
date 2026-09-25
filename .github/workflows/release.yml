@@ -88,12 +88,13 @@ jobs:
         working-directory: provider-source
       - run: test -n "${{ inputs.config }}"
       - run: npm run validate:release-stage -- "${{ inputs.config }}"
-      - name: Verify manifest provenance and package version
+      - name: Verify manifest provenance and isolate provider source
         env:
           CONFIG: ${{ inputs.config }}
           PROVIDER_COMMIT: ${{ inputs.provider_commit }}
         run: |
           test "$(git -C provider-source rev-parse HEAD)" = "$PROVIDER_COMMIT"
+          git merge-base --is-ancestor "$PROVIDER_COMMIT" HEAD
           node --input-type=module -e 'import fs from "node:fs"; const c = JSON.parse(fs.readFileSync(process.env.CONFIG)); const p = JSON.parse(fs.readFileSync("provider-source/package.json")); if (c.candidate.providerCommit !== process.env.PROVIDER_COMMIT || c.candidate.finalTag !== `v${p.version}`) process.exit(1)'
       - name: Build and verify the staged final-version archive
         working-directory: provider-source
@@ -115,7 +116,7 @@ jobs:
           CONFIG: ${{ inputs.config }}
         run: |
           staging_tag="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.stagingTag)')"
-          archive="release-assets/$(node -p "require('./package.json').name")-$(node -p "require('./package.json').version").tgz"
+          archive="release-assets/schema-pbta-$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.version)').tgz"
           ! gh release view "$staging_tag" >/dev/null 2>&1
           ! git ls-remote --exit-code --tags origin "refs/tags/$staging_tag" >/dev/null 2>&1
           gh release create "$staging_tag" --target "${{ inputs.provider_commit }}" --generate-notes --title "schema-pbta candidate $staging_tag" "$archive" "${archive}.sha256"
@@ -132,6 +133,9 @@ jobs:
         with:
           node-version: 24
           cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - run: npm ci
       - run: test -n "${{ inputs.config }}"
       - run: npm run validate:release-train -- "${{ inputs.config }}"
@@ -142,7 +146,18 @@ jobs:
         run: |
           git merge-base --is-ancestor "$PROVIDER_COMMIT" HEAD
           node --input-type=module -e 'import fs from "node:fs"; const c = JSON.parse(fs.readFileSync(process.env.CONFIG)); const p = JSON.parse(fs.readFileSync("package.json")); if (c.candidate.providerCommit !== process.env.PROVIDER_COMMIT || c.candidate.finalTag !== `v${p.version}`) process.exit(1)'
+      - name: Provision Obsidian 1.13.7 host proof
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          python3 -m pip install websocket-client
+          curl -fsSL -o /tmp/Obsidian.AppImage https://github.com/obsidianmd/obsidian-releases/releases/download/v1.13.7/Obsidian-1.13.7.AppImage
+          chmod +x /tmp/Obsidian.AppImage
+          cd /tmp
+          ./Obsidian.AppImage --appimage-extract >/dev/null
       - name: Require both consumer proofs for the staged archive
+        env:
+          HANDBOOK_E2E_OBSIDIAN: /tmp/squashfs-root/AppRun
         run: npx --no-install tsx tools/run-release-train.ts "${{ inputs.config }}" --workspace release-train-workspace --output release-train.provenance.json
       - name: Download and verify the already staged bytes
         env:

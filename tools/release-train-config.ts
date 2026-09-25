@@ -50,9 +50,9 @@ const REPOSITORIES: Record<ReleaseTrainConsumerRole, string> = {
   lantern: "RebelliousSmile/lantern",
   handbook: "RebelliousSmile/obsidian-handbook",
 };
-const REQUIRED_ARTIFACT_CHECKS: Record<ReleaseTrainConsumerRole, readonly string[]> = {
+const REQUIRED_HOST_ARTIFACT_CHECKS: Record<ReleaseTrainConsumerRole, readonly string[]> = {
   lantern: ["vite-build", "monsterhearts-four-assets"],
-  handbook: ["production-build", "obsidian-plugin-load"],
+  handbook: ["commonjs-plugin-build", "obsidian-1.13.7-plugin-load"],
 };
 
 function object(value: unknown, label: string): Record<string, unknown> {
@@ -160,9 +160,9 @@ export function parseReleaseTrainEvidence(raw: unknown, consumer: ReleaseTrainCo
   assert.equal(journey.status, "passed", `${consumer.role} journey did not pass`);
   assert.ok(Array.isArray(journey.checks) && journey.checks.length > 0 && journey.checks.every((check) => typeof check === "string"), `${consumer.role} journey must name checks`);
   const checks = journey.checks as string[];
-  assert.equal(new Set(checks).size, checks.length, `${consumer.role} journey has duplicate checks`);
-  for (const required of REQUIRED_ARTIFACT_CHECKS[consumer.role]) {
-    assert.ok(checks.includes(required), `${consumer.role} journey is missing required artifact check ${required}`);
+  assert.equal(new Set(checks).size, checks.length, `${consumer.role} journey checks must be unique`);
+  for (const required of REQUIRED_HOST_ARTIFACT_CHECKS[consumer.role]) {
+    assert.ok(checks.includes(required), `${consumer.role} journey is missing required host-artifact check ${required}`);
   }
   return {
     protocol: 1,

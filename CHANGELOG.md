@@ -9,8 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Move Monsterhearts browser asset URLs to an explicit package subpath so ordinary root imports execute in CommonJS bundles.
-- Validate the packed archive in both CommonJS and Vite fixtures and require Lantern asset and Handbook plugin-load evidence before release promotion.
+- Keep the Vite-only Monsterhearts asset URL registry behind an explicit browser export so ordinary package-root imports bundle and execute safely as CommonJS.
+- Require Lantern's built Vite assets and Handbook's real Obsidian 1.13.7 plugin load in release-train evidence before promotion.
 
 ## [8.4.2] - 2026-09-23
 
