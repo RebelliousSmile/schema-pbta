@@ -2,30 +2,32 @@
 status: pending
 ---
 
-# Instruction: Prove and promote the byte-identical patch
+# Instruction: Move Lantern to the opt-in browser entry point
 
 ## Architecture projection
 
 > Tree of the final files. ✅ create · ✏️ modify · ❌ delete
 
 ```txt
-schema-pbta/
-├── release-train/
-│   └── schema-pbta-v8.4.3.json ✅ pin the candidate and proved Lantern and Handbook adoption commits
-└── .github/workflows/
-    └── release.yml ✏️ compare the published final asset digest with the candidate digest
+lantern/
+├── src/templates/monsterhearts/playbook/preview/MonsterheartsPlaybookPreview.tsx ✏️ import the URL registry from the browser subpath
+├── tools/
+│   ├── assertWorkspace.harness.mts ✏️ exercise the opt-in registry
+│   ├── assert-template-chunks.mjs ✏️ emit and HTTP-fetch both fonts and both SVGs
+│   └── release-train-assert.mjs ✏️ emit `vite-build` and `monsterhearts-four-assets`
+├── package.json ✏️ adopt the staged patch archive
+├── pnpm-lock.yaml ✏️ freeze candidate URL and SRI
+└── package-lock.json ✏️ freeze the same candidate URL and SRI
 ```
 
 ## User Journey
 
 ```mermaid
 flowchart TD
-  A[Immutable candidate] --> B[Lantern adoption commit]
-  A --> C[Handbook adoption commit]
-  B --> D[Protocol-1 train on exact bytes]
-  C --> D
-  D --> E[Attach downloaded candidate archive to final tag]
-  E --> F[Download final asset and compare SHA-256]
+  A[Lantern frozen-installs candidate] --> B[Preview opts into browser registry]
+  B --> C[Vite emits fonts and marks]
+  C --> D[Preview server serves all four]
+  D --> E[Evidence records both artifact checks]
 ```
 
 ## Test Scope
@@ -36,37 +38,29 @@ title: Test scope
 ---
 journey
   section Setup
-    Record both immutable consumer commit SHAs => train manifest binds one candidate and two adoption proofs: 5: cli
+    Pin candidate URL and SRI in both locks => clean frozen installs resolve exact staged bytes: 5: cli
   section Happy path
-    Run both pinned consumer proofs against the candidate => Lantern and Handbook report mandatory runnable-artifact checks: 5: system
-    Promote by reusing the candidate archive => final asset SHA-256 equals the candidate SHA-256: 5: system
-  section Edge case - divergent consumer
-    A lock URL SRI commit or required host check differs => release train and promotion remain blocked: 1: system
-  section Edge case - rebuilt final
-    Published final bytes differ from the staged digest => final verification fails and the release is not reported successful: 1: system
+    Build and preview Lantern => both fonts and both SVG marks return successful non-empty responses: 5: cli
+    Emit protocol evidence => vite-build and monsterhearts-four-assets are recorded: 5: cli
+  section Edge case - root regression
+    Scan ordinary schema-pbta imports => browser registry is absent from the root path: 1: cli
+  section Teardown
+    Complete preview assertions => ephemeral Vite server stops: 5: system
 ```
 
 ## Tasks to do
 
-### `1)` Freeze and run the convergent train
+### `1)` Adopt and prove the browser API
 
-> Bind both consumer-owned proofs to the same candidate archive.
+> Keep Lantern browser semantics explicit and observable in its production artifact.
 
-1. Record the full Lantern and Handbook adoption commit SHAs beside the already staged candidate identity in a new immutable release-train manifest.
-2. Run the train from the recorded provider commit and retain provenance containing `vite-build`, `monsterhearts-four-assets`, `commonjs-plugin-build`, and `obsidian-1.13.7-plugin-load` under their owning consumers.
-3. Treat any candidate, lock, consumer-ref, required-check, build, host-load, or repository-cleanliness mismatch as a promotion blocker.
-
-### `2)` Promote without rebuilding
-
-> Make the stable asset exactly the artifact tested by both applications.
-
-1. Download the SHA-verified candidate archive after the convergent train passes and attach that file, without invoking `npm pack`, to the final v8.4.3 tag on the recorded provider commit.
-2. Download the published final asset and compare its SHA-256 with the candidate manifest before reporting the workflow successful.
-3. Record the train run, final release, matching digest, and explicit host-artifact checks before closing issue #41.
+1. Move registry imports to the new subpath while retaining ordinary contract imports at the root and direct `?url&no-inline` mappings.
+2. Extend the built-output assertion to both WOFF2 fonts and both SVGs, then serve and fetch all four from an ephemeral Vite preview.
+3. Emit the two exact check identifiers only after their corresponding build and four-asset assertions pass.
+4. Pin the candidate URL/SRI in both locks, run the clean frozen-install proof, and commit the Lantern adoption branch.
 
 ## Test acceptance criteria
 
 | Task | Acceptance criteria |
 | --- | --- |
-| 1 | The pinned Lantern and Handbook commits prove the same staged archive and the retained provenance names every mandatory host-artifact check. |
-| 2 | The final v8.4.3 archive is the candidate file, its downloaded SHA-256 equals the staged SHA-256, and #41 closes only after that equality is recorded. |
+| 1 | Lantern consumes the opt-in path, emits and serves all four assets, and its candidate evidence names both required checks against the exact staged bytes. |

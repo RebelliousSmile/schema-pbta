@@ -2,34 +2,25 @@
 status: pending
 ---
 
-# Instruction: Move Lantern to the opt-in browser entry point
+# Instruction: Record the staging manifest
 
 ## Architecture projection
 
 > Tree of the final files. ✅ create · ✏️ modify · ❌ delete
 
 ```txt
-lantern/
-├── src/templates/monsterhearts/playbook/preview/
-│   └── MonsterheartsPlaybookPreview.tsx ✏️ import only the URL registry from the browser subpath
-├── tools/
-│   ├── assertWorkspace.harness.mts ✏️ exercise the registry through the opt-in path
-│   ├── assert-template-chunks.mjs ✏️ require and HTTP-fetch both fonts and both SVGs from Vite output
-│   └── release-train-assert.mjs ✏️ emit `vite-build` and `monsterhearts-four-assets`
-├── package.json ✏️ adopt the staged patch archive
-├── pnpm-lock.yaml ✏️ freeze the candidate URL and SRI
-└── package-lock.json ✏️ freeze the same candidate URL and SRI
+schema-pbta/
+└── release-stage.schema-pbta-v8.4.3.json ✅ bind the future candidate URL and measured archive digests to the phase-2 provider commit
 ```
 
 ## User Journey
 
 ```mermaid
 flowchart TD
-  A[Lantern frozen-installs candidate] --> B[Ordinary contracts load from schema-pbta root]
-  A --> C[Monsterhearts preview opts into browser asset registry]
-  C --> D[Vite emits fonts and marks]
-  D --> E[Built preview serves all four assets]
-  E --> F[Evidence names vite-build and monsterhearts-four-assets]
+  A[Immutable provider commit] --> B[Build canonical Linux archive]
+  B --> C[Measure SHA-256 and npm SRI]
+  C --> D[Write stage manifest with provider SHA]
+  D --> E[Validate manifest without changing provider source]
 ```
 
 ## Test Scope
@@ -40,37 +31,26 @@ title: Test scope
 ---
 journey
   section Setup
-    Pin candidate URL and SRI in both active locks => clean frozen installs resolve the exact staged bytes: 5: cli
+    Checkout the phase-2 provider SHA in a clean release environment => source identity is fixed: 5: system
   section Happy path
-    Build and preview Lantern with Vite => both fonts and both SVG marks return successful HTTP responses: 5: cli
-    Run the workspace assertions => browser URL semantics come only from the explicit package subpath: 5: cli
-    Emit protocol-1 evidence => vite-build and monsterhearts-four-assets are recorded: 5: cli
-  section Edge case - root regression
-    Scan Lantern's schema-pbta root imports => no browser registry import remains on the ordinary contract path: 1: cli
+    Build and measure schema-pbta 8.4.3 => manifest records candidate URL SHA-256 SRI tags and provider SHA: 5: system
+    Validate the committed manifest => all release-stage provenance constraints pass: 5: system
+  section Edge case - source drift
+    Archive or provider SHA differs from the measured source => manifest validation or package digest check fails: 1: system
 ```
 
 ## Tasks to do
 
-### `1)` Adopt the explicit browser API
+### `1)` Bind staging inputs to the frozen source
 
-> Keep Lantern's browser-specific dependency visible without changing its contract imports.
+> Create the orchestration commit only after the provider SHA exists.
 
-1. Import `PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS` from the new subpath in the preview and workspace harness; retain ordinary presentation and codec imports at the root.
-2. Preserve the direct `?url&no-inline` asset imports used to map published identities to Vite-served URLs.
-3. Pin the staged patch URL and exact SRI in `package.json`, `pnpm-lock.yaml`, and `package-lock.json`, then prove a clean frozen install.
-
-### `2)` Strengthen the Lantern artifact proof
-
-> Make the release journey name and verify every promised browser resource.
-
-1. Extend the template-chunk assertion from the two SVGs to both WOFF2 fonts and both SVG marks in `dist/.vite/manifest.json` and on disk.
-2. Start `vite preview` on an ephemeral loopback port, request each emitted asset URL, require a successful non-empty response, and always stop the preview process.
-3. Keep the prohibition on `file:` URLs and the source assertion that Vite owns the rendered resource URLs.
-4. Emit `vite-build` only after the production build passes and `monsterhearts-four-assets` only after all four manifest, disk, and HTTP assertions pass.
+1. Build the canonical archive from the phase-2 commit under the release Node/Linux contract and calculate its SHA-256 and SHA-512 SRI.
+2. Write the v8.4.3 stage manifest with the `v8.4.3-rc.1` URL, `v8.4.3` final tag, measured digests, and exact provider commit.
+3. Validate the stage manifest and confirm its addition does not alter the packed payload produced from the provider commit.
 
 ## Test acceptance criteria
 
 | Task | Acceptance criteria |
 | --- | --- |
-| 1 | Lantern consumes the browser registry only through the opt-in export and a frozen install resolves the exact candidate bytes. |
-| 2 | Lantern's candidate evidence records a passing Vite build only after both fonts and both SVG marks are emitted and fetched successfully from the production preview server. |
+| 1 | The committed stage manifest validates and names the exact phase-2 provider SHA and canonical v8.4.3 archive digests without claiming its own orchestration commit as package source. |

@@ -28,6 +28,8 @@ jobs:
   stage:
     if: inputs.mode == 'stage'
     runs-on: ubuntu-latest
+    env:
+      STAGE_CONFIG: ${{ runner.temp }}/schema-pbta-release-stage.json
     steps:
       - uses: actions/checkout@v4
         with:
@@ -38,16 +40,21 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run validate:release-stage -- "${{ inputs.config }}"
-      - name: Verify manifest provenance and package version
+      - name: Verify manifest provenance and isolate provider source
         env:
           CONFIG: ${{ inputs.config }}
           PROVIDER_COMMIT: ${{ inputs.provider_commit }}
         run: |
-          git merge-base --is-ancestor "$(node --input-type=module -e 'import fs from "node:fs"; process.stdout.write(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.providerCommit)')" "$PROVIDER_COMMIT"
-          node --input-type=module -e 'import fs from "node:fs"; const c = JSON.parse(fs.readFileSync(process.env.CONFIG)); const p = JSON.parse(fs.readFileSync("package.json")); if (c.candidate.finalTag !== `v${p.version}`) process.exit(1)'
+          candidate_commit="$(node --input-type=module -e 'import fs from "node:fs"; process.stdout.write(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.providerCommit)')"
+          test "$candidate_commit" = "$PROVIDER_COMMIT"
+          git merge-base --is-ancestor "$candidate_commit" HEAD
+          cp "$CONFIG" "$STAGE_CONFIG"
+          git checkout --detach "$candidate_commit"
+          node --input-type=module -e 'import fs from "node:fs"; const c = JSON.parse(fs.readFileSync(process.env.STAGE_CONFIG)); const p = JSON.parse(fs.readFileSync("package.json")); if (c.candidate.finalTag !== `v${p.version}`) process.exit(1)'
+      - run: npm ci
       - name: Build and verify the staged final-version archive
         env:
-          CONFIG: ${{ inputs.config }}
+          CONFIG: ${{ runner.temp }}/schema-pbta-release-stage.json
         run: |
           npx --no-install tsx tools/prepare-release.ts --output release-assets
           expected="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.sha256)')"
@@ -61,7 +68,7 @@ jobs:
       - name: Publish the immutable candidate asset
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-          CONFIG: ${{ inputs.config }}
+          CONFIG: ${{ runner.temp }}/schema-pbta-release-stage.json
         run: |
           staging_tag="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.stagingTag)')"
           archive="release-assets/$(node -p "require('./package.json').name")-$(node -p "require('./package.json').version").tgz"
@@ -81,6 +88,9 @@ jobs:
         with:
           node-version: 24
           cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - run: npm ci
       - run: npm run validate:release-train -- "${{ inputs.config }}"
       - name: Verify manifest provenance and package version
@@ -90,7 +100,18 @@ jobs:
         run: |
           git merge-base --is-ancestor "$PROVIDER_COMMIT" HEAD
           node --input-type=module -e 'import fs from "node:fs"; const c = JSON.parse(fs.readFileSync(process.env.CONFIG)); const p = JSON.parse(fs.readFileSync("package.json")); if (c.candidate.providerCommit !== process.env.PROVIDER_COMMIT || c.candidate.finalTag !== `v${p.version}`) process.exit(1)'
+      - name: Provision Obsidian 1.13.7 host proof
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          python3 -m pip install websocket-client
+          curl -fsSL -o /tmp/Obsidian.AppImage https://github.com/obsidianmd/obsidian-releases/releases/download/v1.13.7/Obsidian-1.13.7.AppImage
+          chmod +x /tmp/Obsidian.AppImage
+          cd /tmp
+          ./Obsidian.AppImage --appimage-extract >/dev/null
       - name: Require both consumer proofs for the staged archive
+        env:
+          HANDBOOK_E2E_OBSIDIAN: /tmp/squashfs-root/AppRun
         run: npx --no-install tsx tools/run-release-train.ts "${{ inputs.config }}" --workspace release-train-workspace --output release-train.provenance.json
       - name: Download and verify the already staged bytes
         env:
@@ -117,3 +138,7 @@ jobs:
           ! git ls-remote --exit-code --tags origin "refs/tags/$final_tag" >/dev/null 2>&1
           gh release create "$final_tag" --target "$PROVIDER_COMMIT" --generate-notes --title "schema-pbta ${final_tag#v}" "$archive" "$archive.sha256"
           test "$(gh release view "$final_tag" --json isImmutable --jq .isImmutable)" = "true"
+          mkdir final-release
+          gh release download "$final_tag" --pattern "$archive" --dir final-release
+          expected="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.sha256)')"
+          test "$(sha256sum "final-release/$archive" | cut -d " " -f 1)" = "$expected"

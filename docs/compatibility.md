@@ -72,7 +72,10 @@ release-train:assert -- <manifest>`. The runner installs the verified archive in
 isolated Lantern and Handbook workspaces using the consumer's frozen active
 lockfile; it never overlays the candidate with a no-save install. It accepts
 only structured evidence that repeats the configured URL, SHA-256, SRI,
-repository and commit.
+repository and commit. For PbtA promotion, Lantern must additionally report
+`vite-build` and `monsterhearts-four-assets`; Handbook must report
+`commonjs-plugin-build` and `obsidian-1.13.7-plugin-load`. These fixed markers
+prove the runnable host artifacts rather than source projections alone.
 The runner derives the HTTPS clone URL from that identity; the evidence never
 depends on a transport-specific clone URL.
 
@@ -96,7 +99,7 @@ rewrite only those three direct archive entries and their importer records; it
 must reject a version change or any transitive-lock rewrite before the clean
 frozen install, Vite build and evidence run.
 
-Each evidence file repeats the complete candidate, its resolved consumer package, its committed lock URL/SRI, and a passed opaque journey. The central runner compares these fields strictly and does not interpret provider-specific commands. It does not edit that ref, its package manifest, or its lockfile.
+Each evidence file repeats the complete candidate, its resolved consumer package, its committed lock URL/SRI, and a passed consumer-owned journey. The central runner compares these fields strictly and, for the PbtA train, requires the four host-artifact markers above without interpreting the commands behind them. It does not edit that ref, its package manifest, or its lockfile.
 It only creates a disposable detached checkout, runs the package manager with the
 frozen committed lock, writes the ephemeral proof manifest/evidence there, and
 executes the consumer-owned assertion. This preserves consumer ownership while

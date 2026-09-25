@@ -17,10 +17,13 @@ status: in-progress
 | # | Phase | File |
 | --- | --- | --- |
 | 1 | Isolate browser assets and prove both package formats | [`phase-1.md`](./phase-1.md) |
-| 2 | Define artifact gates and stage the patch candidate | [`phase-2.md`](./phase-2.md) |
-| 3 | Move Lantern to the opt-in browser entry point | [`phase-3.md`](./phase-3.md) |
-| 4 | Make Handbook's built-plugin load part of release evidence | [`phase-4.md`](./phase-4.md) |
-| 5 | Prove and promote the byte-identical patch | [`phase-5.md`](./phase-5.md) |
+| 2 | Define artifact gates and freeze the provider commit | [`phase-2.md`](./phase-2.md) |
+| 3 | Record the staging manifest | [`phase-3.md`](./phase-3.md) |
+| 4 | Publish the immutable patch candidate | [`phase-4.md`](./phase-4.md) |
+| 5 | Move Lantern to the opt-in browser entry point | [`phase-5.md`](./phase-5.md) |
+| 6 | Make Handbook's built-plugin load part of release evidence | [`phase-6.md`](./phase-6.md) |
+| 7 | Freeze the convergent release train | [`phase-7.md`](./phase-7.md) |
+| 8 | Prove and promote the byte-identical patch | [`phase-8.md`](./phase-8.md) |
 
 ## Resources
 
