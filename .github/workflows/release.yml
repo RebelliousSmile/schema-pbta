@@ -74,8 +74,8 @@ jobs:
           archive="release-assets/$(node -p "require('./package.json').name")-$(node -p "require('./package.json').version").tgz"
           ! gh release view "$staging_tag" >/dev/null 2>&1
           ! git ls-remote --exit-code --tags origin "refs/tags/$staging_tag" >/dev/null 2>&1
-          gh release create "$staging_tag" --target "${{ inputs.provider_commit }}" --generate-notes --title "schema-pbta candidate $staging_tag" "$archive" "${archive}.sha256"
-          test "$(gh release view "$staging_tag" --json isImmutable --jq .isImmutable)" = "true"
+          gh release create "$staging_tag" --prerelease --target "${{ inputs.provider_commit }}" --generate-notes --title "schema-pbta candidate $staging_tag" "$archive" "${archive}.sha256"
+          test "$(gh release view "$staging_tag" --json isPrerelease,isImmutable --jq '.isPrerelease and .isImmutable')" = "true"
 
   promote:
     if: inputs.mode == 'promote'
