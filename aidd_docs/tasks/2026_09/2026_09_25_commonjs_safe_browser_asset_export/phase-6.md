@@ -2,37 +2,27 @@
 status: pending
 ---
 
-# Instruction: Make Handbook's built-plugin load part of release evidence
+# Instruction: Prove and promote the byte-identical patch
 
 ## Architecture projection
 
 > Tree of the final files. ✅ create · ✏️ modify · ❌ delete
 
 ```txt
-obsidian-handbook/
-├── tools/e2e/
-│   ├── plugin-load-journey.sh ✅ launch an isolated Obsidian profile and vault
-│   ├── plugin-load-cdp.py ✅ assert Handbook activates without module-evaluation errors
-│   └── README.md ✏️ document the focused journey
-├── tools/
-│   ├── prove-built-plugin.mjs ✅ expose one shared production build/load proof
-│   ├── release-train-assert.mjs ✏️ require it around every provider assertion
-│   ├── release-train-schema-pbta-assert.mjs ✏️ merge exact host checks into evidence
-│   ├── release-train-schema-adrenaline-assert.mjs ✏️ reuse the gate without broadening provider acceptance
-│   ├── assert-release-train-schema-pbta.mjs ✏️ test the adapter hermetically
-│   └── assert-release-train-schema-adrenaline.mjs ✏️ retain dispatcher coverage
-├── package.json ✏️ expose the focused journey and adopt the candidate
-└── pnpm-lock.yaml ✏️ freeze candidate URL and SRI
+GitHub Actions release-train provenance ✅ records both external consumers and four host-artifact checks
+GitHub Release v8.4.3 ✅ reuses the candidate tarball and checksum on the provider commit
+GitHub issue #41 ✏️ closes with train, release, and matching-digest evidence
 ```
 
 ## User Journey
 
 ```mermaid
 flowchart TD
-  A[Handbook frozen-installs candidate] --> B[Build dist/main.js as CommonJS]
-  B --> C[Copy dist into isolated vault]
-  C --> D[Obsidian 1.13.7 activates Handbook]
-  D --> E[Evidence records build and host load]
+  A[Committed train manifest] --> B[Checkout pinned external consumer commits]
+  B --> C[Run four mandatory artifact checks]
+  C --> D[Download candidate archive]
+  D --> E[Attach the same file to final tag]
+  E --> F[Verify final SHA-256 and close provider issue]
 ```
 
 ## Test Scope
@@ -43,36 +33,34 @@ title: Test scope
 ---
 journey
   section Setup
-    Pin candidate and provision Obsidian 1.13.7 => exact bytes and host executable are ready: 5: system
+    Dispatch train from committed manifest => isolated pinned consumer workspaces are created: 5: system
   section Happy path
-    Build and launch disposable vault => Handbook is enabled and loaded without activation errors: 5: system
-    Emit protocol evidence => commonjs-plugin-build and obsidian-1.13.7-plugin-load are recorded: 5: system
-  section Edge case - unloadable plugin
-    Obsidian rejects dist/main.js before onload => no passing evidence is written: 1: system
-  section Teardown
-    Finish or fail journey => process vault and profile are removed: 5: system
+    Complete both external proofs => provenance records four mandatory checks against exact candidate bytes: 5: system
+    Promote downloaded candidate => final archive SHA-256 equals candidate SHA-256: 5: system
+  section Edge case - divergent evidence
+    Lock ref digest required check build or host load differs => promotion remains blocked: 1: system
 ```
 
 ## Tasks to do
 
-### `1)` Add the focused real-host journey
+### `1)` Run the pinned consumer train
 
-> Prove the generated plugin reaches `onload()` in Obsidian 1.13.7.
+> Verify the external deliveries without taking ownership of their implementation.
 
-1. Build Handbook, copy its three distribution files into a new vault, enable only Handbook, and launch an isolated profile under CDP.
-2. Assert the matching vault and loaded plugin identity, surface activation rejections, and clean all temporary state on every exit.
+1. Dispatch the train with the committed manifest and provider SHA, then wait for both pinned consumer proofs and retain the provenance artifact.
+2. Confirm Lantern reports `vite-build` and `monsterhearts-four-assets`, while Handbook reports `commonjs-plugin-build` and `obsidian-1.13.7-plugin-load`.
 
-### `2)` Bind the host artifact to evidence
+### `2)` Promote without rebuilding
 
-> Apply the load gate to the complete Handbook artifact independently of candidate provider.
+> Make the stable provider release byte-identical to the candidate both consumers executed.
 
-1. Run one shared build/load proof after provider-specific assertions and before evidence is committed.
-2. Keep the production CLI fail-closed with no skip flag; inject runners only into exported orchestration for hermetic harnesses.
-3. Pin the PbtA candidate URL/SRI, prove the frozen install, and commit the Handbook adoption branch while preserving the existing diagnosis file.
+1. Dispatch promotion only after the train passes; download and reuse the candidate archive without invoking `npm pack`.
+2. Verify the final immutable release targets the provider commit and its downloaded archive SHA-256 equals the staged digest.
+3. Record the train run, release, external issue references, and matching digest on issue #41, then close it.
 
 ## Test acceptance criteria
 
 | Task | Acceptance criteria |
 | --- | --- |
-| 1 | A production Handbook build consuming the candidate activates in a fresh isolated Obsidian 1.13.7 vault and fails visibly on module evaluation errors. |
-| 2 | Every supported Handbook proof records `commonjs-plugin-build` and `obsidian-1.13.7-plugin-load` from the real CLI path. |
+| 1 | Retained provenance names both pinned external consumers and all four mandatory host-artifact checks for the same candidate. |
+| 2 | The final v8.4.3 archive SHA-256 equals the candidate SHA-256 and issue #41 closes only after that equality is recorded. |
