@@ -58,6 +58,10 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./presentation/monsterhearts-appearance-assets": {
+      "types": "./dist/presentation/monsterhearts-appearance-assets.d.ts",
+      "import": "./dist/presentation/monsterhearts-appearance-assets.js"
+    },
     "./schemas/v1/*": "./schemas/v1/*",
     "./schemas/v2/*": "./schemas/v2/*",
     "./schemas/v3/*": "./schemas/v3/*",
