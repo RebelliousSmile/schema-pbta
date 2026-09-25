@@ -3,6 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
+import { buildSync } from "esbuild";
 
 const root = process.cwd();
 const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "schema-pbta-package-"));
@@ -96,7 +97,6 @@ import {
   parseSalvageRunPlaybookToml,
   PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
   PBTA_MONSTERHEARTS_APPEARANCE,
-  PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS,
   getPbtaMonsterheartsPlaybookPresentation,
 } from "schema-pbta";
 
@@ -236,6 +236,21 @@ await assert.rejects(
   fs.writeFileSync(path.join(consumerRoot, "check.mjs"), checkSource);
   run(process.execPath, ["check.mjs"], consumerRoot);
 
+  const commonJsEntry = path.join(consumerRoot, "root-entry.js");
+  fs.writeFileSync(commonJsEntry, `import { PBTA_CONTRACT_VERSION } from "schema-pbta";
+if (PBTA_CONTRACT_VERSION !== 8) throw new Error("root contract version did not load");
+`);
+  buildSync({
+    entryPoints: [commonJsEntry],
+    outfile: path.join(consumerRoot, "root-bundle.cjs"),
+    bundle: true,
+    format: "cjs",
+    platform: "node",
+    treeShaking: false,
+    logLevel: "silent",
+  });
+  run(process.execPath, ["root-bundle.cjs"], consumerRoot);
+
   const viteRoot = path.join(consumerRoot, "vite-fixture");
   fs.mkdirSync(path.join(viteRoot, "src"), { recursive: true });
   fs.writeFileSync(
@@ -244,7 +259,7 @@ await assert.rejects(
   );
   fs.writeFileSync(
     path.join(viteRoot, "src", "main.js"),
-    `import { PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS } from "schema-pbta";
+    `import { PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS } from "schema-pbta/presentation/monsterhearts-appearance-assets";
 const urls = [
   ...Object.values(PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS.fonts),
   ...Object.values(PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS.assets),
