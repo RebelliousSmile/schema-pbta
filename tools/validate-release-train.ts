@@ -15,8 +15,31 @@ const evidence = parseReleaseTrainEvidence({
   candidate: train.candidate,
   consumer: { role: train.consumers[0].role, repository: train.consumers[0].repository, ref: train.consumers[0].ref, resolved: { version: train.candidate.version, releaseUrl: train.candidate.releaseUrl, integrity: train.candidate.integrity } },
   lock: { file: "pnpm-lock.yaml", releaseUrl: train.candidate.releaseUrl, integrity: train.candidate.integrity },
-  journey: { id: "candidate-adoption", status: "passed", checks: ["frozen-install"] },
+  journey: { id: "candidate-adoption", status: "passed", checks: ["frozen-install", "vite-build", "monsterhearts-four-assets"] },
 }, train.consumers[0], train.candidate);
+const handbook = train.consumers.find((consumer) => consumer.role === "handbook");
+assert.ok(handbook);
+const handbookEvidence = parseReleaseTrainEvidence({
+  ...evidence,
+  consumer: { ...evidence.consumer, role: handbook.role, repository: handbook.repository, ref: handbook.ref },
+  journey: { ...evidence.journey, checks: ["frozen-install", "production-build", "obsidian-plugin-load"] },
+}, handbook, train.candidate);
+for (const required of ["vite-build", "monsterhearts-four-assets"]) {
+  assert.throws(
+    () => parseReleaseTrainEvidence({ ...evidence, journey: { ...evidence.journey, checks: evidence.journey.checks.filter((check) => check !== required) } }, train.consumers[0], train.candidate),
+    /missing required artifact check/,
+  );
+}
+for (const required of ["production-build", "obsidian-plugin-load"]) {
+  assert.throws(
+    () => parseReleaseTrainEvidence({ ...handbookEvidence, journey: { ...handbookEvidence.journey, checks: handbookEvidence.journey.checks.filter((check) => check !== required) } }, handbook, train.candidate),
+    /missing required artifact check/,
+  );
+}
+assert.throws(
+  () => parseReleaseTrainEvidence({ ...evidence, journey: { ...evidence.journey, checks: [...evidence.journey.checks, "vite-build"] } }, train.consumers[0], train.candidate),
+  /duplicate checks/,
+);
 assert.throws(
   () => parseReleaseTrainEvidence({ ...evidence, candidate: { ...evidence.candidate, sha256: "f".repeat(64) } }, train.consumers[0], train.candidate),
   /another candidate/,

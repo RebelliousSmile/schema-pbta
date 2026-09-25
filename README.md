@@ -288,6 +288,12 @@ overlays `node_modules` with a no-save install: that would conceal a stale lock
 instead of proving package manifest, lock and installed candidate agree.
 Consumer evidence names the canonical `owner/repository` identity; the runner
 derives its HTTPS clone URL separately.
+Lantern evidence must include `vite-build` and `monsterhearts-four-assets` after
+its production build emits and serves both Monsterhearts fonts and both SVGs.
+Handbook evidence must include `production-build` and `obsidian-plugin-load`
+after its built plugin loads in an isolated Obsidian 1.13.7 vault. The provider
+rejects a missing artifact check before accepting either immutable adoption
+commit for promotion.
 
 Before a train can run, each consumer prepares a dedicated candidate-adoption
 branch: it pins the candidate URL in `package.json`, regenerates and verifies its

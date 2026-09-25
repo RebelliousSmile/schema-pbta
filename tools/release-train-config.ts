@@ -50,6 +50,10 @@ const REPOSITORIES: Record<ReleaseTrainConsumerRole, string> = {
   lantern: "RebelliousSmile/lantern",
   handbook: "RebelliousSmile/obsidian-handbook",
 };
+const REQUIRED_ARTIFACT_CHECKS: Record<ReleaseTrainConsumerRole, readonly string[]> = {
+  lantern: ["vite-build", "monsterhearts-four-assets"],
+  handbook: ["production-build", "obsidian-plugin-load"],
+};
 
 function object(value: unknown, label: string): Record<string, unknown> {
   assert.ok(value && typeof value === "object" && !Array.isArray(value), `${label} must be an object`);
@@ -155,12 +159,17 @@ export function parseReleaseTrainEvidence(raw: unknown, consumer: ReleaseTrainCo
   assert.match(string(journey.id, `${consumer.role} journey id`), /^[a-z][a-z0-9-]*$/);
   assert.equal(journey.status, "passed", `${consumer.role} journey did not pass`);
   assert.ok(Array.isArray(journey.checks) && journey.checks.length > 0 && journey.checks.every((check) => typeof check === "string"), `${consumer.role} journey must name checks`);
+  const checks = journey.checks as string[];
+  assert.equal(new Set(checks).size, checks.length, `${consumer.role} journey has duplicate checks`);
+  for (const required of REQUIRED_ARTIFACT_CHECKS[consumer.role]) {
+    assert.ok(checks.includes(required), `${consumer.role} journey is missing required artifact check ${required}`);
+  }
   return {
     protocol: 1,
     status: "passed",
     candidate,
     consumer: { role: consumer.role, repository: consumer.repository, ref: consumer.ref, resolved: { version: candidate.version, releaseUrl: candidate.releaseUrl, integrity: candidate.integrity } },
     lock: { file: lock.file as string, releaseUrl: candidate.releaseUrl, integrity: candidate.integrity },
-    journey: { id: journey.id as string, status: "passed", checks: journey.checks as string[] },
+    journey: { id: journey.id as string, status: "passed", checks },
   };
 }
