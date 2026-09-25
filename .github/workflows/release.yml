@@ -29,7 +29,7 @@ jobs:
     if: inputs.mode == 'stage'
     runs-on: ubuntu-latest
     env:
-      STAGE_CONFIG: ${{ runner.temp }}/schema-pbta-release-stage.json
+      STAGE_CONFIG: /tmp/schema-pbta-release-stage.json
     steps:
       - uses: actions/checkout@v4
         with:
@@ -54,7 +54,7 @@ jobs:
       - run: npm ci
       - name: Build and verify the staged final-version archive
         env:
-          CONFIG: ${{ runner.temp }}/schema-pbta-release-stage.json
+          CONFIG: /tmp/schema-pbta-release-stage.json
         run: |
           npx --no-install tsx tools/prepare-release.ts --output release-assets
           expected="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.sha256)')"
@@ -68,7 +68,7 @@ jobs:
       - name: Publish the immutable candidate asset
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-          CONFIG: ${{ runner.temp }}/schema-pbta-release-stage.json
+          CONFIG: /tmp/schema-pbta-release-stage.json
         run: |
           staging_tag="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.stagingTag)')"
           archive="release-assets/$(node -p "require('./package.json').name")-$(node -p "require('./package.json').version").tgz"
