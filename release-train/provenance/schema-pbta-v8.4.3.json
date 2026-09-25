@@ -1,0 +1,106 @@
+{
+  "protocol": 1,
+  "candidate": {
+    "provider": "schema-pbta",
+    "releaseUrl": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v8.4.3-rc.1/schema-pbta-8.4.3.tgz",
+    "sha256": "1aa889767d8b737c5c05248099ba79dd9d4c5e32ce99e27927bbafd1ee6b93c4",
+    "integrity": "sha512-ZMPKlxqMjZlfkLVQs/ufpGVBDtP9BXpee+C2hFX6ZknNSw7PMDPNIdCTmaXWe525kQouBpsi2HSrH0CguxxYaw==",
+    "version": "8.4.3",
+    "stagingTag": "v8.4.3-rc.1",
+    "finalTag": "v8.4.3",
+    "providerCommit": "06181fbe1e5fc1c33f85d30edfae2e1cb6581db1"
+  },
+  "consumers": [
+    {
+      "protocol": 1,
+      "status": "passed",
+      "candidate": {
+        "provider": "schema-pbta",
+        "releaseUrl": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v8.4.3-rc.1/schema-pbta-8.4.3.tgz",
+        "sha256": "1aa889767d8b737c5c05248099ba79dd9d4c5e32ce99e27927bbafd1ee6b93c4",
+        "integrity": "sha512-ZMPKlxqMjZlfkLVQs/ufpGVBDtP9BXpee+C2hFX6ZknNSw7PMDPNIdCTmaXWe525kQouBpsi2HSrH0CguxxYaw==",
+        "version": "8.4.3",
+        "stagingTag": "v8.4.3-rc.1",
+        "finalTag": "v8.4.3",
+        "providerCommit": "06181fbe1e5fc1c33f85d30edfae2e1cb6581db1"
+      },
+      "consumer": {
+        "role": "lantern",
+        "repository": "RebelliousSmile/lantern",
+        "ref": "d3de6d80fcc04f39edd4d733aa8304a6b772b481",
+        "resolved": {
+          "version": "8.4.3",
+          "releaseUrl": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v8.4.3-rc.1/schema-pbta-8.4.3.tgz",
+          "integrity": "sha512-ZMPKlxqMjZlfkLVQs/ufpGVBDtP9BXpee+C2hFX6ZknNSw7PMDPNIdCTmaXWe525kQouBpsi2HSrH0CguxxYaw=="
+        }
+      },
+      "lock": {
+        "file": "pnpm-lock.yaml",
+        "releaseUrl": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v8.4.3-rc.1/schema-pbta-8.4.3.tgz",
+        "integrity": "sha512-ZMPKlxqMjZlfkLVQs/ufpGVBDtP9BXpee+C2hFX6ZknNSw7PMDPNIdCTmaXWe525kQouBpsi2HSrH0CguxxYaw=="
+      },
+      "journey": {
+        "id": "vite-frozen-install",
+        "status": "passed",
+        "checks": [
+          "provider-assertion",
+          "package-declaration",
+          "lock-importer",
+          "lock-resolution",
+          "npm-lock-declaration",
+          "npm-lock-resolution",
+          "archive-download",
+          "archive-sha256",
+          "archive-integrity",
+          "frozen-install",
+          "installed-version",
+          "vite-build",
+          "monsterhearts-four-assets",
+          "repository-clean"
+        ]
+      }
+    },
+    {
+      "protocol": 1,
+      "status": "passed",
+      "candidate": {
+        "provider": "schema-pbta",
+        "releaseUrl": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v8.4.3-rc.1/schema-pbta-8.4.3.tgz",
+        "sha256": "1aa889767d8b737c5c05248099ba79dd9d4c5e32ce99e27927bbafd1ee6b93c4",
+        "integrity": "sha512-ZMPKlxqMjZlfkLVQs/ufpGVBDtP9BXpee+C2hFX6ZknNSw7PMDPNIdCTmaXWe525kQouBpsi2HSrH0CguxxYaw==",
+        "version": "8.4.3",
+        "stagingTag": "v8.4.3-rc.1",
+        "finalTag": "v8.4.3",
+        "providerCommit": "06181fbe1e5fc1c33f85d30edfae2e1cb6581db1"
+      },
+      "consumer": {
+        "role": "handbook",
+        "repository": "RebelliousSmile/obsidian-handbook",
+        "ref": "9a82e9465ed5273093b7cecea7c5df0c29dce551",
+        "resolved": {
+          "version": "8.4.3",
+          "releaseUrl": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v8.4.3-rc.1/schema-pbta-8.4.3.tgz",
+          "integrity": "sha512-ZMPKlxqMjZlfkLVQs/ufpGVBDtP9BXpee+C2hFX6ZknNSw7PMDPNIdCTmaXWe525kQouBpsi2HSrH0CguxxYaw=="
+        }
+      },
+      "lock": {
+        "file": "pnpm-lock.yaml",
+        "releaseUrl": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v8.4.3-rc.1/schema-pbta-8.4.3.tgz",
+        "integrity": "sha512-ZMPKlxqMjZlfkLVQs/ufpGVBDtP9BXpee+C2hFX6ZknNSw7PMDPNIdCTmaXWe525kQouBpsi2HSrH0CguxxYaw=="
+      },
+      "journey": {
+        "id": "schema-pbta-candidate-adoption",
+        "status": "passed",
+        "checks": [
+          "contract",
+          "pack-coverage",
+          "specialized-projection",
+          "theme",
+          "source-installer",
+          "commonjs-plugin-build",
+          "obsidian-1.13.7-plugin-load"
+        ]
+      }
+    }
+  ]
+}

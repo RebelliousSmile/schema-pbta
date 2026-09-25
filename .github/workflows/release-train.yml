@@ -30,13 +30,28 @@ jobs:
         with:
           node-version: 24
           cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - run: npm ci
+      - run: npm install --global pnpm@10.5.2
       - name: Validate immutable release-train input
         run: npm run validate:release-train -- "${{ inputs.config }}"
       - name: Verify candidate ancestry
         run: git merge-base --is-ancestor "${{ inputs.provider_commit }}" HEAD
+      - name: Provision Obsidian 1.13.7 host proof
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          python3 -m pip install websocket-client
+          curl -fsSL -o /tmp/Obsidian.AppImage https://github.com/obsidianmd/obsidian-releases/releases/download/v1.13.7/Obsidian-1.13.7.AppImage
+          chmod +x /tmp/Obsidian.AppImage
+          cd /tmp
+          ./Obsidian.AppImage --appimage-extract >/dev/null
       - name: Run consumer-owned candidate proofs
-        run: npx --no-install tsx tools/run-release-train.ts "${{ inputs.config }}" --workspace release-train-workspace --output release-train.provenance.json
+        env:
+          HANDBOOK_E2E_OBSIDIAN: /tmp/squashfs-root/AppRun
+        run: xvfb-run -a npx --no-install tsx tools/run-release-train.ts "${{ inputs.config }}" --workspace release-train-workspace --output release-train.provenance.json
       - uses: actions/upload-artifact@v4
         with:
           name: release-train-provenance

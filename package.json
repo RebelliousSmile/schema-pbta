@@ -1,6 +1,6 @@
 {
   "name": "schema-pbta",
-  "version": "8.4.2",
+  "version": "8.4.3",
   "description": "Open, versioned data schemas for Powered by the Apocalypse games, to make digital tools interoperable.",
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
@@ -58,6 +58,10 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./presentation/monsterhearts-appearance-assets": {
+      "types": "./dist/presentation/monsterhearts-appearance-assets.d.ts",
+      "import": "./dist/presentation/monsterhearts-appearance-assets.js"
+    },
     "./schemas/v1/*": "./schemas/v1/*",
     "./schemas/v2/*": "./schemas/v2/*",
     "./schemas/v3/*": "./schemas/v3/*",
@@ -97,6 +101,7 @@
     "@types/node": "^24.5.2",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
+    "esbuild": "^0.28.2",
     "tsx": "^4.23.15",
     "typescript": "^5.9.2",
     "vite": "^8.3.0"

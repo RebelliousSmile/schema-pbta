@@ -1,0 +1,2 @@
+1aa889767d8b737c5c05248099ba79dd9d4c5e32ce99e27927bbafd1ee6b93c4  schema-pbta-8.4.3.tgz
+1aa889767d8b737c5c05248099ba79dd9d4c5e32ce99e27927bbafd1ee6b93c4  final-verify/schema-pbta-8.4.3.tgz
