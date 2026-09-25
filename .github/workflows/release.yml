@@ -4,17 +4,17 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: Stage a candidate or promote a proven candidate
+        description: Compute a digest, stage a candidate, or promote a proven candidate
         required: true
         type: choice
-        options: [stage, promote]
+        options: [digest, stage, promote]
       provider_commit:
         description: Immutable schema-pbta commit named by the train manifest
         required: true
         type: string
       config:
-        description: Repository-relative immutable release-train manifest
-        required: true
+        description: Repository-relative manifest for stage or promote
+        required: false
         type: string
 
 permissions:
@@ -25,6 +25,48 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  digest:
+    if: inputs.mode == 'digest'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.provider_commit }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - uses: actions/checkout@v4
+        with:
+          repository: RebelliousSmile/obsidian-handbook
+          ref: 691d29c690df5e763012ad391e54f24d8d879281
+          path: obsidian-handbook
+      - run: npx --yes pnpm@10 install --dir obsidian-handbook --frozen-lockfile
+      - name: Check the exact provider commit
+        env:
+          PROVIDER_COMMIT: ${{ inputs.provider_commit }}
+          HANDBOOK_ROOT: ${{ github.workspace }}/obsidian-handbook
+        run: |
+          test "$(git rev-parse HEAD)" = "$PROVIDER_COMMIT"
+          npm run check
+          git diff --exit-code
+      - name: Build and validate a non-publishing archive
+        env:
+          PROVIDER_COMMIT: ${{ inputs.provider_commit }}
+        run: |
+          npx --no-install tsx tools/prepare-release.ts --output release-assets
+          archive="release-assets/$(node -p "require('./package.json').name")-$(node -p "require('./package.json').version").tgz"
+          npm run validate:package -- "$archive"
+          node --input-type=module -e 'import fs from "node:fs"; import path from "node:path"; import { createHash } from "node:crypto"; const archive = process.argv[1]; const bytes = fs.readFileSync(archive); const pkg = JSON.parse(fs.readFileSync("package.json", "utf8")); const receipt = { protocol: 1, providerCommit: process.env.PROVIDER_COMMIT, version: pkg.version, filename: path.basename(archive), sha256: createHash("sha256").update(bytes).digest("hex"), integrity: "sha512-" + createHash("sha512").update(bytes).digest("base64") }; fs.writeFileSync("release-assets/candidate-digest.json", JSON.stringify(receipt, null, 2) + "\n")' "$archive"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: schema-pbta-digest-${{ inputs.provider_commit }}
+          path: release-assets/*
+
   stage:
     if: inputs.mode == 'stage'
     runs-on: ubuntu-latest
@@ -32,27 +74,36 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.provider_commit }}
+          path: provider-source
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
       - run: npm ci
+      - run: npm ci
+        working-directory: provider-source
+      - run: test -n "${{ inputs.config }}"
       - run: npm run validate:release-stage -- "${{ inputs.config }}"
       - name: Verify manifest provenance and package version
         env:
           CONFIG: ${{ inputs.config }}
           PROVIDER_COMMIT: ${{ inputs.provider_commit }}
         run: |
-          git merge-base --is-ancestor "$(node --input-type=module -e 'import fs from "node:fs"; process.stdout.write(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.providerCommit)')" "$PROVIDER_COMMIT"
-          node --input-type=module -e 'import fs from "node:fs"; const c = JSON.parse(fs.readFileSync(process.env.CONFIG)); const p = JSON.parse(fs.readFileSync("package.json")); if (c.candidate.finalTag !== `v${p.version}`) process.exit(1)'
+          test "$(git -C provider-source rev-parse HEAD)" = "$PROVIDER_COMMIT"
+          node --input-type=module -e 'import fs from "node:fs"; const c = JSON.parse(fs.readFileSync(process.env.CONFIG)); const p = JSON.parse(fs.readFileSync("provider-source/package.json")); if (c.candidate.providerCommit !== process.env.PROVIDER_COMMIT || c.candidate.finalTag !== `v${p.version}`) process.exit(1)'
       - name: Build and verify the staged final-version archive
+        working-directory: provider-source
         env:
-          CONFIG: ${{ inputs.config }}
+          CONFIG: ${{ github.workspace }}/${{ inputs.config }}
         run: |
-          npx --no-install tsx tools/prepare-release.ts --output release-assets
+          npx --no-install tsx tools/prepare-release.ts --output ../release-assets
           expected="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.sha256)')"
           expected_integrity="$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync(process.env.CONFIG)).candidate.integrity)')"
-          archive="release-assets/$(node -p "require('./package.json').name")-$(node -p "require('./package.json').version").tgz"
+          archive="../release-assets/$(node -p "require('./package.json').name")-$(node -p "require('./package.json').version").tgz"
           actual="$(sha256sum "$archive" | cut -d " " -f 1)"
           actual_integrity="$(node --input-type=module -e 'import fs from "node:fs"; import { createHash } from "node:crypto"; console.log("sha512-" + createHash("sha512").update(fs.readFileSync(process.argv[1])).digest("base64"))' "$archive")"
           test "$actual" = "$expected"
@@ -82,6 +133,7 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - run: test -n "${{ inputs.config }}"
       - run: npm run validate:release-train -- "${{ inputs.config }}"
       - name: Verify manifest provenance and package version
         env:
@@ -117,3 +169,13 @@ jobs:
           ! git ls-remote --exit-code --tags origin "refs/tags/$final_tag" >/dev/null 2>&1
           gh release create "$final_tag" --target "$PROVIDER_COMMIT" --generate-notes --title "schema-pbta ${final_tag#v}" "$archive" "$archive.sha256"
           test "$(gh release view "$final_tag" --json isImmutable --jq .isImmutable)" = "true"
+          mkdir -p final-verify
+          gh release download "$final_tag" --pattern "$(basename "$archive")" --dir final-verify
+          test "$(sha256sum "final-verify/$(basename "$archive")" | cut -d " " -f 1)" = "$(sha256sum "$archive" | cut -d " " -f 1)"
+          sha256sum "$archive" "final-verify/$(basename "$archive")" > release-archive-digests.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-train-proof-and-digests
+          path: |
+            release-train.provenance.json
+            release-archive-digests.txt

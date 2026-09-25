@@ -30,6 +30,8 @@ jobs:
       - run: git fetch origin main --depth=1
       - run: npm run validate:release-candidate -- "${{ inputs.tag }}" "${{ inputs.commit }}"
       - run: npx --no-install tsx tools/prepare-release.ts --output release-assets
+      - name: Validate the exact candidate archive in CommonJS and Vite fixtures
+        run: npm run validate:package -- "release-assets/schema-pbta-$(node -p "require('./package.json').version").tgz"
       - name: Publish immutable prerelease
         env:
           GH_TOKEN: ${{ github.token }}

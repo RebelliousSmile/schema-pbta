@@ -1,8 +1,8 @@
 ---
-status: pending
+status: done
 ---
 
-# Instruction: Stage and promote the patch bytes
+# Instruction: Prepare the patch provider commit
 
 ## Architecture projection
 
@@ -10,28 +10,22 @@ status: pending
 
 ```txt
 .
-├── package.json ✏️ advance to a fresh patch version
+├── package.json ✏️ advance to 8.4.3
 ├── package-lock.json ✏️ mirror the patch version and dependency lock
 ├── CHANGELOG.md ✏️ record the root export fix and artifact gate
-├── .github/workflows/release.yml ✏️ build the staged archive from the exact provider commit and keep promotion on verified staged bytes
-├── .github/workflows/publish-candidate.yml ✏️ require packed CommonJS and Vite validation before its alternate RC publication path
-├── tools/validate-release-train.ts ✏️ reject a final train whose candidate identity differs from the staged patch record
-├── release-stage.schema-pbta-v8.4.3.json ✅ record the new candidate identity after archive creation
-├── release-train/schema-pbta-v8.4.3.json ✅ record the exact archive and both immutable adoption commits
-├── release-train/candidates/schema-pbta-v8.4.3-rc.1.json ✅ retain immutable candidate provenance if the existing candidate record convention applies
-└── ❌ none — the v8.4.2 records and published assets stay immutable
+├── .github/workflows/release.yml ✏️ add a non-publishing digest mode, build staging from the exact provider commit, and verify uploaded final bytes
+├── .github/workflows/publish-candidate.yml ✏️ validate the packed archive before its alternate RC publication path
+├── tools/validate-release-train.ts ✏️ reject a real train candidate that differs from its staged patch record
+└── ❌ none — v8.4.2 source and release records stay immutable
 ```
 
 ## User Journey
 
 ```mermaid
 flowchart TD
-  A[Patch source at immutable provider commit] --> B[Stage final-version archive under RC tag]
-  B --> C[Lantern #47 adopts exact candidate]
-  B --> D[Handbook #63 adopts exact candidate]
-  C --> E[Provider checks both immutable proof commits]
-  D --> E
-  E --> F[Promote same archive bytes under final tag]
+  A[Patch source] --> B[CommonJS and Vite package checks]
+  B --> C[Commit provider code]
+  C --> D[Immutable provider SHA available for digest preparation]
 ```
 
 ## Test Scope
@@ -42,44 +36,33 @@ title: Test scope
 ---
 journey
   section Setup
-    build patch package at immutable provider commit => candidate SHA-256 and SRI are known: 5: cli
+    prepare v8.4.3 package and release workflow changes => provider source is ready: 5: cli
   section Happy path
-    stage archive and prove it from both immutable consumer commits => promotion gate accepts matching evidence: 5: cli
-    attach verified staged archive to final tag => final and candidate SHA-256 values match: 5: cli
-  section Edge case - changed bytes or source-only proof
-    supply different archive digest or incomplete host-artifact evidence => promotion stops before final tag: 1: cli
+    run typecheck build packed CommonJS and Vite fixtures plus train validation => provider gates pass: 5: cli
+  section Edge case - staging source mismatch
+    supply a provider commit different from the manifest => staging rejects the mismatch before publication: 1: cli
 ```
 
 ## Tasks to do
 
-### `1)` Prepare a fresh patch candidate
+### `1)` Finish the provider patch
 
-> Give consumers one immutable archive to adopt.
+> Commit one source revision that later manifests can name.
 
-1. Advance package and lock versions, record the fix, run the full project check and packed archive validator.
-2. Make `release.yml` staging require its `provider_commit` input to equal `candidate.providerCommit`, then check out and build the package from that exact commit in a separate directory; target the RC tag at the same commit even when the manifest is committed later.
-3. Use `release.yml` staging on its Ubuntu/Node 24 runner as the canonical v8.4.3 route; require `validate:package` on the exact archive in both that route and the still-available `publish-candidate.yml` path.
-4. Record the patch candidate's provider commit, URL, SHA-256, SRI, staging tag, and final tag from a build in the canonical environment; stage only after that archive's checks pass.
+1. Finish the version, changelog, exact-commit staging, alternate RC validation, and final asset digest gates already started in this phase.
+2. Add a non-publishing `digest` mode to the existing dispatchable `release.yml` workflow; on Ubuntu/Node 24 it checks out a full provider SHA and the pinned Handbook validation checkout, runs `npm run check`, builds and validates its packed archive, and uploads SHA-256, SRI, and archive bytes.
+3. For real train manifests, compare every candidate field with the matching stage manifest; keep the synthetic fixture independent.
 
-### `2)` Collect consumer-owned adoption evidence
+### `2)` Verify and commit provider code
 
-> Wait for Lantern #47 and Handbook #63 to prove the staged bytes at full commits.
+> Establish the immutable source input for later phases.
 
-1. Register their immutable adoption SHAs in the final train manifest after each repository has published its proof.
-2. For a real patch train manifest, verify its candidate fields match the staged patch record exactly, including URL, SHA-256, SRI, version, tags, and provider commit; keep the synthetic `cross-tool.release-train.fixture.json` independent of real stage records.
-3. Run the provider train and retain provenance showing candidate identity plus both mandatory artifact checks.
-
-### `3)` Promote the same bytes
-
-> Attach the verified candidate archive under the final version.
-
-1. Use the existing promotion workflow only after both proofs pass.
-2. Re-download the final GitHub release asset after upload, compare its SHA-256 with the candidate archive, and record the equality in release evidence.
+1. Run the applicable local checks, including typecheck, build, packed CommonJS/Vite, and release-train fixtures.
+2. Mark this phase done and commit its code; record that commit SHA for the digest workflow.
 
 ## Test acceptance criteria
 
 | Task | Acceptance criteria |
 | --- | --- |
-| 1 | A new patch candidate is staged under an unused immutable RC tag from the exact provider commit after CommonJS and Vite checks pass on that archive, regardless of publication workflow. |
-| 2 | Lantern and Handbook evidence from immutable commits names the exact candidate, matches the staged record, and includes their required host-artifact checks. |
-| 3 | A freshly downloaded final release asset has the exact staged SHA-256, with explicit artifact checks in release-train provenance. |
+| 1 | The existing release workflow offers a non-publishing digest mode, both RC routes validate the exact archive, and staging uses the manifest's exact provider commit. |
+| 2 | The v8.4.3 packed archive passes CommonJS and Vite fixtures and the provider preparation is committed as one phase. |

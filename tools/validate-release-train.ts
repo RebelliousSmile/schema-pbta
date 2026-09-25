@@ -1,9 +1,19 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
 
 import { parseReleaseTrainConfig, parseReleaseTrainEvidence, readReleaseTrainConfig } from "./release-train-config.js";
 
 const source = process.argv[2] ?? "cross-tool.release-train.fixture.json";
 const train = readReleaseTrainConfig(source);
+const sameCandidate = (staged: unknown) => assert.deepEqual(staged, train.candidate, "release train candidate differs from staged patch record");
+sameCandidate(train.candidate);
+assert.throws(() => sameCandidate({ ...train.candidate, sha256: "f".repeat(64) }), /differs from staged patch record/);
+if (path.basename(source) !== "cross-tool.release-train.fixture.json") {
+  const stagePath = path.resolve(`release-stage.schema-pbta-v${train.candidate.version}.json`);
+  const stage = JSON.parse(fs.readFileSync(stagePath, "utf8")) as { candidate?: unknown };
+  sameCandidate(stage.candidate);
+}
 
 assert.throws(
   () => parseReleaseTrainConfig({ ...train, consumers: train.consumers.slice(0, 1) }),
