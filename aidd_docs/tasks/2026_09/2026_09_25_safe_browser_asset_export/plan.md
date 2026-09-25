@@ -1,6 +1,6 @@
 ---
 objective: "Promote the already published v8.4.3-rc.1 archive byte for byte after Lantern and Handbook prove its runnable artifacts at immutable commits."
-status: in-progress
+status: implemented
 ---
 
 # Plan: Make browser asset exports safe for the release train
