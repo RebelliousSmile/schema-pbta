@@ -33,10 +33,10 @@
 }
 
 @font-face {
-  font-family: "Sorts Mill Goudy";
-  src: url("../assets/fonts/sorts-mill-goudy-latin-400-italic.woff2") format("woff2");
-  font-style: italic;
-  font-weight: 400;
+  font-family: "Caveat";
+  src: url("../assets/fonts/caveat-latin-wght-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 700;
   font-display: swap;
 }
 

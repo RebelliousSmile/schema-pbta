@@ -112,7 +112,7 @@ export const PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION: PbtaMonsterheartsPlaybook
   pack: {
     id: "monsterhearts",
     appearanceArtifact: "appearance-contract.json",
-    tokens: ["--monsterhearts-title-font", "--monsterhearts-italic-font", "--monsterhearts-title-ink", "--pbta-column-gap", "--pbta-column-rule"],
+    tokens: ["--monsterhearts-title-font", "--monsterhearts-script-font", "--monsterhearts-title-ink", "--pbta-column-gap", "--pbta-column-rule"],
     assets: ["game-mark"],
     variants: [{ id: "base", presentationOnly: true }],
   },

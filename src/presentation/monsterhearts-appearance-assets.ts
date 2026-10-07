@@ -16,8 +16,8 @@ const alice = new URL(
   "../../packs/monsterhearts/assets/fonts/alice-latin-400-normal.woff2",
   import.meta.url,
 ).href;
-const sortsMillGoudyItalic = new URL(
-  "../../packs/monsterhearts/assets/fonts/sorts-mill-goudy-latin-400-italic.woff2",
+const caveat = new URL(
+  "../../packs/monsterhearts/assets/fonts/caveat-latin-wght-normal.woff2",
   import.meta.url,
 ).href;
 const gameMark = new URL(
@@ -40,7 +40,7 @@ export const PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS = {
     "El Messiri": elMessiri,
     "Averia Serif Libre": averiaSerifLibre,
     "Alice": alice,
-    "Sorts Mill Goudy Italic": sortsMillGoudyItalic,
+    "Caveat": caveat,
   },
   assets: {
     "game-mark": gameMark,
