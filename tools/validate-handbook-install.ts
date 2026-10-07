@@ -103,7 +103,7 @@ if (typeof handbookPackage.version !== "string") {
 const schemaDependency = handbookPackage.dependencies?.["schema-pbta"];
 assert.match(
   schemaDependency ?? "",
-  /^https:\/\/github\.com\/RebelliousSmile\/schema-pbta\/releases\/download\/v(\d+\.\d+\.\d+)\/schema-pbta-\1\.tgz$/,
+  /^https:\/\/github\.com\/RebelliousSmile\/schema-pbta\/releases\/download\/v(\d+\.\d+\.\d+)(?:-rc\.\d+)?\/schema-pbta-\1\.tgz$/,
   "Handbook must consume an immutable schema-pbta release asset",
 );
 
