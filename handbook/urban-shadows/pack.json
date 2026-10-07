@@ -55,7 +55,7 @@
       },
       "light": {
         "note": {
-          "--background-primary": "#fbfaf7",
+          "--background-primary": "#ffffff",
           "--background-primary-alt": "#e6e7e9",
           "--text-normal": "#171216",
           "--text-muted": "#5f555b",

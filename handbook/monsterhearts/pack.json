@@ -101,7 +101,7 @@
           "style": "italic"
         }
       },
-      "stylesheets": ["styles/callouts.css"],
+      "stylesheets": ["styles/callouts.css","styles/headings.css"],
       "images": {
         "game-mark": "images/thorn-heart.svg"
       }

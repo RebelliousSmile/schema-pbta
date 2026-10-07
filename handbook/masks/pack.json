@@ -38,7 +38,7 @@
     },
     "polarities": ["light"],
     "assets": {
-      "stylesheets": ["styles/callouts.css"],
+      "stylesheets": ["styles/callouts.css","styles/headings.css"],
       "images": {
         "game-mark": "images/hero-burst.svg"
       }

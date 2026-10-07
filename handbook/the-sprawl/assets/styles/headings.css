@@ -1,0 +1,11 @@
+/* No gutter bar before a heading: a theme that draws one (its indicator is a pseudo-element
+   and an indent) would colour each level differently from the pack. */
+body.brumes--the-sprawl :is(.markdown-rendered, .markdown-preview-sizer, .is-live-preview, .inline-title) :is(h1, h2, h3, h4, h5, h6, [class*="HyperMD-header-"])::before,
+body.brumes--the-sprawl .inline-title::before {
+  content: none !important;
+  display: none !important;
+}
+body.brumes--the-sprawl :is(.markdown-rendered, .markdown-preview-sizer) > :is(h1, h2, h3, h4, h5, h6),
+body.brumes--the-sprawl :is(.markdown-preview-sizer) > div > :is(h1, h2, h3, h4, h5, h6) {
+  text-indent: 0 !important;
+}
