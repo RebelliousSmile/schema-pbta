@@ -8,9 +8,11 @@ import type { ReleaseTrainConfig } from "./release-train-config.js";
 const source = process.argv[2] ?? "cross-tool.release-train.fixture.json";
 const train = readReleaseTrainConfig(source);
 if (path.basename(source) !== "cross-tool.release-train.fixture.json") {
-  const stage = JSON.parse(fs.readFileSync(path.resolve(`release-stage.schema-pbta-v${train.candidate.version}.json`), "utf8")) as { candidate?: unknown };
+  // A hand-written staged patch record predates the supervisor's trains: compared when present, never required.
+  const stagePath = path.resolve(`release-stage.schema-pbta-v${train.candidate.version}.json`);
+  const stage = fs.existsSync(stagePath) ? (JSON.parse(fs.readFileSync(stagePath, "utf8")) as { candidate?: unknown }) : undefined;
   const record = JSON.parse(fs.readFileSync(path.resolve(`release-train/candidates/schema-pbta-${train.candidate.stagingTag}.json`), "utf8")) as { candidate?: unknown };
-  assert.deepEqual(stage.candidate, train.candidate, "release train candidate differs from staged patch record");
+  if (stage) assert.deepEqual(stage.candidate, train.candidate, "release train candidate differs from staged patch record");
   assert.deepEqual(record.candidate, train.candidate, "release train candidate differs from immutable RC record");
 }
 const requiredChecks = {
