@@ -75,10 +75,10 @@ body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-cho
   margin-inline-start: 0;
   padding-inline-start: 1.6em;
 }
-body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-choice"] .callout-content ul > li .list-bullet {
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-choice"] .callout-content ul > li:not(.task-list-item) .list-bullet {
   display: none;
 }
-body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-choice"] .callout-content ul > li::before {
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-choice"] .callout-content ul > li:not(.task-list-item)::before {
   content: "";
   position: absolute;
   inset-inline-start: 0.15em;
@@ -87,6 +87,14 @@ body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-cho
   height: 0.8em;
   border: 1.5px solid #682865;
   background: #fff;
+}
+
+/* A ticked item keeps its own box, squared and violet: no second box is drawn. */
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-choice"] .callout-content ul > li.task-list-item {
+  padding-inline-start: 0;
+  --checkbox-radius: 0;
+  --checkbox-color: #682865;
+  --checkbox-border-color: #682865;
 }
 
 /* An aside: no panel, a rule on each side. */
