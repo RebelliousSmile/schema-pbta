@@ -6,8 +6,26 @@ body.brumes--urban-shadows .markdown-rendered h2 {
   border-block-end: 1px solid var(--hr-color);
   padding-block-end: 0.1em;
 }
-/* Lozenge list marks, in the pack colour whatever level the host theme draws. */
-body.brumes--urban-shadows :is(.markdown-rendered, .is-live-preview, .markdown-source-view) .list-bullet::after {
+/* Lozenge list marks. Reading view draws them on the item itself: the host bullet
+   is a float whose mark can end up under a column, so it is hidden. Editing
+   keeps the host bullet, redrawn in the pack colour. */
+body.brumes--urban-shadows .markdown-rendered ul > li:not(.task-list-item) {
+  position: relative;
+}
+body.brumes--urban-shadows .markdown-rendered ul > li:not(.task-list-item) > .list-bullet {
+  display: none;
+}
+body.brumes--urban-shadows .markdown-rendered ul > li:not(.task-list-item)::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: -1.1em;
+  inset-block-start: 0.62em;
+  width: 0.4em;
+  height: 0.4em;
+  background-color: #682865;
+  transform: rotate(45deg);
+}
+body.brumes--urban-shadows :is(.is-live-preview, .markdown-source-view) .list-bullet::after {
   content: "" !important;
   display: block !important;
   border: 0 !important;

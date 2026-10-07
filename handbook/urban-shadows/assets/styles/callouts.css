@@ -97,13 +97,19 @@ body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-cho
   --checkbox-radius: 0;
   --checkbox-color: #682865;
   --checkbox-border-color: #682865;
+  --checkbox-marker-color: #fff;
+  --checklist-done-decoration: none;
+  --checklist-done-color: inherit;
 }
 body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-choice"] .callout-content ul > li.task-list-item > input.task-list-item-checkbox {
   position: static;
   inset: auto;
   margin-block: 0;
   margin-inline: 0 0.5em;
-  vertical-align: -0.1em;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  accent-color: #682865;
 }
 
 /* An aside: no panel, a rule on each side. */
