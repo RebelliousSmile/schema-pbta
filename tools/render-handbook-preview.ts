@@ -344,8 +344,9 @@ function renderMonsterheartsPage(
           const condition = asData(raw, "Monsterhearts condition");
           return `<li><strong>${escapeHtml(condition.name)}</strong>${condition.description ? ` — ${escapeHtml(condition.description)}` : ""}</li>`;
         }).join("")}</ul>` : "";
-        return panel(region, regionLabel(region), `<p>Ascendants : ${escapeHtml(strings.starting ?? 0)} / ${escapeHtml(strings.max ?? 0)}</p>${ascendants}${conditions}<p>Dégâts : ${escapeHtml(playbook.harm ?? 0)}</p>`);
+        return panel(region, regionLabel(region), `<p>Ascendants : ${escapeHtml(strings.starting ?? 0)} / ${escapeHtml(strings.max ?? 0)}</p>${ascendants}${conditions}`);
       }
+      case "harm-tracker": return panel(region, regionLabel(region), `<p>${escapeHtml(playbook.harm ?? 0)} / 4</p>`);
       case "monsterhearts-play": return editorial.play === undefined ? "" : editorialRegion("play");
       case "gear": return panel(region, regionLabel(region), renderGear(playbook));
       case "monsterhearts-progression": {
