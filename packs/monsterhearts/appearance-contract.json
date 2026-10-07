@@ -7,7 +7,7 @@
       "El Messiri": "assets/fonts/el-messiri-latin-400-700-normal.woff2",
       "Averia Serif Libre": "assets/fonts/averia-serif-libre-latin-700-normal.woff2",
       "Alice": "assets/fonts/alice-latin-400-normal.woff2",
-      "Fondamento": "assets/fonts/fondamento-latin-400-normal.woff2"
+      "EB Garamond": "assets/fonts/eb-garamond-latin-500-italic.woff2"
     },
     "stylesheets": [
       "styles/theme-tokens.css",
@@ -23,7 +23,7 @@
       "id": "base",
       "tokens": {
         "--monsterhearts-title-font": "'Yellow Magician', 'Averia Serif Libre', Garamond, Georgia, serif",
-        "--monsterhearts-script-font": "'Fondamento', cursive",
+        "--monsterhearts-script-font": "'EB Garamond', Garamond, Georgia, serif",
         "--monsterhearts-title-ink": "#292326",
         "--pbta-column-gap": "2.4rem",
         "--pbta-column-rule": "#292326"
