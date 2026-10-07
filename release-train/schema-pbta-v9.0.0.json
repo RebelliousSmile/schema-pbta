@@ -8,7 +8,7 @@
     "version": "9.0.0",
     "stagingTag": "v9.0.0-rc.1",
     "finalTag": "v9.0.0",
-    "providerCommit": "5dbe232a5e0556a4726f8539e1a611dfe907f021"
+    "providerCommit": "969012b95d8d35fe3ea4eebce2ecc98fea228d0a"
   },
   "consumers": [
     {
