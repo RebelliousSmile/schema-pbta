@@ -155,11 +155,11 @@
       ],
       [
         "character-identity",
-        "stat-profiles"
+        "stat-profiles",
+        "ascendants-and-conditions"
       ],
       [
-        "monsterhearts-progression",
-        "ascendants-and-conditions"
+        "monsterhearts-progression"
       ]
     ]
   ],

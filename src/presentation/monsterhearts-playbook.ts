@@ -102,8 +102,8 @@ export const PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION: PbtaMonsterheartsPlaybook
     ],
     [
       ["playbook-moves", "gear"],
-      ["character-identity", "stat-profiles"],
-      ["monsterhearts-progression", "ascendants-and-conditions"],
+      ["character-identity", "stat-profiles", "ascendants-and-conditions"],
+      ["monsterhearts-progression"],
     ],
   ],
   fallbacks: { unplaced: "canonical-order", narrowPane: "canonical-flow", print: "canonical-flow" },
