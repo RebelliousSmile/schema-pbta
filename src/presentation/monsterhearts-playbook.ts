@@ -79,7 +79,7 @@ export const PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION: PbtaMonsterheartsPlaybook
     { id: "game-identity", label: "Présentation", group: "identity", primitive: "identity", fields: ["name", "description"] },
     { id: "monsterhearts-opening", label: "Introduction", group: "editorial", primitive: "editorial-copy", fields: ["editorial.opening"] },
     { id: "character-identity", label: "Identité", group: "identity", primitive: "identity", fields: ["editorial.identity", "creation", "backstory"] },
-    { id: "stat-profiles", label: "Caractéristiques", group: "identity", primitive: "stat-spread", fields: ["stats", "statRanges", "statProfiles"] },
+    { id: "stat-profiles", label: "Caractéristiques", group: "identity", primitive: "stat-spread", fields: ["stats", "statRanges"] },
     { id: "playbook-portrait", label: "Portrait", group: "identity", primitive: "portrait", fields: ["playbookImage"] },
     { id: "playbook-moves", label: "Actions", group: "playbook", primitive: "action-list", fields: ["moves", "startingMoves"] },
     { id: "ascendants-and-conditions", label: "Ascendants & conditions", group: "relationships", primitive: "relationship-ledger", fields: ["strings", "ascendants", "conditions", "harm"] },

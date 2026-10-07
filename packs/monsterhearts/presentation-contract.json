@@ -38,8 +38,7 @@
       "primitive": "stat-spread",
       "fields": [
         "stats",
-        "statRanges",
-        "statProfiles"
+        "statRanges"
       ]
     },
     {
