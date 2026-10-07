@@ -96,9 +96,9 @@ export const PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION: PbtaMonsterheartsPlaybook
   ],
   rows: [
     [
-      ["monsterhearts-opening", "monsterhearts-darkest-self"],
+      ["monsterhearts-opening", "monsterhearts-darkest-self", "monsterhearts-sex-move"],
       ["playbook-portrait"],
-      ["monsterhearts-sex-move", "monsterhearts-play"],
+      ["monsterhearts-play"],
     ],
     [
       ["playbook-moves", "gear"],
