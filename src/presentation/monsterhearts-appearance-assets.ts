@@ -17,7 +17,7 @@ const alice = new URL(
   import.meta.url,
 ).href;
 const ebGaramondItalic = new URL(
-  "../../packs/monsterhearts/assets/fonts/eb-garamond-latin-700-italic.woff2",
+  "../../packs/monsterhearts/assets/fonts/eb-garamond-latin-wght-italic.woff2",
   import.meta.url,
 ).href;
 const gameMark = new URL(
