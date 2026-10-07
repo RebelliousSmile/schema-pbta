@@ -96,14 +96,14 @@ export const PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION: PbtaMonsterheartsPlaybook
   ],
   rows: [
     [
-      ["monsterhearts-opening", "monsterhearts-darkest-self", "monsterhearts-sex-move"],
+      ["monsterhearts-opening", "monsterhearts-darkest-self", "monsterhearts-sex-move", "monsterhearts-play", "character-identity"],
       ["playbook-portrait"],
-      ["monsterhearts-play", "playbook-moves"],
+      ["playbook-moves"],
     ],
     [
       ["gear"],
-      ["character-identity", "stat-profiles"],
-      ["monsterhearts-progression", "ascendants-and-conditions"],
+      ["stat-profiles", "ascendants-and-conditions"],
+      ["monsterhearts-progression"],
     ],
   ],
   fallbacks: { unplaced: "canonical-order", narrowPane: "canonical-flow", print: "canonical-flow" },

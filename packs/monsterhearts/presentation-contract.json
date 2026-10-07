@@ -140,13 +140,14 @@
       [
         "monsterhearts-opening",
         "monsterhearts-darkest-self",
-        "monsterhearts-sex-move"
+        "monsterhearts-sex-move",
+        "monsterhearts-play",
+        "character-identity"
       ],
       [
         "playbook-portrait"
       ],
       [
-        "monsterhearts-play",
         "playbook-moves"
       ]
     ],
@@ -155,12 +156,11 @@
         "gear"
       ],
       [
-        "character-identity",
-        "stat-profiles"
+        "stat-profiles",
+        "ascendants-and-conditions"
       ],
       [
-        "monsterhearts-progression",
-        "ascendants-and-conditions"
+        "monsterhearts-progression"
       ]
     ]
   ],
