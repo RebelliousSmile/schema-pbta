@@ -4,6 +4,8 @@ import path from "node:path";
 import { PBTA_MONSTERHEARTS_APPEARANCE, monsterheartsAppearanceSchema } from "../src/presentation/monsterhearts-appearance.js";
 import { PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS } from "../src/presentation/monsterhearts-appearance-assets.js";
 import { PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION } from "../src/presentation/monsterhearts-playbook.js";
+import { PBTA_URBAN_SHADOWS_APPEARANCE, urbanShadowsAppearanceSchema } from "../src/presentation/urban-shadows-appearance.js";
+import { PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION } from "../src/presentation/urban-shadows-playbook.js";
 
 const packRoot = path.join(process.cwd(), "packs", "monsterhearts");
 const artifact = monsterheartsAppearanceSchema.parse(JSON.parse(fs.readFileSync(
@@ -67,4 +69,47 @@ for (const name of ["monsterhearts-appearance-base.json"]) {
   assert.deepEqual({ ...artifact.resources.assets, ...variant.assetOverrides }, fixture.assets, `${name}: asset resolution differs`);
 }
 
-console.log("✓ validated Monsterhearts appearance artifact, resources, and consumer fixtures");
+const urbanShadowsRoot = path.join(process.cwd(), "packs", "urban-shadows");
+const urbanShadows = urbanShadowsAppearanceSchema.parse(JSON.parse(fs.readFileSync(
+  path.join(urbanShadowsRoot, PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION.pack.appearanceArtifact), "utf8",
+)));
+assert.deepEqual(urbanShadows, PBTA_URBAN_SHADOWS_APPEARANCE, "Urban Shadows appearance artifact must be generated from the ESM source");
+assert.deepEqual(
+  urbanShadows.variants.map((variant) => variant.id),
+  PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION.pack.variants.map((variant) => variant.id),
+  "Urban Shadows appearance variants must match the structural descriptor",
+);
+assert.deepEqual(
+  Object.keys(urbanShadows.resources.assets).sort(),
+  [...PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION.pack.assets].sort(),
+  "Urban Shadows appearance assets must match the structural descriptor",
+);
+for (const variant of urbanShadows.variants) {
+  for (const token of PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION.pack.tokens) {
+    assert.equal(typeof variant.tokens[token], "string", `${variant.id} does not resolve ${token}`);
+  }
+  for (const family of Object.keys(urbanShadows.resources.fonts)) {
+    assert.ok(
+      Object.values(variant.tokens).some((value) => value.includes(`'${family}'`)) || family === "Urban Shadows Text",
+      `${variant.id} publishes ${family} and no token names it`,
+    );
+  }
+}
+for (const resource of [
+  ...Object.values(urbanShadows.resources.fonts),
+  ...urbanShadows.resources.stylesheets,
+  ...Object.values(urbanShadows.resources.assets),
+]) {
+  const absolute = path.resolve(urbanShadowsRoot, resource);
+  assert.ok(absolute.startsWith(`${urbanShadowsRoot}${path.sep}`), `resource escapes pack: ${resource}`);
+  assert.ok(fs.statSync(absolute).isFile(), `missing appearance resource: ${resource}`);
+}
+for (const name of ["urban-shadows-appearance-base.json"]) {
+  const fixture = JSON.parse(fs.readFileSync(path.join(process.cwd(), "corpus", "presentation", "valid", name), "utf8")) as Fixture;
+  const variant = urbanShadows.variants.find((entry) => entry.id === fixture.variant);
+  assert.ok(variant, `${name}: unknown variant`);
+  assert.deepEqual(variant.tokens, fixture.tokens, `${name}: token resolution differs`);
+  assert.deepEqual({ ...urbanShadows.resources.assets, ...variant.assetOverrides }, fixture.assets, `${name}: asset resolution differs`);
+}
+
+console.log("✓ validated Monsterhearts and Urban Shadows appearance artifacts, resources, and consumer fixtures");

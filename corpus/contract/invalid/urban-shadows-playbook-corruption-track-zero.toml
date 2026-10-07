@@ -1,0 +1,65 @@
+slug = "the-aware"
+name = "The Aware"
+game = "urban-shadows"
+description = "A mortal who has learned the city has monsters."
+stats = { blood = 0, heart = 1, mind = -1, spirit = 1, mortalis = 1, night = 0, power = 1, wild = -1 }
+moves = [{ name = "I Know a Guy", moveType = "playbook", description = "Find help through your Circle." }]
+endMove = "Entrust your mortal relationships to another character."
+advancementCircles = ["mortalis", "night", "power", "wild"]
+laterAdvancement = [{ label = "Retire the character to safety." }, { label = "Change to another playbook." }]
+letItOut = ["Walk away from a scene unnoticed.", "Name the person who knows the answer."]
+intimacy = "When you share a moment of intimacy with someone, tell them one thing you fear losing."
+debts = ["Someone covered for you at work; you owe them.", "You kept a secret for someone; they owe you."]
+
+[attributes]
+mortalRelationships = ["younger-sibling", "loyal-significant-other", "struggling-best-friend"]
+
+[corruption]
+trigger = "Ignore mortal commitments to confront the supernatural."
+advances = [{ label = "Take a corruption move.", checked = true }]
+track = 0
+
+[editorial.opening]
+heading = "Opening"
+paragraphs = ["Original fixture."]
+[editorial.playAdvice]
+heading = "Advice"
+paragraphs = ["Play."]
+[editorial.identity]
+heading = "Identity"
+paragraphs = ["Choose."]
+[editorial.progression]
+heading = "Progression"
+paragraphs = ["Grow."]
+
+[[mortalRelationships]]
+key = "younger-sibling"
+label = "Younger sibling"
+description = "Relies on you for transportation and advice."
+
+[[mortalRelationships]]
+key = "loyal-significant-other"
+label = "Loyal significant other"
+description = "Keeps choosing you when the city makes that dangerous."
+
+[[mortalRelationships]]
+key = "struggling-best-friend"
+label = "Struggling best friend"
+description = "Always gets into messy altercations."
+
+[[creation]]
+label = "Choose three mortal relationships."
+options = [{ value = "younger-sibling", label = "Younger sibling" }, { value = "loyal-significant-other", label = "Loyal significant other" }, { value = "struggling-best-friend", label = "Struggling best friend" }]
+selection = { min = 3, max = 3 }
+attribute = "mortalRelationships"
+
+[[extras]]
+key = "notebook"
+label = "The notebook"
+text = "Where you write what you should not know."
+items = ["A name crossed out twice.", "An address you never visited."]
+
+[[extras]]
+key = "day-job"
+label = "Day job"
+text = "What still pays the rent."

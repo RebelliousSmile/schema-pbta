@@ -276,6 +276,35 @@ max = 1
     );
   }
 
+  fs.writeFileSync(
+    path.join(urbanShadowsPlaybookDirectory, "fixture-unknown-circle.toml"),
+    awareFixture.replace(
+      'advancementCircles = ["mortalis", "night", "power", "wild"]',
+      'advancementCircles = ["mortalis", "dusk"]',
+    ),
+  );
+  fs.writeFileSync(
+    path.join(urbanShadowsPlaybookDirectory, "fixture-duplicate-frame.toml"),
+    awareFixture.replace('key = "day-job"', 'key = "notebook"'),
+  );
+
+  const frameDiagnostics = validateReferences(temporaryRoot);
+  for (const [fileName, key, message] of [
+    ["fixture-unknown-circle.toml", "advancementCircles[1]", 'unknown Circle "dusk"'],
+    ["fixture-duplicate-frame.toml", "extras[1].key", 'duplicate frame key "notebook"'],
+  ]) {
+    assert.ok(
+      frameDiagnostics.some(
+        (diagnostic) =>
+          diagnostic.file.endsWith(fileName) &&
+          diagnostic.key === key &&
+          diagnostic.message.includes(message) &&
+          diagnostic.severity === "error",
+      ),
+      `${fileName} must reject a playbook key the playbook does not declare once`,
+    );
+  }
+
   const specialisedPlaybook = path.join(
     temporaryRoot,
     "examples",

@@ -1,0 +1,21 @@
+/* The light page: headings, list marks and game terms. */
+body.brumes--urban-shadows .markdown-rendered :is(h1, h2, h3) {
+  letter-spacing: 0.03em;
+}
+body.brumes--urban-shadows .markdown-rendered h2 {
+  border-block-end: 1px solid var(--hr-color);
+  padding-block-end: 0.1em;
+}
+/* Lozenge list marks. */
+body.brumes--urban-shadows .markdown-rendered ul > li > .list-bullet::after {
+  width: 0.36em;
+  height: 0.36em;
+  border-radius: 0;
+  transform: rotate(45deg);
+}
+/* A game term is written bold and italic: it reads upright, in the accent. */
+body.brumes--urban-shadows .markdown-rendered :is(strong > em, em > strong) {
+  color: var(--color-accent);
+  font-style: normal;
+  font-weight: 700;
+}

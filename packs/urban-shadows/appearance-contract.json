@@ -1,0 +1,29 @@
+{
+  "target": "urban-shadows-playbook",
+  "appearanceVersion": 1,
+  "resources": {
+    "fonts": {
+      "Urban Shadows Display": "assets/fonts/league-gothic-latin-400-normal.woff2",
+      "Urban Shadows Text": "assets/fonts/source-serif-4-latin-wght-normal.woff2",
+      "Urban Shadows Brush": "assets/fonts/caveat-brush-400-normal.woff2"
+    },
+    "stylesheets": [
+      "styles/theme-tokens.css"
+    ],
+    "assets": {
+      "game-mark": "assets/images/city-sigil.svg"
+    }
+  },
+  "variants": [
+    {
+      "id": "base",
+      "tokens": {
+        "--urban-shadows-title-font": "'Urban Shadows Display', 'League Gothic', 'Arial Narrow', sans-serif",
+        "--urban-shadows-brush-font": "'Urban Shadows Brush', 'Caveat Brush', cursive",
+        "--urban-shadows-accent": "#682865",
+        "--pbta-column-gap": "2rem",
+        "--pbta-column-rule": "#682865"
+      }
+    }
+  ]
+}

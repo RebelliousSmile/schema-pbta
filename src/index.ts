@@ -87,5 +87,17 @@ export type {
   PbtaCollectionItemEditor,
   PbtaCollectionPresentation,
 } from "./presentation/index.js";
+export {
+  getPbtaUrbanShadowsPlaybookPresentation,
+  PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION,
+  urbanShadowsPlaybookPresentationSchema,
+} from "./presentation/index.js";
+export type {
+  PbtaUrbanShadowsPlaybookPresentation,
+  PbtaUrbanShadowsPrimitive,
+  PbtaUrbanShadowsRegionId,
+} from "./presentation/index.js";
+export { getPbtaUrbanShadowsAppearance, PBTA_URBAN_SHADOWS_APPEARANCE, urbanShadowsAppearanceSchema } from "./presentation/index.js";
+export type { PbtaUrbanShadowsAppearance } from "./presentation/index.js";
 export { PBTA_PACK_CALLOUTS, PBTA_VISUAL_CALLOUTS } from "./presentation/index.js";
-export type { PbtaVisualCallout } from "./presentation/index.js";
+export type { PbtaPackCallout, PbtaVisualCallout } from "./presentation/index.js";

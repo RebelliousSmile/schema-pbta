@@ -9,10 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking
 
+- New schema major `10.0.0` (`schemas/v10`, immutable tag `v10.0.0`, `PBTA_CONTRACT_VERSION` 10). `schemas/v9` stays as committed and joins the archived majors checked against their tag. The Urban Shadows playbook gains the rubrics of both faces of its printed sheet; every new field is optional, so a v9 document is still accepted. Pack manifests and `cross-tool-provider.json` declare `contractVersion` 10.
+
 - New schema major `9.0.0` (`schemas/v9`, immutable tag `v9.0.0`, `PBTA_CONTRACT_VERSION` 9). `schemas/v8` is restored byte for byte and stays frozen. The Monsterhearts playbook changes shape (optional `editorial.play`, French region labels, `ascendants-and-conditions` region replacing `relationships` and `conditions-and-harm`), so it cannot ship in v8; v9 carries every game, like each previous major. Pack manifests and `cross-tool-provider.json` declare `contractVersion` 9. The package version is bumped to `9.0.0` ahead of the release, as for v7 and v8; the `v9.0.0` tag is not created yet and `validate:version` treats `schemas/v9` as the candidate baseline until it is published.
 
 ### Changed
 
+- A pack manifest's `presentation` is a list of contracts (`packPresentationSchema`), so a pack can publish a layout and an appearance side by side. Monsterhearts declares its two contracts in that form.
+- Urban Shadows Handbook pack `0.3.0`: violet headings on pale paper (`#682865`), Caveat Brush as the brush face (OFL 1.1, shipped with its licence), page and callout stylesheets, and a night section published as `style.section.note` with an original window texture. The pack stays light only; `validate:packs` accepts `section.note` and checks the layer's code tokens.
 - Every PbtA Handbook pack is light only: The Sprawl moves from `polarities = ["dark"]` to `["light"]` with a light palette, and the validator now expects `light` for all packs.
 - Publish the Monsterhearts note callouts `monsterhearts-note` (hatched light frame) and `monsterhearts-note-dark` (dark panel) through `PBTA_PACK_CALLOUTS`.
 
@@ -21,6 +25,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Urban Shadows playbook presentation (`PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION`, `packs/urban-shadows/presentation-contract.json`): nineteen regions with French labels over two faces, each bound to fields the playbook schema declares, with the `circle-status`, `check-list` and `box-track` primitives.
+- Urban Shadows appearance (`PBTA_URBAN_SHADOWS_APPEARANCE`, `packs/urban-shadows/appearance-contract.json`) with its fonts, images and token stylesheet under `packs/urban-shadows/`.
+- Six Urban Shadows callouts in `PBTA_PACK_CALLOUTS`: `urban-shadows-move`, `-choice`, `-aside`, `-solid`, `-archetype` and `-example`.
+- Presentation fixtures for Urban Shadows (two accepted, two rejected) and matching checks in `validate:contract`, `validate:package` and `validate:packs`.
+- Urban Shadows playbook: optional `advancementCircles` (Circles carrying an advancement mark, keys of `stats`), `laterAdvancement` (second advancement list), `letItOut`, `intimacy`, `debts`, `extras` (titled frames proper to a playbook: `key`, `label`, optional `text` and `items`) and `corruption.track` (number of boxes, at least 1). None of them carries play state.
+- Collection editors for the new Urban Shadows lists, all on existing item editors (`pbta-text`, `pbta-advancement`); `PBTA_COLLECTION_ITEM_EDITORS` is unchanged.
+- Cross-pass rules: an advancement Circle must be a key of the playbook's `stats`, and frame keys are unique within a playbook.
+- Witness `urban-shadows-playbook-blank.toml` (the v9 witness, unchanged) and two rejections (`corruption.track` at zero, unknown field under `extras`).
 - Optional `editorial.play` ("Jouer la X") on the Monsterhearts playbook, with a witness, a rejection and a collection editor.
 
 ### Removed

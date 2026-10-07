@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { nonEmptyString, portableCount, portableInteger, slugSchema } from "./shared.js";
+import { INT32_MAX, nonEmptyString, portableCount, portableInteger, slugSchema } from "./shared.js";
 import { advancementEntrySchema, playbookSchema } from "./playbook.js";
 import { playbookEditorialSchema } from "./playbook-editorial.js";
 
@@ -26,7 +26,15 @@ const corruptionSchema = z.strictObject({
   trigger: nonEmptyString.meta({ description: "Fictional trigger that marks corruption." }),
   advances: z.array(advancementEntrySchema).min(1).meta({ description: "Corruption advances offered by the playbook." }),
   moves: z.array(nonEmptyString).optional().meta({ description: "Corruption moves available to the playbook." }),
+  track: z.number().int().min(1).max(INT32_MAX).optional().meta({ description: "Number of boxes printed on the corruption track." }),
 }).meta({ description: "Corruption track and its consequences." });
+
+const extraSchema = z.strictObject({
+  key: slugSchema.meta({ description: "Stable key of the frame, unique within the playbook." }),
+  label: nonEmptyString.meta({ description: "Printed title of the frame." }),
+  text: nonEmptyString.optional().meta({ description: "Plain-text body of the frame." }),
+  items: z.array(nonEmptyString).optional().meta({ description: "Ordered lines listed in the frame." }),
+}).meta({ description: "One titled frame printed only on this playbook." });
 
 /**
  * Urban Shadows extends the portable PbtA playbook with mechanics that are
@@ -41,6 +49,12 @@ export const urbanShadowsPlaybookSchema = playbookSchema.extend({
   corruption: corruptionSchema.meta({ description: "Urban Shadows corruption mechanics." }),
   endMove: nonEmptyString.meta({ description: "Move resolved when the character dies or retires." }),
   editorial: playbookEditorialSchema.meta({ description: "Complete editorial copy rendered with the playbook." }),
+  advancementCircles: z.array(nonEmptyString).optional().meta({ description: "Circles carrying an advancement mark, as keys of `stats`, in printed order." }),
+  laterAdvancement: z.array(advancementEntrySchema).optional().meta({ description: "Advancement options offered once the first list has been drawn on enough." }),
+  letItOut: z.array(nonEmptyString).optional().meta({ description: "Abilities the playbook gains when it lets it out." }),
+  intimacy: nonEmptyString.optional().meta({ description: "Plain text of the playbook's intimacy move." }),
+  debts: z.array(nonEmptyString).optional().meta({ description: "Starting debt prompts printed on the playbook." }),
+  extras: z.array(extraSchema).optional().meta({ description: "Titled frames printed only on this playbook." }),
 }).meta({
   title: "Urban Shadows playbook",
   description: "Portable single-document representation of an Urban Shadows character playbook.",

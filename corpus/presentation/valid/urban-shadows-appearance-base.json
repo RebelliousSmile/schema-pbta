@@ -1,0 +1,13 @@
+{
+  "variant": "base",
+  "tokens": {
+    "--urban-shadows-title-font": "'Urban Shadows Display', 'League Gothic', 'Arial Narrow', sans-serif",
+    "--urban-shadows-brush-font": "'Urban Shadows Brush', 'Caveat Brush', cursive",
+    "--urban-shadows-accent": "#682865",
+    "--pbta-column-gap": "2rem",
+    "--pbta-column-rule": "#682865"
+  },
+  "assets": {
+    "game-mark": "assets/images/city-sigil.svg"
+  }
+}

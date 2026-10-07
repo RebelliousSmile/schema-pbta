@@ -428,6 +428,29 @@ function checkGame(game: Game, root: string) {
       }
     }
 
+    // An Urban Shadows playbook names its Circles and its own frames by key.
+    if (game.folder === "urban-shadows" && type === "urban-shadows-playbook") {
+      const playbookStats = keysOf(data.stats);
+      const circles = Array.isArray(data.advancementCircles) ? data.advancementCircles : [];
+      for (const [index, circle] of circles.entries()) {
+        if (typeof circle !== "string" || playbookStats.includes(circle)) continue;
+        error(
+          file,
+          `advancementCircles[${index}]`,
+          `unknown Circle "${circle}"; the playbook declares: ${list(playbookStats)}`
+        );
+      }
+      const extraKeys = new Set<string>();
+      const extras = Array.isArray(data.extras) ? data.extras : [];
+      for (const [index, extra] of extras.entries()) {
+        if (!isDict(extra) || typeof extra.key !== "string") continue;
+        if (extraKeys.has(extra.key)) {
+          error(file, `extras[${index}].key`, `duplicate frame key "${extra.key}"`);
+        }
+        extraKeys.add(extra.key);
+      }
+    }
+
     // Rules 2, 7 and 8 walk into inline moves too.
     for (const [move, keyPath] of moveLikeObjects(data)) {
       const prefix = at(keyPath);

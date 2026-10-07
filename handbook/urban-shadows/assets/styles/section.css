@@ -1,0 +1,27 @@
+/* The night section: its tokens come from `style.section`; this sheet only
+   sets what a token cannot say. Nothing here applies to print. */
+body.brumes--urban-shadows .handbook-mode-alternate :is(h1, h2) {
+  font-family: "Urban Shadows Brush", "Caveat Brush", cursive;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: none;
+  transform: rotate(-2deg);
+  transform-origin: left center;
+}
+body.brumes--urban-shadows .handbook-mode-alternate :is(h3, h4) {
+  letter-spacing: 0.05em;
+}
+body.brumes--urban-shadows .handbook-mode-alternate .callout[data-brumes-callout-style="urban-shadows-solid"] {
+  outline: 1px solid #d9c8ee;
+}
+body.brumes--urban-shadows .handbook-mode-alternate .callout:is(
+  [data-brumes-callout-style="urban-shadows-aside"], [data-brumes-callout-style="urban-shadows-example"]
+),
+body.brumes--urban-shadows .handbook-mode-alternate .callout:is(
+  [data-brumes-callout-style="urban-shadows-aside"], [data-brumes-callout-style="urban-shadows-example"]
+) :is(.callout-title, .callout-content) {
+  color: #f4f1f8;
+}
+body.brumes--urban-shadows .handbook-mode-alternate .callout[data-brumes-callout-style="urban-shadows-aside"] {
+  border-inline-color: #d9c8ee;
+}

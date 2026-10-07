@@ -18,12 +18,12 @@
 
 html[data-game="urban-shadows"] {
   --hb-paper: #fbfaf7;
-  --hb-paper-alt: #e5e4e3;
+  --hb-paper-alt: #e6e7e9;
   --hb-ink: #171216;
   --hb-muted: #665d63;
-  --hb-accent: #591133;
-  --hb-accent-2: #2c1827;
-  --hb-line: #591133;
+  --hb-accent: #682865;
+  --hb-accent-2: #2f1a53;
+  --hb-line: #682865;
   --hb-radius: 0;
   --hb-body: "Urban Shadows Text", "Source Serif 4", Georgia, serif;
   --hb-display: "Urban Shadows Display", "Arial Narrow", Impact, sans-serif;

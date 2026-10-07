@@ -1,0 +1,277 @@
+{
+  "target": "urban-shadows-playbook",
+  "regions": [
+    {
+      "id": "game-identity",
+      "label": "Archétype",
+      "group": "recto",
+      "primitive": "identity",
+      "fields": [
+        "name",
+        "description",
+        "playbookImage"
+      ]
+    },
+    {
+      "id": "urban-shadows-opening",
+      "label": "Introduction",
+      "group": "recto",
+      "primitive": "editorial-copy",
+      "fields": [
+        "editorial.opening"
+      ]
+    },
+    {
+      "id": "character-identity",
+      "label": "Identité",
+      "group": "recto",
+      "primitive": "identity",
+      "fields": [
+        "editorial.identity"
+      ]
+    },
+    {
+      "id": "urban-shadows-stats",
+      "label": "Caractéristiques",
+      "group": "recto",
+      "primitive": "stat-spread",
+      "fields": [
+        "stats",
+        "statsDetail"
+      ]
+    },
+    {
+      "id": "urban-shadows-circles",
+      "label": "Cercles",
+      "group": "recto",
+      "primitive": "circle-status",
+      "fields": [
+        "stats",
+        "statuses"
+      ]
+    },
+    {
+      "id": "playbook-moves",
+      "label": "Mouvements d'archétype",
+      "group": "recto",
+      "primitive": "action-list",
+      "fields": [
+        "moves",
+        "startingMoves"
+      ]
+    },
+    {
+      "id": "urban-shadows-advancement",
+      "label": "Progression",
+      "group": "recto",
+      "primitive": "progression-list",
+      "fields": [
+        "editorial.progression",
+        "advancementCircles",
+        "advancement",
+        "laterAdvancement"
+      ]
+    },
+    {
+      "id": "harm-tracker",
+      "label": "Dégâts",
+      "group": "recto",
+      "primitive": "condition-harm-tracker",
+      "fields": [
+        "harm"
+      ]
+    },
+    {
+      "id": "urban-shadows-scars",
+      "label": "Cicatrices",
+      "group": "recto",
+      "primitive": "check-list",
+      "fields": [
+        "scars"
+      ]
+    },
+    {
+      "id": "urban-shadows-let-it-out",
+      "label": "Laisse sortir",
+      "group": "recto",
+      "primitive": "check-list",
+      "fields": [
+        "letItOut"
+      ]
+    },
+    {
+      "id": "urban-shadows-end-move",
+      "label": "Mouvement final",
+      "group": "recto",
+      "primitive": "editorial-copy",
+      "fields": [
+        "endMove"
+      ]
+    },
+    {
+      "id": "urban-shadows-creation",
+      "label": "Création du personnage",
+      "group": "verso",
+      "primitive": "editorial-copy",
+      "fields": [
+        "creation",
+        "statProfiles",
+        "choiceSets",
+        "attributes"
+      ]
+    },
+    {
+      "id": "urban-shadows-debts",
+      "label": "Dettes de départ",
+      "group": "verso",
+      "primitive": "relationship-ledger",
+      "fields": [
+        "debts"
+      ]
+    },
+    {
+      "id": "urban-shadows-mortal-relationships",
+      "label": "Relations mortelles",
+      "group": "verso",
+      "primitive": "relationship-ledger",
+      "fields": [
+        "mortalRelationships"
+      ]
+    },
+    {
+      "id": "urban-shadows-extras",
+      "label": "Cadres de l'archétype",
+      "group": "verso",
+      "primitive": "editorial-copy",
+      "fields": [
+        "extras"
+      ]
+    },
+    {
+      "id": "urban-shadows-intimacy",
+      "label": "Intimité",
+      "group": "verso",
+      "primitive": "editorial-copy",
+      "fields": [
+        "intimacy"
+      ]
+    },
+    {
+      "id": "gear",
+      "label": "Équipement & notes",
+      "group": "verso",
+      "primitive": "gear-list",
+      "fields": [
+        "gear"
+      ]
+    },
+    {
+      "id": "urban-shadows-corruption",
+      "label": "Corruption",
+      "group": "verso",
+      "primitive": "box-track",
+      "fields": [
+        "corruption"
+      ]
+    },
+    {
+      "id": "urban-shadows-play",
+      "label": "Jouer l'archétype",
+      "group": "verso",
+      "primitive": "editorial-copy",
+      "fields": [
+        "editorial.playAdvice"
+      ]
+    }
+  ],
+  "canonicalOrder": [
+    "game-identity",
+    "urban-shadows-opening",
+    "character-identity",
+    "urban-shadows-stats",
+    "urban-shadows-circles",
+    "playbook-moves",
+    "urban-shadows-advancement",
+    "harm-tracker",
+    "urban-shadows-scars",
+    "urban-shadows-let-it-out",
+    "urban-shadows-end-move",
+    "urban-shadows-creation",
+    "urban-shadows-debts",
+    "urban-shadows-mortal-relationships",
+    "urban-shadows-extras",
+    "urban-shadows-intimacy",
+    "gear",
+    "urban-shadows-corruption",
+    "urban-shadows-play"
+  ],
+  "rows": [
+    [
+      [
+        "urban-shadows-opening",
+        "character-identity"
+      ],
+      [
+        "urban-shadows-stats",
+        "urban-shadows-circles"
+      ],
+      [
+        "harm-tracker",
+        "urban-shadows-scars"
+      ]
+    ],
+    [
+      [
+        "playbook-moves"
+      ],
+      [
+        "urban-shadows-advancement",
+        "urban-shadows-let-it-out"
+      ],
+      [
+        "urban-shadows-end-move"
+      ]
+    ],
+    [
+      [
+        "urban-shadows-creation",
+        "urban-shadows-debts"
+      ],
+      [
+        "urban-shadows-mortal-relationships",
+        "urban-shadows-extras",
+        "urban-shadows-intimacy"
+      ],
+      [
+        "gear",
+        "urban-shadows-corruption",
+        "urban-shadows-play"
+      ]
+    ]
+  ],
+  "fallbacks": {
+    "unplaced": "canonical-order",
+    "narrowPane": "canonical-flow",
+    "print": "canonical-flow"
+  },
+  "pack": {
+    "id": "urban-shadows",
+    "appearanceArtifact": "appearance-contract.json",
+    "tokens": [
+      "--urban-shadows-title-font",
+      "--urban-shadows-brush-font",
+      "--urban-shadows-accent",
+      "--pbta-column-gap",
+      "--pbta-column-rule"
+    ],
+    "assets": [
+      "game-mark"
+    ],
+    "variants": [
+      {
+        "id": "base",
+        "presentationOnly": true
+      }
+    ]
+  }
+}

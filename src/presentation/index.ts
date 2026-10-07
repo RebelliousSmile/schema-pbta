@@ -25,5 +25,17 @@ export type {
 } from "./monsterhearts-playbook.js";
 export { getPbtaMonsterheartsAppearance, monsterheartsAppearanceSchema, PBTA_MONSTERHEARTS_APPEARANCE } from "./monsterhearts-appearance.js";
 export type { PbtaMonsterheartsAppearance } from "./monsterhearts-appearance.js";
+export {
+  getPbtaUrbanShadowsPlaybookPresentation,
+  PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION,
+  urbanShadowsPlaybookPresentationSchema,
+} from "./urban-shadows-playbook.js";
+export type {
+  PbtaUrbanShadowsPlaybookPresentation,
+  PbtaUrbanShadowsPrimitive,
+  PbtaUrbanShadowsRegionId,
+} from "./urban-shadows-playbook.js";
+export { getPbtaUrbanShadowsAppearance, PBTA_URBAN_SHADOWS_APPEARANCE, urbanShadowsAppearanceSchema } from "./urban-shadows-appearance.js";
+export type { PbtaUrbanShadowsAppearance } from "./urban-shadows-appearance.js";
 export { PBTA_PACK_CALLOUTS, PBTA_VISUAL_CALLOUTS } from "./callouts.js";
-export type { PbtaVisualCallout } from "./callouts.js";
+export type { PbtaPackCallout, PbtaVisualCallout } from "./callouts.js";

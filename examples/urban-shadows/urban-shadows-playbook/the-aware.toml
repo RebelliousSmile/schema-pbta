@@ -5,6 +5,11 @@ description = "A mortal who has seen what the city hides and cannot look away."
 statsDetail = "Blood 0, Heart 1, Mind -1, Spirit 1."
 advancement = [{ label = "Take a new Aware move." }, { label = "Open a new mortal relationship.", checked = true }]
 endMove = "When you die, ask another PC to look after up to three mortal relationships."
+advancementCircles = ["mortalis", "night", "power", "wild"]
+laterAdvancement = [{ label = "Retire the character to safety." }, { label = "Change to another playbook." }]
+letItOut = ["Walk away from a scene unnoticed.", "Name the person who knows the answer."]
+intimacy = "When you share a moment of intimacy with someone, tell them one thing you fear losing."
+debts = ["Someone covered for you at work; you owe them.", "You kept a secret for someone; they owe you."]
 
 [stats]
 blood = 0
@@ -36,6 +41,7 @@ critical = 2
 trigger = "When you ignore mortal commitments or relationships to deal with the supernatural, mark corruption."
 advances = [{ label = "Take +1 to any stat." }, { label = "Take a corruption move.", checked = true }, { label = "Retire the character as a Threat." }]
 moves = ["In Too Deep", "Free Agent"]
+track = 5
 
 [editorial.opening]
 heading = "Entre les mondes"
@@ -80,3 +86,14 @@ label = "Choose three mortal relationships."
 options = [{ value = "younger-sibling", label = "Younger sibling" }, { value = "loyal-significant-other", label = "Loyal significant other" }, { value = "struggling-best-friend", label = "Struggling best friend" }]
 selection = { min = 3, max = 3 }
 attribute = "mortalRelationships"
+
+[[extras]]
+key = "notebook"
+label = "The notebook"
+text = "Where you write what you should not know."
+items = ["A name crossed out twice.", "An address you never visited."]
+
+[[extras]]
+key = "day-job"
+label = "Day job"
+text = "What still pays the rent."

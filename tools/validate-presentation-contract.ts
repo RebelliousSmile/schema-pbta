@@ -11,6 +11,12 @@ import {
   PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
 } from "../src/presentation/monsterhearts-playbook.js";
 import { PBTA_MONSTERHEARTS_APPEARANCE } from "../src/presentation/monsterhearts-appearance.js";
+import {
+  PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION,
+  urbanShadowsPlaybookPresentationSchema,
+} from "../src/presentation/urban-shadows-playbook.js";
+import { PBTA_URBAN_SHADOWS_APPEARANCE } from "../src/presentation/urban-shadows-appearance.js";
+import { urbanShadowsPlaybookSchema } from "../src/zod/urban-shadows-playbook.js";
 
 const keys = new Set<string>();
 
@@ -107,6 +113,86 @@ for (const invalid of [
   );
 }
 
+const urbanShadowsPresentation = PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION;
+assert.equal(urbanShadowsPresentation.regions.length, 19, "Urban Shadows publishes every region of both faces");
+assert.deepEqual(
+  urbanShadowsPresentation.canonicalOrder,
+  urbanShadowsPresentation.regions.map((region) => region.id),
+  "Urban Shadows canonical order follows the declared regions",
+);
+assert.deepEqual(urbanShadowsPresentation.fallbacks, {
+  unplaced: "canonical-order", narrowPane: "canonical-flow", print: "canonical-flow",
+});
+assert.deepEqual(
+  [...new Set(urbanShadowsPresentation.regions.map((region) => region.group))],
+  ["recto", "verso"],
+  "Urban Shadows regions list the front face, then the back",
+);
+const urbanShadowsPlaced = new Set((urbanShadowsPresentation.rows ?? []).flat(2));
+assert.deepEqual(
+  urbanShadowsPresentation.regions.filter((region) => !urbanShadowsPlaced.has(region.id)).map((region) => region.id),
+  ["game-identity"],
+  "only the heading region is left to the canonical fallback",
+);
+
+/** Walk a dotted TOML path through a document schema; a wrapper never hides a key. */
+function declares(schema: unknown, fieldPath: string): boolean {
+  let current = schema as { unwrap?: () => unknown; element?: unknown; shape?: Record<string, unknown> } | undefined;
+  for (const key of fieldPath.split(".")) {
+    for (;;) {
+      if (current && typeof current.unwrap === "function") current = current.unwrap() as typeof current;
+      else if (current?.element) current = current.element as typeof current;
+      else break;
+    }
+    const next = current?.shape?.[key];
+    if (!next) return false;
+    current = next as typeof current;
+  }
+  return true;
+}
+assert.equal(declares(urbanShadowsPlaybookSchema, "editorial.opening"), true, "the field walk reads nested keys");
+assert.equal(declares(urbanShadowsPlaybookSchema, "editorial.notAField"), false, "the field walk rejects an unknown key");
+for (const region of urbanShadowsPresentation.regions) {
+  for (const field of region.fields) {
+    assert.ok(declares(urbanShadowsPlaybookSchema, field), `${region.id}: ${field} is not a field of the Urban Shadows playbook`);
+  }
+}
+const urbanShadowsBound = new Set(urbanShadowsPresentation.regions.flatMap((region) => region.fields));
+assert.equal(
+  urbanShadowsBound.size,
+  urbanShadowsPresentation.regions.reduce((count, region) => count + region.fields.length, 0) - 1,
+  "only `stats` is bound by two regions (the spread and the Circles)",
+);
+assert.deepEqual(
+  Object.keys(PBTA_URBAN_SHADOWS_APPEARANCE.resources.assets).sort(),
+  [...urbanShadowsPresentation.pack.assets].sort(),
+  "appearance assets must resolve every structural asset id",
+);
+assert.deepEqual(
+  PBTA_URBAN_SHADOWS_APPEARANCE.variants.map((variant) => variant.id),
+  urbanShadowsPresentation.pack.variants.map((variant) => variant.id),
+  "appearance variants must match the structural contract",
+);
+for (const variant of PBTA_URBAN_SHADOWS_APPEARANCE.variants) {
+  for (const token of urbanShadowsPresentation.pack.tokens) {
+    assert.equal(typeof variant.tokens[token], "string", `${variant.id} must resolve ${token}`);
+  }
+}
+const urbanShadowsUnplaced = urbanShadowsPlaybookPresentationSchema.parse({
+  ...urbanShadowsPresentation,
+  ...layoutFixture("valid/urban-shadows-layout-unplaced.json"),
+});
+assert.equal(urbanShadowsUnplaced.rows?.length, 1, "unplaced regions are valid and retain canonical fallback");
+for (const invalid of [
+  "invalid/urban-shadows-layout-unknown-region.json",
+  "invalid/urban-shadows-layout-mixed-faces.json",
+]) {
+  assert.throws(
+    () => urbanShadowsPlaybookPresentationSchema.parse({ ...urbanShadowsPresentation, ...layoutFixture(invalid) }),
+    `presentation corpus rejects ${invalid}`,
+  );
+}
+
 const unknownItemEditorFixture = JSON.parse(
   fs.readFileSync(
     new URL("../corpus/presentation/invalid/unknown-item-editor.json", import.meta.url),
@@ -119,4 +205,4 @@ assert.throws(
   "presentation corpus rejects an unknown collection item editor",
 );
 
-console.log(`✓ validated ${PBTA_COLLECTION_PRESENTATIONS.length} PbtA collection presentations and Monsterhearts layout semantics`);
+console.log(`✓ validated ${PBTA_COLLECTION_PRESENTATIONS.length} PbtA collection presentations, Monsterhearts and Urban Shadows layout semantics`);

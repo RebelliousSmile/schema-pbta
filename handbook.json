@@ -28,10 +28,10 @@
     },
     {
       "id": "urban-shadows",
-      "version": "0.2.1",
+      "version": "0.3.0",
       "path": "handbook/urban-shadows/pack.json",
       "label": "Urban Shadows",
-      "description": "Occult urban presentation with restrained parchment tones."
+      "description": "Occult urban presentation: violet headings on pale paper, with a night section."
     },
     {
       "id": "the-sprawl",

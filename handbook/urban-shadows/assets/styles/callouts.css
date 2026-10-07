@@ -4,10 +4,10 @@ body.brumes--urban-shadows .callout:is(
   [data-brumes-callout-style="pbta-clock"], [data-brumes-callout-style="pbta-move"],
   [data-brumes-callout-style="pbta-npc-reaction"], [data-brumes-callout-style="pbta-playbook-change"]
 ) {
-  border: 1px solid #591133;
-  border-inline-start: 0.45rem solid #591133;
+  border: 1px solid #682865;
+  border-inline-start: 0.45rem solid #682865;
   border-radius: 0;
-  background: #f3edf0;
+  background: #f2eff6;
   color: #171216;
   box-shadow: none;
 }
@@ -19,5 +19,143 @@ body.brumes--urban-shadows .callout[data-brumes-callout-style^="pbta-"] .callout
   text-transform: uppercase;
 }
 body.brumes--urban-shadows .callout[data-brumes-callout-style="pbta-clock"] { border-inline-start-width: 0.7rem; }
-body.brumes--urban-shadows .callout[data-brumes-callout-style="pbta-npc-reaction"] { border-block-start: 0.3rem solid #591133; }
-body.brumes--urban-shadows .callout[data-brumes-callout-style="pbta-playbook-change"] { background: #e9dfe4; }
+body.brumes--urban-shadows .callout[data-brumes-callout-style="pbta-npc-reaction"] { border-block-start: 0.3rem solid #682865; }
+body.brumes--urban-shadows .callout[data-brumes-callout-style="pbta-playbook-change"] { background: #e9e3f1; }
+
+/* Frames proper to the pack. They share a flat, square, icon-less base; each
+   one then draws its own frame. */
+body.brumes--urban-shadows .callout:is(
+  [data-brumes-callout-style="urban-shadows-move"], [data-brumes-callout-style="urban-shadows-choice"], [data-brumes-callout-style="urban-shadows-aside"],
+  [data-brumes-callout-style="urban-shadows-solid"], [data-brumes-callout-style="urban-shadows-archetype"], [data-brumes-callout-style="urban-shadows-example"]
+) {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0.7em 1em;
+  background: transparent;
+  color: #171216;
+  mix-blend-mode: normal;
+}
+body.brumes--urban-shadows .callout:is(
+  [data-brumes-callout-style="urban-shadows-move"], [data-brumes-callout-style="urban-shadows-choice"], [data-brumes-callout-style="urban-shadows-aside"],
+  [data-brumes-callout-style="urban-shadows-solid"], [data-brumes-callout-style="urban-shadows-archetype"], [data-brumes-callout-style="urban-shadows-example"]
+) .callout-icon {
+  display: none;
+}
+body.brumes--urban-shadows .callout:is(
+  [data-brumes-callout-style="urban-shadows-move"], [data-brumes-callout-style="urban-shadows-choice"], [data-brumes-callout-style="urban-shadows-aside"],
+  [data-brumes-callout-style="urban-shadows-solid"], [data-brumes-callout-style="urban-shadows-archetype"], [data-brumes-callout-style="urban-shadows-example"]
+) .callout-title {
+  color: #682865;
+  font-family: "Urban Shadows Display", var(--font-header-theme);
+  font-size: 1.45em;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/* A move: grey panel held between two rules. */
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-move"] {
+  border-block: 0.2rem solid #682865;
+  background: #e6e7e9;
+}
+
+/* Choices to tick: lavender panel, a rule on the reading edge, square boxes. */
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-choice"] {
+  border-inline-start: 0.4rem solid #682865;
+  background: #f2eff6;
+}
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-choice"] .callout-content ul {
+  padding-inline-start: 0;
+  list-style: none;
+}
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-choice"] .callout-content ul > li {
+  position: relative;
+  margin-inline-start: 0;
+  padding-inline-start: 1.6em;
+}
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-choice"] .callout-content ul > li .list-bullet {
+  display: none;
+}
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-choice"] .callout-content ul > li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0.15em;
+  inset-block-start: 0.3em;
+  width: 0.8em;
+  height: 0.8em;
+  border: 1.5px solid #682865;
+  background: #fff;
+}
+
+/* An aside: no panel, a rule on each side. */
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-aside"] {
+  border-inline: 0.2rem solid #682865;
+  padding-block: 0.3em;
+}
+
+/* A filled frame: night panel, light ink, paint running under it when the
+   pack image is there. */
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-solid"] {
+  position: relative;
+  overflow: visible;
+  margin-block-end: 2.2rem;
+  background: #2f1a53;
+  color: #f4f1f8;
+}
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-solid"] :is(.callout-title, .callout-content) {
+  color: #f4f1f8;
+}
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-solid"] .callout-title {
+  font-family: "Urban Shadows Brush", "Caveat Brush", cursive;
+  font-size: 1.6em;
+  letter-spacing: 0;
+  text-transform: none;
+}
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-solid"] a {
+  color: #e2d4f3;
+  text-decoration: underline;
+}
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-solid"]::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 100%;
+  height: 1.75rem;
+  background-image: var(--brumes-image-ink-drips, none);
+  background-repeat: repeat-x;
+  background-size: 10rem 1.75rem;
+}
+
+/* An archetype panel: violet title band over a lavender body. */
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-archetype"] {
+  padding: 0;
+  border: 1px solid #682865;
+  background: #f2eff6;
+}
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-archetype"] .callout-title {
+  padding: 0.35em 0.7em;
+  background: #682865;
+  color: #fff;
+}
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-archetype"] .callout-content {
+  padding: 0.2em 1em 0.5em;
+}
+
+/* An example of play: no frame, violet italics. */
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-example"] {
+  padding-inline: 1.4em;
+  color: #682865;
+  font-style: italic;
+}
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-example"] .callout-title {
+  font-family: "Urban Shadows Text", var(--font-text-theme);
+  font-size: 1em;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-example"] .callout-content {
+  color: #682865;
+}

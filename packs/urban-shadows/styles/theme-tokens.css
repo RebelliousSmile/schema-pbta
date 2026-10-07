@@ -1,0 +1,32 @@
+:root {
+  --hb-paper: #fbfaf7;
+  --hb-paper-alt: #e6e7e9;
+  --hb-ink: #171216;
+  --hb-muted: #5f555b;
+  --hb-accent: #682865;
+  --hb-accent-2: #2f1a53;
+  --hb-line: #682865;
+  --hb-shadow: none;
+  --hb-radius: 0;
+  --hb-body: "Urban Shadows Text", "Source Serif 4", Georgia, serif;
+  --hb-display: "Urban Shadows Display", "League Gothic", "Arial Narrow", sans-serif;
+  --hb-brush: "Urban Shadows Brush", "Caveat Brush", cursive;
+  --hb-texture: none;
+  --hb-surface: #f2eff6;
+  --hb-surface-strong: #e9e3f1;
+  --hb-accent-soft: #f2eff6;
+  --hb-focus: #682865;
+}
+
+.handbook-sheet {
+  --paper: var(--hb-paper);
+  --ink: var(--hb-ink);
+  --line: var(--hb-line);
+  color: var(--hb-ink);
+  font-family: var(--hb-body);
+}
+
+.handbook-sheet .handbook-panel { background-color: var(--hb-paper); }
+.handbook-sheet .handbook-game { background-color: var(--hb-paper); }
+.handbook-sheet .handbook-variant select { background-color: var(--hb-paper-alt); }
+.handbook-sheet .handbook-stats-detail { color: var(--hb-muted); }

@@ -1,8 +1,12 @@
 {
   "manifestVersion": 1,
-  "version": "0.2.1",
+  "version": "0.3.0",
   "minimumHandbookVersion": "2.8.0",
-  "requires": ["block:pbta-playbook", "block:pbta-move", "style:pbta"],
+  "requires": [
+    "block:pbta-playbook",
+    "block:pbta-move",
+    "style:pbta"
+  ],
   "pack": {
     "id": "urban-shadows",
     "label": "Urban Shadows",
@@ -36,40 +40,75 @@
           "--h3-text-transform": "uppercase",
           "--h4-font": "'Urban Shadows Text', 'Source Serif 4', Georgia, serif",
           "--h4-weight": "700",
-          "--pbta-column-gap": "2.35rem",
-          "--pbta-column-rule": "#591133",
+          "--pbta-column-gap": "2rem",
+          "--pbta-column-rule": "#682865",
           "--bold-color": "#171216",
-          "--italic-color": "#7b244d",
-          "--blockquote-border-color": "#591133",
-          "--blockquote-color": "#7b244d",
+          "--italic-color": "#682865",
+          "--blockquote-border-color": "#682865",
+          "--blockquote-color": "#682865",
           "--blockquote-background-color": "transparent",
-          "--list-marker-color": "#591133",
+          "--list-marker-color": "#682865",
           "--list-marker-color-hover": "#171216",
-          "--hr-color": "#591133",
+          "--hr-color": "#682865",
           "--hr-thickness": "1px"
         }
       },
       "light": {
         "note": {
           "--background-primary": "#fbfaf7",
-          "--background-primary-alt": "#e5e4e3",
+          "--background-primary-alt": "#e6e7e9",
           "--text-normal": "#171216",
           "--text-muted": "#5f555b",
-          "--color-accent": "#591133",
-          "--interactive-accent": "#591133",
-          "--link-color": "#7b244d",
+          "--color-accent": "#682865",
+          "--interactive-accent": "#682865",
+          "--link-color": "#682865",
           "--link-color-hover": "#171216",
-          "--h1-color": "#591133",
+          "--h1-color": "#682865",
           "--h2-color": "#171216",
-          "--h3-color": "#591133",
+          "--h3-color": "#682865",
           "--h4-color": "#171216",
           "--tag-color": "#171216",
-          "--tag-background": "#e5e4e3",
-          "--checkbox-color": "#591133"
+          "--tag-background": "#e9e3f1",
+          "--checkbox-color": "#682865",
+          "--code-normal": "#171216",
+          "--code-background": "#e6e7e9"
+        }
+      },
+      "section": {
+        "note": {
+          "--background-primary": "#2f1a53",
+          "--background-primary-alt": "#3b2466",
+          "--text-normal": "#f4f1f8",
+          "--text-muted": "#c9bfdc",
+          "--color-accent": "#d9c8ee",
+          "--interactive-accent": "#d9c8ee",
+          "--link-color": "#e2d4f3",
+          "--link-color-hover": "#ffffff",
+          "--h1-color": "#ffffff",
+          "--h2-color": "#ffffff",
+          "--h3-color": "#e2d4f3",
+          "--h4-color": "#ffffff",
+          "--bold-color": "#ffffff",
+          "--italic-color": "#e2d4f3",
+          "--blockquote-color": "#e2d4f3",
+          "--blockquote-border-color": "#d9c8ee",
+          "--list-marker-color": "#d9c8ee",
+          "--list-marker-color-hover": "#ffffff",
+          "--hr-color": "#d9c8ee",
+          "--tag-color": "#f4f1f8",
+          "--tag-background": "#3b2466",
+          "--checkbox-color": "#d9c8ee",
+          "--code-normal": "#f4f1f8",
+          "--code-background": "#3b2466",
+          "--pbta-column-rule": "#d9c8ee",
+          "--brumes-section-texture": "var(--brumes-image-section-texture)",
+          "--brumes-section-texture-size": "120px 160px"
         }
       }
     },
-    "polarities": ["light"],
+    "polarities": [
+      "light"
+    ],
     "assets": {
       "fonts": {
         "Urban Shadows Display": {
@@ -81,11 +120,23 @@
           "file": "fonts/source-serif-4-latin-wght-normal.woff2",
           "weight": "200 900",
           "style": "normal"
+        },
+        "Urban Shadows Brush": {
+          "file": "fonts/caveat-brush-400-normal.woff2",
+          "weight": "400",
+          "style": "normal"
         }
       },
-      "stylesheets": ["styles/callouts.css"],
+      "stylesheets": [
+        "styles/callouts.css",
+        "styles/page.css",
+        "styles/section.css",
+        "styles/layout.css"
+      ],
       "images": {
-        "game-mark": "images/city-sigil.svg"
+        "game-mark": "images/city-sigil.svg",
+        "section-texture": "images/night-windows.svg",
+        "ink-drips": "images/ink-drips.svg"
       }
     }
   }

@@ -4,6 +4,8 @@ import { fileURLToPath } from "node:url";
 import { GAMES } from "../src/zod/constants.js";
 import { loadData } from "./read-data.js";
 import { PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION } from "../src/presentation/monsterhearts-playbook.js";
+import { PBTA_URBAN_SHADOWS_APPEARANCE } from "../src/presentation/urban-shadows-appearance.js";
+import { PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION } from "../src/presentation/urban-shadows-playbook.js";
 import { PBTA_PACK_CALLOUTS, PBTA_VISUAL_CALLOUTS } from "../src/presentation/callouts.js";
 
 type Data = Record<string, unknown>;
@@ -24,8 +26,10 @@ const catalogueFields = ["manifestVersion", "repository", "name", "description",
 const entryFields = ["id", "version", "path", "label", "description"];
 const manifestFields = ["manifestVersion", "version", "minimumHandbookVersion", "requires", "pack"];
 const packFields = ["id", "label", "style", "polarities", "assets", "shapes"];
-const styleFields = ["base", "light", "dark"];
+const styleFields = ["base", "light", "dark", "section"];
 const layerFields = ["note", "workspace"];
+/* A section is a stretch of one note: it has no workspace to paint. */
+const sectionFields = ["note"];
 const assetFields = ["root", "images", "fonts", "stylesheets"];
 
 function data(value: unknown): Data {
@@ -72,8 +76,9 @@ function validateStyle(value: unknown, issues: string[], context: string): void 
   for (const layerName of styleFields) {
     if (style[layerName] === undefined) continue;
     const layer = data(style[layerName]);
-    for (const field of unknownFields(layer, layerFields)) issues.push(`${context}.${layerName}: unknown layer field ${field}`);
-    for (const slot of layerFields) {
+    const slots = layerName === "section" ? sectionFields : layerFields;
+    for (const field of unknownFields(layer, slots)) issues.push(`${context}.${layerName}: unknown layer field ${field}`);
+    for (const slot of slots) {
       if (layer[slot] !== undefined) validateTokens(layer[slot], issues, `${context}.${layerName}.${slot}`);
     }
   }
@@ -278,6 +283,52 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
         }
       }
       if (/drowned-lake/.test(JSON.stringify(manifest))) issues.push("monsterhearts: the drowned-lake variant is retired");
+    }
+    if (id === "urban-shadows") {
+      /* The pack installs the faces and the accent the npm appearance publishes. */
+      const published = PBTA_URBAN_SHADOWS_APPEARANCE;
+      for (const [family, file] of Object.entries(published.resources.fonts)) {
+        if (data(data(assets.fonts)[family]).file !== file.replace(/^assets\//, "")) {
+          issues.push(`urban-shadows: ${family} must be supplied as the published font asset`);
+        }
+      }
+      const accent = published.variants[0]?.tokens["--urban-shadows-accent"];
+      if (native["--color-accent"] !== accent) issues.push(`urban-shadows: --color-accent must be the published accent ${accent}`);
+      const section = data(data(data(pack.style).section).note);
+      for (const token of ["--background-primary", "--text-normal", "--color-accent", "--code-normal", "--code-background"]) {
+        if (typeof section[token] !== "string") issues.push(`urban-shadows: the section layer must define ${token}`);
+      }
+      for (const token of ["--code-normal", "--code-background"]) {
+        if (typeof native[token] !== "string") issues.push(`urban-shadows: missing native token ${token}`);
+      }
+      /* The booklet geometry is the pack's: Handbook only renders the hooks the contract names. */
+      const layoutSheet = "styles/layout.css";
+      const layoutFile = path.join(manifestRoot, String(assetRoot), layoutSheet);
+      if (!strings(assets.stylesheets).includes(layoutSheet) || !fs.existsSync(layoutFile)) {
+        issues.push(`urban-shadows: the booklet geometry must be supplied as ${layoutSheet}`);
+      } else {
+        const layout = fs.readFileSync(layoutFile, "utf8");
+        const regions = PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION.regions;
+        const hooks: Array<[string, string[]]> = [
+          ["data-region", regions.map((region) => region.id)],
+          ["data-primitive", regions.map((region) => region.primitive)],
+        ];
+        for (const [attribute, published] of hooks) {
+          for (const match of layout.matchAll(new RegExp(`\\[${attribute}="([^"]*)"\\]`, "g"))) {
+            if (!published.includes(match[1])) issues.push(`urban-shadows: ${layoutSheet} targets an unpublished ${attribute} ${match[1]}`);
+          }
+        }
+        const print = layout.slice(layout.indexOf("@media print"));
+        if (!layout.includes("@media print") || !/-face \+ [^{]*-face\s*\{[^}]*break-before:\s*page/.test(print)) {
+          issues.push(`urban-shadows: ${layoutSheet} must break the page between the two faces in print`);
+        }
+        if (!/-region\s*\{[^}]*break-inside:\s*avoid/.test(layout)) {
+          issues.push(`urban-shadows: ${layoutSheet} must keep a region on one page`);
+        }
+        if (!/order:\s*var\(--pbta-region-order\)/.test(print)) {
+          issues.push(`urban-shadows: ${layoutSheet} must print the regions in canonical order`);
+        }
+      }
     }
   }
   return issues;

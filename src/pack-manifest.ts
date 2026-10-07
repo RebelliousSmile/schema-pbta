@@ -8,10 +8,19 @@ const token = z.string().regex(/^[a-z0-9]+(?:[-:][a-z0-9]+)*$/);
 const relativeFixture = z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._/-]*\.toml$/);
 const relativePresentation = z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._/-]*\.json$/);
 
+const documentTarget = z.enum(Object.keys(PBTA_DOCUMENT_CODECS) as [keyof typeof PBTA_DOCUMENT_CODECS, ...Array<keyof typeof PBTA_DOCUMENT_CODECS>]);
+
 export const packDocumentSchema = z.strictObject({
-  target: z.enum(Object.keys(PBTA_DOCUMENT_CODECS) as [keyof typeof PBTA_DOCUMENT_CODECS, ...Array<keyof typeof PBTA_DOCUMENT_CODECS>]),
+  target: documentTarget,
   fixture: relativeFixture,
   mutation: token,
+});
+
+/** One generated presentation contract of the pack, with the appearance it resolves against. */
+export const packPresentationSchema = z.strictObject({
+  target: documentTarget,
+  artifact: relativePresentation,
+  appearanceArtifact: relativePresentation,
 });
 
 export const packManifestSchema = z.strictObject({
@@ -24,11 +33,7 @@ export const packManifestSchema = z.strictObject({
     lantern: z.array(token),
     handbook: z.array(token),
   }),
-  presentation: z.strictObject({
-    target: z.literal("monsterhearts-playbook"),
-    artifact: relativePresentation,
-    appearanceArtifact: relativePresentation,
-  }).optional(),
+  presentation: z.array(packPresentationSchema).min(1).optional(),
 });
 
 export type PackManifest = z.infer<typeof packManifestSchema>;

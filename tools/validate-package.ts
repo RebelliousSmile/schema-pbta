@@ -98,11 +98,15 @@ import {
   parseSalvageRunPlaybookToml,
   PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
   PBTA_MONSTERHEARTS_APPEARANCE,
+  PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION,
+  PBTA_URBAN_SHADOWS_APPEARANCE,
+  PBTA_PACK_CALLOUTS,
   getPbtaMonsterheartsPlaybookPresentation,
+  getPbtaUrbanShadowsPlaybookPresentation,
 } from "schema-pbta";
 
-assert.equal(PBTA_CONTRACT_VERSION, 9);
-assert.equal(PBTA_CONTRACT_SCHEMA_TAG, "v9.0.0");
+assert.equal(PBTA_CONTRACT_VERSION, 10);
+assert.equal(PBTA_CONTRACT_SCHEMA_TAG, "v10.0.0");
 assert.equal(PBTA_TOML_VERSION, "1.0.0");
 assert.equal(
   "PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS" in schemaPbta,
@@ -130,9 +134,9 @@ for (const parser of [
   parseSalvageRunPlaybookToml,
 ]) assert.equal(typeof parser, "function");
 
-const schemaUrl = import.meta.resolve("schema-pbta/schemas/v9/monsterhearts/monsterhearts-playbook.schema.json");
+const schemaUrl = import.meta.resolve("schema-pbta/schemas/v10/monsterhearts/monsterhearts-playbook.schema.json");
 const schema = JSON.parse(fs.readFileSync(new URL(schemaUrl), "utf8"));
-assert.match(schema.$id, /\\/v9\\.0\\.0\\/schemas\\/v9\\/monsterhearts\\/monsterhearts-playbook\\.schema\\.json$/);
+assert.match(schema.$id, /\\/v10\\.0\\.0\\/schemas\\/v10\\/monsterhearts\\/monsterhearts-playbook\\.schema\\.json$/);
 assert.throws(
   () => import.meta.resolve("schema-pbta/schemas/monsterhearts/monsterhearts-playbook.schema.json"),
   { code: "ERR_PACKAGE_PATH_NOT_EXPORTED" },
@@ -156,6 +160,32 @@ for (const resource of [
   const resourceUrl = import.meta.resolve("schema-pbta/packs/monsterhearts/" + resource);
   assert.ok(fs.statSync(new URL(resourceUrl)).isFile(), "missing exported appearance resource " + resource);
 }
+
+assert.deepEqual(
+  getPbtaUrbanShadowsPlaybookPresentation("urban-shadows-playbook"),
+  PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION,
+);
+assert.deepEqual(
+  JSON.parse(fs.readFileSync(new URL(import.meta.resolve("schema-pbta/packs/urban-shadows/presentation-contract.json")), "utf8")),
+  PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION,
+  "the Urban Shadows presentation artifact must equal its ESM export",
+);
+const urbanShadowsAppearance = JSON.parse(
+  fs.readFileSync(new URL(import.meta.resolve("schema-pbta/packs/urban-shadows/appearance-contract.json")), "utf8"),
+);
+assert.deepEqual(urbanShadowsAppearance, PBTA_URBAN_SHADOWS_APPEARANCE, "the Urban Shadows appearance artifact must equal its ESM export");
+for (const resource of [
+  ...Object.values(urbanShadowsAppearance.resources.fonts),
+  ...urbanShadowsAppearance.resources.stylesheets,
+  ...Object.values(urbanShadowsAppearance.resources.assets),
+]) {
+  const resourceUrl = import.meta.resolve("schema-pbta/packs/urban-shadows/" + resource);
+  assert.ok(fs.statSync(new URL(resourceUrl)).isFile(), "missing exported appearance resource " + resource);
+}
+assert.ok(
+  PBTA_PACK_CALLOUTS.some((entry) => entry.pack === "urban-shadows"),
+  "the package publishes the Urban Shadows callouts",
+);
 
 const corpusUrl = import.meta.resolve("schema-pbta/corpus/valid/playbook-minimal.toml");
 const playbookSource = fs.readFileSync(new URL(corpusUrl), "utf8");
@@ -245,7 +275,7 @@ await assert.rejects(
   const commonJsSource = `
 import assert from "node:assert/strict";
 import { PBTA_CONTRACT_VERSION } from "schema-pbta";
-assert.equal(PBTA_CONTRACT_VERSION, 9);
+assert.equal(PBTA_CONTRACT_VERSION, 10);
 `;
   const commonJsEntry = path.join(consumerRoot, "commonjs-entry.js");
   const commonJsBundle = path.join(consumerRoot, "commonjs-bundle.cjs");
@@ -303,7 +333,7 @@ document.body.innerHTML = urls.map((url) => '<img src="' + url + '">').join("");
 
   const major = Number(packageJson.version.split(".")[0]);
   if (major >= 1) {
-    assert.equal(major, 9, "stable package major must equal PBTA_CONTRACT_VERSION");
+    assert.equal(major, 10, "stable package major must equal PBTA_CONTRACT_VERSION");
   }
 
   console.log(

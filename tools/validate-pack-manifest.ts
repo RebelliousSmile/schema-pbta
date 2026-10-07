@@ -3,10 +3,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { PBTA_DOCUMENT_CODECS, type PbtaDocumentTarget } from "../src/codecs/toml.js";
 import { packManifestSchema } from "../src/pack-manifest.js";
-import {
-  monsterheartsPlaybookPresentationSchema,
-  PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
-} from "../src/presentation/monsterhearts-playbook.js";
+import { PBTA_MONSTERHEARTS_APPEARANCE } from "../src/presentation/monsterhearts-appearance.js";
+import { PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION } from "../src/presentation/monsterhearts-playbook.js";
+import { PBTA_URBAN_SHADOWS_APPEARANCE } from "../src/presentation/urban-shadows-appearance.js";
+import { PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION } from "../src/presentation/urban-shadows-playbook.js";
 
 type ContractCase = { path: string; target: PbtaDocumentTarget; expect: "accept" | "reject" };
 
@@ -27,21 +27,37 @@ for (const host of ["lantern", "handbook"] as const) {
   for (const capability of manifest.requirements[host]) assert.ok(published.includes(capability), `unpublished ${host} capability: ${capability}`);
 }
 
-if (manifest.pack.id === "monsterhearts") {
-  assert.deepEqual(manifest.presentation, {
-    target: "monsterhearts-playbook",
+/* A pack that publishes a layout advertises it; the artifacts it names are the generated ones, never a hand copy. */
+const published = [
+  { presentation: PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION, appearance: PBTA_MONSTERHEARTS_APPEARANCE },
+  { presentation: PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION, appearance: PBTA_URBAN_SHADOWS_APPEARANCE },
+].filter((entry) => entry.presentation.pack.id === manifest.pack.id);
+assert.deepEqual(
+  manifest.presentation,
+  published.length === 0 ? undefined : published.map((entry) => ({
+    target: entry.presentation.target,
     artifact: "presentation-contract.json",
-    appearanceArtifact: "appearance-contract.json",
-  }, "Monsterhearts must advertise its generated presentation contract");
-  const artifact = monsterheartsPlaybookPresentationSchema.parse(JSON.parse(fs.readFileSync(
-    path.join(path.dirname(file), manifest.presentation.artifact),
-    "utf8",
-  )));
-  assert.deepEqual(
-    artifact,
-    PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
-    "Monsterhearts pack artifact must be generated from the npm presentation export",
+    appearanceArtifact: entry.presentation.pack.appearanceArtifact,
+  })),
+  `${manifest.pack.id} must advertise exactly its generated presentation contracts`,
+);
+for (const entry of manifest.presentation ?? []) {
+  const source = published.find((candidate) => candidate.presentation.target === entry.target);
+  assert.ok(source, `${manifest.pack.id}: no presentation export for ${entry.target}`);
+  assert.ok(
+    manifest.documents.some((document) => document.target === entry.target),
+    `${manifest.pack.id}: presentation of an undocumented target ${entry.target}`,
   );
+  for (const [name, expected] of [
+    [entry.artifact, source.presentation],
+    [entry.appearanceArtifact, source.appearance],
+  ] as const) {
+    assert.deepEqual(
+      JSON.parse(fs.readFileSync(path.join(path.dirname(file), name), "utf8")),
+      expected,
+      `${manifest.pack.id}: ${name} must be generated from the npm presentation export`,
+    );
+  }
 }
 
 /* The corpus is the only source of canonical witnesses: a fixture outside it proves nothing about the contract. */
