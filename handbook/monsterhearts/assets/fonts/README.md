@@ -1,3 +1,5 @@
 # Polices
 
-Le pack fournit IM Fell English Roman pour le texte et les titres de moves, ainsi qu’Averia Serif Libre Bold pour les titres et passages en gras des callouts. Garamond et Georgia restent disponibles en repli si une police ne se charge pas. Chaque police est accompagnée de sa licence SIL Open Font License 1.1 dans ce dossier.
+Le pack fournit Yellow Magician pour les titres, El Messiri pour les intertitres (sans gras), Alice Regular pour le corps du texte et les callouts, ainsi qu’Averia Serif Libre Bold pour les passages en gras des callouts. Garamond et Georgia restent disponibles en repli si une police ne se charge pas.
+
+Yellow Magician (Érico Lebedenco) est publiée sous licence Creative Commons Attribution – Partage dans les mêmes conditions 3.0 (`CC-BY-SA-3.0-YellowMagician.txt`) : le fichier WOFF2 est un sous-ensemble latin de l’original et reste sous cette licence. Alice, Averia Serif Libre et El Messiri sont sous SIL Open Font License 1.1, dont la licence accompagne chaque police dans ce dossier.

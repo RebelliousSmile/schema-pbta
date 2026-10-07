@@ -80,6 +80,7 @@ export const PBTA_COLLECTION_PRESENTATIONS: readonly PbtaCollectionPresentation[
   collection("monsterhearts-playbook", ["advances", "Advances", "pbta-advancement", "object"], ["checked"]),
   collection("monsterhearts-playbook", ["editorial.darkestSelf.paragraphs", "Darkest Self paragraphs", "pbta-text", "text"]),
   collection("monsterhearts-playbook", ["editorial.sexMove.paragraphs", "Sex Move paragraphs", "pbta-text", "text"]),
+  collection("monsterhearts-playbook", ["editorial.play.paragraphs", "Paragraphes de « Jouer la mue »", "pbta-text", "text"]),
   collection("the-sprawl-playbook", ["directives", "Directives", "pbta-text", "text"]),
   collection("the-sprawl-playbook", ["missionGear", "Mission gear", "pbta-text", "text"]),
   collection("urban-shadows-playbook", ["mortalRelationships", "Mortal relationships", "pbta-relationship", "object"]),

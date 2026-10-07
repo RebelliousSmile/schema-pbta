@@ -1,10 +1,18 @@
 @import url("../../shared/theme-tokens.css");
 
 @font-face {
-  font-family: "IM Fell English";
-  src: url("../assets/fonts/im-fell-english-latin-400-normal.woff2") format("woff2");
+  font-family: "Yellow Magician";
+  src: url("../assets/fonts/yellow-magician-latin-400-normal.woff2") format("woff2");
   font-style: normal;
   font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "El Messiri";
+  src: url("../assets/fonts/el-messiri-latin-400-700-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 700;
   font-display: swap;
 }
 
@@ -13,6 +21,14 @@
   src: url("../assets/fonts/averia-serif-libre-latin-700-normal.woff2") format("woff2");
   font-style: normal;
   font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Alice";
+  src: url("../assets/fonts/alice-latin-400-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
   font-display: swap;
 }
 
@@ -25,17 +41,18 @@ html[data-game="monsterhearts"] {
   --hb-accent-2: #643f4b;
   --hb-line: #857c7e;
   --hb-radius: .1rem;
-  --hb-body: "IM Fell English", Garamond, Georgia, serif;
-  --hb-display: "IM Fell English", Garamond, Georgia, serif;
+  --hb-body: "Alice", Georgia, serif;
+  --hb-display: "Yellow Magician", Garamond, Georgia, serif;
   --hb-texture: url("../assets/images/thorn-heart.svg");
 }
 
 html[data-game="monsterhearts"] body { background: #fff; }
 html[data-game="monsterhearts"] .handbook-sheet { box-shadow: 0 2rem 7rem #29232638; font-size: 1rem; line-height: 1.35; }
 html[data-game="monsterhearts"] .handbook-monsterhearts-sheet { position: relative; padding-inline-end: 3rem; background: var(--hb-paper); }
-html[data-game="monsterhearts"] .handbook-monsterhearts-spine { position: absolute; inset: 0 0 0 auto; z-index: 1; display: flex; align-items: center; width: 3rem; padding-block: 1.5rem; background: #171416; color: #fff; font-family: "IM Fell English", Garamond, Georgia, serif; font-size: 1.15rem; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; }
+html[data-game="monsterhearts"] .handbook-monsterhearts-spine { position: absolute; inset: 0 0 0 auto; z-index: 1; display: flex; align-items: center; width: 3rem; padding-block: 1.5rem; background: #171416; color: #fff; font-family: "Yellow Magician", Garamond, Georgia, serif; font-size: 1.15rem; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; }
 html[data-game="monsterhearts"] .handbook-game { min-height: 11rem; background: var(--hb-paper) var(--hb-texture) 94% 50% / 10rem no-repeat; border-block: 1px solid var(--hb-accent); }
-html[data-game="monsterhearts"] h1, html[data-game="monsterhearts"] h2, html[data-game="monsterhearts"] h3 { font-family: var(--hb-display); font-weight: 700; }
+html[data-game="monsterhearts"] h1 { font-family: var(--hb-display); font-weight: 400; }
+html[data-game="monsterhearts"] h2, html[data-game="monsterhearts"] h3 { font-family: var(--hb-body); font-weight: 400; }
 html[data-game="monsterhearts"] h1 { font-size: clamp(2.4rem, 5vw, 4.4rem); font-weight: 400; letter-spacing: .055em; text-transform: uppercase; }
 html[data-game="monsterhearts"] h1, html[data-game="monsterhearts"] h2 { color: var(--hb-ink); }
 html[data-game="monsterhearts"] .handbook-kicker { color: var(--hb-accent-2); }

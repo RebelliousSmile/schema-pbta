@@ -10,7 +10,6 @@ the repository's MIT license.
 | Masks | `game-mark` | `handbook/masks/assets/images/hero-burst.svg` |
 | Monster of the Week | `game-mark` | `handbook/monster-of-the-week/assets/images/watch-mark.svg` |
 | Monsterhearts | `game-mark` | `handbook/monsterhearts/assets/images/thorn-heart.svg`; `packs/monsterhearts/assets/images/thorn-heart.svg` |
-| Monsterhearts — Drowned Lake | `variant-mark` | `handbook/monsterhearts/assets/variants/drowned-lake/zine-lake.svg`; `packs/monsterhearts/assets/variants/drowned-lake/zine-lake.svg` |
 | The Sprawl | `game-mark` | `handbook/the-sprawl/assets/images/network-grid.svg` |
 | Urban Shadows | `game-mark` | `handbook/urban-shadows/assets/images/city-sigil.svg` |
 
@@ -24,7 +23,9 @@ downloaded as WOFF2 files from Fontsource:
 
 | Family | File | Upstream | License |
 | --- | --- | --- | --- |
-| IM Fell English Roman | `handbook/monsterhearts/assets/fonts/im-fell-english-latin-400-normal.woff2`; `packs/monsterhearts/assets/fonts/im-fell-english-latin-400-normal.woff2` | `@fontsource/im-fell-english@5.3.0` | SIL Open Font License 1.1 |
+| Yellow Magician | `handbook/monsterhearts/assets/fonts/yellow-magician-latin-400-normal.woff2`; `packs/monsterhearts/assets/fonts/yellow-magician-latin-400-normal.woff2` | Érico Lebedenco, `YellowMagician.ttf` (sous-ensemble latin converti en WOFF2) | Creative Commons Attribution Share Alike 3.0 (`CC-BY-SA-3.0-YellowMagician.txt`) |
+| El Messiri | `handbook/monsterhearts/assets/fonts/el-messiri-latin-400-700-normal.woff2`; `packs/monsterhearts/assets/fonts/el-messiri-latin-400-700-normal.woff2` | `google/fonts` (`ofl/elmessiri`, police variable, sous-ensemble latin) | SIL Open Font License 1.1 |
+| Alice Regular | `handbook/monsterhearts/assets/fonts/alice-latin-400-normal.woff2`; `packs/monsterhearts/assets/fonts/alice-latin-400-normal.woff2` | `@fontsource/alice@5.3.0` | SIL Open Font License 1.1 |
 | Averia Serif Libre Bold | `handbook/monsterhearts/assets/fonts/averia-serif-libre-latin-700-normal.woff2`; `packs/monsterhearts/assets/fonts/averia-serif-libre-latin-700-normal.woff2` | `@fontsource/averia-serif-libre@5.3.0` | SIL Open Font License 1.1 |
 | League Gothic | `handbook/urban-shadows/assets/fonts/league-gothic-latin-400-normal.woff2` | `@fontsource/league-gothic@5.3.0` | SIL Open Font License 1.1 |
 | Source Serif 4 | `handbook/urban-shadows/assets/fonts/source-serif-4-latin-wght-normal.woff2` | `@fontsource-variable/source-serif-4@5.3.0` | SIL Open Font License 1.1 |

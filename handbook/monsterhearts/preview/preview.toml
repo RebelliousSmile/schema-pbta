@@ -4,5 +4,5 @@ playbookKind = "monsterhearts-playbook"
 playbook = "la-selkie"
 moves = []
 mcMoves = []
-variants = ["base", "drowned-lake"]
+variants = ["base"]
 defaultVariant = "base"

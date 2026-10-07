@@ -38,7 +38,6 @@ assert.deepEqual(
 for (const resource of [
   ...Object.values(PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS.fonts),
   ...Object.values(PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS.assets),
-  ...Object.values(PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS.variants["drowned-lake"].assetOverrides),
 ]) {
   assert.equal(new URL(resource).protocol, "file:", `invalid browser resource URL: ${resource}`);
 }
@@ -60,7 +59,7 @@ for (const resource of resourcePaths) {
 }
 
 type Fixture = { variant: string; tokens: Record<string, string>; assets: Record<string, string> };
-for (const name of ["monsterhearts-appearance-base.json", "monsterhearts-appearance-drowned-lake.json"]) {
+for (const name of ["monsterhearts-appearance-base.json"]) {
   const fixture = JSON.parse(fs.readFileSync(path.join(process.cwd(), "corpus", "presentation", "valid", name), "utf8")) as Fixture;
   const variant = artifact.variants.find((entry) => entry.id === fixture.variant);
   assert.ok(variant, `${name}: unknown variant`);

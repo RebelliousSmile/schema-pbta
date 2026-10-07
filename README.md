@@ -45,9 +45,10 @@ new published version.
 After installation, choose the game in Handbook's Game mode setting. The packs
 set native Obsidian colours and typography for notes. Their portable capability
 declarations activate the generic PbtA playbook handout, playbook and move
-blocks, four callouts and shared styles. Monsterhearts defaults
-to its `base` appearance; its `drowned-lake` variant can be selected at runtime
-without reinstalling the source.
+blocks, four callouts and shared styles. Every PbtA pack is light only
+(`polarities = ["light"]`): the booklets are printed on white paper. Monsterhearts
+also publishes its own note callouts, `monsterhearts-note` and
+`monsterhearts-note-dark`.
 
 The installable contract is the root [`handbook.json`](./handbook.json) plus
 each listed `handbook/<game>/pack.json` and its declared SVG assets. A source
@@ -57,8 +58,8 @@ update is promoted only after Handbook has prepared every listed pack.
 
 `npm run handbook:render` builds one preview per game from explicit references
 to `examples/`; the HTML is generated and is never a second source of rules.
-Each game then applies its own CSS and original images. Visual variants, such as
-Monsterhearts’ `drowned-lake`, load as CSS/assets only and keep the same data and
+Each game then applies its own CSS and original images. Visual variants, when a
+pack declares one, load as CSS/assets only and keep the same data and
 markup. These preview files are design aids and are not part of the installable
 Handbook payload.
 
@@ -105,20 +106,20 @@ than overloading `itemEditor`.
 the complete Monsterhearts sheet. It names consumer-neutral regions, their
 portable field bindings, compact primitives, canonical order, optional ordered
 columns, narrow-pane/print fallback, and pack-scoped tokens, assets and visual
-variants. `getPbtaMonsterheartsPlaybookPresentation("monsterhearts-playbook")`
+variants (a single presentation-only `base`). `getPbtaMonsterheartsPlaybookPresentation("monsterhearts-playbook")`
 returns the same descriptor.
 
 Lantern imports this ESM export. Handbook source consumers read the byte-identical
 `schema-pbta/packs/monsterhearts/presentation-contract.json` artifact. A runtime
 adapter maps primitives to its own components; it must not infer or add
-Monsterhearts layout semantics locally. The `drowned-lake` variant is explicitly
+Monsterhearts layout semantics locally. The `base` variant is explicitly
 presentation-only, so user TOML stays portable.
 
 ### Monsterhearts appearance bundle
 
 `schema-pbta/packs/monsterhearts/appearance-contract.json` is the generated,
 consumer-neutral companion to the structural descriptor. It provides the
-variant-resolved values for every declared layout token and maps each logical
+resolved values for every declared layout token and maps each logical
 asset id to a package-relative resource. Consumers may resolve its fonts,
 stylesheets and SVGs through the existing `schema-pbta/packs/*` export; they
 must not read `handbook/` source paths or provide a local Monsterhearts
@@ -128,7 +129,7 @@ fonts. Official artwork remains document-provided through `playbookImage`.
 Browser consumers should import `PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS` from
 `schema-pbta/presentation/monsterhearts-appearance-assets`. This explicit
 browser-only entry point exposes Vite-discoverable URLs for every declared font
-and logical SVG asset, including the `drowned-lake` override. The package root
+and logical SVG asset. The package root
 never links or evaluates browser URL construction, so ordinary imports remain
 safe for Node and CommonJS bundlers. The generated
 appearance descriptor deliberately retains its package-relative paths for

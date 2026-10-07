@@ -6,4 +6,14 @@ export const PBTA_VISUAL_CALLOUTS = [
   { id: "pbta-playbook-change", label: "PbtA playbook change", template: "title-body", capability: "style:pbta" },
 ] as const;
 
+/**
+ * Callouts published by a single pack. They are styled only under the pack's own
+ * game scope and complete, never replace, the shared set above.
+ */
+export const PBTA_PACK_CALLOUTS = [
+  { pack: "monsterhearts", id: "monsterhearts-note", label: "Note Monsterhearts (clair, hachurée)", template: "title-body", capability: "style:pbta" },
+  { pack: "monsterhearts", id: "monsterhearts-note-dark", label: "Note Monsterhearts (fond foncé)", template: "title-body", capability: "style:pbta" },
+] as const;
+
+export type PbtaPackCallout = typeof PBTA_PACK_CALLOUTS[number];
 export type PbtaVisualCallout = typeof PBTA_VISUAL_CALLOUTS[number];

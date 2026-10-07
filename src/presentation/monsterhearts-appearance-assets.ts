@@ -1,19 +1,23 @@
 import { PBTA_MONSTERHEARTS_APPEARANCE } from "./monsterhearts-appearance.js";
 
-const imFellEnglish = new URL(
-  "../../packs/monsterhearts/assets/fonts/im-fell-english-latin-400-normal.woff2",
+const yellowMagician = new URL(
+  "../../packs/monsterhearts/assets/fonts/yellow-magician-latin-400-normal.woff2",
+  import.meta.url,
+).href;
+const elMessiri = new URL(
+  "../../packs/monsterhearts/assets/fonts/el-messiri-latin-400-700-normal.woff2",
   import.meta.url,
 ).href;
 const averiaSerifLibre = new URL(
   "../../packs/monsterhearts/assets/fonts/averia-serif-libre-latin-700-normal.woff2",
   import.meta.url,
 ).href;
-const gameMark = new URL(
-  "../../packs/monsterhearts/assets/images/thorn-heart.svg",
+const alice = new URL(
+  "../../packs/monsterhearts/assets/fonts/alice-latin-400-normal.woff2",
   import.meta.url,
 ).href;
-const drownedLakeVariantMark = new URL(
-  "../../packs/monsterhearts/assets/variants/drowned-lake/zine-lake.svg",
+const gameMark = new URL(
+  "../../packs/monsterhearts/assets/images/thorn-heart.svg",
   import.meta.url,
 ).href;
 
@@ -28,18 +32,16 @@ const drownedLakeVariantMark = new URL(
 export const PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS = {
   target: PBTA_MONSTERHEARTS_APPEARANCE.target,
   fonts: {
-    "IM Fell English": imFellEnglish,
+    "Yellow Magician": yellowMagician,
+    "El Messiri": elMessiri,
     "Averia Serif Libre": averiaSerifLibre,
+    "Alice": alice,
   },
   assets: {
     "game-mark": gameMark,
-    "variant-mark": drownedLakeVariantMark,
   },
   variants: {
     base: { assetOverrides: {} },
-    "drowned-lake": {
-      assetOverrides: { "variant-mark": drownedLakeVariantMark },
-    },
   },
 } as const;
 

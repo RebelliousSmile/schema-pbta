@@ -319,6 +319,8 @@ function renderMonsterheartsPage(
       const value = section(field);
       return `<section class="handbook-panel handbook-editorial handbook-editorial--${escapeHtml(name)}" data-region="monsterhearts-${escapeHtml(name)}"><h2>${escapeHtml(value.heading)}</h2>${Array.isArray(value.paragraphs) ? value.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("") : ""}</section>`;
     };
+    const regionLabel = (id: string): string =>
+      PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION.regions.find((entry) => entry.id === id)?.label ?? id;
     const panel = (name: string, title: string, content: string): string =>
       `<section class="handbook-panel handbook-editorial handbook-editorial--${escapeHtml(name)}" data-region="${escapeHtml(name)}"><h2>${escapeHtml(title)}</h2>${content}</section>`;
     switch (region) {
@@ -329,25 +331,23 @@ function renderMonsterheartsPage(
         const identity = section("identity");
         return panel(region, String(identity.heading), `${Array.isArray(identity.paragraphs) ? identity.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("") : ""}${creation}${list(playbook.backstory, "handbook-value-list")}`);
       }
-      case "stat-profiles": return panel(region, "Caractéristiques", `${renderStats(definition, playbook)}${renderStatProfiles(definition, playbook)}`);
+      case "stat-profiles": return panel(region, regionLabel(region), `${renderStats(definition, playbook)}${renderStatProfiles(definition, playbook)}`);
       case "playbook-portrait": return `<figure class="handbook-monsterhearts-portrait" data-region="playbook-portrait"${playbook.playbookImage ? "" : ' data-empty="true"'}>${playbook.playbookImage ? `<img src="${escapeHtml(playbook.playbookImage)}" alt="Portrait de ${escapeHtml(playbook.name)}">` : `<span>Portrait de ${escapeHtml(playbook.name)}</span>`}</figure>`;
-      case "playbook-moves": return panel(region, "Actions", renderPlaybookMoves(playbook, moves, definition));
-      case "relationships": {
+      case "playbook-moves": return panel(region, regionLabel(region), renderPlaybookMoves(playbook, moves, definition));
+      case "ascendants-and-conditions": {
         const strings = playbook.strings && typeof playbook.strings === "object" ? asData(playbook.strings, "Monsterhearts strings") : {};
         const ascendants = Array.isArray(playbook.ascendants) ? `<ul class="handbook-value-list">${playbook.ascendants.map((raw) => {
           const ascendant = asData(raw, "Monsterhearts ascendant");
           return `<li><strong>${escapeHtml(ascendant.name)}</strong> — ${escapeHtml(ascendant.value)}</li>`;
         }).join("")}</ul>` : "";
-        return panel(region, "Strings et Ascendants", `<p>Strings : ${escapeHtml(strings.starting ?? 0)} / ${escapeHtml(strings.max ?? 0)}</p>${ascendants}`);
-      }
-      case "conditions-and-harm": {
         const conditions = Array.isArray(playbook.conditions) ? `<ul class="handbook-value-list">${playbook.conditions.map((raw) => {
           const condition = asData(raw, "Monsterhearts condition");
           return `<li><strong>${escapeHtml(condition.name)}</strong>${condition.description ? ` — ${escapeHtml(condition.description)}` : ""}</li>`;
         }).join("")}</ul>` : "";
-        return panel(region, "Conditions et blessures", `<p>Harm : ${escapeHtml(playbook.harm ?? 0)}</p>${conditions}`);
+        return panel(region, regionLabel(region), `<p>Ascendants : ${escapeHtml(strings.starting ?? 0)} / ${escapeHtml(strings.max ?? 0)}</p>${ascendants}${conditions}<p>Dégâts : ${escapeHtml(playbook.harm ?? 0)}</p>`);
       }
-      case "gear": return panel(region, "Équipement", renderGear(playbook));
+      case "monsterhearts-play": return editorial.play === undefined ? "" : editorialRegion("play");
+      case "gear": return panel(region, regionLabel(region), renderGear(playbook));
       case "monsterhearts-progression": {
         const progression = section("progression");
         const advances = Array.isArray(playbook.advances) ? `<ul class="handbook-advancement">${playbook.advances.map((raw) => {

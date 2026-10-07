@@ -4,22 +4,22 @@ body.brumes--the-sprawl .callout:is(
   [data-brumes-callout-style="pbta-clock"], [data-brumes-callout-style="pbta-move"],
   [data-brumes-callout-style="pbta-npc-reaction"], [data-brumes-callout-style="pbta-playbook-change"]
 ) {
-  border: 1px solid #00e4d0;
-  border-inline-start: 0.3rem solid #ff3d8d;
+  border: 1px solid #00776c;
+  border-inline-start: 0.3rem solid #c4155f;
   border-radius: 0;
-  background: #102425;
-  color: #d6f7ee;
-  box-shadow: 0 0 0.8rem #00e4d033;
+  background: #f3fbfa;
+  color: #12262b;
+  box-shadow: none;
 }
 body.brumes--the-sprawl .callout[data-brumes-callout-style^="pbta-"] .callout-title {
-  color: #00e4d0;
+  color: #00776c;
   font-family: ui-monospace, monospace;
   font-size: 0.9em;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-body.brumes--the-sprawl .callout[data-brumes-callout-style^="pbta-"] .callout-content { color: #d6f7ee; }
-body.brumes--the-sprawl .callout[data-brumes-callout-style^="pbta-"] a { color: #00e4d0; }
+body.brumes--the-sprawl .callout[data-brumes-callout-style^="pbta-"] .callout-content { color: #12262b; }
+body.brumes--the-sprawl .callout[data-brumes-callout-style^="pbta-"] a { color: #00776c; }
 body.brumes--the-sprawl .callout[data-brumes-callout-style="pbta-clock"] { border-inline-start-style: dashed; }
-body.brumes--the-sprawl .callout[data-brumes-callout-style="pbta-npc-reaction"] { border-color: #ff3d8d; }
-body.brumes--the-sprawl .callout[data-brumes-callout-style="pbta-playbook-change"] { background: #182d30; }
+body.brumes--the-sprawl .callout[data-brumes-callout-style="pbta-npc-reaction"] { border-color: #c4155f; }
+body.brumes--the-sprawl .callout[data-brumes-callout-style="pbta-playbook-change"] { background: #e6f4f3; }

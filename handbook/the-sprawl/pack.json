@@ -1,6 +1,6 @@
 {
   "manifestVersion": 1,
-  "version": "0.2.1",
+  "version": "0.3.0",
   "minimumHandbookVersion": "2.8.0",
   "requires": ["block:pbta-playbook", "block:pbta-move", "style:pbta"],
   "pack": {
@@ -17,25 +17,25 @@
           "--h2-text-transform": "uppercase"
         }
       },
-      "dark": {
+      "light": {
         "note": {
-          "--background-primary": "#10191e",
-          "--background-primary-alt": "#17272c",
-          "--text-normal": "#d6f7ee",
-          "--text-muted": "#83aaa5",
-          "--color-accent": "#ff3d8d",
-          "--interactive-accent": "#ff3d8d",
-          "--link-color": "#00e4d0",
-          "--link-color-hover": "#ff3d8d",
-          "--h1-color": "#ff3d8d",
-          "--h2-color": "#00e4d0",
-          "--tag-color": "#d6f7ee",
-          "--tag-background": "#2b5555",
-          "--checkbox-color": "#00e4d0"
+          "--background-primary": "#ffffff",
+          "--background-primary-alt": "#eef7f6",
+          "--text-normal": "#12262b",
+          "--text-muted": "#4a6a6c",
+          "--color-accent": "#c4155f",
+          "--interactive-accent": "#c4155f",
+          "--link-color": "#00776c",
+          "--link-color-hover": "#c4155f",
+          "--h1-color": "#c4155f",
+          "--h2-color": "#00776c",
+          "--tag-color": "#ffffff",
+          "--tag-background": "#12373a",
+          "--checkbox-color": "#00776c"
         }
       }
     },
-    "polarities": ["dark"],
+    "polarities": ["light"],
     "assets": {
       "stylesheets": ["styles/callouts.css"],
       "images": {

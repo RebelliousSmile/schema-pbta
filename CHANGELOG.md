@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Breaking
+
+- New schema major `9.0.0` (`schemas/v9`, immutable tag `v9.0.0`, `PBTA_CONTRACT_VERSION` 9). `schemas/v8` is restored byte for byte and stays frozen. The Monsterhearts playbook changes shape (optional `editorial.play`, French region labels, `ascendants-and-conditions` region replacing `relationships` and `conditions-and-harm`), so it cannot ship in v8; v9 carries every game, like each previous major. Pack manifests and `cross-tool-provider.json` declare `contractVersion` 9. The package version is bumped to `9.0.0` ahead of the release, as for v7 and v8; the `v9.0.0` tag is not created yet and `validate:version` treats `schemas/v9` as the candidate baseline until it is published.
+
+### Changed
+
+- Every PbtA Handbook pack is light only: The Sprawl moves from `polarities = ["dark"]` to `["light"]` with a light palette, and the validator now expects `light` for all packs.
+- Publish the Monsterhearts note callouts `monsterhearts-note` (hatched light frame) and `monsterhearts-note-dark` (dark panel) through `PBTA_PACK_CALLOUTS`.
+
+- Monsterhearts regions carry a French `label`; `relationships` and `conditions-and-harm` merge into `ascendants-and-conditions` ("Ascendants & conditions") and a `monsterhearts-play` region ("Jouer la mue") binds `editorial.play`.
+- Monsterhearts body text uses Alice Regular (identified in the design PDF); titles use Yellow Magician (CC BY-SA 3.0) and unbolded sub-headings use El Messiri (OFL 1.1), the design fonts. IM Fell English is no longer shipped. Each font ships with its licence.
+
+### Added
+
+- Optional `editorial.play` ("Jouer la X") on the Monsterhearts playbook, with a witness, a rejection and a collection editor.
+
+### Removed
+
+- The Monsterhearts `drowned-lake` variant (stylesheet, `zine-lake.svg`, `variant-mark` asset, pack manifest entry and corpus witness) from both `handbook/` and `packs/`. The appearance and presentation contracts keep a single `base` variant.
+
 ## [8.4.3] - 2026-09-25
 
 ### Fixed

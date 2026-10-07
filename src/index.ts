@@ -87,5 +87,5 @@ export type {
   PbtaCollectionItemEditor,
   PbtaCollectionPresentation,
 } from "./presentation/index.js";
-export { PBTA_VISUAL_CALLOUTS } from "./presentation/index.js";
+export { PBTA_PACK_CALLOUTS, PBTA_VISUAL_CALLOUTS } from "./presentation/index.js";
 export type { PbtaVisualCallout } from "./presentation/index.js";

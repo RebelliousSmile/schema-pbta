@@ -18,8 +18,7 @@ source.
 
 Le sélecteur de variante modifie `html[data-variant]` et charge la feuille correspondante en temps réel. Il ne remplace jamais le HTML. Le détail des régions stables se trouve dans `shared/preview-contract.md`.
 
-Les HTML, CSS et TOML de preview ne sont jamais installés. Une feuille CSS de pack n'est installée que si elle est déclarée dans `pack.assets.stylesheets` et reste limitée au jeu actif. Les packs règlent les variables natives d’Obsidian et peuvent livrer ces styles de présentation ; ils ne livrent aucun code exécutable. La syntaxe des callouts communs se trouve dans [`shared/callout-contract.md`](./shared/callout-contract.md). Monsterhearts utilise `base` par défaut et
-propose également `drowned-lake` à chaud. Les répertoires de polices ne
+Les HTML, CSS et TOML de preview ne sont jamais installés. Une feuille CSS de pack n'est installée que si elle est déclarée dans `pack.assets.stylesheets` et reste limitée au jeu actif. Les packs règlent les variables natives d’Obsidian et peuvent livrer ces styles de présentation ; ils ne livrent aucun code exécutable. La syntaxe des callouts communs se trouve dans [`shared/callout-contract.md`](./shared/callout-contract.md). Tous les packs sont en clair seul (`polarities = ["light"]`) et aucun ne distribue de variante. Les répertoires de polices ne
 contiennent que des indications de design et aucune police distribuée.
 
 Toute modification installable impose le même bump SemVer dans le `pack.json`

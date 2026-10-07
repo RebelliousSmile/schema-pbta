@@ -28,6 +28,7 @@ const editorialSchema = playbookEditorialSchema.omit({
 }).extend({
   darkestSelf: editorialSectionSchema.meta({ description: "The skin's Darkest Self region." }),
   sexMove: editorialSectionSchema.meta({ description: "The skin's intimacy move region." }),
+  play: editorialSectionSchema.optional().meta({ description: "Optional advice for playing the skin (\"Jouer la X\")." }),
 }).meta({ description: "All editorial regions rendered as part of a Monsterhearts playbook." });
 
 /** Monsterhearts skin data in one portable TOML document. */

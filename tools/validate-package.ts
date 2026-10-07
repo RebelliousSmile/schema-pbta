@@ -101,8 +101,8 @@ import {
   getPbtaMonsterheartsPlaybookPresentation,
 } from "schema-pbta";
 
-assert.equal(PBTA_CONTRACT_VERSION, 8);
-assert.equal(PBTA_CONTRACT_SCHEMA_TAG, "v8.0.0");
+assert.equal(PBTA_CONTRACT_VERSION, 9);
+assert.equal(PBTA_CONTRACT_SCHEMA_TAG, "v9.0.0");
 assert.equal(PBTA_TOML_VERSION, "1.0.0");
 assert.equal(
   "PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS" in schemaPbta,
@@ -130,9 +130,9 @@ for (const parser of [
   parseSalvageRunPlaybookToml,
 ]) assert.equal(typeof parser, "function");
 
-const schemaUrl = import.meta.resolve("schema-pbta/schemas/v8/monsterhearts/monsterhearts-playbook.schema.json");
+const schemaUrl = import.meta.resolve("schema-pbta/schemas/v9/monsterhearts/monsterhearts-playbook.schema.json");
 const schema = JSON.parse(fs.readFileSync(new URL(schemaUrl), "utf8"));
-assert.match(schema.$id, /\\/v8\\.0\\.0\\/schemas\\/v8\\/monsterhearts\\/monsterhearts-playbook\\.schema\\.json$/);
+assert.match(schema.$id, /\\/v9\\.0\\.0\\/schemas\\/v9\\/monsterhearts\\/monsterhearts-playbook\\.schema\\.json$/);
 assert.throws(
   () => import.meta.resolve("schema-pbta/schemas/monsterhearts/monsterhearts-playbook.schema.json"),
   { code: "ERR_PACKAGE_PATH_NOT_EXPORTED" },
@@ -245,7 +245,7 @@ await assert.rejects(
   const commonJsSource = `
 import assert from "node:assert/strict";
 import { PBTA_CONTRACT_VERSION } from "schema-pbta";
-assert.equal(PBTA_CONTRACT_VERSION, 8);
+assert.equal(PBTA_CONTRACT_VERSION, 9);
 `;
   const commonJsEntry = path.join(consumerRoot, "commonjs-entry.js");
   const commonJsBundle = path.join(consumerRoot, "commonjs-bundle.cjs");
@@ -274,7 +274,6 @@ assert.equal(PBTA_CONTRACT_VERSION, 8);
 const urls = [
   ...Object.values(PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS.fonts),
   ...Object.values(PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS.assets),
-  ...Object.values(PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS.variants["drowned-lake"].assetOverrides),
 ];
 document.body.innerHTML = urls.map((url) => '<img src="' + url + '">').join("");
 `,
@@ -286,7 +285,15 @@ document.body.innerHTML = urls.map((url) => '<img src="' + url + '">').join("");
   run(process.execPath, [path.join(root, "node_modules", "vite", "bin", "vite.js"), "build"], viteRoot);
   const viteOutput = path.join(viteRoot, "dist");
   const emittedAssets = listFiles(viteOutput).filter((file) => /\.(woff2|svg)$/i.test(file));
-  assert.equal(emittedAssets.length, 4, "Vite must emit every Monsterhearts browser resource");
+  assert.equal(
+    emittedAssets.length,
+    ["fonts", "assets"].reduce((total, group) => total + Object.keys(
+      (JSON.parse(fs.readFileSync(path.join(root, "packs", "monsterhearts", "appearance-contract.json"), "utf8")) as {
+        resources: Record<string, Record<string, string>>;
+      }).resources[group] ?? {},
+    ).length, 0),
+    "Vite must emit every Monsterhearts browser resource",
+  );
   const bundledScript = listFiles(viteOutput)
     .filter((file) => file.endsWith(".js"))
     .map((file) => fs.readFileSync(file, "utf8"))
@@ -296,7 +303,7 @@ document.body.innerHTML = urls.map((url) => '<img src="' + url + '">').join("");
 
   const major = Number(packageJson.version.split(".")[0]);
   if (major >= 1) {
-    assert.equal(major, 8, "stable package major must equal PBTA_CONTRACT_VERSION");
+    assert.equal(major, 9, "stable package major must equal PBTA_CONTRACT_VERSION");
   }
 
   console.log(

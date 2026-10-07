@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import { GAMES } from "../src/zod/constants.js";
 import { loadData } from "./read-data.js";
 import { PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION } from "../src/presentation/monsterhearts-playbook.js";
-import { PBTA_VISUAL_CALLOUTS } from "../src/presentation/callouts.js";
+import { PBTA_PACK_CALLOUTS, PBTA_VISUAL_CALLOUTS } from "../src/presentation/callouts.js";
 
 type Data = Record<string, unknown>;
 
@@ -22,12 +22,11 @@ const requiredCalloutIds = ["pbta-rule", "pbta-trigger", "pbta-choice", "pbta-re
 
 const catalogueFields = ["manifestVersion", "repository", "name", "description", "author", "packs"];
 const entryFields = ["id", "version", "path", "label", "description"];
-const manifestFields = ["manifestVersion", "version", "minimumHandbookVersion", "requires", "variants", "defaultVariantId", "pack"];
+const manifestFields = ["manifestVersion", "version", "minimumHandbookVersion", "requires", "pack"];
 const packFields = ["id", "label", "style", "polarities", "assets", "shapes"];
 const styleFields = ["base", "light", "dark"];
 const layerFields = ["note", "workspace"];
 const assetFields = ["root", "images", "fonts", "stylesheets"];
-const variantFields = ["id", "label", "style", "polarities"];
 
 function data(value: unknown): Data {
   return value && typeof value === "object" && !Array.isArray(value) ? value as Data : {};
@@ -134,8 +133,9 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
     if (pack.id !== id) issues.push(`${id}: pack id does not match catalogue`);
     if (typeof pack.label !== "string" || pack.label.trim().length === 0) issues.push(`${id}: pack label is required`);
     validateStyle(pack.style, issues, `${id}.style`);
-    const polarity = id === "the-sprawl" ? "dark" : "light";
+    const polarity = "light";
     if (strings(pack.polarities).join(",") !== polarity) issues.push(`${id}: expected ${polarity} polarity`);
+    if (data(pack.style).dark !== undefined) issues.push(`${id}: PbtA packs are light only, remove the dark style layer`);
     const native = data(data(data(pack.style)[polarity]).note);
     for (const token of ["--background-primary", "--text-normal", "--color-accent"]) {
       if (typeof native[token] !== "string") issues.push(`${id}: missing native token ${token}`);
@@ -179,6 +179,11 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
           issues.push(`${id}: callout stylesheet misses ${calloutId}`);
         }
       }
+      for (const published of PBTA_PACK_CALLOUTS.filter((entry) => entry.pack === id)) {
+        if (!css.includes(`data-brumes-callout-style="${published.id}"`)) {
+          issues.push(`${id}: callout stylesheet misses its published callout ${published.id}`);
+        }
+      }
     }
     for (const [family, declared] of Object.entries(data(assets.fonts))) {
       if (!family.trim() || /[{};<>\"]/.test(family)) {
@@ -214,37 +219,49 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
       if (!fs.existsSync(asset)) issues.push(`${id}: missing asset ${declared}`);
     }
 
-    if (manifest.variants !== undefined) {
-      if (!Array.isArray(manifest.variants)) issues.push(`${id}: variants must be an array`);
-      else for (const [variantIndex, rawVariant] of manifest.variants.entries()) {
-        const variant = data(rawVariant);
-        for (const field of unknownFields(variant, variantFields)) issues.push(`${id} variant ${variantIndex + 1}: unknown field ${field}`);
-        if (typeof variant.id !== "string" || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(variant.id)) issues.push(`${id} variant ${variantIndex + 1}: invalid id`);
-        if (typeof variant.label !== "string" || variant.label.trim().length === 0) issues.push(`${id} variant ${variantIndex + 1}: label is required`);
-        validateStyle(variant.style, issues, `${id}.variants.${String(variant.id)}`);
-        if (strings(variant.polarities).length === 0) issues.push(`${id} variant ${variantIndex + 1}: polarity is required`);
-      }
-    }
     if (id === "monsterhearts") {
       const presentationFile = path.join(root, "packs", "monsterhearts", "presentation-contract.json");
       const presentation = JSON.parse(fs.readFileSync(presentationFile, "utf8"));
       if (JSON.stringify(presentation) !== JSON.stringify(PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION)) {
         issues.push("monsterhearts: source presentation artifact diverges from the npm export");
       }
-      const monsterheartsVariants = Array.isArray(manifest.variants) ? manifest.variants.map(data) : [];
       const monsterheartsBaseNote = data(data(data(pack.style).base).note);
-      const monsterheartsFont = data(data(assets.fonts)["IM Fell English"]);
-      if (monsterheartsFont.file !== "fonts/im-fell-english-latin-400-normal.woff2") {
-        issues.push("monsterhearts: IM Fell English must be supplied as a pack font asset");
+      const monsterheartsFont = data(data(assets.fonts)["Yellow Magician"]);
+      if (monsterheartsFont.file !== "fonts/yellow-magician-latin-400-normal.woff2") {
+        issues.push("monsterhearts: Yellow Magician must be supplied as a pack font asset");
+      }
+      const monsterheartsHeadingFont = data(data(assets.fonts)["El Messiri"]);
+      if (monsterheartsHeadingFont.file !== "fonts/el-messiri-latin-400-700-normal.woff2") {
+        issues.push("monsterhearts: El Messiri must be supplied as a pack font asset");
       }
       const monsterheartsBoldFont = data(data(assets.fonts)["Averia Serif Libre"]);
       if (monsterheartsBoldFont.file !== "fonts/averia-serif-libre-latin-700-normal.woff2") {
         issues.push("monsterhearts: Averia Serif Libre must be supplied as a pack font asset");
       }
-      for (const token of ["--font-text-theme", "--font-header-theme", "--inline-title-font"]) {
-        if (!String(monsterheartsBaseNote[token] ?? "").includes("IM Fell English")) {
-          issues.push(`monsterhearts: ${token} must use the supplied font`);
+      const monsterheartsBodyFont = data(data(assets.fonts)["Alice"]);
+      if (monsterheartsBodyFont.file !== "fonts/alice-latin-400-normal.woff2") {
+        issues.push("monsterhearts: Alice must be supplied as a pack font asset");
+      }
+      // Yellow Magician is reserved for titles, El Messiri for sub-headings; the body uses Alice.
+      for (const token of ["--inline-title-font", "--h1-font"]) {
+        if (!String(monsterheartsBaseNote[token] ?? "").includes("Yellow Magician")) {
+          issues.push(`monsterhearts: ${token} must use Yellow Magician`);
         }
+      }
+      for (const token of ["--font-text-theme", "--font-header-theme"]) {
+        const value = String(monsterheartsBaseNote[token] ?? "");
+        if (!value.includes("Alice") || value.includes("Yellow Magician")) {
+          issues.push(`monsterhearts: ${token} must use Alice, not Yellow Magician`);
+        }
+      }
+      for (const token of ["--h2-font", "--h3-font"]) {
+        const value = String(monsterheartsBaseNote[token] ?? "");
+        if (!value.includes("El Messiri") || value.includes("Yellow Magician")) {
+          issues.push(`monsterhearts: ${token} must use El Messiri, not Yellow Magician`);
+        }
+      }
+      for (const token of ["--h2-weight", "--h3-weight"]) {
+        if (monsterheartsBaseNote[token] !== "400") issues.push(`monsterhearts: ${token} must not be bold`);
       }
       for (const token of [
         "--monsterhearts-title-font",
@@ -259,39 +276,7 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
           issues.push(`monsterhearts: base theme must define ${token}`);
         }
       }
-      const variantIds = monsterheartsVariants.map((variant) => String(variant.id ?? ""));
-      if (manifest.defaultVariantId !== "base" || variantIds.join(",") !== "base,drowned-lake") {
-        issues.push("monsterhearts: expected base then drowned-lake variants with base as default");
-      }
-      const variantPolarities = monsterheartsVariants.map((variant) => strings(variant.polarities).join(","));
-      if (variantPolarities.join("|") !== "light|dark") {
-        issues.push("monsterhearts: expected a light base variant and a dark drowned-lake variant");
-      }
-      const drownedLake = monsterheartsVariants.find((variant) => variant.id === "drowned-lake");
-      const drownedLakeBaseNote = data(data(data(drownedLake?.style).base).note);
-      for (const token of [
-        "--text-normal",
-        "--text-muted",
-        "--text-faint",
-        "--table-text-color",
-        "--table-header-color",
-        "--monsterhearts-title-font",
-        "--monsterhearts-title-ink",
-        "--monsterhearts-table-ink",
-        "--monsterhearts-table-background",
-        "--monsterhearts-table-rule",
-        "--monsterhearts-table-header",
-        "--monsterhearts-table-header-ink",
-      ]) {
-        if (typeof drownedLakeBaseNote[token] !== "string") {
-          issues.push(`monsterhearts: drowned-lake must pin readable ${token} at note scope`);
-        }
-      }
-      if (drownedLakeBaseNote["--monsterhearts-title-ink"] !== "#f4f0ec") {
-        issues.push("monsterhearts: drowned-lake title ink must stay white");
-      }
-    } else if (manifest.variants !== undefined || manifest.defaultVariantId !== undefined) {
-      issues.push(`${id}: only Monsterhearts declares variants`);
+      if (/drowned-lake/.test(JSON.stringify(manifest))) issues.push("monsterhearts: the drowned-lake variant is retired");
     }
   }
   return issues;

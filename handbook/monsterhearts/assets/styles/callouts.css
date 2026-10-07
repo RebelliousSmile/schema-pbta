@@ -17,7 +17,7 @@ body.brumes--monsterhearts .callout:is(
   background: var(--mh-callout-paper);
   color: var(--mh-callout-ink);
   box-shadow: none;
-  font-family: "IM Fell English", "Iowan Old Style", Garamond, Georgia, serif;
+  font-family: "Alice", "Iowan Old Style", Georgia, serif;
   font-size: 1.05em;
   line-height: 1.4;
 }
@@ -30,7 +30,7 @@ body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] .cal
 }
 body.brumes--monsterhearts .callout[data-brumes-callout-style^="pbta-"] .callout-title {
   color: var(--mh-callout-ink);
-  font-family: "Averia Serif Libre", "IM Fell English", Garamond, Georgia, serif;
+  font-family: "Averia Serif Libre", "Yellow Magician", Garamond, Georgia, serif;
   font-size: 1.15em;
   font-variant: normal;
   font-weight: 700;
@@ -87,7 +87,7 @@ body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] .cal
   flex: none;
   min-width: 2ch;
   text-align: end;
-  font-family: "Averia Serif Libre", "IM Fell English", Garamond, Georgia, serif;
+  font-family: "Averia Serif Libre", "Yellow Magician", Garamond, Georgia, serif;
   font-size: 0.85em;
 }
 body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-clock"] .callout-content > ul:has(> li input[type="checkbox"]) > li input[type="checkbox"] {
@@ -106,7 +106,7 @@ body.brumes--monsterhearts .callout:is(
 ) .callout-title {
   justify-content: center;
   padding-block: 0.5em 0.35em;
-  font-family: "IM Fell English", Garamond, Georgia, serif;
+  font-family: "Yellow Magician", Garamond, Georgia, serif;
   font-size: 1.45em;
   font-weight: 400;
   letter-spacing: 0.05em;
@@ -120,7 +120,7 @@ body.brumes--monsterhearts .callout:is(
   background: var(--mh-callout-band);
 }
 body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-move"] .callout-content > p:first-child {
-  font-family: "Averia Serif Libre", "IM Fell English", Garamond, Georgia, serif;
+  font-family: "Averia Serif Libre", "Yellow Magician", Garamond, Georgia, serif;
   font-weight: 700;
 }
 body.brumes--monsterhearts .callout[data-brumes-callout-style="pbta-move"] li::marker {
@@ -142,10 +142,54 @@ body.brumes--monsterhearts .callout:is(
   background: var(--mh-callout-band);
 }
 
-body.brumes--monsterhearts.brumes--variant-drowned-lake {
-  --mh-callout-ink: #ebe8e4;
-  --mh-callout-paper: #25262c;
-  --mh-callout-band: #34343d;
-  --mh-callout-hatch: #a88af0;
-  --mh-callout-link: #d4c8f4;
+/* Pack-published notes: `monsterhearts-note` is the hatched light frame,
+   `monsterhearts-note-dark` a dark panel usable as an inset on the light page. */
+body.brumes--monsterhearts .callout:is(
+  [data-brumes-callout-style="monsterhearts-note"], [data-brumes-callout-style="monsterhearts-note-dark"]
+) {
+  border: 9px solid transparent;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0.65em 0.95em;
+  font-family: "Alice", "Iowan Old Style", Georgia, serif;
+  font-size: 1.05em;
+  line-height: 1.4;
+}
+body.brumes--monsterhearts .callout:is(
+  [data-brumes-callout-style="monsterhearts-note"], [data-brumes-callout-style="monsterhearts-note-dark"]
+) .callout-icon {
+  display: none;
+}
+body.brumes--monsterhearts .callout:is(
+  [data-brumes-callout-style="monsterhearts-note"], [data-brumes-callout-style="monsterhearts-note-dark"]
+) .callout-title {
+  justify-content: center;
+  font-family: "Averia Serif Libre", "Yellow Magician", Garamond, Georgia, serif;
+  font-size: 1.15em;
+  font-weight: 700;
+  text-align: center;
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style="monsterhearts-note"] {
+  color: var(--mh-callout-ink);
+  background: linear-gradient(var(--mh-callout-paper), var(--mh-callout-paper)) padding-box,
+    repeating-linear-gradient(45deg, var(--mh-callout-hatch) 0 2px, transparent 2px 6px) border-box;
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style="monsterhearts-note"] :is(.callout-title, .callout-content) {
+  color: var(--mh-callout-ink);
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style="monsterhearts-note"] a {
+  color: var(--mh-callout-link);
+  text-decoration: underline;
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style="monsterhearts-note-dark"] {
+  color: #ebe8e4;
+  background: linear-gradient(#25262c, #25262c) padding-box,
+    repeating-linear-gradient(45deg, #a88af0 0 2px, transparent 2px 6px) border-box;
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style="monsterhearts-note-dark"] :is(.callout-title, .callout-content) {
+  color: #ebe8e4;
+}
+body.brumes--monsterhearts .callout[data-brumes-callout-style="monsterhearts-note-dark"] a {
+  color: #d4c8f4;
+  text-decoration: underline;
 }

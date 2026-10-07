@@ -1,100 +1,40 @@
 {
   "manifestVersion": 1,
-  "version": "0.3.7",
+  "version": "0.4.0",
   "minimumHandbookVersion": "2.8.0",
   "requires": ["block:pbta-playbook", "block:pbta-move", "style:pbta"],
-  "variants": [
-    {
-      "id": "base",
-      "label": "Monsterhearts",
-      "style": {},
-      "polarities": ["light"]
-    },
-    {
-      "id": "drowned-lake",
-      "label": "Drowned Lake",
-      "style": {
-        "base": {
-          "note": {
-            "--pbta-column-rule": "#7457bd",
-            "--drowned-lake-title-outline": "#d34e59",
-            "--drowned-lake-title-shadow": "#090a0d",
-            "--monsterhearts-title-font": "'IM Fell English', 'Averia Serif Libre', Garamond, Georgia, serif",
-            "--monsterhearts-title-ink": "#f4f0ec",
-            "--text-normal": "#ebe8e4",
-            "--text-muted": "#a7a8ad",
-            "--text-faint": "#777980",
-            "--bold-color": "#f4f0ec",
-            "--italic-color": "#a88af0",
-            "--table-text-color": "#ebe8e4",
-            "--table-header-color": "#d4c8f4",
-            "--monsterhearts-table-ink": "#ebe8e4",
-            "--monsterhearts-table-background": "#111217",
-            "--monsterhearts-table-rule": "#7457bd",
-            "--monsterhearts-table-header": "#25262c",
-            "--monsterhearts-table-header-ink": "#d4c8f4",
-            "--blockquote-border-color": "#7457bd",
-            "--blockquote-color": "#d4c8f4",
-            "--list-marker-color": "#a88af0",
-            "--list-marker-color-hover": "#f4f0ec",
-            "--hr-color": "#7457bd"
-          }
-        },
-        "dark": {
-          "note": {
-            "--background-primary": "#111217",
-            "--background-primary-alt": "#25262c",
-            "--text-normal": "#ebe8e4",
-            "--text-muted": "#a7a8ad",
-            "--color-accent": "#7457bd",
-            "--interactive-accent": "#7457bd",
-            "--link-color": "#d34e59",
-            "--link-color-hover": "#f4f0ec",
-            "--h1-color": "#f4f0ec",
-            "--h2-color": "#f4f0ec",
-            "--h3-color": "#a88af0",
-            "--tag-color": "#f4f0ec",
-            "--tag-background": "#33264f",
-            "--checkbox-color": "#a88af0"
-          }
-        }
-      },
-      "polarities": ["dark"]
-    }
-  ],
-  "defaultVariantId": "base",
   "pack": {
     "id": "monsterhearts",
     "label": "Monsterhearts",
     "style": {
       "base": {
         "note": {
-          "--font-text-theme": "'IM Fell English', Garamond, Georgia, serif",
-          "--font-header-theme": "'IM Fell English', Garamond, Georgia, serif",
+          "--font-text-theme": "'Alice', Georgia, serif",
+          "--font-header-theme": "'Alice', Georgia, serif",
           "--font-text-size": "16px",
           "--line-height-normal": "1.2",
           "--file-line-width": "72rem",
           "--p-spacing": "0.56rem",
-          "--inline-title-font": "'IM Fell English', Garamond, Georgia, serif",
+          "--inline-title-font": "'Yellow Magician', Garamond, Georgia, serif",
           "--inline-title-text-transform": "uppercase",
           "--inline-title-weight": "400",
           "--inline-title-line-height": "1.04",
-          "--h1-font": "'IM Fell English', Garamond, Georgia, serif",
+          "--h1-font": "'Yellow Magician', Garamond, Georgia, serif",
           "--h1-size": "2.15em",
           "--h1-weight": "400",
           "--h1-line-height": "1.04",
           "--h1-text-transform": "uppercase",
-          "--h2-font": "'IM Fell English', Garamond, Georgia, serif",
+          "--h2-font": "'El Messiri', 'Alice', Georgia, serif",
           "--h2-size": "1.48em",
-          "--h2-weight": "700",
+          "--h2-weight": "400",
           "--h2-line-height": "1.06",
-          "--h3-font": "'IM Fell English', Garamond, Georgia, serif",
+          "--h3-font": "'El Messiri', 'Alice', Georgia, serif",
           "--h3-size": "1.25em",
-          "--h3-weight": "700",
+          "--h3-weight": "400",
           "--h3-line-height": "1.08",
           "--pbta-column-gap": "2.4rem",
           "--pbta-column-rule": "#292326",
-          "--monsterhearts-title-font": "'IM Fell English', 'Averia Serif Libre', Garamond, Georgia, serif",
+          "--monsterhearts-title-font": "'Yellow Magician', 'Averia Serif Libre', Garamond, Georgia, serif",
           "--monsterhearts-title-ink": "#292326",
           "--monsterhearts-table-ink": "#171416",
           "--monsterhearts-table-background": "#ffffff",
@@ -134,21 +74,30 @@
     "polarities": ["light"],
     "assets": {
       "fonts": {
-        "IM Fell English": {
-          "file": "fonts/im-fell-english-latin-400-normal.woff2",
+        "Yellow Magician": {
+          "file": "fonts/yellow-magician-latin-400-normal.woff2",
           "weight": "400",
+          "style": "normal"
+        },
+        "El Messiri": {
+          "file": "fonts/el-messiri-latin-400-700-normal.woff2",
+          "weight": "400 700",
           "style": "normal"
         },
         "Averia Serif Libre": {
           "file": "fonts/averia-serif-libre-latin-700-normal.woff2",
           "weight": "700",
           "style": "normal"
+        },
+        "Alice": {
+          "file": "fonts/alice-latin-400-normal.woff2",
+          "weight": "400",
+          "style": "normal"
         }
       },
       "stylesheets": ["styles/callouts.css"],
       "images": {
-        "game-mark": "images/thorn-heart.svg",
-        "variant-mark": "variants/drowned-lake/zine-lake.svg"
+        "game-mark": "images/thorn-heart.svg"
       }
     }
   }

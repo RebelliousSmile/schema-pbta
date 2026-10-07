@@ -322,8 +322,8 @@ for (const asset of expectedAssets) {
 }
 
 const monsterhearts = manifests.get("monsterhearts");
-assert.equal(monsterhearts?.defaultVariantId, "base");
-assert.deepEqual(monsterhearts?.variants?.map(({ id }) => id), ["base", "drowned-lake"]);
+assert.equal(monsterhearts?.defaultVariantId, undefined, "Monsterhearts no longer declares a default variant");
+assert.equal(monsterhearts?.variants, undefined, "Monsterhearts no longer declares variants");
 
 await installResolvedSchemaSource(
   currentPlugin,

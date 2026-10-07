@@ -64,7 +64,7 @@ assert.deepEqual(monsterheartsPresentation.fallbacks, {
 });
 assert.deepEqual(
   monsterheartsPresentation.pack.variants.map((variant) => [variant.id, variant.presentationOnly]),
-  [["base", true], ["drowned-lake", true]],
+  [["base", true]],
   "Monsterhearts variants remain presentation-only pack metadata",
 );
 assert.equal(monsterheartsPresentation.pack.appearanceArtifact, "appearance-contract.json");

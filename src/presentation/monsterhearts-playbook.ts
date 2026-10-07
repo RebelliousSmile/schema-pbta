@@ -7,11 +7,11 @@ const regionIds = [
   "stat-profiles",
   "playbook-portrait",
   "playbook-moves",
-  "relationships",
-  "conditions-and-harm",
+  "ascendants-and-conditions",
   "gear",
   "monsterhearts-darkest-self",
   "monsterhearts-sex-move",
+  "monsterhearts-play",
   "monsterhearts-progression",
 ] as const;
 
@@ -27,6 +27,7 @@ export const monsterheartsPlaybookPresentationSchema = z.strictObject({
   target: z.literal("monsterhearts-playbook"),
   regions: z.array(z.strictObject({
     id: regionId,
+    label: z.string().min(1),
     group: z.enum(["identity", "playbook", "relationships", "state", "editorial"]),
     primitive: z.enum(primitives),
     fields: z.array(fieldPath).min(1),
@@ -43,11 +44,11 @@ export const monsterheartsPlaybookPresentationSchema = z.strictObject({
     id: z.literal("monsterhearts"),
     appearanceArtifact: z.literal("appearance-contract.json"),
     tokens: z.array(z.string().regex(/^--[a-z0-9-]+$/)).min(1),
-    assets: z.array(z.enum(["game-mark", "variant-mark"])).min(1),
+    assets: z.array(z.enum(["game-mark"])).min(1),
     variants: z.array(z.strictObject({
-      id: z.enum(["base", "drowned-lake"]),
+      id: z.enum(["base"]),
       presentationOnly: z.literal(true),
-    })).length(2),
+    })).length(1),
   }),
 }).superRefine((layout, context) => {
   const ids = layout.regions.map((region) => region.id);
@@ -61,8 +62,7 @@ export const monsterheartsPlaybookPresentationSchema = z.strictObject({
     if (new Set(placed).size !== placed.length) context.addIssue({ code: "custom", message: "layout contains a duplicate region" });
     if (placed.some((id) => !canonical.has(id))) context.addIssue({ code: "custom", message: "layout contains an unknown region" });
   }
-  const variants = layout.pack.variants.map((variant) => variant.id);
-  if (variants.join(",") !== "base,drowned-lake") context.addIssue({ code: "custom", message: "pack variants must be base then drowned-lake" });
+  if (layout.pack.variants[0]?.id !== "base") context.addIssue({ code: "custom", message: "the only pack variant is base" });
 });
 
 export type PbtaMonsterheartsPlaybookPresentation = z.infer<typeof monsterheartsPlaybookPresentationSchema>;
@@ -76,34 +76,34 @@ export type PbtaMonsterheartsPrimitive = typeof primitives[number];
 export const PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION: PbtaMonsterheartsPlaybookPresentation = monsterheartsPlaybookPresentationSchema.parse({
   target: "monsterhearts-playbook",
   regions: [
-    { id: "game-identity", group: "identity", primitive: "identity", fields: ["name", "description"] },
-    { id: "monsterhearts-opening", group: "editorial", primitive: "editorial-copy", fields: ["editorial.opening"] },
-    { id: "character-identity", group: "identity", primitive: "identity", fields: ["editorial.identity", "creation", "backstory"] },
-    { id: "stat-profiles", group: "identity", primitive: "stat-spread", fields: ["stats", "statRanges", "statProfiles"] },
-    { id: "playbook-portrait", group: "identity", primitive: "portrait", fields: ["playbookImage"] },
-    { id: "playbook-moves", group: "playbook", primitive: "action-list", fields: ["moves", "startingMoves", "choiceSets"] },
-    { id: "relationships", group: "relationships", primitive: "relationship-ledger", fields: ["strings", "ascendants"] },
-    { id: "conditions-and-harm", group: "state", primitive: "condition-harm-tracker", fields: ["conditions", "harm"] },
-    { id: "gear", group: "playbook", primitive: "gear-list", fields: ["gear"] },
-    { id: "monsterhearts-darkest-self", group: "editorial", primitive: "editorial-copy", fields: ["editorial.darkestSelf"] },
-    { id: "monsterhearts-sex-move", group: "editorial", primitive: "editorial-copy", fields: ["editorial.sexMove"] },
-    { id: "monsterhearts-progression", group: "state", primitive: "progression-list", fields: ["editorial.progression", "advances"] },
+    { id: "game-identity", label: "Présentation", group: "identity", primitive: "identity", fields: ["name", "description"] },
+    { id: "monsterhearts-opening", label: "Introduction", group: "editorial", primitive: "editorial-copy", fields: ["editorial.opening"] },
+    { id: "character-identity", label: "Identité", group: "identity", primitive: "identity", fields: ["editorial.identity", "creation", "backstory"] },
+    { id: "stat-profiles", label: "Caractéristiques", group: "identity", primitive: "stat-spread", fields: ["stats", "statRanges", "statProfiles"] },
+    { id: "playbook-portrait", label: "Portrait", group: "identity", primitive: "portrait", fields: ["playbookImage"] },
+    { id: "playbook-moves", label: "Actions", group: "playbook", primitive: "action-list", fields: ["moves", "startingMoves", "choiceSets"] },
+    { id: "ascendants-and-conditions", label: "Ascendants & conditions", group: "relationships", primitive: "relationship-ledger", fields: ["strings", "ascendants", "conditions", "harm"] },
+    { id: "gear", label: "Équipement", group: "playbook", primitive: "gear-list", fields: ["gear"] },
+    { id: "monsterhearts-darkest-self", label: "Démon intérieur", group: "editorial", primitive: "editorial-copy", fields: ["editorial.darkestSelf"] },
+    { id: "monsterhearts-sex-move", label: "Action sexuelle", group: "editorial", primitive: "editorial-copy", fields: ["editorial.sexMove"] },
+    { id: "monsterhearts-play", label: "Jouer la mue", group: "editorial", primitive: "editorial-copy", fields: ["editorial.play"] },
+    { id: "monsterhearts-progression", label: "Progressions", group: "state", primitive: "progression-list", fields: ["editorial.progression", "advances"] },
   ],
   canonicalOrder: [
     "game-identity", "monsterhearts-opening", "character-identity", "stat-profiles", "playbook-portrait",
-    "playbook-moves", "relationships", "conditions-and-harm", "gear",
-    "monsterhearts-darkest-self", "monsterhearts-sex-move", "monsterhearts-progression",
+    "playbook-moves", "ascendants-and-conditions", "gear",
+    "monsterhearts-darkest-self", "monsterhearts-sex-move", "monsterhearts-play", "monsterhearts-progression",
   ],
   rows: [
     [
       ["monsterhearts-opening", "monsterhearts-darkest-self", "monsterhearts-sex-move"],
       ["playbook-portrait"],
-      ["playbook-moves"],
+      ["monsterhearts-play", "playbook-moves"],
     ],
     [
-      ["conditions-and-harm", "gear"],
-      ["character-identity", "stat-profiles", "relationships"],
-      ["monsterhearts-progression"],
+      ["gear"],
+      ["character-identity", "stat-profiles"],
+      ["monsterhearts-progression", "ascendants-and-conditions"],
     ],
   ],
   fallbacks: { unplaced: "canonical-order", narrowPane: "canonical-flow", print: "canonical-flow" },
@@ -111,8 +111,8 @@ export const PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION: PbtaMonsterheartsPlaybook
     id: "monsterhearts",
     appearanceArtifact: "appearance-contract.json",
     tokens: ["--monsterhearts-title-font", "--monsterhearts-title-ink", "--pbta-column-gap", "--pbta-column-rule"],
-    assets: ["game-mark", "variant-mark"],
-    variants: [{ id: "base", presentationOnly: true }, { id: "drowned-lake", presentationOnly: true }],
+    assets: ["game-mark"],
+    variants: [{ id: "base", presentationOnly: true }],
   },
 });
 

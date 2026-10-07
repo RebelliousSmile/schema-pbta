@@ -25,5 +25,5 @@ export type {
 } from "./monsterhearts-playbook.js";
 export { getPbtaMonsterheartsAppearance, monsterheartsAppearanceSchema, PBTA_MONSTERHEARTS_APPEARANCE } from "./monsterhearts-appearance.js";
 export type { PbtaMonsterheartsAppearance } from "./monsterhearts-appearance.js";
-export { PBTA_VISUAL_CALLOUTS } from "./callouts.js";
+export { PBTA_PACK_CALLOUTS, PBTA_VISUAL_CALLOUTS } from "./callouts.js";
 export type { PbtaVisualCallout } from "./callouts.js";

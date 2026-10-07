@@ -3,6 +3,7 @@
   "regions": [
     {
       "id": "game-identity",
+      "label": "Présentation",
       "group": "identity",
       "primitive": "identity",
       "fields": [
@@ -12,6 +13,7 @@
     },
     {
       "id": "monsterhearts-opening",
+      "label": "Introduction",
       "group": "editorial",
       "primitive": "editorial-copy",
       "fields": [
@@ -20,6 +22,7 @@
     },
     {
       "id": "character-identity",
+      "label": "Identité",
       "group": "identity",
       "primitive": "identity",
       "fields": [
@@ -30,6 +33,7 @@
     },
     {
       "id": "stat-profiles",
+      "label": "Caractéristiques",
       "group": "identity",
       "primitive": "stat-spread",
       "fields": [
@@ -40,6 +44,7 @@
     },
     {
       "id": "playbook-portrait",
+      "label": "Portrait",
       "group": "identity",
       "primitive": "portrait",
       "fields": [
@@ -48,6 +53,7 @@
     },
     {
       "id": "playbook-moves",
+      "label": "Actions",
       "group": "playbook",
       "primitive": "action-list",
       "fields": [
@@ -57,25 +63,20 @@
       ]
     },
     {
-      "id": "relationships",
+      "id": "ascendants-and-conditions",
+      "label": "Ascendants & conditions",
       "group": "relationships",
       "primitive": "relationship-ledger",
       "fields": [
         "strings",
-        "ascendants"
-      ]
-    },
-    {
-      "id": "conditions-and-harm",
-      "group": "state",
-      "primitive": "condition-harm-tracker",
-      "fields": [
+        "ascendants",
         "conditions",
         "harm"
       ]
     },
     {
       "id": "gear",
+      "label": "Équipement",
       "group": "playbook",
       "primitive": "gear-list",
       "fields": [
@@ -84,6 +85,7 @@
     },
     {
       "id": "monsterhearts-darkest-self",
+      "label": "Démon intérieur",
       "group": "editorial",
       "primitive": "editorial-copy",
       "fields": [
@@ -92,6 +94,7 @@
     },
     {
       "id": "monsterhearts-sex-move",
+      "label": "Action sexuelle",
       "group": "editorial",
       "primitive": "editorial-copy",
       "fields": [
@@ -99,7 +102,17 @@
       ]
     },
     {
+      "id": "monsterhearts-play",
+      "label": "Jouer la mue",
+      "group": "editorial",
+      "primitive": "editorial-copy",
+      "fields": [
+        "editorial.play"
+      ]
+    },
+    {
       "id": "monsterhearts-progression",
+      "label": "Progressions",
       "group": "state",
       "primitive": "progression-list",
       "fields": [
@@ -115,11 +128,11 @@
     "stat-profiles",
     "playbook-portrait",
     "playbook-moves",
-    "relationships",
-    "conditions-and-harm",
+    "ascendants-and-conditions",
     "gear",
     "monsterhearts-darkest-self",
     "monsterhearts-sex-move",
+    "monsterhearts-play",
     "monsterhearts-progression"
   ],
   "rows": [
@@ -133,21 +146,21 @@
         "playbook-portrait"
       ],
       [
+        "monsterhearts-play",
         "playbook-moves"
       ]
     ],
     [
       [
-        "conditions-and-harm",
         "gear"
       ],
       [
         "character-identity",
-        "stat-profiles",
-        "relationships"
+        "stat-profiles"
       ],
       [
-        "monsterhearts-progression"
+        "monsterhearts-progression",
+        "ascendants-and-conditions"
       ]
     ]
   ],
@@ -166,16 +179,11 @@
       "--pbta-column-rule"
     ],
     "assets": [
-      "game-mark",
-      "variant-mark"
+      "game-mark"
     ],
     "variants": [
       {
         "id": "base",
-        "presentationOnly": true
-      },
-      {
-        "id": "drowned-lake",
         "presentationOnly": true
       }
     ]

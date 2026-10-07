@@ -21,10 +21,10 @@
     },
     {
       "id": "monsterhearts",
-      "version": "0.3.7",
+      "version": "0.4.0",
       "path": "handbook/monsterhearts/pack.json",
       "label": "Monsterhearts",
-      "description": "Intimate gothic editorial presentation with an optional Drowned Lake variant."
+      "description": "Intimate gothic editorial presentation, light only."
     },
     {
       "id": "urban-shadows",
@@ -35,10 +35,10 @@
     },
     {
       "id": "the-sprawl",
-      "version": "0.2.1",
+      "version": "0.3.0",
       "path": "handbook/the-sprawl/pack.json",
       "label": "The Sprawl",
-      "description": "Dark neon presentation for corporate cyberpunk missions."
+      "description": "Light neon presentation for corporate cyberpunk missions, on white paper."
     },
     {
       "id": "salvage-run",
