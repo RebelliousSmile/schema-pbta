@@ -52,7 +52,7 @@ assert.equal(statRange.rangesPath, "statRanges");
 assert.equal(getPbtaStatRangePresentation("masks-playbook"), undefined, "other targets do not publish Monsterhearts ranges");
 
 const monsterheartsPresentation = PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION;
-assert.equal(monsterheartsPresentation.regions.length, 12, "Monsterhearts publishes every complete-playbook region");
+assert.equal(monsterheartsPresentation.regions.length, 13, "Monsterhearts publishes every complete-playbook region");
 assert.deepEqual(monsterheartsPresentation.rows?.[0]?.[1], ["playbook-portrait"], "portrait alone occupies the first row's middle column");
 assert.deepEqual(
   monsterheartsPresentation.canonicalOrder,

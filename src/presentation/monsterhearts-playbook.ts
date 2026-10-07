@@ -13,6 +13,7 @@ const regionIds = [
   "monsterhearts-sex-move",
   "monsterhearts-play",
   "monsterhearts-progression",
+  "harm-tracker",
 ] as const;
 
 const primitives = [
@@ -82,17 +83,18 @@ export const PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION: PbtaMonsterheartsPlaybook
     { id: "stat-profiles", label: "Caractéristiques", group: "identity", primitive: "stat-spread", fields: ["stats", "statRanges", "statProfiles"] },
     { id: "playbook-portrait", label: "Portrait", group: "identity", primitive: "portrait", fields: ["playbookImage"] },
     { id: "playbook-moves", label: "Actions", group: "playbook", primitive: "action-list", fields: ["moves", "startingMoves"] },
-    { id: "ascendants-and-conditions", label: "Ascendants & conditions", group: "relationships", primitive: "relationship-ledger", fields: ["strings", "ascendants", "conditions", "harm"] },
+    { id: "ascendants-and-conditions", label: "Ascendants & conditions", group: "relationships", primitive: "relationship-ledger", fields: ["strings", "ascendants", "conditions"] },
     { id: "gear", label: "Équipement", group: "playbook", primitive: "gear-list", fields: ["gear"] },
     { id: "monsterhearts-darkest-self", label: "Démon intérieur", group: "editorial", primitive: "editorial-copy", fields: ["editorial.darkestSelf"] },
     { id: "monsterhearts-sex-move", label: "Action sexuelle", group: "editorial", primitive: "editorial-copy", fields: ["editorial.sexMove"] },
     { id: "monsterhearts-play", label: "Jouer la mue", group: "editorial", primitive: "editorial-copy", fields: ["editorial.play"] },
     { id: "monsterhearts-progression", label: "Progressions", group: "state", primitive: "progression-list", fields: ["editorial.progression", "advances"] },
+    { id: "harm-tracker", label: "Dégâts", group: "state", primitive: "condition-harm-tracker", fields: ["harm"] },
   ],
   canonicalOrder: [
     "game-identity", "monsterhearts-opening", "character-identity", "stat-profiles", "playbook-portrait",
     "playbook-moves", "ascendants-and-conditions", "gear",
-    "monsterhearts-darkest-self", "monsterhearts-sex-move", "monsterhearts-play", "monsterhearts-progression",
+    "monsterhearts-darkest-self", "monsterhearts-sex-move", "monsterhearts-play", "monsterhearts-progression", "harm-tracker",
   ],
   rows: [
     [
@@ -103,7 +105,7 @@ export const PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION: PbtaMonsterheartsPlaybook
     [
       ["playbook-moves", "gear"],
       ["character-identity", "stat-profiles", "ascendants-and-conditions"],
-      ["monsterhearts-progression"],
+      ["monsterhearts-progression", "harm-tracker"],
     ],
   ],
   fallbacks: { unplaced: "canonical-order", narrowPane: "canonical-flow", print: "canonical-flow" },

@@ -69,8 +69,7 @@
       "fields": [
         "strings",
         "ascendants",
-        "conditions",
-        "harm"
+        "conditions"
       ]
     },
     {
@@ -118,6 +117,15 @@
         "editorial.progression",
         "advances"
       ]
+    },
+    {
+      "id": "harm-tracker",
+      "label": "Dégâts",
+      "group": "state",
+      "primitive": "condition-harm-tracker",
+      "fields": [
+        "harm"
+      ]
     }
   ],
   "canonicalOrder": [
@@ -132,7 +140,8 @@
     "monsterhearts-darkest-self",
     "monsterhearts-sex-move",
     "monsterhearts-play",
-    "monsterhearts-progression"
+    "monsterhearts-progression",
+    "harm-tracker"
   ],
   "rows": [
     [
@@ -159,7 +168,8 @@
         "ascendants-and-conditions"
       ],
       [
-        "monsterhearts-progression"
+        "monsterhearts-progression",
+        "harm-tracker"
       ]
     ]
   ],
