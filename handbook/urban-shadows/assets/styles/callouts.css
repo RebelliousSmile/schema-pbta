@@ -70,7 +70,7 @@ body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-cho
   padding-inline-start: 0;
   list-style: none;
 }
-body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-choice"] .callout-content ul > li {
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-choice"] .callout-content ul > li:not(.task-list-item) {
   position: relative;
   margin-inline-start: 0;
   padding-inline-start: 1.6em;
@@ -89,12 +89,21 @@ body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-cho
   background: #fff;
 }
 
-/* A ticked item keeps its own box, squared and violet: no second box is drawn. */
+/* A ticked item keeps its own box, squared and violet, set in the line: the
+   offsets of the host theme and of the vault are cancelled so it cannot drift. */
 body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-choice"] .callout-content ul > li.task-list-item {
+  margin-inline-start: 0;
   padding-inline-start: 0;
   --checkbox-radius: 0;
   --checkbox-color: #682865;
   --checkbox-border-color: #682865;
+}
+body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-choice"] .callout-content ul > li.task-list-item > input.task-list-item-checkbox {
+  position: static;
+  inset: auto;
+  margin-block: 0;
+  margin-inline: 0 0.5em;
+  vertical-align: -0.1em;
 }
 
 /* An aside: no panel, a rule on each side. */

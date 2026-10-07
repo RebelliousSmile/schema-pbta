@@ -6,16 +6,16 @@ body.brumes--urban-shadows .markdown-rendered h2 {
   border-block-end: 1px solid var(--hr-color);
   padding-block-end: 0.1em;
 }
-/* Lozenge list marks. */
-body.brumes--urban-shadows :is(.markdown-rendered, .is-live-preview) ul > li > .list-bullet::after,
-body.brumes--urban-shadows .is-live-preview .cm-formatting-list-ul .list-bullet::after {
-  content: "";
-  display: block;
-  background-color: var(--list-marker-color, #682865);
-  width: 0.36em;
-  height: 0.36em;
-  border-radius: 0;
-  transform: rotate(45deg);
+/* Lozenge list marks, in the pack colour whatever level the host theme draws. */
+body.brumes--urban-shadows :is(.markdown-rendered, .is-live-preview, .markdown-source-view) .list-bullet::after {
+  content: "" !important;
+  display: block !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background-color: #682865 !important;
+  width: 0.4em !important;
+  height: 0.4em !important;
+  transform: rotate(45deg) !important;
 }
 /* A game term is written bold and italic: it reads upright, in the accent. */
 body.brumes--urban-shadows .markdown-rendered :is(strong > em, em > strong) {
