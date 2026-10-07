@@ -38,7 +38,8 @@
       "primitive": "stat-spread",
       "fields": [
         "stats",
-        "statRanges"
+        "statRanges",
+        "statProfiles"
       ]
     },
     {
@@ -137,28 +138,28 @@
     [
       [
         "monsterhearts-opening",
-        "monsterhearts-darkest-self",
-        "monsterhearts-sex-move",
-        "monsterhearts-play",
-        "character-identity"
+        "monsterhearts-darkest-self"
       ],
       [
         "playbook-portrait"
       ],
       [
-        "playbook-moves"
+        "monsterhearts-sex-move",
+        "monsterhearts-play"
       ]
     ],
     [
       [
+        "playbook-moves",
         "gear"
       ],
       [
-        "stat-profiles",
-        "ascendants-and-conditions"
+        "character-identity",
+        "stat-profiles"
       ],
       [
-        "monsterhearts-progression"
+        "monsterhearts-progression",
+        "ascendants-and-conditions"
       ]
     ]
   ],

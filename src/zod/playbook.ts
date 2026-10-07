@@ -45,7 +45,7 @@ const choiceSchema = z.union([
   moveInlineEntry.extend(choiceExtension),
 ]);
 
-const playbookMoveEntry = z.union([
+export const playbookMoveEntry = z.union([
   moveRefEntry.extend({ checked: z.boolean().optional().meta({ description: "Whether this move is currently acquired." }) }),
   moveInlineEntry.extend({ checked: z.boolean().optional().meta({ description: "Whether this move is currently acquired." }) }),
 ]).meta({ description: "A move carried by this playbook, with its optional acquisition state." });

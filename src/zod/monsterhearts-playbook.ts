@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { nonEmptyString, portableCount, portableInteger } from "./shared.js";
-import { advancementEntrySchema, playbookSchema } from "./playbook.js";
+import { advancementEntrySchema, playbookMoveEntry, playbookSchema } from "./playbook.js";
 import { editorialSectionSchema, playbookEditorialSchema } from "./playbook-editorial.js";
 
 const conditionSchema = z.strictObject({
@@ -33,6 +33,7 @@ const editorialSchema = playbookEditorialSchema.omit({
 
 /** Monsterhearts skin data in one portable TOML document. */
 export const monsterheartsPlaybookSchema = playbookSchema.extend({
+  moves: z.array(playbookMoveEntry).max(6).meta({ description: "Moves available to this skin; the booklet holds at most six." }),
   statRanges: z.record(z.string(), statRangeSchema).optional().meta({ description: "Optional display bounds keyed by Monsterhearts stat." }),
   strings: stringSchema.optional().meta({ description: "Starting String economy." }),
   ascendants: z.array(ascendantSchema).optional().meta({ description: "Current Ascendants held over named characters." }),

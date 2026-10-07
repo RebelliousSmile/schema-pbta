@@ -79,7 +79,7 @@ export const PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION: PbtaMonsterheartsPlaybook
     { id: "game-identity", label: "Présentation", group: "identity", primitive: "identity", fields: ["name", "description"] },
     { id: "monsterhearts-opening", label: "Introduction", group: "editorial", primitive: "editorial-copy", fields: ["editorial.opening"] },
     { id: "character-identity", label: "Identité", group: "identity", primitive: "identity", fields: ["editorial.identity", "creation", "backstory"] },
-    { id: "stat-profiles", label: "Caractéristiques", group: "identity", primitive: "stat-spread", fields: ["stats", "statRanges"] },
+    { id: "stat-profiles", label: "Caractéristiques", group: "identity", primitive: "stat-spread", fields: ["stats", "statRanges", "statProfiles"] },
     { id: "playbook-portrait", label: "Portrait", group: "identity", primitive: "portrait", fields: ["playbookImage"] },
     { id: "playbook-moves", label: "Actions", group: "playbook", primitive: "action-list", fields: ["moves", "startingMoves"] },
     { id: "ascendants-and-conditions", label: "Ascendants & conditions", group: "relationships", primitive: "relationship-ledger", fields: ["strings", "ascendants", "conditions", "harm"] },
@@ -96,14 +96,14 @@ export const PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION: PbtaMonsterheartsPlaybook
   ],
   rows: [
     [
-      ["monsterhearts-opening", "monsterhearts-darkest-self", "monsterhearts-sex-move", "monsterhearts-play", "character-identity"],
+      ["monsterhearts-opening", "monsterhearts-darkest-self"],
       ["playbook-portrait"],
-      ["playbook-moves"],
+      ["monsterhearts-sex-move", "monsterhearts-play"],
     ],
     [
-      ["gear"],
-      ["stat-profiles", "ascendants-and-conditions"],
-      ["monsterhearts-progression"],
+      ["playbook-moves", "gear"],
+      ["character-identity", "stat-profiles"],
+      ["monsterhearts-progression", "ascendants-and-conditions"],
     ],
   ],
   fallbacks: { unplaced: "canonical-order", narrowPane: "canonical-flow", print: "canonical-flow" },

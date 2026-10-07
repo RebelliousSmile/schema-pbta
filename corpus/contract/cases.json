@@ -25,6 +25,7 @@
     { "path": "invalid/playbook-invalid-stat-profile.toml", "target": "playbook", "expect": "reject" },
     { "path": "invalid/urban-shadows-playbook-missing-corruption.toml", "target": "urban-shadows-playbook", "expect": "reject" },
     { "path": "invalid/monsterhearts-playbook-missing-darkest-self.toml", "target": "monsterhearts-playbook", "expect": "reject" },
+    { "path": "invalid/monsterhearts-playbook-too-many-moves.toml", "target": "monsterhearts-playbook", "expect": "reject" },
     { "path": "invalid/monsterhearts-playbook-invalid-ascendant.toml", "target": "monsterhearts-playbook", "expect": "reject" },
     { "path": "invalid/monsterhearts-playbook-stat-range-non-integer.toml", "target": "monsterhearts-playbook", "expect": "reject" },
     { "path": "invalid/monsterhearts-playbook-stat-range-unknown-field.toml", "target": "monsterhearts-playbook", "expect": "reject" },

@@ -117,6 +117,7 @@
       }
     },
     "moves": {
+      "maxItems": 6,
       "type": "array",
       "items": {
         "anyOf": [
@@ -263,7 +264,7 @@
         ],
         "description": "A move carried by this playbook, with its optional acquisition state."
       },
-      "description": "Moves available to this playbook."
+      "description": "Moves available to this skin; the booklet holds at most six."
     },
     "startingMoves": {
       "description": "Slugs of moves granted at character creation.",
