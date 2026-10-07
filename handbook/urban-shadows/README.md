@@ -35,6 +35,6 @@ propres ; leur contenu reste du Markdown libre.
 | `> [!urban-shadows-move]` | panneau gris tenu entre deux filets violets |
 | `> [!urban-shadows-choice]` | panneau lavande, filet à gauche, listes à cases carrées |
 | `> [!urban-shadows-aside]` | aparté sans fond, un filet de chaque côté |
-| `> [!urban-shadows-solid]` | fond de nuit, titre au pinceau, coulures sous le cadre (rôle `ink-drips`, absent : bord net) |
+| `> [!urban-shadows-solid]` | fond de nuit, titre au pinceau |
 | `> [!urban-shadows-archetype]` | bandeau de titre violet sur corps lavande |
 | `> [!urban-shadows-example]` | exemple de jeu, italique violet sans cadre |

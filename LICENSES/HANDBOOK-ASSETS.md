@@ -13,7 +13,6 @@ the repository's MIT license.
 | The Sprawl | `game-mark` | `handbook/the-sprawl/assets/images/network-grid.svg` |
 | Urban Shadows | `game-mark` | `handbook/urban-shadows/assets/images/city-sigil.svg`; `packs/urban-shadows/assets/images/city-sigil.svg` |
 | Urban Shadows | `section-texture` | `handbook/urban-shadows/assets/images/night-windows.svg` |
-| Urban Shadows | `ink-drips` | `handbook/urban-shadows/assets/images/ink-drips.svg` |
 
 The game names are used only to identify compatible presentation packs. No
 official logo, illustration, layout, or game text is included in these files.

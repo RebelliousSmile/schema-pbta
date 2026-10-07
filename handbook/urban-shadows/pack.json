@@ -135,8 +135,7 @@
       ],
       "images": {
         "game-mark": "images/city-sigil.svg",
-        "section-texture": "images/night-windows.svg",
-        "ink-drips": "images/ink-drips.svg"
+        "section-texture": "images/night-windows.svg"
       }
     }
   }

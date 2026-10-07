@@ -117,16 +117,6 @@ body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-sol
   color: #e2d4f3;
   text-decoration: underline;
 }
-body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-solid"]::after {
-  content: "";
-  position: absolute;
-  inset-inline: 0;
-  inset-block-start: 100%;
-  height: 1.75rem;
-  background-image: var(--brumes-image-ink-drips, none);
-  background-repeat: repeat-x;
-  background-size: 10rem 1.75rem;
-}
 
 /* An archetype panel: violet title band over a lavender body. */
 body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-archetype"] {
