@@ -38,7 +38,7 @@ export const PBTA_MONSTERHEARTS_APPEARANCE: PbtaMonsterheartsAppearance = monste
       "El Messiri": "assets/fonts/el-messiri-latin-400-700-normal.woff2",
       "Averia Serif Libre": "assets/fonts/averia-serif-libre-latin-700-normal.woff2",
       "Alice": "assets/fonts/alice-latin-400-normal.woff2",
-      "EB Garamond": "assets/fonts/eb-garamond-latin-wght-italic.woff2",
+      "IM Fell Double Pica": "assets/fonts/im-fell-double-pica-latin-400-italic.woff2",
     },
     stylesheets: ["styles/theme-tokens.css", "styles/base.css", "assets/styles/callouts.css"],
     assets: {
@@ -48,7 +48,7 @@ export const PBTA_MONSTERHEARTS_APPEARANCE: PbtaMonsterheartsAppearance = monste
   variants: [
     { id: "base", tokens: {
       "--monsterhearts-title-font": "'Yellow Magician', 'Averia Serif Libre', Garamond, Georgia, serif",
-      "--monsterhearts-script-font": "'EB Garamond', Garamond, Georgia, serif",
+      "--monsterhearts-script-font": "'IM Fell Double Pica', Garamond, Georgia, serif",
       "--monsterhearts-title-ink": "#292326",
       "--pbta-column-gap": "2.4rem",
       "--pbta-column-rule": "#292326",

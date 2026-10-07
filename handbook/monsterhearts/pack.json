@@ -35,7 +35,7 @@
           "--pbta-column-gap": "2.4rem",
           "--pbta-column-rule": "#292326",
           "--monsterhearts-title-font": "'Yellow Magician', 'Averia Serif Libre', Garamond, Georgia, serif",
-          "--monsterhearts-script-font": "'EB Garamond', Garamond, Georgia, serif",
+          "--monsterhearts-script-font": "'IM Fell Double Pica', Garamond, Georgia, serif",
           "--monsterhearts-title-ink": "#292326",
           "--monsterhearts-table-ink": "#171416",
           "--monsterhearts-table-background": "#ffffff",
@@ -87,7 +87,7 @@
         },
         "Averia Serif Libre": {
           "file": "fonts/averia-serif-libre-latin-700-normal.woff2",
-          "weight": "400 800",
+          "weight": "400",
           "style": "normal"
         },
         "Alice": {
@@ -95,9 +95,9 @@
           "weight": "400",
           "style": "normal"
         },
-        "EB Garamond": {
-          "file": "fonts/eb-garamond-latin-wght-italic.woff2",
-          "weight": "400 800",
+        "IM Fell Double Pica": {
+          "file": "fonts/im-fell-double-pica-latin-400-italic.woff2",
+          "weight": "400",
           "style": "italic"
         }
       },

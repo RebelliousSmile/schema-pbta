@@ -2,7 +2,7 @@
   "variant": "base",
   "tokens": {
     "--monsterhearts-title-font": "'Yellow Magician', 'Averia Serif Libre', Garamond, Georgia, serif",
-    "--monsterhearts-script-font": "'EB Garamond', Garamond, Georgia, serif",
+    "--monsterhearts-script-font": "'IM Fell Double Pica', Garamond, Georgia, serif",
     "--monsterhearts-title-ink": "#292326",
     "--pbta-column-gap": "2.4rem",
     "--pbta-column-rule": "#292326"
