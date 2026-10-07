@@ -1,14 +1,18 @@
 /* The night section: its tokens come from `style.section`; this sheet only
    sets what a token cannot say. Nothing here applies to print. */
+body.brumes--urban-shadows .handbook-mode-alternate :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-header-theme, "Urban Shadows Brush", "Caveat Brush", cursive);
+  letter-spacing: 0.05em;
+  color: var(--h2-color, #ffffff);
+}
 body.brumes--urban-shadows .handbook-mode-alternate :is(h1, h2) {
   font-family: "Urban Shadows Brush", "Caveat Brush", cursive;
   letter-spacing: 0;
   line-height: 1;
   text-transform: none;
-  color: var(--h2-color, #ffffff);
 }
-body.brumes--urban-shadows .handbook-mode-alternate :is(h3, h4) {
-  letter-spacing: 0.05em;
+body.brumes--urban-shadows .handbook-mode-alternate h3 {
+  color: var(--h3-color, #e2d4f3);
 }
 body.brumes--urban-shadows .handbook-mode-alternate .callout[data-brumes-callout-style="urban-shadows-solid"] {
   outline: 1px solid #d9c8ee;

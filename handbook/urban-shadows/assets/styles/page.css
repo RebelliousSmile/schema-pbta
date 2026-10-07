@@ -7,7 +7,11 @@ body.brumes--urban-shadows .markdown-rendered h2 {
   padding-block-end: 0.1em;
 }
 /* Lozenge list marks. */
-body.brumes--urban-shadows .markdown-rendered ul > li > .list-bullet::after {
+body.brumes--urban-shadows :is(.markdown-rendered, .is-live-preview) ul > li > .list-bullet::after,
+body.brumes--urban-shadows .is-live-preview .cm-formatting-list-ul .list-bullet::after {
+  content: "";
+  display: block;
+  background-color: var(--list-marker-color, #682865);
   width: 0.36em;
   height: 0.36em;
   border-radius: 0;
