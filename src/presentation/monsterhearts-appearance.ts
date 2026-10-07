@@ -38,7 +38,7 @@ export const PBTA_MONSTERHEARTS_APPEARANCE: PbtaMonsterheartsAppearance = monste
       "El Messiri": "assets/fonts/el-messiri-latin-400-700-normal.woff2",
       "Averia Serif Libre": "assets/fonts/averia-serif-libre-latin-700-normal.woff2",
       "Alice": "assets/fonts/alice-latin-400-normal.woff2",
-      "EB Garamond": "assets/fonts/eb-garamond-latin-500-italic.woff2",
+      "EB Garamond": "assets/fonts/eb-garamond-latin-700-italic.woff2",
     },
     stylesheets: ["styles/theme-tokens.css", "styles/base.css", "assets/styles/callouts.css"],
     assets: {
