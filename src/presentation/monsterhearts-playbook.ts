@@ -81,7 +81,7 @@ export const PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION: PbtaMonsterheartsPlaybook
     { id: "character-identity", label: "Identité", group: "identity", primitive: "identity", fields: ["editorial.identity", "creation", "backstory"] },
     { id: "stat-profiles", label: "Caractéristiques", group: "identity", primitive: "stat-spread", fields: ["stats", "statRanges", "statProfiles"] },
     { id: "playbook-portrait", label: "Portrait", group: "identity", primitive: "portrait", fields: ["playbookImage"] },
-    { id: "playbook-moves", label: "Actions", group: "playbook", primitive: "action-list", fields: ["moves", "startingMoves", "choiceSets"] },
+    { id: "playbook-moves", label: "Actions", group: "playbook", primitive: "action-list", fields: ["moves", "startingMoves"] },
     { id: "ascendants-and-conditions", label: "Ascendants & conditions", group: "relationships", primitive: "relationship-ledger", fields: ["strings", "ascendants", "conditions", "harm"] },
     { id: "gear", label: "Équipement", group: "playbook", primitive: "gear-list", fields: ["gear"] },
     { id: "monsterhearts-darkest-self", label: "Démon intérieur", group: "editorial", primitive: "editorial-copy", fields: ["editorial.darkestSelf"] },

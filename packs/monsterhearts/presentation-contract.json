@@ -58,8 +58,7 @@
       "primitive": "action-list",
       "fields": [
         "moves",
-        "startingMoves",
-        "choiceSets"
+        "startingMoves"
       ]
     },
     {
