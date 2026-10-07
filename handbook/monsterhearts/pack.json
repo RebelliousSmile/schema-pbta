@@ -35,7 +35,7 @@
           "--pbta-column-gap": "2.4rem",
           "--pbta-column-rule": "#292326",
           "--monsterhearts-title-font": "'Yellow Magician', 'Averia Serif Libre', Garamond, Georgia, serif",
-          "--monsterhearts-script-font": "'Caveat', cursive",
+          "--monsterhearts-script-font": "'Fondamento', cursive",
           "--monsterhearts-title-ink": "#292326",
           "--monsterhearts-table-ink": "#171416",
           "--monsterhearts-table-background": "#ffffff",
@@ -82,7 +82,7 @@
         },
         "El Messiri": {
           "file": "fonts/el-messiri-latin-400-700-normal.woff2",
-          "weight": "400 700",
+          "weight": "400",
           "style": "normal"
         },
         "Averia Serif Libre": {
@@ -95,9 +95,9 @@
           "weight": "400",
           "style": "normal"
         },
-        "Caveat": {
-          "file": "fonts/caveat-latin-wght-normal.woff2",
-          "weight": "400 700",
+        "Fondamento": {
+          "file": "fonts/fondamento-latin-400-normal.woff2",
+          "weight": "400",
           "style": "normal"
         }
       },

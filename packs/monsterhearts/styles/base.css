@@ -12,7 +12,7 @@
   font-family: "El Messiri";
   src: url("../assets/fonts/el-messiri-latin-400-700-normal.woff2") format("woff2");
   font-style: normal;
-  font-weight: 400 700;
+  font-weight: 400;
   font-display: swap;
 }
 
@@ -33,10 +33,10 @@
 }
 
 @font-face {
-  font-family: "Caveat";
-  src: url("../assets/fonts/caveat-latin-wght-normal.woff2") format("woff2");
+  font-family: "Fondamento";
+  src: url("../assets/fonts/fondamento-latin-400-normal.woff2") format("woff2");
   font-style: normal;
-  font-weight: 400 700;
+  font-weight: 400;
   font-display: swap;
 }
 

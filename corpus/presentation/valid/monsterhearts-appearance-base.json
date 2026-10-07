@@ -2,7 +2,7 @@
   "variant": "base",
   "tokens": {
     "--monsterhearts-title-font": "'Yellow Magician', 'Averia Serif Libre', Garamond, Georgia, serif",
-    "--monsterhearts-script-font": "'Caveat', cursive",
+    "--monsterhearts-script-font": "'Fondamento', cursive",
     "--monsterhearts-title-ink": "#292326",
     "--pbta-column-gap": "2.4rem",
     "--pbta-column-rule": "#292326"
