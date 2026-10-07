@@ -9,6 +9,7 @@ interface ResolvedSource {
   revision: string;
   readText(file: string): Promise<string>;
   readBinary(file: string): Promise<ArrayBuffer>;
+  inspectBinary(file: string): Promise<{ contentLength?: number; invalidContentLength?: string }>;
 }
 
 interface SourceInstallerModule {
@@ -138,6 +139,12 @@ function resolvedSource(
   invalidManifestPath?: string,
   stylesheetFixture?: { manifestPath: string; assetPath: string; content: string },
 ): ResolvedSource {
+  const readBinary = async (file: string): Promise<ArrayBuffer> => markedBuffer(
+    file === stylesheetFixture?.assetPath
+      ? Buffer.from(stylesheetFixture.content)
+      : fs.readFileSync(localPath(file)),
+    marker,
+  );
   return {
     revision,
     readText: async (file) => {
@@ -150,12 +157,8 @@ function resolvedSource(
       if (file !== invalidManifestPath) return raw;
       return JSON.stringify({ ...JSON.parse(raw) as Record<string, unknown>, version: "broken" });
     },
-    readBinary: async (file) => markedBuffer(
-      file === stylesheetFixture?.assetPath
-        ? Buffer.from(stylesheetFixture.content)
-        : fs.readFileSync(localPath(file)),
-      marker,
-    ),
+    readBinary,
+    inspectBinary: async (file) => ({ contentLength: (await readBinary(file)).byteLength }),
   };
 }
 
