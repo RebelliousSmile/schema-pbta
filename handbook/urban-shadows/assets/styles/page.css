@@ -8,7 +8,8 @@ body.brumes--urban-shadows .markdown-rendered h2 {
 }
 /* Lozenge list marks. Reading view draws them on the item itself: the host bullet
    is a float whose mark can end up under a column, so it is hidden. Editing
-   keeps the host bullet, redrawn in the pack colour. */
+   keeps the host bullet, redrawn in the pack colour. Only lines of the editor: a callout
+   in Live Preview is a reading-view widget and draws its marks like reading view. */
 body.brumes--urban-shadows .markdown-rendered ul > li:not(.task-list-item) {
   position: relative;
 }
@@ -25,7 +26,7 @@ body.brumes--urban-shadows .markdown-rendered ul > li:not(.task-list-item)::befo
   background-color: #682865;
   transform: rotate(45deg);
 }
-body.brumes--urban-shadows :is(.is-live-preview, .markdown-source-view) .list-bullet::after {
+body.brumes--urban-shadows :is(.is-live-preview, .markdown-source-view) .cm-line .list-bullet::after {
   content: "" !important;
   display: block !important;
   border: 0 !important;
