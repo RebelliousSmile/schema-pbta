@@ -35,6 +35,7 @@
           "--pbta-column-gap": "2.4rem",
           "--pbta-column-rule": "#292326",
           "--monsterhearts-title-font": "'Yellow Magician', 'Averia Serif Libre', Garamond, Georgia, serif",
+          "--monsterhearts-italic-font": "'Sorts Mill Goudy', Garamond, Georgia, serif",
           "--monsterhearts-title-ink": "#292326",
           "--monsterhearts-table-ink": "#171416",
           "--monsterhearts-table-background": "#ffffff",
@@ -93,6 +94,11 @@
           "file": "fonts/alice-latin-400-normal.woff2",
           "weight": "400",
           "style": "normal"
+        },
+        "Sorts Mill Goudy Italic": {
+          "file": "fonts/sorts-mill-goudy-latin-400-italic.woff2",
+          "weight": "400",
+          "style": "italic"
         }
       },
       "stylesheets": ["styles/callouts.css"],

@@ -38,6 +38,7 @@ export const PBTA_MONSTERHEARTS_APPEARANCE: PbtaMonsterheartsAppearance = monste
       "El Messiri": "assets/fonts/el-messiri-latin-400-700-normal.woff2",
       "Averia Serif Libre": "assets/fonts/averia-serif-libre-latin-700-normal.woff2",
       "Alice": "assets/fonts/alice-latin-400-normal.woff2",
+      "Sorts Mill Goudy Italic": "assets/fonts/sorts-mill-goudy-latin-400-italic.woff2",
     },
     stylesheets: ["styles/theme-tokens.css", "styles/base.css", "assets/styles/callouts.css"],
     assets: {
@@ -47,6 +48,7 @@ export const PBTA_MONSTERHEARTS_APPEARANCE: PbtaMonsterheartsAppearance = monste
   variants: [
     { id: "base", tokens: {
       "--monsterhearts-title-font": "'Yellow Magician', 'Averia Serif Libre', Garamond, Georgia, serif",
+      "--monsterhearts-italic-font": "'Sorts Mill Goudy', Garamond, Georgia, serif",
       "--monsterhearts-title-ink": "#292326",
       "--pbta-column-gap": "2.4rem",
       "--pbta-column-rule": "#292326",

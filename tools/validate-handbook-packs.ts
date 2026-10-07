@@ -265,6 +265,7 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
       }
       for (const token of [
         "--monsterhearts-title-font",
+        "--monsterhearts-italic-font",
         "--monsterhearts-title-ink",
         "--monsterhearts-table-ink",
         "--monsterhearts-table-background",

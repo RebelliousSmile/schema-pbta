@@ -183,6 +183,7 @@
     "appearanceArtifact": "appearance-contract.json",
     "tokens": [
       "--monsterhearts-title-font",
+      "--monsterhearts-italic-font",
       "--monsterhearts-title-ink",
       "--pbta-column-gap",
       "--pbta-column-rule"
