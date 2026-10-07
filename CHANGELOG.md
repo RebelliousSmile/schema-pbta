@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publish the Monsterhearts note callouts `monsterhearts-note` (hatched light frame) and `monsterhearts-note-dark` (dark panel) through `PBTA_PACK_CALLOUTS`.
 
 - Monsterhearts regions carry a French `label`; `relationships` and `conditions-and-harm` merge into `ascendants-and-conditions` ("Ascendants & conditions") and a `monsterhearts-play` region ("Jouer la mue") binds `editorial.play`.
-- Monsterhearts body text uses Alice Regular (identified in the design PDF); titles use Yellow Magician (CC BY-SA 3.0) and unbolded sub-headings use El Messiri (OFL 1.1), the design fonts. IM Fell English is no longer shipped. Each font ships with its licence.
+- Monsterhearts body text uses Alice Regular (identified in the design PDF); titles use Yellow Magician (CC BY-SA 3.0) and unbolded sub-headings use El Messiri (OFL 1.1), the design fonts. The opening catchphrase uses IM Fell Double Pica Italic (OFL 1.1), the italic the booklet embeds, exposed as the `--monsterhearts-script-font` token. IM Fell English is no longer shipped. Each font ships with its licence.
 
 ### Added
 
