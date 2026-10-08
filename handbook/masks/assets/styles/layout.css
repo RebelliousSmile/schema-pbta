@@ -347,16 +347,17 @@ body.brumes--masks [data-region="masks-advances"] {
   align-items: stretch;
 }
 body.brumes--masks [data-region="masks-advances"] > h3 {
-  flex: 1 1 8rem;
+  flex: 0 0 100%;
   margin: 0;
 }
+/* The potential boxes sit on their own line under the banner, on the page colour so they show. */
 body.brumes--masks [data-region="masks-advances"] > .handbook-masks-potential {
   order: 2;
+  flex: 0 0 100%;
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  padding: 0.2rem 0.5rem;
-  background: var(--masks-navy);
+  gap: 0.35rem;
+  padding-block: 0.4rem 0;
 }
 body.brumes--masks [data-region="masks-advances"] > ul {
   order: 3;
