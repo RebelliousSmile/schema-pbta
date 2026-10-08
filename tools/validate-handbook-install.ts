@@ -117,6 +117,9 @@ const pluginManifestUrl = pathToFileURL(
 ).href;
 const { readGamePluginManifest } = (await import(pluginManifestUrl)) as PluginManifestModule;
 const expectedCapabilities = ["block:pbta-playbook", "block:pbta-move", "style:pbta"];
+const packBlockCapabilities: Record<string, string[]> = {
+  "monster-of-the-week": ["block:pbta-team", "block:pbta-monster", "block:pbta-threat"],
+};
 
 function localPath(relative: string): string {
   const resolved = path.resolve(projectRoot, relative);
@@ -253,7 +256,7 @@ const expectedAssets: ExpectedAsset[] = [];
 for (const entry of catalogue.packs) {
   const manifest = readJson<PackManifest>(localPath(entry.path));
   assert.equal(manifest.minimumHandbookVersion, MINIMUM_HANDBOOK_VERSION, `${entry.id} minimum host`);
-  assert.deepEqual(manifest.requires, expectedCapabilities, `${entry.id} portable capabilities`);
+  assert.deepEqual(manifest.requires, [...expectedCapabilities, ...(packBlockCapabilities[entry.id] ?? [])], `${entry.id} portable capabilities`);
   manifests.set(entry.id, manifest);
   expectedAssets.push(...assetFiles(entry, manifest));
 }

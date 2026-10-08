@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "version": "0.3.0",
   "minimumHandbookVersion": "2.8.0",
-  "requires": ["block:pbta-playbook", "block:pbta-move", "style:pbta"],
+  "requires": ["block:pbta-playbook", "block:pbta-move", "style:pbta", "block:pbta-team", "block:pbta-monster", "block:pbta-threat"],
   "pack": {
     "id": "monster-of-the-week",
     "label": "Monster of the Week",

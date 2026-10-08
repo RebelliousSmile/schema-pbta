@@ -25,6 +25,11 @@ const errors: string[] = [];
 const expectedGames = Object.values(GAMES).map(({ folder }) => folder);
 const expectedMinimumHandbookVersion = MINIMUM_HANDBOOK_VERSION;
 const expectedCapabilities = ["block:pbta-playbook", "block:pbta-move", "style:pbta"];
+/* A pack that publishes its own card blocks activates them here: Handbook turns a block on only for a capability the manifest declares. */
+const packBlockCapabilities: Record<string, string[]> = {
+  "monster-of-the-week": ["block:pbta-team", "block:pbta-monster", "block:pbta-threat"],
+};
+const expectedCapabilitiesOf = (id: string): string[] => [...expectedCapabilities, ...(packBlockCapabilities[id] ?? [])];
 const semver = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
 const safeToken = /^--[A-Za-z0-9-]+$/;
 const safeImageExtensions = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"]);
@@ -175,8 +180,8 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
     if (manifest.minimumHandbookVersion !== expectedMinimumHandbookVersion) {
       issues.push(`${id}: minimumHandbookVersion must be ${expectedMinimumHandbookVersion}`);
     }
-    if (strings(manifest.requires).join(",") !== expectedCapabilities.join(",")) {
-      issues.push(`${id}: requires must equal ${expectedCapabilities.join(", ")}`);
+    if (strings(manifest.requires).join(",") !== expectedCapabilitiesOf(id).join(",")) {
+      issues.push(`${id}: requires must equal ${expectedCapabilitiesOf(id).join(", ")}`);
     }
 
     const pack = data(manifest.pack);
