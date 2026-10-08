@@ -15,7 +15,7 @@ body.brumes--monster-of-the-week .markdown-rendered :is(strong > em, em > strong
 body.brumes--monster-of-the-week .markdown-rendered em {
   font-family: "Crimson Pro Italic", var(--font-text-theme);
 }
-/* Tables: an ink head, accent rules, pale stripes. */
+/* Tables: black on white like the printed book, an ink head, ruled rows, no stripes. */
 body.brumes--monster-of-the-week .markdown-rendered table {
   border-collapse: collapse;
   font-size: 0.9em;
@@ -26,9 +26,9 @@ body.brumes--monster-of-the-week .markdown-rendered table th {
   background: var(--motw-ink, var(--color-accent));
   color: var(--motw-on-ink, var(--background-primary));
   font-family: var(--motw-heading-font, var(--font-header-theme));
-  font-size: 0.85em;
+  font-size: 1em;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-align: start;
   text-transform: uppercase;
 }
@@ -38,6 +38,6 @@ body.brumes--monster-of-the-week .markdown-rendered table td {
   border-block-end: 1px solid var(--motw-rule, var(--background-modifier-border));
   vertical-align: top;
 }
-body.brumes--monster-of-the-week .markdown-rendered table tbody tr:nth-child(even) td {
-  background: var(--motw-panel, var(--background-primary-alt));
+body.brumes--monster-of-the-week .markdown-rendered table tbody tr:last-child td {
+  border-block-end: 2px solid var(--motw-ink, var(--text-normal));
 }

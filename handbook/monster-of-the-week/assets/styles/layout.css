@@ -67,9 +67,10 @@ body.brumes--monster-of-the-week [data-region] {
   break-inside: avoid;
 }
 body.brumes--monster-of-the-week [data-region] > :is(h2, h3) {
-  margin: 0 0 0.35rem;
-  color: var(--motw-accent);
+  margin: 0 0 0.4rem;
+  color: var(--motw-ink);
   font-family: var(--motw-heading-font);
+  font-size: 1.6rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   line-height: 1.1;
@@ -86,8 +87,9 @@ body.brumes--monster-of-the-week [data-region="motw-header"] > h2 {
   margin: 0;
   color: var(--motw-ink);
   font-family: var(--motw-title-font);
-  font-size: 2.3rem;
+  font-size: 3.4rem;
   font-weight: 400;
+  line-height: 1;
   letter-spacing: 0.03em;
 }
 body.brumes--monster-of-the-week [data-region="motw-header"] > span {
@@ -197,7 +199,7 @@ body.brumes--monster-of-the-week [data-region="motw-moves"] li > span {
   flex: 1 1 0;
   color: var(--text-normal);
   font-family: var(--motw-heading-font);
-  font-size: 1.05rem;
+  font-size: 1.3rem;
   font-weight: 600;
   text-transform: uppercase;
 }
