@@ -307,7 +307,7 @@ body.brumes--masks [data-primitive="boxes"] li > span {
   flex: 1 1 0;
   min-width: 0;
 }
-/* Moves: a navy title, then each move named in black capitals over an orange rule across the column, its text upright under it. */
+/* Moves: a navy title, then each move named in black capitals, its text upright under it, as on the printed sheet. */
 body.brumes--masks [data-region="masks-moves"] {
   border-block-start: 0;
 }
@@ -316,8 +316,6 @@ body.brumes--masks [data-region="masks-moves"] > h3 {
 }
 body.brumes--masks [data-region="masks-moves"] li > span {
   flex: 1 1 0;
-  padding-block-end: 0.1rem;
-  border-block-end: var(--masks-stroke) solid var(--masks-gold);
   color: var(--text-normal);
   font-family: var(--masks-heading-font);
   font-size: 1.05rem;
@@ -354,10 +352,13 @@ body.brumes--masks [data-region="masks-moment-of-truth"] {
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   column-gap: 0.5rem;
+  padding-block-end: 0.5rem;
+  border-block-end: var(--masks-stroke) solid var(--masks-gold);
 }
 body.brumes--masks [data-region="masks-moment-of-truth"] > h3 {
   grid-row: 1;
   grid-column: 1;
+  color: var(--masks-navy);
 }
 body.brumes--masks [data-region="masks-moment-of-truth"] > label {
   grid-row: 1;
@@ -365,7 +366,9 @@ body.brumes--masks [data-region="masks-moment-of-truth"] > label {
   display: flex;
   align-items: center;
   gap: 0.35rem;
+  color: var(--masks-navy);
   font-size: 0.8em;
+  font-weight: 700;
   text-transform: uppercase;
 }
 body.brumes--masks [data-region="masks-moment-of-truth"] > p {
