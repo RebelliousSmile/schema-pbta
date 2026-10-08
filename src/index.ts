@@ -11,6 +11,7 @@ export {
   parseMoveToml,
   parseNpcToml,
   parsePlaybookToml,
+  parseMasksNpcToml,
   parseMasksPlaybookToml,
   parseMonsterOfTheWeekPlaybookToml,
   parseTheSprawlPlaybookToml,
@@ -22,6 +23,7 @@ export {
   stringifyMoveToml,
   stringifyNpcToml,
   stringifyPlaybookToml,
+  stringifyMasksNpcToml,
   stringifyMasksPlaybookToml,
   stringifyMonsterOfTheWeekPlaybookToml,
   stringifyTheSprawlPlaybookToml,
@@ -38,6 +40,7 @@ export type {
   PbtaDocumentCodec,
   PbtaDocumentTarget,
   Playbook,
+  MasksNpc,
   MasksPlaybook,
   MonsterOfTheWeekPlaybook,
   TheSprawlPlaybook,
@@ -57,6 +60,7 @@ export { playbookSchema } from "./zod/playbook.js";
 export { urbanShadowsPlaybookSchema } from "./zod/urban-shadows-playbook.js";
 export { monsterheartsPlaybookSchema } from "./zod/monsterhearts-playbook.js";
 export { masksPlaybookSchema } from "./zod/masks-playbook.js";
+export { masksNpcSchema } from "./zod/masks-npc.js";
 export { monsterOfTheWeekPlaybookSchema } from "./zod/monster-of-the-week-playbook.js";
 export { theSprawlPlaybookSchema } from "./zod/the-sprawl-playbook.js";
 export { salvageRunPlaybookSchema } from "./zod/salvage-run-playbook.js";
@@ -99,5 +103,25 @@ export type {
 } from "./presentation/index.js";
 export { getPbtaUrbanShadowsAppearance, PBTA_URBAN_SHADOWS_APPEARANCE, urbanShadowsAppearanceSchema } from "./presentation/index.js";
 export type { PbtaUrbanShadowsAppearance } from "./presentation/index.js";
+export {
+  getPbtaMasksAppearance,
+  getPbtaMasksNpcPresentation,
+  getPbtaMasksPlaybookPresentation,
+  masksAppearanceSchema,
+  masksNpcPresentationSchema,
+  masksPlaybookPresentationSchema,
+  PBTA_MASKS_APPEARANCE,
+  PBTA_MASKS_NPC_PRESENTATION,
+  PBTA_MASKS_PLAYBOOK_PRESENTATION,
+} from "./presentation/index.js";
+export type {
+  PbtaMasksAppearance,
+  PbtaMasksNpcPresentation,
+  PbtaMasksNpcPrimitive,
+  PbtaMasksNpcRegionId,
+  PbtaMasksPlaybookPresentation,
+  PbtaMasksPlaybookPrimitive,
+  PbtaMasksPlaybookRegionId,
+} from "./presentation/index.js";
 export { PBTA_PACK_CALLOUTS, PBTA_VISUAL_CALLOUTS } from "./presentation/index.js";
 export type { PbtaPackCallout, PbtaVisualCallout } from "./presentation/index.js";

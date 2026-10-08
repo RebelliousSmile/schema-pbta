@@ -17,6 +17,11 @@ import {
 } from "../src/presentation/urban-shadows-playbook.js";
 import { PBTA_URBAN_SHADOWS_APPEARANCE } from "../src/presentation/urban-shadows-appearance.js";
 import { urbanShadowsPlaybookSchema } from "../src/zod/urban-shadows-playbook.js";
+import { masksPlaybookPresentationSchema, PBTA_MASKS_PLAYBOOK_PRESENTATION } from "../src/presentation/masks-playbook.js";
+import { masksNpcPresentationSchema, PBTA_MASKS_NPC_PRESENTATION } from "../src/presentation/masks-npc.js";
+import { PBTA_MASKS_APPEARANCE } from "../src/presentation/masks-appearance.js";
+import { masksPlaybookSchema } from "../src/zod/masks-playbook.js";
+import { masksNpcSchema } from "../src/zod/masks-npc.js";
 
 const keys = new Set<string>();
 
@@ -29,7 +34,7 @@ for (const entry of PBTA_COLLECTION_PRESENTATIONS) {
   assert.equal(entry.cardinality, "mutable", `${key}: PbtA collections default to mutable`);
   assert.equal(entry.reorder, true, `${key}: PbtA collections must be reorderable`);
   if (entry.itemCapabilities?.includes("checked")) {
-    assert.match(entry.path, /^(moves|advancement|advances|improvements|corruption\.advances)$/, `${key}: checked capability is not exported by this collection`);
+    assert.match(entry.path, /^(moves|advancement|advances|improvements|corruption\.advances|conditions|drives\.options)$/, `${key}: checked capability is not exported by this collection`);
   }
 }
 
@@ -49,13 +54,17 @@ assert.ok(
   "other playbook targets retain play advice editing",
 );
 
-assert.equal(PBTA_STAT_RANGE_PRESENTATIONS.length, 1, "exactly one stat-range descriptor is published");
+assert.equal(PBTA_STAT_RANGE_PRESENTATIONS.length, 2, "Monsterhearts and Masks each publish one stat-range descriptor");
 const statRange = getPbtaStatRangePresentation("monsterhearts-playbook");
 assert.ok(statRange, "Monsterhearts publishes stat-range presentation metadata");
 assert.deepEqual(statRange.order, ["min", "current", "max"], "stat range order is min/current/max");
 assert.equal(statRange.statsPath, "stats");
 assert.equal(statRange.rangesPath, "statRanges");
-assert.equal(getPbtaStatRangePresentation("masks-playbook"), undefined, "other targets do not publish Monsterhearts ranges");
+const masksStatRange = getPbtaStatRangePresentation("masks-playbook");
+assert.ok(masksStatRange, "Masks publishes stat-range presentation metadata");
+assert.equal(masksStatRange.rangesPath, "statRanges");
+assert.deepEqual(masksStatRange.order, ["min", "current", "max"], "Masks stat range order is min/current/max");
+assert.equal(getPbtaStatRangePresentation("urban-shadows-playbook"), undefined, "targets without display bounds publish no stat range");
 
 const monsterheartsPresentation = PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION;
 assert.equal(monsterheartsPresentation.regions.length, 13, "Monsterhearts publishes every complete-playbook region");
@@ -193,6 +202,83 @@ for (const invalid of [
   );
 }
 
+/* Masks: two layouts, one per target. A fixture names the paths it overrides and, for a reject, the defect it must name. */
+type PresentationFixture = { target: string; set: Record<string, unknown>; rejects?: string };
+function applyFixture<T extends object>(base: T, fixture: PresentationFixture): unknown {
+  const copy = structuredClone(base) as Record<string, unknown>;
+  for (const [fixturePath, value] of Object.entries(fixture.set)) {
+    const segments = fixturePath.split(".");
+    let cursor = copy as Record<string, unknown>;
+    for (const segment of segments.slice(0, -1)) cursor = cursor[segment] as Record<string, unknown>;
+    cursor[segments[segments.length - 1] as string] = value;
+  }
+  return copy;
+}
+const masksLayouts = {
+  "masks-playbook": { base: PBTA_MASKS_PLAYBOOK_PRESENTATION, schema: masksPlaybookPresentationSchema },
+  "masks-npc": { base: PBTA_MASKS_NPC_PRESENTATION, schema: masksNpcPresentationSchema },
+} as const;
+for (const kind of ["valid", "invalid"] as const) {
+  const names = fs.readdirSync(new URL(`../corpus/presentation/${kind}`, import.meta.url)).filter((name) => name.startsWith("masks-") && name.includes("-layout-"));
+  const targets = new Set<string>();
+  for (const name of names) {
+    const fixture = layoutFixture(`${kind}/${name}`) as unknown as PresentationFixture;
+    const layout = masksLayouts[fixture.target as keyof typeof masksLayouts];
+    assert.ok(layout, `${name}: unknown Masks target ${fixture.target}`);
+    targets.add(fixture.target);
+    const candidate = applyFixture(layout.base, fixture);
+    if (kind === "valid") {
+      assert.doesNotThrow(() => layout.schema.parse(candidate), `presentation corpus accepts ${name}`);
+    } else {
+      assert.ok(fixture.rejects, `${name}: a reject names the defect it carries`);
+      const outcome = layout.schema.safeParse(candidate);
+      assert.ok(!outcome.success, `presentation corpus rejects ${name}`);
+      assert.ok(
+        JSON.stringify(outcome.error.issues).includes(fixture.rejects),
+        `${name}: expected the defect "${fixture.rejects}", got ${JSON.stringify(outcome.error.issues.map((issue) => issue.message))}`,
+      );
+    }
+  }
+  assert.deepEqual([...targets].sort(), ["masks-npc", "masks-playbook"], `the ${kind} presentation corpus covers both Masks targets`);
+}
+
+const masksPlaybookPresentation = PBTA_MASKS_PLAYBOOK_PRESENTATION;
+assert.equal(masksPlaybookPresentation.regions.length, 13, "Masks publishes every region of the booklet");
+assert.deepEqual(
+  masksPlaybookPresentation.canonicalOrder,
+  masksPlaybookPresentation.regions.map((region) => region.id),
+  "Masks canonical order follows the declared regions",
+);
+assert.deepEqual(
+  masksPlaybookPresentation.faces.map((face) => [face.id, face.header]),
+  [["recto", "masks-header"], ["verso", "masks-header"]],
+  "both faces share the header region",
+);
+const masksNpcPresentation = PBTA_MASKS_NPC_PRESENTATION;
+assert.equal(masksNpcPresentation.regions.length, 8, "Masks publishes every region of the card");
+assert.deepEqual(masksNpcPresentation.outsideCard, ["masks-npc-context"], "only the context is left outside the card");
+assert.deepEqual(
+  masksNpcPresentation.regions.filter((region) => region.group === "context").map((region) => region.id),
+  masksNpcPresentation.outsideCard,
+  "the regions named outside the card are the context ones",
+);
+assert.ok(
+  masksNpcPresentation.rows.every((row) => row.length >= 1 && row.length <= 3) && masksNpcPresentation.rows.some((row) => row.length === 1) && masksNpcPresentation.rows.some((row) => row.length === 2),
+  "the card has rows of one and of two columns",
+);
+for (const [presentation, schema, label] of [
+  [masksPlaybookPresentation, masksPlaybookSchema, "Masks playbook"],
+  [masksNpcPresentation, masksNpcSchema, "Masks NPC"],
+] as const) {
+  for (const region of presentation.regions) {
+    for (const field of region.fields) {
+      assert.ok(declares(schema, field), `${region.id}: ${field} is not a field of the ${label}`);
+    }
+  }
+  assert.ok(presentation.regions.every((region) => /[A-Za-zÀ-ÿ]/.test(region.label)), `${label}: every region carries a label`);
+}
+assert.deepEqual(PBTA_MASKS_APPEARANCE.targets, ["masks-playbook", "masks-npc"], "the Masks appearance serves both targets");
+
 const unknownItemEditorFixture = JSON.parse(
   fs.readFileSync(
     new URL("../corpus/presentation/invalid/unknown-item-editor.json", import.meta.url),
@@ -205,4 +291,4 @@ assert.throws(
   "presentation corpus rejects an unknown collection item editor",
 );
 
-console.log(`✓ validated ${PBTA_COLLECTION_PRESENTATIONS.length} PbtA collection presentations, Monsterhearts and Urban Shadows layout semantics`);
+console.log(`✓ validated ${PBTA_COLLECTION_PRESENTATIONS.length} PbtA collection presentations, Monsterhearts, Urban Shadows and Masks layout semantics`);

@@ -5,6 +5,9 @@ import { PBTA_DOCUMENT_CODECS, type PbtaDocumentTarget } from "../src/codecs/tom
 import { packManifestSchema } from "../src/pack-manifest.js";
 import { PBTA_MONSTERHEARTS_APPEARANCE } from "../src/presentation/monsterhearts-appearance.js";
 import { PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION } from "../src/presentation/monsterhearts-playbook.js";
+import { PBTA_MASKS_APPEARANCE } from "../src/presentation/masks-appearance.js";
+import { PBTA_MASKS_NPC_PRESENTATION } from "../src/presentation/masks-npc.js";
+import { PBTA_MASKS_PLAYBOOK_PRESENTATION } from "../src/presentation/masks-playbook.js";
 import { PBTA_URBAN_SHADOWS_APPEARANCE } from "../src/presentation/urban-shadows-appearance.js";
 import { PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION } from "../src/presentation/urban-shadows-playbook.js";
 
@@ -29,15 +32,32 @@ for (const host of ["lantern", "handbook"] as const) {
 
 /* A pack that publishes a layout advertises it; the artifacts it names are the generated ones, never a hand copy. */
 const published = [
-  { presentation: PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION, appearance: PBTA_MONSTERHEARTS_APPEARANCE },
-  { presentation: PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION, appearance: PBTA_URBAN_SHADOWS_APPEARANCE },
-].filter((entry) => entry.presentation.pack.id === manifest.pack.id);
+  {
+    pack: PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION.pack.id, presentation: PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
+    appearance: PBTA_MONSTERHEARTS_APPEARANCE, artifact: "presentation-contract.json",
+    appearanceArtifact: PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION.pack.appearanceArtifact,
+  },
+  {
+    pack: PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION.pack.id, presentation: PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION,
+    appearance: PBTA_URBAN_SHADOWS_APPEARANCE, artifact: "presentation-contract.json",
+    appearanceArtifact: PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION.pack.appearanceArtifact,
+  },
+  /* Masks publishes two layouts, one per target, and one appearance both resolve against. */
+  {
+    pack: "masks", presentation: PBTA_MASKS_PLAYBOOK_PRESENTATION, appearance: PBTA_MASKS_APPEARANCE,
+    artifact: "presentation-contract.json", appearanceArtifact: "appearance-contract.json",
+  },
+  {
+    pack: "masks", presentation: PBTA_MASKS_NPC_PRESENTATION, appearance: PBTA_MASKS_APPEARANCE,
+    artifact: "npc-presentation-contract.json", appearanceArtifact: "appearance-contract.json",
+  },
+].filter((entry) => entry.pack === manifest.pack.id);
 assert.deepEqual(
   manifest.presentation,
   published.length === 0 ? undefined : published.map((entry) => ({
     target: entry.presentation.target,
-    artifact: "presentation-contract.json",
-    appearanceArtifact: entry.presentation.pack.appearanceArtifact,
+    artifact: entry.artifact,
+    appearanceArtifact: entry.appearanceArtifact,
   })),
   `${manifest.pack.id} must advertise exactly its generated presentation contracts`,
 );
@@ -58,6 +78,11 @@ for (const entry of manifest.presentation ?? []) {
       `${manifest.pack.id}: ${name} must be generated from the npm presentation export`,
     );
   }
+}
+if ((manifest.presentation ?? []).some((entry) => entry.target.startsWith("masks-"))) {
+  /* A pack that lays out a sheet asks Handbook for the layout; Lantern does not render it. */
+  assert.ok(manifest.requirements.handbook.includes("presentation:pbta-layout"), "masks: handbook must require presentation:pbta-layout");
+  assert.ok(!manifest.requirements.lantern.includes("presentation:pbta-layout"), "masks: lantern must not require presentation:pbta-layout");
 }
 
 /* The corpus is the only source of canonical witnesses: a fixture outside it proves nothing about the contract. */

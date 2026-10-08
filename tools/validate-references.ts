@@ -84,6 +84,13 @@ function* walk(node: unknown, keyPath: string): Generator<[Dict, string]> {
   }
 }
 
+/** The `options` of one attribute of a game definition, as strings. */
+function optionsOf(attributes: unknown, key: string): string[] {
+  const attribute = isDict(attributes) ? attributes[key] : undefined;
+  const options = isDict(attribute) ? attribute.options : undefined;
+  return Array.isArray(options) ? options.filter((value): value is string => typeof value === "string") : [];
+}
+
 function at(keyPath: string): string {
   return keyPath === "" ? "" : `${keyPath}.`;
 }
@@ -448,6 +455,57 @@ function checkGame(game: Game, root: string) {
           error(file, `extras[${index}].key`, `duplicate frame key "${extra.key}"`);
         }
         extraKeys.add(extra.key);
+      }
+    }
+
+    // A Masks playbook marks Potential within the boxes it prints, takes its
+    // Conditions from the game definition and bounds only Labels the game has.
+    if (game.folder === "masks" && type === "masks-playbook") {
+      if (
+        typeof data.potential === "number" &&
+        typeof data.potentialMax === "number" &&
+        data.potential > data.potentialMax
+      ) {
+        error(file, "potential", `potential ${data.potential} exceeds potentialMax ${data.potentialMax}`);
+      }
+      const characterConditions = optionsOf(character.attributes, "conditions");
+      const playbookConditions = Array.isArray(data.conditions) ? data.conditions : [];
+      for (const [index, condition] of playbookConditions.entries()) {
+        if (!isDict(condition) || typeof condition.name !== "string") continue;
+        if (characterConditions.includes(condition.name)) continue;
+        error(
+          file,
+          `conditions[${index}].name`,
+          `unknown condition "${condition.name}"; the game declares: ${list(characterConditions)}`
+        );
+      }
+      for (const key of keysOf(data.statRanges)) {
+        if (statKeys.includes(key)) continue;
+        error(file, `statRanges.${key}`, `unknown stat "${key}"; the game declares: ${list(statKeys)}`);
+      }
+    }
+
+    // A Masks NPC card keeps its Self mark on the track and names Conditions of the game.
+    if (game.folder === "masks" && type === "masks-npc") {
+      if (isDict(data.self)) {
+        const { min, max, value } = data.self;
+        if (typeof min === "number" && typeof max === "number" && min > max) {
+          error(file, "self.min", `self.min ${min} exceeds self.max ${max}`);
+        } else if (typeof min === "number" && typeof max === "number" && typeof value === "number") {
+          if (value < min || value > max) {
+            error(file, "self.value", `self.value ${value} is outside the track ${min}..${max}`);
+          }
+        }
+      }
+      const npcConditions = optionsOf(npc.attributes, "condition");
+      const cardConditions = Array.isArray(data.conditions) ? data.conditions : [];
+      for (const [index, condition] of cardConditions.entries()) {
+        if (typeof condition !== "string" || npcConditions.includes(condition)) continue;
+        error(
+          file,
+          `conditions[${index}]`,
+          `unknown condition "${condition}"; the game declares for npc: ${list(npcConditions)}`
+        );
       }
     }
 

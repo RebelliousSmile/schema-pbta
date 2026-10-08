@@ -7,6 +7,7 @@ import { playbookSchema } from "./playbook.js";
 import { urbanShadowsPlaybookSchema } from "./urban-shadows-playbook.js";
 import { monsterheartsPlaybookSchema } from "./monsterhearts-playbook.js";
 import { masksPlaybookSchema } from "./masks-playbook.js";
+import { masksNpcSchema } from "./masks-npc.js";
 import { monsterOfTheWeekPlaybookSchema } from "./monster-of-the-week-playbook.js";
 import { theSprawlPlaybookSchema } from "./the-sprawl-playbook.js";
 import { salvageRunPlaybookSchema } from "./salvage-run-playbook.js";
@@ -118,6 +119,7 @@ export const TARGETS: Array<SchemaTarget> = [
     game: GAMES.masks,
   },
   { name: "masks-playbook", zod: masksPlaybookSchema, game: GAMES.masks },
+  { name: "masks-npc", zod: masksNpcSchema, game: GAMES.masks },
   {
     name: "game-definition",
     zod: gameDefinitionSchema,

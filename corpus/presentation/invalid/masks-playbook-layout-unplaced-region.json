@@ -1,0 +1,16 @@
+{
+  "target": "masks-playbook",
+  "rejects": "region left unplaced: masks-influence",
+  "set": {
+    "faces.1.columns": [
+      [
+        "masks-identity",
+        "masks-backstory",
+        "masks-relationships"
+      ],
+      [
+        "masks-illustration"
+      ]
+    ]
+  }
+}

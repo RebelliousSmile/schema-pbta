@@ -2,6 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadData } from "./read-data.js";
+import { PBTA_MASKS_NPC_PRESENTATION } from "../src/presentation/masks-npc.js";
+import { PBTA_MASKS_PLAYBOOK_PRESENTATION } from "../src/presentation/masks-playbook.js";
 import { PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION } from "../src/presentation/monsterhearts-playbook.js";
 
 type Data = Record<string, unknown>;
@@ -11,6 +13,8 @@ type PreviewDescriptor = {
   gameDefinition: string;
   playbookKind?: string;
   playbook: string;
+  npcKind?: string;
+  npc?: string;
   moves: string[];
   mcMoves: string[];
   variants: string[];
@@ -42,6 +46,8 @@ function descriptorFor(game: string): PreviewDescriptor {
     gameDefinition: String(data.gameDefinition),
     playbookKind: data.playbookKind === undefined ? undefined : String(data.playbookKind),
     playbook: String(data.playbook),
+    npcKind: data.npcKind === undefined ? undefined : String(data.npcKind),
+    npc: data.npc === undefined ? undefined : String(data.npc),
     moves: asStrings(data.moves, `${file}: moves`),
     mcMoves: asStrings(data.mcMoves, `${file}: mcMoves`),
     variants: asStrings(data.variants, `${file}: variants`),
@@ -397,6 +403,143 @@ function renderMonsterheartsPage(
 </html>\n`;
 }
 
+/* Masks: the extended booklet (two faces) and the NPC card. Handbook renders the hooks the two contracts name;
+   the geometry is the pack's layout.css. */
+function renderMasksPage(descriptor: PreviewDescriptor, definition: Data, playbook: Data, moves: Data[], npc: Data | undefined): string {
+  const labels = asData(asData(definition.character, "character").stats, "character.stats");
+  const box = (checked: unknown, label: string): string =>
+    `<label><input type="checkbox" disabled${checked === true ? " checked" : ""}> <span>${label}</span></label>`;
+  const paragraphs = (value: unknown): string =>
+    (Array.isArray(value) ? value : typeof value === "string" ? value.split(/\n\n/) : [])
+      .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
+  const keyValue = (rows: Array<[string, unknown]>): string =>
+    `<dl>${rows.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value ?? "")}</dd></div>`).join("")}</dl>`;
+  const region = (id: string, label: string, primitive: string, order: number, content: string, extra = ""): string =>
+    `<section data-region="${id}" data-primitive="${primitive}" style="--pbta-region-order: ${order}"${extra}><h3>${escapeHtml(label)}</h3>${content}</section>`;
+
+  const playbookRegion = (id: string, order: number): string => {
+    const declared = PBTA_MASKS_PLAYBOOK_PRESENTATION.regions.find((entry) => entry.id === id);
+    if (!declared) throw new Error(`Masks preview cannot render undeclared region: ${id}`);
+    const at = (content: string, extra = ""): string => region(id, declared.label, declared.primitive, order, content, extra);
+    switch (id) {
+      case "masks-header":
+        return `<section data-region="${id}" data-primitive="${declared.primitive}" style="--pbta-region-order: ${order}"><h2>${escapeHtml(playbook.name)}</h2><p>${escapeHtml(playbook.heroName ?? "")}</p><p>${escapeHtml(playbook.description)}</p></section>`;
+      case "masks-labels": {
+        const ranges = asData(playbook.statRanges ?? {}, "statRanges");
+        const stats = entries(playbook.stats).map(([key, value]) => {
+          const range = asData(ranges[key] ?? {}, `statRange ${key}`);
+          const bounds = typeof range.min === "number" && typeof range.max === "number" ? ` (${range.min} / ${range.max})` : "";
+          return `<span data-stat="${escapeHtml(key)}" data-schema-block="stat"><strong>${escapeHtml(labels[key] ?? key)}</strong> ${escapeHtml(value)}${bounds}</span>`;
+        }).join("");
+        return at(stats);
+      }
+      case "masks-conditions": {
+        const conditions = Array.isArray(playbook.conditions) ? playbook.conditions.map((raw) => {
+          const condition = asData(raw, "condition");
+          return `<li>${box(condition.checked, `<strong>${escapeHtml(condition.name)}</strong>${condition.description ? ` : ${escapeHtml(condition.description)}` : ""}`)}</li>`;
+        }).join("") : "";
+        return at(`<ul>${conditions}</ul>`);
+      }
+      case "masks-moment-of-truth":
+        return at(`${paragraphs([playbook.momentOfTruth ?? ""])}${box(playbook.momentUnlocked, "Débloqué")}`, ` data-specialized-field="moment-of-truth"`);
+      case "masks-influence-options":
+        return at(list(playbook.influenceOptions, "handbook-value-list"));
+      case "masks-advances": {
+        const maximum = typeof playbook.potentialMax === "number" ? playbook.potentialMax : 0;
+        const filled = typeof playbook.potential === "number" ? playbook.potential : 0;
+        const potential = Array.from({ length: maximum }, (_, index) => `<li>${box(index < filled, `Potentiel ${index + 1}`)}</li>`).join("");
+        return at(`<ul>${potential}</ul>${list(playbook.advancement, "handbook-advancement")}`, ` data-specialized-field="potential"`);
+      }
+      case "masks-moves": {
+        const referenced = moves.map((move) => `<li data-schema-block="move">${box(false, `<strong>${escapeHtml(move.name)}</strong> : ${escapeHtml(move.description)}`)}</li>`);
+        const inline = (Array.isArray(playbook.moves) ? playbook.moves : []).flatMap((raw) => {
+          const item = asData(raw, "playbook move");
+          return item.ref ? [] : [`<li data-schema-block="move">${box(item.checked, `<strong>${escapeHtml(item.name)}</strong> : ${escapeHtml(item.description)}`)}</li>`];
+        });
+        return at(`<ul>${[...referenced, ...inline].join("")}</ul>`);
+      }
+      case "masks-drives": {
+        const drives = asData(playbook.drives ?? {}, "drives");
+        const options = Array.isArray(drives.options) ? drives.options.map((raw) => {
+          const option = asData(raw, "drive option");
+          return `<li>${box(option.checked, escapeHtml(option.label))}</li>`;
+        }).join("") : "";
+        return at(`${paragraphs(drives.intro)}<ul>${options}</ul>`);
+      }
+      case "masks-identity":
+        return at(keyValue([["Nom civil", playbook.realName], ["Capacités", playbook.abilities], ["Attitude", playbook.demeanor]]));
+      case "masks-backstory":
+        return at(paragraphs(playbook.backstory));
+      case "masks-relationships":
+        return at(list(playbook.relationships, "handbook-value-list"));
+      case "masks-influence":
+        return at(list(playbook.influence, "handbook-value-list"), ` data-specialized-field="influence"`);
+      case "masks-illustration":
+        return at(playbook.playbookImage ? `<img src="${escapeHtml(playbook.playbookImage)}" alt="Portrait de ${escapeHtml(playbook.name)}">` : `<p>Portrait de ${escapeHtml(playbook.name)}</p>`);
+      default: throw new Error(`Masks preview cannot render declared region: ${id}`);
+    }
+  };
+  const order = (id: string): number => (PBTA_MASKS_PLAYBOOK_PRESENTATION.canonicalOrder as readonly string[]).indexOf(id) + 1;
+  const faces = PBTA_MASKS_PLAYBOOK_PRESENTATION.faces.map((face) => {
+    const columns = face.columns.map((column, index) =>
+      `<div data-column="${index + 1}">${column.map((id) => playbookRegion(id, order(id))).join("\n")}</div>`).join("\n");
+    return `<section data-face="${face.id}" aria-label="${escapeHtml(face.label)}">\n${playbookRegion(face.header, order(face.header))}\n${columns}\n</section>`;
+  }).join("\n");
+
+  const card = (() => {
+    if (!npc) return "";
+    const npcRegion = (id: string, orderIndex: number): string => {
+      const declared = PBTA_MASKS_NPC_PRESENTATION.regions.find((entry) => entry.id === id);
+      if (!declared) throw new Error(`Masks preview cannot render undeclared NPC region: ${id}`);
+      const at = (content: string): string => region(id, declared.label, declared.primitive, orderIndex, content);
+      switch (id) {
+        case "masks-npc-header":
+          return `<section data-region="${id}" data-primitive="${declared.primitive}" style="--pbta-region-order: ${orderIndex}"><h2>${escapeHtml(npc.name)}</h2><p>${escapeHtml(npc.generation ?? "")}</p></section>`;
+        case "masks-npc-identity":
+          return at(keyValue([["Nom civil", npc.realName], ["Drive", npc.drive], ["Capacités", npc.abilities]]));
+        case "masks-npc-resistance":
+          return at(`<p><strong>${escapeHtml(npc.resistance ?? 0)}</strong></p>${list(npc.conditions, "handbook-value-list")}`);
+        case "masks-npc-self": {
+          const self = asData(npc.self, "NPC self");
+          const min = Number(self.min);
+          const max = Number(self.max);
+          const values = Array.from({ length: max - min + 1 }, (_, index) => min + index)
+            .map((value) => `<span${value === self.value ? ` data-filled="true"` : ""}>${value > 0 ? "+" : ""}${value}</span>`).join("");
+          return at(values);
+        }
+        case "masks-npc-worst-self": return at(paragraphs([npc.worstSelf ?? ""]));
+        case "masks-npc-best-self": return at(paragraphs([npc.bestSelf ?? ""]));
+        case "masks-npc-moves": return at(list(npc.moves, "handbook-value-list"));
+        case "masks-npc-context": return at(paragraphs(npc.description));
+        default: throw new Error(`Masks preview cannot render declared NPC region: ${id}`);
+      }
+    };
+    const npcOrder = (id: string): number => (PBTA_MASKS_NPC_PRESENTATION.canonicalOrder as readonly string[]).indexOf(id) + 1;
+    const rows = PBTA_MASKS_NPC_PRESENTATION.rows.map((row, rowIndex) =>
+      `<div data-row="${rowIndex + 1}">${row.map((column) => column.map((id) => npcRegion(id, npcOrder(id))).join("\n")).join("\n")}</div>`).join("\n");
+    const outside = PBTA_MASKS_NPC_PRESENTATION.outsideCard.map((id) => npcRegion(id, npcOrder(id))).join("\n");
+    return `<article class="handbook-masks-npc" data-card="masks-npc">\n${rows}\n${outside}\n</article>`;
+  })();
+
+  return `<!doctype html>
+<html lang="fr" data-game="masks" data-variant="${escapeHtml(descriptor.defaultVariant)}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(playbook.name)} — Masks playbook</title>
+  <link rel="stylesheet" href="../../shared/preview.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../assets/styles/layout.css">
+</head>
+<body class="brumes--masks theme-light">
+  <main class="handbook-sheet handbook-masks-sheet" data-handbook-preview>
+${faces}
+${card}
+  </main>
+</body>
+</html>\n`;
+}
+
 function render(game: string): string {
   const descriptor = descriptorFor(game);
   if (descriptor.game !== game) throw new Error(`${game}: descriptor game mismatch`);
@@ -413,6 +556,11 @@ function render(game: string): string {
   const variantOptions = descriptor.variants.map((variant) => `<option value="${escapeHtml(variant)}"${variant === descriptor.defaultVariant ? " selected" : ""}>${escapeHtml(variant)}</option>`).join("");
   const creation = renderCreation(playbook);
   const mcRegion = mcMoves.length ? mcMoves.map((move) => renderMove(move, definition)).join("\n") : `<p class="handbook-empty">Aucune action de MC sélectionnée pour cet aperçu.</p>`;
+
+  if (game === "masks" && descriptor.playbookKind === "masks-playbook") {
+    const npc = descriptor.npc ? canonical(game, descriptor.npcKind ?? "masks-npc", descriptor.npc) : undefined;
+    return renderMasksPage(descriptor, definition, playbook, moves, npc);
+  }
 
   if (game === "monsterhearts" && descriptor.playbookKind === "monsterhearts-playbook") {
     return renderMonsterheartsPage(descriptor, definition, playbook, moves, variantOptions, creation);

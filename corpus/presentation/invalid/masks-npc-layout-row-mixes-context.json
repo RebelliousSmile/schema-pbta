@@ -1,0 +1,47 @@
+{
+  "target": "masks-npc",
+  "rejects": "a row mixes the card with its context",
+  "set": {
+    "rows": [
+      [
+        [
+          "masks-npc-header"
+        ]
+      ],
+      [
+        [
+          "masks-npc-identity"
+        ]
+      ],
+      [
+        [
+          "masks-npc-resistance"
+        ]
+      ],
+      [
+        [
+          "masks-npc-self"
+        ]
+      ],
+      [
+        [
+          "masks-npc-worst-self"
+        ],
+        [
+          "masks-npc-best-self"
+        ]
+      ],
+      [
+        [
+          "masks-npc-moves"
+        ],
+        [
+          "masks-npc-context"
+        ]
+      ]
+    ],
+    "outsideCard": [
+      "masks-npc-context"
+    ]
+  }
+}

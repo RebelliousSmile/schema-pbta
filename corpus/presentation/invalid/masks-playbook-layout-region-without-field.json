@@ -1,0 +1,7 @@
+{
+  "target": "masks-playbook",
+  "rejects": "too_small",
+  "set": {
+    "regions.2.fields": []
+  }
+}

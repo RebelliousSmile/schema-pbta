@@ -7,6 +7,9 @@ import { MINIMUM_HANDBOOK_VERSION } from "./handbook-minimum-host.js";
 import { PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION } from "../src/presentation/monsterhearts-playbook.js";
 import { PBTA_URBAN_SHADOWS_APPEARANCE } from "../src/presentation/urban-shadows-appearance.js";
 import { PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION } from "../src/presentation/urban-shadows-playbook.js";
+import { PBTA_MASKS_APPEARANCE } from "../src/presentation/masks-appearance.js";
+import { PBTA_MASKS_NPC_PRESENTATION } from "../src/presentation/masks-npc.js";
+import { PBTA_MASKS_PLAYBOOK_PRESENTATION } from "../src/presentation/masks-playbook.js";
 import { PBTA_PACK_CALLOUTS, PBTA_VISUAL_CALLOUTS } from "../src/presentation/callouts.js";
 
 type Data = Record<string, unknown>;
@@ -86,6 +89,43 @@ function validateStyle(value: unknown, issues: string[], context: string): void 
 }
 
 /** Validate the exact closed payload that Handbook will resolve from one source. */
+/** The selectors of a stylesheet that do not start with the scope: at-rule preludes are skipped, commas split at depth zero. */
+export function unscopedSelectors(css: string, scope: string): string[] {
+  const text = css.replace(/\/\*[\s\S]*?\*\//g, "");
+  const found: string[] = [];
+  let prelude = "";
+  let parens = 0;
+  for (const character of text) {
+    if (character === "(") parens += 1;
+    if (character === ")") parens -= 1;
+    if (character === "{" && parens === 0) {
+      const head = prelude.trim();
+      if (head && !head.startsWith("@")) {
+        let depth = 0;
+        let current = "";
+        const parts: string[] = [];
+        for (const piece of head) {
+          if (piece === "(" || piece === "[") depth += 1;
+          if (piece === ")" || piece === "]") depth -= 1;
+          if (piece === "," && depth === 0) {
+            parts.push(current);
+            current = "";
+          } else current += piece;
+        }
+        parts.push(current);
+        for (const part of parts) {
+          const selector = part.trim();
+          if (selector && !selector.startsWith(scope)) found.push(selector);
+        }
+      }
+      prelude = "";
+    } else if ((character === "}" || character === ";") && parens === 0) {
+      prelude = "";
+    } else prelude += character;
+  }
+  return found;
+}
+
 export function validateInstallableHandbookSource(sourceRoot: string): string[] {
   const issues: string[] = [];
   const catalogue = readJson(path.join(sourceRoot, "handbook.json"), issues, "handbook.json");
@@ -331,6 +371,82 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
         }
       }
     }
+    if (id === "masks") {
+      /* The pack installs what the npm contracts publish: the artifacts on disk are the exports. */
+      for (const [file, exported] of [
+        ["presentation-contract.json", PBTA_MASKS_PLAYBOOK_PRESENTATION],
+        ["npc-presentation-contract.json", PBTA_MASKS_NPC_PRESENTATION],
+        ["appearance-contract.json", PBTA_MASKS_APPEARANCE],
+      ] as const) {
+        const artifact = path.join(root, "packs", "masks", file);
+        if (!fs.existsSync(artifact) || JSON.stringify(JSON.parse(fs.readFileSync(artifact, "utf8"))) !== JSON.stringify(exported)) {
+          issues.push(`masks: source ${file} diverges from the npm export`);
+        }
+      }
+      /* Four faces, each with the licence of its family beside it. */
+      const maskFonts = data(assets.fonts);
+      for (const [family, licence] of [
+        ["Staatliches", "OFL-Staatliches.txt"],
+        ["Josefin Sans", "OFL-JosefinSans.txt"],
+        ["Crimson Pro", "OFL-CrimsonPro.txt"],
+        ["Comic Neue", "OFL-ComicNeue.txt"],
+      ]) {
+        const face = data(maskFonts[family]);
+        if (typeof face.file !== "string") {
+          issues.push(`masks: ${family} must be supplied as a pack font asset`);
+          continue;
+        }
+        if (!fs.existsSync(path.join(manifestRoot, String(assetRoot), path.dirname(face.file), licence))) {
+          issues.push(`masks: ${family} must ship its licence ${licence}`);
+        }
+      }
+      for (const token of ["--code-normal", "--code-background", "--masks-navy", "--masks-gold", "--masks-panel", "--masks-on-navy", "--masks-rule"]) {
+        if (typeof native[token] !== "string") issues.push(`masks: missing native token ${token}`);
+      }
+      const maskBase = data(data(data(pack.style).base).note);
+      for (const token of ["--masks-title-font", "--masks-heading-font", "--masks-body-font", "--masks-aside-font"]) {
+        if (typeof maskBase[token] !== "string") issues.push(`masks: base theme must define ${token}`);
+      }
+      /* Every sheet of the pack stays under the pack scope; the layout also stays free of colours and of unpublished hooks. */
+      for (const sheet of strings(assets.stylesheets)) {
+        const sheetFile = path.join(manifestRoot, String(assetRoot), sheet);
+        if (!fs.existsSync(sheetFile)) continue;
+        for (const selector of unscopedSelectors(fs.readFileSync(sheetFile, "utf8"), "body.brumes--masks")) {
+          issues.push(`masks: ${sheet} has the unscoped selector ${selector}`);
+        }
+      }
+      const layoutSheet = "styles/layout.css";
+      const layoutFile = path.join(manifestRoot, String(assetRoot), layoutSheet);
+      if (!strings(assets.stylesheets).includes(layoutSheet) || !fs.existsSync(layoutFile)) {
+        issues.push(`masks: the booklet geometry must be supplied as ${layoutSheet}`);
+      } else {
+        const layout = fs.readFileSync(layoutFile, "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
+        const regions = [...PBTA_MASKS_PLAYBOOK_PRESENTATION.regions, ...PBTA_MASKS_NPC_PRESENTATION.regions];
+        const hooks: Array<[string, string[]]> = [
+          ["data-region", regions.map((region) => region.id)],
+          ["data-primitive", regions.map((region) => region.primitive)],
+          ["data-face", PBTA_MASKS_PLAYBOOK_PRESENTATION.faces.map((face) => face.id)],
+        ];
+        for (const [attribute, published] of hooks) {
+          for (const match of layout.matchAll(new RegExp(`\\[${attribute}="([^"]*)"\\]`, "g"))) {
+            if (!published.includes(match[1])) issues.push(`masks: ${layoutSheet} targets an unpublished ${attribute} ${match[1]}`);
+          }
+        }
+        if (/#[0-9a-fA-F]{3,8}\b|\b(?:rgb|hsl)a?\(/.test(layout)) {
+          issues.push(`masks: ${layoutSheet} must take its colours from the tokens, not write them`);
+        }
+        const print = layout.slice(layout.indexOf("@media print"));
+        if (!layout.includes("@media print") || !/\[data-face\] \+ \[data-face\]\s*\{[^}]*break-before:\s*page/.test(print)) {
+          issues.push(`masks: ${layoutSheet} must break the page between the two faces in print`);
+        }
+        if (!/\[data-region\]\s*\{[^}]*break-inside:\s*avoid/.test(layout)) {
+          issues.push(`masks: ${layoutSheet} must keep a region on one page`);
+        }
+        if (!/order:\s*var\(--pbta-region-order\)/.test(print)) {
+          issues.push(`masks: ${layoutSheet} must print the regions in canonical order`);
+        }
+      }
+    }
   }
   return issues;
 }
@@ -364,11 +480,13 @@ function validateHtml(file: string, game: string): void {
   const html = fs.readFileSync(file, "utf8");
   const regions = game === "monsterhearts"
     ? [...PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION.canonicalOrder]
-    : ["game-identity", "character-identity", "playbook-moves", "character-state", "mc-actions"];
+    : game === "masks"
+      ? [...PBTA_MASKS_PLAYBOOK_PRESENTATION.canonicalOrder, ...PBTA_MASKS_NPC_PRESENTATION.canonicalOrder]
+      : ["game-identity", "character-identity", "playbook-moves", "character-state", "mc-actions"];
   for (const region of regions) {
     if (!html.includes(`data-region="${region}"`)) errors.push(`${game}: generated preview misses region ${region}`);
   }
-  const blocks = game === "monsterhearts" ? ["move", "stat"] : ["move", "stat", "attribute"];
+  const blocks = game === "monsterhearts" || game === "masks" ? ["move", "stat"] : ["move", "stat", "attribute"];
   for (const block of blocks) {
     if (!html.includes(`data-schema-block="${block}"`)) errors.push(`${game}: generated preview misses schema block ${block}`);
   }
@@ -385,6 +503,14 @@ function validateHtml(file: string, game: string): void {
     if (!html.includes('data-creation-min="1" data-creation-max="1"')) {
       errors.push("monsterhearts: generated preview misses single creation cardinality");
     }
+  }
+  if (game === "masks") {
+    for (const face of PBTA_MASKS_PLAYBOOK_PRESENTATION.faces) {
+      if (!html.includes(`data-face="${face.id}"`)) errors.push(`masks: generated preview misses face ${face.id}`);
+    }
+    if (!html.includes("data-column=")) errors.push("masks: generated preview misses columns");
+    if (!html.includes("data-row=")) errors.push("masks: generated preview misses NPC card rows");
+    if (!html.includes("--pbta-region-order")) errors.push("masks: generated preview misses the region order");
   }
   if (game === "salvage-run") {
     if (!html.includes('data-creation-attribute="name"') || !html.includes('data-creation-attribute="look"')) {
@@ -489,6 +615,7 @@ for (const game of [...expectedGames].sort()) {
     [playbookKind, String(descriptor.playbook)],
     ...strings(descriptor.moves).map((slug): [string, string] => ["move", slug]),
     ...strings(descriptor.mcMoves).map((slug): [string, string] => ["move", slug]),
+    ...(typeof descriptor.npc === "string" ? [[String(descriptor.npcKind ?? "npc"), descriptor.npc] as [string, string]] : []),
   ];
   for (const [kind, slug] of references) {
     requirePath(path.join(root, "examples", game, kind, `${slug}.toml`), `${context} descriptor reference`);

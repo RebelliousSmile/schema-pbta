@@ -1,0 +1,10 @@
+slug = "the-cartographer"
+name = "The Cartographer"
+game = "masks"
+description = "An original background paragraph."
+attributes = { condition = ["Angry"] }
+
+[self]
+min = -2
+max = 3
+value = 0

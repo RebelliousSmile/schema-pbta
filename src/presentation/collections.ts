@@ -73,6 +73,12 @@ export const PBTA_COLLECTION_PRESENTATIONS: readonly PbtaCollectionPresentation[
     .filter(([path]) => target !== "monsterhearts-playbook" || path !== "editorial.playAdvice.paragraphs")
     .map((entry) => collection(target, entry, entry[0] === "moves" || entry[0] === "advancement" ? ["checked"] : undefined))),
   collection("masks-playbook", ["influence", "Influence", "pbta-text", "text"]),
+  collection("masks-playbook", ["conditions", "Conditions", "pbta-condition", "object"], ["checked"]),
+  collection("masks-playbook", ["influenceOptions", "Influence options", "pbta-text", "text"]),
+  collection("masks-playbook", ["drives.options", "Drives", "pbta-advancement", "object"], ["checked"]),
+  collection("masks-playbook", ["drives.intro", "Drives introduction", "pbta-text", "text"]),
+  collection("masks-playbook", ["backstory", "Backstory", "pbta-text", "text"]),
+  collection("masks-playbook", ["relationships", "Relationships", "pbta-text", "text"]),
   collection("monster-of-the-week-playbook", ["improvements", "Improvements", "pbta-advancement", "object"], ["checked"]),
   collection("monsterhearts-playbook", ["ascendants", "Ascendants", "pbta-ascendant", "object"]),
   collection("monsterhearts-playbook", ["conditions", "Conditions", "pbta-condition", "object"]),

@@ -7,10 +7,10 @@
   "packs": [
     {
       "id": "masks",
-      "version": "0.2.1",
+      "version": "0.3.0",
       "path": "handbook/masks/pack.json",
       "label": "Masks: A New Generation",
-      "description": "Bright comic-book presentation for young superhero stories."
+      "description": "Navy and gold presentation for young superhero stories."
     },
     {
       "id": "monster-of-the-week",

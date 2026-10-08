@@ -2,11 +2,38 @@ slug = "the-ember"
 name = "The Ember"
 game = "masks"
 description = "A young hero learning what their fire can protect."
+heroName = "Cinder"
+realName = "Maren Ashby"
+abilities = "Heat that follows a promise"
+demeanor = "Quiet until it matters"
 stats = { danger = 1, freak = 2, savior = 0, superior = -1, mundane = 0 }
-moves = [{ name = "Burn Bright", moveType = "playbook", description = "Let your power reveal what matters." }]
+statRanges = { danger = { min = -2, max = 3 }, freak = { min = -2, max = 3 }, savior = { min = -2, max = 3 }, superior = { min = -2, max = 3 }, mundane = { min = -2, max = 3 } }
+moves = [{ name = "Burn Bright", moveType = "playbook", description = "Let your power reveal what matters.", checked = true }]
 momentOfTruth = "For one moment, everyone sees the hero you can become."
-potential = 0
+momentUnlocked = false
+potential = 2
+potentialMax = 5
 influence = ["The team"]
+influenceOptions = ["Someone who taught you to hold back", "Someone who needs you to stop holding back"]
+backstory = ["You first lit a flame to keep someone warm.", "Your mentor still has not forgiven the fire."]
+relationships = ["I trust ____ to tell me when I am going too far.", "____ has seen what I do when I lose control."]
+
+[drives]
+intro = ["Pick a Drive that tells the team what you will not let burn."]
+options = [
+  { label = "Protect someone who cannot protect themselves", checked = true },
+  { label = "Prove the fire is not a weapon" },
+  { label = "Keep a promise to a former mentor" },
+]
+
+[[conditions]]
+name = "Afraid"
+description = "-2 to directly engage a threat"
+checked = true
+
+[[conditions]]
+name = "Angry"
+description = "-2 to comfort or support, or to pierce a mask"
 
 [editorial.opening]
 heading = "A spark"

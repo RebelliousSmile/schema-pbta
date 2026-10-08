@@ -15,12 +15,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking
 
+- New schema major `11.0.0` (`schemas/v11`, immutable tag `v11.0.0`, `PBTA_CONTRACT_VERSION` 11). `schemas/v10` stays as committed and joins the archived majors checked against their tag. The Masks playbook gains the rubrics of both faces of its printed sheet and a new `masks-npc` document describes the Masks non-player character card; every new `masks-playbook` field is optional, so a v10 document is still accepted. Pack manifests and `cross-tool-provider.json` declare `contractVersion` 11.
+
 - New schema major `10.0.0` (`schemas/v10`, immutable tag `v10.0.0`, `PBTA_CONTRACT_VERSION` 10). `schemas/v9` stays as committed and joins the archived majors checked against their tag. The Urban Shadows playbook gains the rubrics of both faces of its printed sheet; every new field is optional, so a v9 document is still accepted. Pack manifests and `cross-tool-provider.json` declare `contractVersion` 10.
 
 - New schema major `9.0.0` (`schemas/v9`, immutable tag `v9.0.0`, `PBTA_CONTRACT_VERSION` 9). `schemas/v8` is restored byte for byte and stays frozen. The Monsterhearts playbook changes shape (optional `editorial.play`, French region labels, `ascendants-and-conditions` region replacing `relationships` and `conditions-and-harm`), so it cannot ship in v8; v9 carries every game, like each previous major. Pack manifests and `cross-tool-provider.json` declare `contractVersion` 9. The package version is bumped to `9.0.0` ahead of the release, as for v7 and v8; the `v9.0.0` tag is not created yet and `validate:version` treats `schemas/v9` as the candidate baseline until it is published.
 
 ### Changed
 
+- Masks Handbook pack `0.3.0`: navy and gold light theme, Staatliches, Josefin Sans, Crimson Pro and Comic Neue shipped as WOFF2 with their OFL licences, page, callout and booklet layout stylesheets, and star bullet and skyline images. The pack requires `presentation:pbta-layout`; the preview renders the booklet and the NPC card.
 - A pack manifest's `presentation` is a list of contracts (`packPresentationSchema`), so a pack can publish a layout and an appearance side by side. Monsterhearts declares its two contracts in that form.
 - Urban Shadows Handbook pack `0.3.0`: violet headings on pale paper (`#682865`), Caveat Brush as the brush face (OFL 1.1, shipped with its licence), page and callout stylesheets, and a night section published as `style.section.note` with an original window texture. The pack stays light only; `validate:packs` accepts `section.note` and checks the layer's code tokens.
 - Every PbtA Handbook pack is light only: The Sprawl moves from `polarities = ["dark"]` to `["light"]` with a light palette, and the validator now expects `light` for all packs.
@@ -30,6 +33,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Monsterhearts body text uses Alice Regular (identified in the design PDF); titles use Yellow Magician (CC BY-SA 3.0) and unbolded sub-headings use El Messiri (OFL 1.1), the design fonts. The opening catchphrase uses IM Fell Double Pica Italic (OFL 1.1), the italic the booklet embeds, exposed as the `--monsterhearts-script-font` token. IM Fell English is no longer shipped. Each font ships with its licence.
 
 ### Added
+
+- Masks playbook: optional `heroName`, `drives`, `conditions` with checked state, `statRanges`, `momentUnlocked`, `potentialMax`, `influenceOptions`, `backstory`, `relationships` and `editorial` rubrics, so the extended booklet (recto and verso) fits one TOML. None of them is required.
+- `masks-npc` document (`src/zod/masks-npc.ts`, `examples/masks/masks-npc/`): the Masks NPC card with Resistance, Conditions, Self range, worst and best Self, Drive and moves, with a positive and a negative corpus.
+- Masks playbook and NPC presentation (`PBTA_MASKS_PLAYBOOK_PRESENTATION`, `PBTA_MASKS_NPC_PRESENTATION`, `packs/masks/presentation-contract.json`, `packs/masks/npc-presentation-contract.json`): thirteen booklet regions over two faces and eight card regions over stacked rows, with French labels and the `boxes`, `track`, `list`, `key-value`, `prose` and `portrait` primitives.
+- Masks appearance (`PBTA_MASKS_APPEARANCE`, `packs/masks/appearance-contract.json`) with its token stylesheet; fonts stay under `handbook/masks/`.
+- Seven Masks callouts in `PBTA_PACK_CALLOUTS`: `masks-read-aloud`, `-sidebar`, `-move`, `-crisis`, `-caption`, `-portrait` and `-chapter`.
+- Presentation fixtures for Masks (three accepted, ten rejected) and matching checks in `validate:contract`, `validate:package`, `validate:packs` and `handbook:validate`.
 
 - Urban Shadows playbook presentation (`PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION`, `packs/urban-shadows/presentation-contract.json`): nineteen regions with French labels over two faces, each bound to fields the playbook schema declares, with the `circle-status`, `check-list` and `box-track` primitives.
 - Urban Shadows appearance (`PBTA_URBAN_SHADOWS_APPEARANCE`, `packs/urban-shadows/appearance-contract.json`) with its fonts, images and token stylesheet under `packs/urban-shadows/`.

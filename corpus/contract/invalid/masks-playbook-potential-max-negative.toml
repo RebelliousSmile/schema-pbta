@@ -1,0 +1,41 @@
+slug = "the-ember"
+name = "The Ember"
+game = "masks"
+description = "An original fixture."
+heroName = "Cinder"
+realName = "Original Name"
+abilities = "An original ability line."
+demeanor = "An original demeanor."
+stats = { danger = 1, freak = 2, savior = 0, superior = -1, mundane = 0 }
+statRanges = { danger = { min = -2, max = 3 }, freak = { min = -2, max = 3 } }
+moves = []
+momentOfTruth = "You become the hero the city needs."
+momentUnlocked = false
+potential = 2
+potentialMax = -1
+influence = ["Original character"]
+influenceOptions = ["An original option."]
+backstory = ["An original backstory prompt."]
+relationships = ["An original relationship prompt."]
+
+[drives]
+intro = ["An original introduction."]
+options = [{ label = "An original Drive.", checked = true }, { label = "Another original Drive." }]
+
+[[conditions]]
+name = "Afraid"
+description = "An original penalty."
+checked = true
+
+[editorial.opening]
+heading = "Opening"
+paragraphs = ["Original fixture."]
+[editorial.playAdvice]
+heading = "Advice"
+paragraphs = ["Play bravely."]
+[editorial.identity]
+heading = "Identity"
+paragraphs = ["Choose a name."]
+[editorial.progression]
+heading = "Progression"
+paragraphs = ["Mark Potential."]

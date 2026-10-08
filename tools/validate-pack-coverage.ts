@@ -64,15 +64,16 @@ for (const target of specialised) {
   assert.ok(target.startsWith(`${owners[0]}-`), `${owners[0]} documents ${target}, which belongs to another pack`);
 }
 
-/* Whether a specialised target is distinguishable is measured, not declared: the portable playbook's own
-   accepted witness is fed to each specialised codec, and one that accepts it cannot be resolved downstream. */
+/* Whether a specialised target is distinguishable is measured, not declared: the accepted witnesses of the
+   portable playbook and of the portable NPC are fed to each specialised codec, and one that accepts either
+   cannot be resolved downstream. */
 type ContractCase = { path: string; target: PbtaDocumentTarget; expect: "accept" | "reject" };
 const corpus = path.resolve(root, "corpus", "contract");
 const contract = JSON.parse(fs.readFileSync(path.join(corpus, "cases.json"), "utf8")) as { cases: ContractCase[] };
 const portable = contract.cases
-  .filter((entry) => entry.target === "playbook" && entry.expect === "accept")
+  .filter((entry) => (entry.target === "playbook" || entry.target === "npc") && entry.expect === "accept")
   .map((entry) => fs.readFileSync(path.resolve(corpus, entry.path), "utf8"));
-assert.ok(portable.length > 0, "the contract corpus carries no accepted portable playbook");
+assert.ok(portable.length > 0, "the contract corpus carries no accepted portable playbook or NPC");
 
 const aliases: PbtaDocumentTarget[] = [];
 for (const target of specialised) {
@@ -90,8 +91,8 @@ for (const target of specialised) {
     claimsPortable,
     KNOWN_ALIAS_TARGETS.has(target),
     claimsPortable
-      ? `${target} accepts the portable playbook: a consumer reads it as a generic playbook, so it is not a specialised target`
-      : `${target} is distinguishable from the portable playbook and must leave KNOWN_ALIAS_TARGETS`,
+      ? `${target} accepts a portable witness: a consumer reads it as a generic document, so it is not a specialised target`
+      : `${target} is distinguishable from the portable witnesses and must leave KNOWN_ALIAS_TARGETS`,
   );
 }
 

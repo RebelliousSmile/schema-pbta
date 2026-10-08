@@ -4,12 +4,18 @@ import { PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION } from "../src/presentation/mo
 import { PBTA_MONSTERHEARTS_APPEARANCE } from "../src/presentation/monsterhearts-appearance.js";
 import { PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION } from "../src/presentation/urban-shadows-playbook.js";
 import { PBTA_URBAN_SHADOWS_APPEARANCE } from "../src/presentation/urban-shadows-appearance.js";
+import { PBTA_MASKS_PLAYBOOK_PRESENTATION } from "../src/presentation/masks-playbook.js";
+import { PBTA_MASKS_NPC_PRESENTATION } from "../src/presentation/masks-npc.js";
+import { PBTA_MASKS_APPEARANCE } from "../src/presentation/masks-appearance.js";
 
 for (const [pack, name, source] of [
   ["monsterhearts", "presentation-contract.json", PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION],
   ["monsterhearts", "appearance-contract.json", PBTA_MONSTERHEARTS_APPEARANCE],
   ["urban-shadows", "presentation-contract.json", PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION],
   ["urban-shadows", "appearance-contract.json", PBTA_URBAN_SHADOWS_APPEARANCE],
+  ["masks", "presentation-contract.json", PBTA_MASKS_PLAYBOOK_PRESENTATION],
+  ["masks", "npc-presentation-contract.json", PBTA_MASKS_NPC_PRESENTATION],
+  ["masks", "appearance-contract.json", PBTA_MASKS_APPEARANCE],
 ] as const) {
   const destination = path.join("packs", pack, name);
   fs.mkdirSync(path.dirname(destination), { recursive: true });

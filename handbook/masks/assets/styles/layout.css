@@ -1,0 +1,199 @@
+/* The booklet and the NPC card. Handbook renders the regions and the hooks the two presentation
+   contracts name (data-face, data-column, data-row, data-region, data-primitive); every measure and
+   every colour is here, colours coming from the tokens of the pack. */
+
+/* One measure for the whole sheet, written once. */
+body.brumes--masks :is([data-face], [data-row]) {
+  --masks-box: 1.25rem;
+  --masks-stroke: 0.12rem;
+  --masks-gap: 1rem;
+  min-width: 0;
+}
+
+/* The two faces of the booklet: two columns each, the header across both. */
+body.brumes--masks [data-face] {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--masks-gap) var(--pbta-column-gap, 2rem);
+  padding: var(--masks-gap);
+  border: var(--masks-stroke) solid var(--masks-navy);
+  background: var(--background-primary);
+}
+body.brumes--masks [data-face] > [data-region="masks-header"] {
+  grid-column: 1 / -1;
+  padding-block-end: 0.5rem;
+  border-block-end: 0.2rem solid var(--masks-gold);
+}
+body.brumes--masks [data-column] {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: var(--masks-gap);
+}
+
+/* The NPC card: a framed stack of bands, one to three columns each. */
+body.brumes--masks [data-row] {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: var(--masks-gap);
+  padding: 0.5rem 0.75rem;
+  border: var(--masks-stroke) solid var(--masks-navy);
+  background: var(--masks-panel);
+}
+body.brumes--masks [data-row] + [data-row] {
+  margin-block-start: calc(var(--masks-stroke) * -1);
+}
+body.brumes--masks [data-region="masks-npc-header"] {
+  color: var(--masks-on-navy);
+  font-family: var(--masks-title-font);
+}
+body.brumes--masks [data-row]:has([data-region="masks-npc-header"]) {
+  background: var(--masks-navy);
+}
+body.brumes--masks [data-region="masks-npc-self"] {
+  grid-column: 1 / -1;
+}
+body.brumes--masks [data-region="masks-npc-resistance"] {
+  padding: 0.3rem 1rem;
+  border: var(--masks-stroke) solid var(--masks-navy);
+  border-radius: 999px;
+  background: var(--background-primary);
+}
+body.brumes--masks [data-region="masks-npc-worst-self"] > h3 {
+  color: var(--masks-crisis);
+}
+body.brumes--masks [data-region="masks-npc-best-self"] > h3 {
+  color: var(--masks-gold);
+}
+/* The context is written under the card, not in it. */
+body.brumes--masks [data-region="masks-npc-context"] {
+  margin-block-start: var(--masks-gap);
+  border: 0;
+  background: transparent;
+}
+
+/* A region: ruled in gold above, never split across two pages. */
+body.brumes--masks [data-region] {
+  min-width: 0;
+  padding-block: 0.3rem 0.5rem;
+  border-block-start: 1px solid var(--masks-rule);
+  break-inside: avoid;
+}
+body.brumes--masks [data-region] > :is(h2, h3) {
+  margin: 0 0 0.35rem;
+  font-family: var(--masks-heading-font);
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+body.brumes--masks [data-region="masks-header"] > h2 {
+  color: var(--masks-navy);
+  font-family: var(--masks-title-font);
+  font-size: 2.2rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-transform: none;
+}
+body.brumes--masks :is([data-region="masks-header"], [data-region="masks-npc-header"]) {
+  border-block-start: 0;
+}
+
+/* The track of Labels and of the NPC's Self: values in a row, the chosen one filled. */
+body.brumes--masks [data-primitive="track"] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  gap: 0.6rem;
+}
+body.brumes--masks [data-primitive="track"] > :is(h2, h3) {
+  flex: 1 0 100%;
+}
+/* The ticks of the booklet: boxes to cross, one box measure for every one of them. */
+body.brumes--masks [data-region] input[type="checkbox"] {
+  --checkbox-size: var(--masks-box);
+  box-sizing: border-box;
+  flex: 0 0 var(--masks-box);
+  width: var(--masks-box);
+  height: var(--masks-box);
+  margin: calc((1lh - var(--masks-box)) / 2) 0 0;
+  font: inherit;
+  border: var(--masks-stroke) solid var(--masks-navy);
+  border-radius: var(--checkbox-radius, 0.2rem);
+}
+body.brumes--masks :is([data-primitive="boxes"], [data-primitive="list"]) :is(li, label, p) {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+body.brumes--masks [data-primitive="boxes"] ul {
+  padding: 0;
+  list-style: none;
+}
+body.brumes--masks [data-primitive="list"] ul {
+  padding-inline-start: 1.25rem;
+}
+/* Key and value on one ruled line: the blank to fill in is the rule under the value. */
+body.brumes--masks [data-primitive="key-value"] :is(dl, p) {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.25rem 0;
+  border-block-end: var(--masks-stroke) solid var(--masks-gold);
+}
+body.brumes--masks [data-primitive="key-value"] dd {
+  flex: 1;
+  margin: 0;
+  min-height: 1.4em;
+  text-align: end;
+}
+body.brumes--masks [data-primitive="prose"] p {
+  margin: 0 0 0.4rem;
+  line-height: 1.38;
+}
+/* The illustration column of the verso. */
+body.brumes--masks [data-primitive="portrait"] img {
+  display: block;
+  box-sizing: border-box;
+  max-width: 100%;
+  border: 0.3rem solid var(--masks-gold);
+  outline: 1px solid var(--masks-navy);
+}
+
+/* The verso follows the recto on the next sheet; the recto keeps its own. */
+body.brumes--masks [data-face="verso"] {
+  margin-block-start: 1.5rem;
+}
+
+/* A narrow pane flows every face and every band in one column, in canonical order. */
+@media screen and (max-width: 640px) {
+  body.brumes--masks [data-face] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  body.brumes--masks [data-row] {
+    grid-auto-flow: row;
+  }
+}
+
+/* Paper: one column in canonical order, one face a page. */
+@media print {
+  body.brumes--masks [data-face] {
+    display: flex;
+    flex-direction: column;
+    border: 0;
+  }
+  body.brumes--masks [data-column] {
+    display: contents;
+  }
+  body.brumes--masks [data-face] + [data-face] {
+    break-before: page;
+    margin-block-start: 0;
+  }
+  body.brumes--masks [data-region] {
+    order: var(--pbta-region-order);
+    break-inside: avoid;
+  }
+}

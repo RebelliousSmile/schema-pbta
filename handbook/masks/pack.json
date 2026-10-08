@@ -1,6 +1,6 @@
 {
   "manifestVersion": 1,
-  "version": "0.2.1",
+  "version": "0.3.0",
   "minimumHandbookVersion": "2.8.0",
   "requires": ["block:pbta-playbook", "block:pbta-move", "style:pbta"],
   "pack": {
@@ -9,38 +9,121 @@
     "style": {
       "base": {
         "note": {
-          "--font-text-theme": "Arial, sans-serif",
-          "--font-header-theme": "Impact, Haettenschweiler, Arial Narrow Bold, sans-serif",
-          "--h1-font": "Impact, Haettenschweiler, Arial Narrow Bold, sans-serif",
-          "--h2-font": "Impact, Haettenschweiler, Arial Narrow Bold, sans-serif",
-          "--h3-font": "Impact, Haettenschweiler, Arial Narrow Bold, sans-serif",
-          "--h1-text-transform": "uppercase",
-          "--h2-text-transform": "uppercase"
+          "--font-text-theme": "'Crimson Pro', Georgia, serif",
+          "--font-header-theme": "'Josefin Sans', 'Trebuchet MS', sans-serif",
+          "--font-text-size": "16px",
+          "--line-height-normal": "1.38",
+          "--inline-title-font": "'Staatliches', 'League Gothic', 'Arial Narrow', sans-serif",
+          "--inline-title-weight": "400",
+          "--inline-title-text-transform": "none",
+          "--h1-font": "'Staatliches', 'League Gothic', 'Arial Narrow', sans-serif",
+          "--h1-size": "2.6em",
+          "--h1-weight": "400",
+          "--h1-line-height": "0.95",
+          "--h1-text-transform": "none",
+          "--h2-font": "'Josefin Sans', 'Trebuchet MS', sans-serif",
+          "--h2-size": "1.3em",
+          "--h2-weight": "600",
+          "--h2-line-height": "1.1",
+          "--h2-text-transform": "uppercase",
+          "--h3-font": "'Josefin Sans', 'Trebuchet MS', sans-serif",
+          "--h3-size": "1.05em",
+          "--h3-weight": "700",
+          "--h3-line-height": "1.15",
+          "--h3-text-transform": "uppercase",
+          "--h4-font": "'Josefin Sans', 'Trebuchet MS', sans-serif",
+          "--h4-weight": "700",
+          "--masks-title-font": "'Staatliches', 'League Gothic', 'Arial Narrow', sans-serif",
+          "--masks-heading-font": "'Josefin Sans', 'Trebuchet MS', sans-serif",
+          "--masks-body-font": "'Crimson Pro', Georgia, serif",
+          "--masks-aside-font": "'Comic Neue', 'Comic Sans MS', cursive",
+          "--pbta-column-gap": "2rem",
+          "--pbta-column-rule": "#c09a47",
+          "--blockquote-border-color": "#c09a47",
+          "--blockquote-background-color": "transparent",
+          "--list-marker-color": "#c09a47",
+          "--list-marker-color-hover": "#3b5688",
+          "--hr-color": "#c09a47",
+          "--hr-thickness": "2px"
         }
       },
       "light": {
         "note": {
-          "--background-primary": "#fff9e8",
-          "--background-primary-alt": "#eaf6fa",
-          "--text-normal": "#10243b",
-          "--text-muted": "#526579",
-          "--color-accent": "#e8492e",
-          "--interactive-accent": "#e8492e",
-          "--link-color": "#16a4c4",
-          "--link-color-hover": "#e8492e",
-          "--h1-color": "#e8492e",
-          "--h2-color": "#10243b",
-          "--tag-color": "#10243b",
-          "--tag-background": "#9edcea",
-          "--checkbox-color": "#16a4c4"
+          "--background-primary": "#fcfbf7",
+          "--background-primary-alt": "#eef1f6",
+          "--text-normal": "#23283a",
+          "--text-muted": "#5d6577",
+          "--color-accent": "#3b5688",
+          "--interactive-accent": "#3b5688",
+          "--link-color": "#3b5688",
+          "--link-color-hover": "#23283a",
+          "--h1-color": "#3b5688",
+          "--h2-color": "#c09a47",
+          "--h3-color": "#c09a47",
+          "--h4-color": "#3b5688",
+          "--bold-color": "#23283a",
+          "--italic-color": "#23283a",
+          "--tag-color": "#23283a",
+          "--tag-background": "#dfe5f0",
+          "--checkbox-color": "#3b5688",
+          "--code-normal": "#23283a",
+          "--code-background": "#eef1f6",
+          "--masks-navy": "#3b5688",
+          "--masks-navy-deep": "#2f4472",
+          "--masks-gold": "#c09a47",
+          "--masks-gold-soft": "#ece3cc",
+          "--masks-paper-aside": "#efe9d8",
+          "--masks-panel": "#e4e9f2",
+          "--masks-crisis": "#5b4c8c",
+          "--masks-on-navy": "#ffffff",
+          "--masks-rule": "#c09a47"
         }
       }
     },
     "polarities": ["light"],
     "assets": {
-      "stylesheets": ["styles/callouts.css","styles/headings.css"],
+      "fonts": {
+        "Staatliches": {
+          "file": "fonts/staatliches-400-normal.woff2",
+          "weight": "400",
+          "style": "normal"
+        },
+        "Josefin Sans": {
+          "file": "fonts/josefin-sans-wght-normal.woff2",
+          "weight": "100 700",
+          "style": "normal"
+        },
+        "Crimson Pro": {
+          "file": "fonts/crimson-pro-wght-normal.woff2",
+          "weight": "200 900",
+          "style": "normal"
+        },
+        "Crimson Pro Italic": {
+          "file": "fonts/crimson-pro-wght-italic.woff2",
+          "weight": "200 900",
+          "style": "italic"
+        },
+        "Comic Neue": {
+          "file": "fonts/comic-neue-400-normal.woff2",
+          "weight": "400",
+          "style": "normal"
+        },
+        "Comic Neue Bold": {
+          "file": "fonts/comic-neue-700-normal.woff2",
+          "weight": "700",
+          "style": "normal"
+        }
+      },
+      "stylesheets": [
+        "styles/callouts.css",
+        "styles/page.css",
+        "styles/layout.css",
+        "styles/headings.css"
+      ],
       "images": {
-        "game-mark": "images/hero-burst.svg"
+        "game-mark": "images/hero-burst.svg",
+        "star-bullet": "images/star-bullet.svg",
+        "skyline-band": "images/skyline-band.svg"
       }
     }
   }

@@ -1,0 +1,7 @@
+{
+  "target": "masks-playbook",
+  "rejects": "regions contain a duplicate id",
+  "set": {
+    "regions.1.id": "masks-header"
+  }
+}

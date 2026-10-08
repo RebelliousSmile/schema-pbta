@@ -2,7 +2,7 @@ import type { PbtaDocumentTarget } from "../codecs/toml.js";
 
 export type PbtaStatRangeValue = "min" | "current" | "max";
 export interface PbtaStatRangePresentation {
-  target: Extract<PbtaDocumentTarget, "monsterhearts-playbook">;
+  target: Extract<PbtaDocumentTarget, "masks-playbook" | "monsterhearts-playbook">;
   statsPath: "stats";
   rangesPath: "statRanges";
   minField: "min";
@@ -12,6 +12,8 @@ export interface PbtaStatRangePresentation {
 
 export const PBTA_STAT_RANGE_PRESENTATIONS: readonly PbtaStatRangePresentation[] = [{
   target: "monsterhearts-playbook", statsPath: "stats", rangesPath: "statRanges", minField: "min", maxField: "max", order: ["min", "current", "max"],
+}, {
+  target: "masks-playbook", statsPath: "stats", rangesPath: "statRanges", minField: "min", maxField: "max", order: ["min", "current", "max"],
 }];
 
 export function getPbtaStatRangePresentation(target: PbtaDocumentTarget): PbtaStatRangePresentation | undefined {

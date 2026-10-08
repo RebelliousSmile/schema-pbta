@@ -8,6 +8,8 @@ the repository's MIT license.
 | Pack | Role | File |
 | --- | --- | --- |
 | Masks | `game-mark` | `handbook/masks/assets/images/hero-burst.svg` |
+| Masks | `star-bullet` | `handbook/masks/assets/images/star-bullet.svg` |
+| Masks | `skyline-band` | `handbook/masks/assets/images/skyline-band.svg` |
 | Monster of the Week | `game-mark` | `handbook/monster-of-the-week/assets/images/watch-mark.svg` |
 | Monsterhearts | `game-mark` | `handbook/monsterhearts/assets/images/thorn-heart.svg`; `packs/monsterhearts/assets/images/thorn-heart.svg` |
 | The Sprawl | `game-mark` | `handbook/the-sprawl/assets/images/network-grid.svg` |
@@ -19,8 +21,8 @@ official logo, illustration, layout, or game text is included in these files.
 
 ## Fonts
 
-The Monsterhearts and Urban Shadows presentation packs include open typefaces
-downloaded as WOFF2 files from Fontsource:
+The Masks, Monsterhearts and Urban Shadows presentation packs include open typefaces
+as WOFF2 files, from Fontsource or from `google/fonts`:
 
 | Family | File | Upstream | License |
 | --- | --- | --- | --- |
@@ -32,7 +34,11 @@ downloaded as WOFF2 files from Fontsource:
 | League Gothic | `handbook/urban-shadows/assets/fonts/league-gothic-latin-400-normal.woff2`; `packs/urban-shadows/assets/fonts/league-gothic-latin-400-normal.woff2` | `@fontsource/league-gothic@5.3.0` | SIL Open Font License 1.1 |
 | Source Serif 4 | `handbook/urban-shadows/assets/fonts/source-serif-4-latin-wght-normal.woff2`; `packs/urban-shadows/assets/fonts/source-serif-4-latin-wght-normal.woff2` | `@fontsource-variable/source-serif-4@5.3.0` | SIL Open Font License 1.1 |
 | Caveat Brush | `handbook/urban-shadows/assets/fonts/caveat-brush-400-normal.woff2`; `packs/urban-shadows/assets/fonts/caveat-brush-400-normal.woff2` | `google/fonts` (`ofl/caveatbrush`, `CaveatBrush-Regular.ttf`, converted to WOFF2 without subsetting) | SIL Open Font License 1.1 (`OFL-CaveatBrush-1.1.txt`) |
+| Staatliches | `handbook/masks/assets/fonts/staatliches-400-normal.woff2` | `google/fonts` (`ofl/staatliches`, `Staatliches-Regular.ttf`, converted to WOFF2 without subsetting) | SIL Open Font License 1.1 (`OFL-Staatliches.txt`) |
+| Josefin Sans | `handbook/masks/assets/fonts/josefin-sans-wght-normal.woff2` | `google/fonts` (`ofl/josefinsans`, `JosefinSans[wght].ttf`, compressed to WOFF2 only: no subsetting, no static instance, `name` tables intact) | SIL Open Font License 1.1 (`OFL-JosefinSans.txt`) |
+| Crimson Pro | `handbook/masks/assets/fonts/crimson-pro-wght-normal.woff2`; `handbook/masks/assets/fonts/crimson-pro-wght-italic.woff2` | `google/fonts` (`ofl/crimsonpro`, `CrimsonPro[wght].ttf` and `CrimsonPro-Italic[wght].ttf`, converted to WOFF2 without subsetting) | SIL Open Font License 1.1 (`OFL-CrimsonPro.txt`) |
+| Comic Neue | `handbook/masks/assets/fonts/comic-neue-400-normal.woff2`; `handbook/masks/assets/fonts/comic-neue-700-normal.woff2` | `google/fonts` (`ofl/comicneue`, `ComicNeue-Regular.ttf` and `ComicNeue-Bold.ttf`, converted to WOFF2 without subsetting) | SIL Open Font License 1.1 (`OFL-ComicNeue.txt`) |
 
-The Urban Shadows faces are freely redistributable substitutes and are not
+The Masks and Urban Shadows faces are freely redistributable substitutes and are not
 claimed to be the original game's typefaces. The SIL Open Font License texts
 accompany the font files in each pack's `assets/fonts/` directory.

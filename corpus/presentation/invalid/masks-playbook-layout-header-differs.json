@@ -1,0 +1,7 @@
+{
+  "target": "masks-playbook",
+  "rejects": "every face must name the same header region",
+  "set": {
+    "faces.1.header": "masks-identity"
+  }
+}

@@ -305,6 +305,50 @@ max = 1
     );
   }
 
+  const masksPlaybookDirectory = path.join(temporaryRoot, "examples", "masks", "masks-playbook");
+  const emberFixture = fs.readFileSync(path.join(masksPlaybookDirectory, "the-ember.toml"), "utf-8");
+  const masksNpcDirectory = path.join(temporaryRoot, "examples", "masks", "masks-npc");
+  const cartographerFixture = fs.readFileSync(path.join(masksNpcDirectory, "the-cartographer.toml"), "utf-8");
+  for (const [directory, fileName, source, from, to] of [
+    [masksPlaybookDirectory, "fixture-potential-over-max.toml", emberFixture, "potential = 2", "potential = 9"],
+    [masksPlaybookDirectory, "fixture-unknown-condition.toml", emberFixture, 'name = "Afraid"', 'name = "Dazed"'],
+    [masksPlaybookDirectory, "fixture-unknown-label-range.toml", emberFixture, "statRanges = { danger", "statRanges = { mystery = { min = -2, max = 3 }, danger"],
+    [masksNpcDirectory, "fixture-self-out-of-track.toml", cartographerFixture, "value = 1", "value = 5"],
+    [masksNpcDirectory, "fixture-self-inverted-track.toml", cartographerFixture, "min = -2", "min = 4"],
+    [masksNpcDirectory, "fixture-unknown-npc-condition.toml", cartographerFixture, '"Guilty"', '"Dazed"'],
+  ] as const) {
+    assert.ok(source.includes(from), `${fileName}: the example no longer carries ${from}`);
+    fs.writeFileSync(
+      path.join(directory, fileName),
+      source.replace(from, to).replace(/^slug = ".*"/m, `slug = "${fileName.replace(".toml", "")}"`),
+    );
+  }
+
+  const masksDiagnostics = validateReferences(temporaryRoot);
+  for (const [fileName, key, message] of [
+    ["fixture-potential-over-max.toml", "potential", "exceeds potentialMax"],
+    ["fixture-unknown-condition.toml", "conditions[0].name", 'unknown condition "Dazed"'],
+    ["fixture-unknown-label-range.toml", "statRanges.mystery", 'unknown stat "mystery"'],
+    ["fixture-self-out-of-track.toml", "self.value", "outside the track"],
+    ["fixture-self-inverted-track.toml", "self.min", "exceeds self.max"],
+    ["fixture-unknown-npc-condition.toml", "conditions[1]", 'unknown condition "Dazed"'],
+  ]) {
+    assert.ok(
+      masksDiagnostics.some(
+        (diagnostic) =>
+          diagnostic.file.endsWith(fileName) &&
+          diagnostic.key === key &&
+          diagnostic.message.includes(message) &&
+          diagnostic.severity === "error",
+      ),
+      `${fileName} must be rejected for a Masks rule`,
+    );
+  }
+  assert.ok(
+    !masksDiagnostics.some((diagnostic) => diagnostic.file.endsWith("the-cartographer.toml") || diagnostic.file.endsWith("the-ember.toml")),
+    "the Masks examples raise no diagnostic",
+  );
+
   const specialisedPlaybook = path.join(
     temporaryRoot,
     "examples",

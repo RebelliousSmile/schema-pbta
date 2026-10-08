@@ -19,6 +19,13 @@ export const PBTA_PACK_CALLOUTS = [
   { pack: "urban-shadows", id: "urban-shadows-solid", label: "Encadré plein Urban Shadows (fond de nuit)", template: "title-body", capability: "style:pbta" },
   { pack: "urban-shadows", id: "urban-shadows-archetype", label: "Panneau d’archétype Urban Shadows", template: "title-body", capability: "style:pbta" },
   { pack: "urban-shadows", id: "urban-shadows-example", label: "Exemple de jeu Urban Shadows", template: "title-body", capability: "style:pbta" },
+  { pack: "masks", id: "masks-read-aloud", label: "Texte à lire Masks (filet doré)", template: "title-body", capability: "style:pbta" },
+  { pack: "masks", id: "masks-sidebar", label: "Encadré Masks (bandeau bleu marine)", template: "title-body", capability: "style:pbta" },
+  { pack: "masks", id: "masks-move", label: "Boîte de move Masks", template: "title-body", capability: "style:pbta" },
+  { pack: "masks", id: "masks-crisis", label: "Déclencheur de crise Masks", template: "title-body", capability: "style:pbta" },
+  { pack: "masks", id: "masks-caption", label: "Légende d'image Masks", template: "title-body", capability: "style:pbta" },
+  { pack: "masks", id: "masks-portrait", label: "Vignette de portrait Masks (cadre doré)", template: "title-body", capability: "style:pbta" },
+  { pack: "masks", id: "masks-chapter", label: "Titre de chapitre Masks", template: "title-body", capability: "style:pbta" },
 ] as const;
 
 export type PbtaPackCallout = typeof PBTA_PACK_CALLOUTS[number];

@@ -1,0 +1,30 @@
+{
+  "target": "masks-playbook",
+  "rejects": "the verso face draws a region of the other face",
+  "set": {
+    "faces.0.columns": [
+      [
+        "masks-labels",
+        "masks-conditions",
+        "masks-moment-of-truth",
+        "masks-influence-options"
+      ],
+      [
+        "masks-moves",
+        "masks-drives"
+      ]
+    ],
+    "faces.1.columns": [
+      [
+        "masks-identity",
+        "masks-backstory",
+        "masks-relationships",
+        "masks-influence"
+      ],
+      [
+        "masks-illustration",
+        "masks-advances"
+      ]
+    ]
+  }
+}

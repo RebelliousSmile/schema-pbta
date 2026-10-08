@@ -1,21 +1,231 @@
+/* The generic PbtA callouts: a plain navy-ruled panel, gold under the title. */
 body.brumes--masks .callout:is(
   [data-brumes-callout-style="pbta-rule"], [data-brumes-callout-style="pbta-trigger"],
   [data-brumes-callout-style="pbta-choice"], [data-brumes-callout-style="pbta-result"],
   [data-brumes-callout-style="pbta-clock"], [data-brumes-callout-style="pbta-move"],
   [data-brumes-callout-style="pbta-npc-reaction"], [data-brumes-callout-style="pbta-playbook-change"]
 ) {
-  border: 3px solid var(--text-normal);
-  border-radius: 0.5rem;
-  background: var(--background-primary);
-  box-shadow: 0.3rem 0.3rem 0 var(--color-accent);
+  border: 1px solid var(--masks-navy, var(--color-accent));
+  border-inline-start: 0.4rem solid var(--masks-navy, var(--color-accent));
+  border-radius: 0.3rem;
+  background: var(--masks-panel, var(--background-primary-alt));
   color: var(--text-normal);
+  box-shadow: none;
 }
 body.brumes--masks .callout[data-brumes-callout-style^="pbta-"] .callout-title {
-  font-family: var(--font-header-theme);
-  font-weight: 900;
+  font-family: var(--masks-heading-font, var(--font-header-theme));
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+body.brumes--masks .callout[data-brumes-callout-style="pbta-clock"] { border-inline-start-style: dashed; }
+body.brumes--masks .callout[data-brumes-callout-style="pbta-npc-reaction"] { border-inline-start-color: var(--masks-gold, var(--color-accent)); }
+body.brumes--masks .callout[data-brumes-callout-style="pbta-playbook-change"] { border-block-start: 0.35rem solid var(--masks-gold, var(--color-accent)); }
+
+/* The callouts of the pack share a flat, icon-less base; each one then draws its own frame. */
+body.brumes--masks .callout:is(
+  [data-brumes-callout-style="masks-read-aloud"], [data-brumes-callout-style="masks-sidebar"],
+  [data-brumes-callout-style="masks-move"], [data-brumes-callout-style="masks-crisis"],
+  [data-brumes-callout-style="masks-caption"], [data-brumes-callout-style="masks-portrait"],
+  [data-brumes-callout-style="masks-chapter"]
+) {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  color: var(--text-normal);
+  padding: 0;
+  mix-blend-mode: normal;
+}
+body.brumes--masks .callout:is(
+  [data-brumes-callout-style="masks-read-aloud"], [data-brumes-callout-style="masks-sidebar"],
+  [data-brumes-callout-style="masks-move"], [data-brumes-callout-style="masks-crisis"],
+  [data-brumes-callout-style="masks-caption"], [data-brumes-callout-style="masks-portrait"],
+  [data-brumes-callout-style="masks-chapter"]
+) .callout-icon {
+  display: none;
+}
+
+/* Text to read aloud: a pale parchment panel, the aside face, a hairline frame. */
+body.brumes--masks .callout[data-brumes-callout-style="masks-read-aloud"] {
+  padding: 0.7em 1.1em;
+  border: 1px solid var(--masks-gold, var(--background-modifier-border));
+  background: var(--masks-paper-aside, var(--background-primary-alt));
+  font-family: var(--masks-aside-font, var(--font-text-theme));
+  font-size: 0.88em;
+  line-height: 1.4;
+}
+body.brumes--masks .callout[data-brumes-callout-style="masks-read-aloud"] .callout-title {
+  padding: 0;
+  color: var(--masks-gold, var(--text-muted));
+  font-family: var(--masks-heading-font, var(--font-header-theme));
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+body.brumes--masks .callout[data-brumes-callout-style="masks-read-aloud"] .callout-content {
+  padding: 0;
+}
+body.brumes--masks .callout[data-brumes-callout-style="masks-read-aloud"] :is(strong, b) {
+  font-family: "Comic Neue Bold", var(--masks-aside-font, var(--font-text-theme));
+}
+
+/* A sidebar: a navy band with the skyline above it, a gold frame around a pale panel. */
+body.brumes--masks .callout[data-brumes-callout-style="masks-sidebar"] {
+  overflow: hidden;
+  border: 0.2rem solid var(--masks-gold, var(--color-accent));
+  background: var(--masks-panel, var(--background-primary-alt));
+}
+body.brumes--masks .callout[data-brumes-callout-style="masks-sidebar"] .callout-title {
+  position: relative;
+  margin: 0;
+  padding: 2.6rem 0.9em 0.45em;
+  background: var(--masks-navy, var(--color-accent)) var(--brumes-image-skyline-band, none) center top / 100% 2.2rem no-repeat;
+  color: var(--masks-on-navy, #fff);
+  font-family: var(--masks-title-font, var(--font-header-theme));
+  font-size: 1.35em;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+body.brumes--masks .callout[data-brumes-callout-style="masks-sidebar"] .callout-content {
+  padding: 0.7em 1.1em 0.9em;
+  font-size: 0.9em;
+}
+
+/* A move box: rounded navy band, gold rule, the pale panel of the printed book. */
+body.brumes--masks .callout[data-brumes-callout-style="masks-move"] {
+  overflow: hidden;
+  border-radius: 0.7rem;
+  background: var(--masks-panel, var(--background-primary-alt));
+}
+body.brumes--masks .callout[data-brumes-callout-style="masks-move"] .callout-title {
+  padding: 0.35em 0.9em;
+  border-block-end: 0.18rem solid var(--masks-gold, var(--color-accent));
+  background: var(--masks-navy, var(--color-accent));
+  color: var(--masks-on-navy, #fff);
+  font-family: var(--masks-title-font, var(--font-header-theme));
+  font-size: 1.25em;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+body.brumes--masks .callout[data-brumes-callout-style="masks-move"] .callout-content {
+  padding: 0.6em 1.1em 0.8em;
+  font-family: var(--masks-aside-font, var(--font-text-theme));
+  font-size: 0.86em;
+  line-height: 1.4;
+}
+body.brumes--masks .callout[data-brumes-callout-style="masks-move"] .callout-content :is(strong, b, a) {
+  color: var(--masks-navy, var(--color-accent));
+}
+
+/* A crisis trigger: a gold tab for the label, a violet bar for the trigger, a pale line for the effect. */
+body.brumes--masks .callout[data-brumes-callout-style="masks-crisis"] .callout-title {
+  display: inline-flex;
+  padding: 0.15em 0.7em;
+  border-radius: 0.35rem 0.35rem 0 0;
+  background: var(--masks-gold-soft, var(--background-primary-alt));
+  color: var(--masks-gold, var(--text-muted));
+  font-family: var(--masks-heading-font, var(--font-header-theme));
+  font-size: 0.72em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+body.brumes--masks .callout[data-brumes-callout-style="masks-crisis"] .callout-content {
+  padding: 0;
+  background: var(--masks-panel, var(--background-primary-alt));
+}
+body.brumes--masks .callout[data-brumes-callout-style="masks-crisis"] .callout-content > :first-child {
+  margin: 0;
+  padding: 0.45em 0.9em;
+  border: 1px solid var(--masks-gold, var(--background-modifier-border));
+  background: var(--masks-crisis, var(--color-accent));
+  color: var(--masks-on-navy, #fff);
+  font-weight: 700;
+}
+body.brumes--masks .callout[data-brumes-callout-style="masks-crisis"] .callout-content > :not(:first-child) {
+  margin: 0;
+  padding: 0.45em 0.9em;
+}
+
+/* A caption: small, centred, no frame. */
+body.brumes--masks .callout[data-brumes-callout-style="masks-caption"] {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.82em;
+  font-style: italic;
+}
+body.brumes--masks .callout[data-brumes-callout-style="masks-caption"] .callout-title {
+  justify-content: center;
+  color: var(--text-muted);
+  font-family: var(--masks-heading-font, var(--font-header-theme));
+  font-size: 0.9em;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+body.brumes--masks .callout[data-brumes-callout-style="masks-caption"] .callout-content {
+  padding: 0;
+}
+
+/* A portrait: the note puts the picture in the body, the pack frames it in gold. Without a picture
+   the title and the text stand alone. */
+body.brumes--masks .callout[data-brumes-callout-style="masks-portrait"] .callout-title {
+  color: var(--masks-navy, var(--color-accent));
+  font-family: var(--masks-heading-font, var(--font-header-theme));
+  font-size: 1em;
+  font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
-body.brumes--masks .callout[data-brumes-callout-style="pbta-clock"] { border-style: dashed; }
-body.brumes--masks .callout[data-brumes-callout-style="pbta-npc-reaction"] { box-shadow: 0.3rem 0.3rem 0 #16a4c4; }
-body.brumes--masks .callout[data-brumes-callout-style="pbta-playbook-change"] { border-block-start-width: 0.55rem; }
+body.brumes--masks .callout[data-brumes-callout-style="masks-portrait"] .callout-content {
+  padding: 0;
+}
+body.brumes--masks .callout[data-brumes-callout-style="masks-portrait"] .callout-content :is(img, .internal-embed) {
+  display: block;
+  box-sizing: border-box;
+  max-width: 9rem;
+  margin: 0.3rem 0;
+  border: 0.3rem solid var(--masks-gold, var(--color-accent));
+  outline: 1px solid var(--masks-navy, var(--color-accent));
+  background: var(--masks-panel, var(--background-primary-alt));
+}
+
+/* A chapter title: the note puts the cartouche in the body; the pack lays it behind the title. Without it
+   the title stands alone. */
+body.brumes--masks .callout[data-brumes-callout-style="masks-chapter"] {
+  position: relative;
+  isolation: isolate;
+  text-align: center;
+}
+body.brumes--masks .callout[data-brumes-callout-style="masks-chapter"] .callout-title {
+  position: relative;
+  z-index: 1;
+  justify-content: center;
+  padding: 0.5em 0;
+  color: var(--masks-navy, var(--color-accent));
+  font-family: var(--masks-title-font, var(--font-header-theme));
+  font-size: 2.4em;
+  font-weight: 400;
+  line-height: 1;
+  text-transform: none;
+}
+body.brumes--masks .callout[data-brumes-callout-style="masks-chapter"] .callout-content {
+  padding: 0;
+}
+body.brumes--masks .callout[data-brumes-callout-style="masks-chapter"]:has(.callout-content img, .callout-content .internal-embed) {
+  min-height: 7rem;
+}
+body.brumes--masks .callout[data-brumes-callout-style="masks-chapter"] .callout-content :is(img, .internal-embed) {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: -1;
+  max-width: 100%;
+  max-height: 100%;
+  margin-inline: auto;
+}

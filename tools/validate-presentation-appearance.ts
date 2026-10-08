@@ -4,6 +4,7 @@ import path from "node:path";
 import { PBTA_MONSTERHEARTS_APPEARANCE, monsterheartsAppearanceSchema } from "../src/presentation/monsterhearts-appearance.js";
 import { PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS } from "../src/presentation/monsterhearts-appearance-assets.js";
 import { PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION } from "../src/presentation/monsterhearts-playbook.js";
+import { masksAppearanceSchema, PBTA_MASKS_APPEARANCE } from "../src/presentation/masks-appearance.js";
 import { PBTA_URBAN_SHADOWS_APPEARANCE, urbanShadowsAppearanceSchema } from "../src/presentation/urban-shadows-appearance.js";
 import { PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION } from "../src/presentation/urban-shadows-playbook.js";
 
@@ -112,4 +113,33 @@ for (const name of ["urban-shadows-appearance-base.json"]) {
   assert.deepEqual({ ...urbanShadows.resources.assets, ...variant.assetOverrides }, fixture.assets, `${name}: asset resolution differs`);
 }
 
-console.log("✓ validated Monsterhearts and Urban Shadows appearance artifacts, resources, and consumer fixtures");
+/* Masks publishes no pack block on its layouts: its appearance is checked against the pack manifest and the Handbook pack. */
+const masksRoot = path.join(process.cwd(), "packs", "masks");
+const masks = masksAppearanceSchema.parse(JSON.parse(fs.readFileSync(path.join(masksRoot, "appearance-contract.json"), "utf8")));
+assert.deepEqual(masks, PBTA_MASKS_APPEARANCE, "Masks appearance artifact must be generated from the ESM source");
+for (const resource of [
+  ...Object.values(masks.resources.fonts),
+  ...masks.resources.stylesheets,
+  ...Object.values(masks.resources.assets),
+]) {
+  const absolute = path.resolve(masksRoot, resource);
+  assert.ok(absolute.startsWith(`${masksRoot}${path.sep}`), `resource escapes pack: ${resource}`);
+  assert.ok(fs.statSync(absolute).isFile(), `missing appearance resource: ${resource}`);
+}
+for (const variant of masks.variants) {
+  for (const family of ["Staatliches", "Josefin Sans", "Crimson Pro"]) {
+    assert.ok(
+      Object.values(variant.tokens).some((value) => value.includes(`'${family}'`)),
+      `${variant.id}: no token names the ${family} family`,
+    );
+  }
+}
+for (const name of ["masks-appearance-base.json"]) {
+  const fixture = JSON.parse(fs.readFileSync(path.join(process.cwd(), "corpus", "presentation", "valid", name), "utf8")) as Fixture;
+  const variant = masks.variants.find((entry) => entry.id === fixture.variant);
+  assert.ok(variant, `${name}: unknown variant`);
+  assert.deepEqual(variant.tokens, fixture.tokens, `${name}: token resolution differs`);
+  assert.deepEqual(masks.resources.assets, fixture.assets, `${name}: asset resolution differs`);
+}
+
+console.log("✓ validated Monsterhearts, Urban Shadows and Masks appearance artifacts, resources, and consumer fixtures");

@@ -1,0 +1,127 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Stable kebab-case identifier of the character."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable character name."
+    },
+    "game": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Folder slug of the game this character belongs to."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Background of the character, written below the card."
+    },
+    "tags": {
+      "description": "Free-form tags attached to the character.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "generation": {
+      "description": "Generation line of the card.",
+      "type": "string",
+      "minLength": 1
+    },
+    "realName": {
+      "description": "Real name line of the card.",
+      "type": "string",
+      "minLength": 1
+    },
+    "drive": {
+      "description": "Drive of the character.",
+      "type": "string",
+      "minLength": 1
+    },
+    "abilities": {
+      "description": "Abilities line of the card.",
+      "type": "string",
+      "minLength": 1
+    },
+    "resistance": {
+      "description": "Resistance printed in the circled figure of the card.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    },
+    "conditions": {
+      "description": "Names of the Conditions the character carries.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "self": {
+      "type": "object",
+      "properties": {
+        "min": {
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647,
+          "description": "Lowest value printed on the Self track."
+        },
+        "max": {
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647,
+          "description": "Highest value printed on the Self track."
+        },
+        "value": {
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647,
+          "description": "Current position on the Self track."
+        }
+      },
+      "required": [
+        "min",
+        "max",
+        "value"
+      ],
+      "additionalProperties": false,
+      "description": "The Self track of the card."
+    },
+    "worstSelf": {
+      "description": "Text of the worst end of the Self track.",
+      "type": "string",
+      "minLength": 1
+    },
+    "bestSelf": {
+      "description": "Text of the best end of the Self track.",
+      "type": "string",
+      "minLength": 1
+    },
+    "moves": {
+      "description": "Bulleted lines of the card's moves.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "slug",
+    "name",
+    "game",
+    "description",
+    "self"
+  ],
+  "additionalProperties": false,
+  "title": "Masks NPC",
+  "description": "Portable representation of a Masks non-player character card.",
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v11.0.0/schemas/v11/masks/masks-npc.schema.json"
+}

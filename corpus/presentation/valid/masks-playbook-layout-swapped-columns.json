@@ -1,0 +1,18 @@
+{
+  "target": "masks-playbook",
+  "set": {
+    "faces.0.columns": [
+      [
+        "masks-moves",
+        "masks-drives"
+      ],
+      [
+        "masks-labels",
+        "masks-conditions",
+        "masks-moment-of-truth",
+        "masks-influence-options",
+        "masks-advances"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+# Invented NPC card. The name, the Drive and every line of text are original;
+# only the Conditions come from the game definition.
+
+slug = "the-cartographer"
+name = "The Cartographer"
+game = "masks"
+description = "She redraws the district's maps by night, and by morning the streets have agreed with her.\n\nNo one remembers hiring her. Everyone relies on the shortcuts she leaves behind."
+tags = ["rival", "downtown"]
+generation = "Second generation"
+realName = "Odile Brandt"
+drive = "Be the only one who knows the way home"
+abilities = "Streets that obey her ink"
+resistance = 3
+conditions = ["Insecure", "Guilty"]
+worstSelf = "Erases the places other people call home."
+bestSelf = "Leaves a lantern at every crossing she changed."
+moves = [
+  "Redraw the block so the heroes lose their footing.",
+  "Offer a shortcut that costs the team time later.",
+  "Call in a favor from someone the map forgot.",
+]
+
+[self]
+min = -2
+max = 3
+value = 1

@@ -1,0 +1,36 @@
+{
+  "target": "masks-npc",
+  "rejects": "region left unplaced: masks-npc-moves",
+  "set": {
+    "rows": [
+      [
+        [
+          "masks-npc-header"
+        ]
+      ],
+      [
+        [
+          "masks-npc-identity"
+        ]
+      ],
+      [
+        [
+          "masks-npc-resistance"
+        ]
+      ],
+      [
+        [
+          "masks-npc-self"
+        ]
+      ],
+      [
+        [
+          "masks-npc-worst-self"
+        ],
+        [
+          "masks-npc-best-self"
+        ]
+      ]
+    ]
+  }
+}

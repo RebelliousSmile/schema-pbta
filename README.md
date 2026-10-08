@@ -178,7 +178,8 @@ const toml = PBTA_DOCUMENT_CODECS.playbook.stringifyToml(fromToml);
 ```
 
 `PBTA_DOCUMENT_CODECS` contains `game-definition`, `move`, `playbook`, `npc`,
-`front` and every specialized `*-playbook` type. The portable suite is available from
+`front`, every specialized `*-playbook` type and the specialized `masks-npc`
+card (specialized targets are named `<pack.id>-<type>`). The portable suite is available from
 `schema-pbta/corpus/cases.json`; read that manifest and resolve every case under
 `schema-pbta/corpus/<path>` rather than maintaining a consumer-specific list.
 

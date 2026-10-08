@@ -1,0 +1,19 @@
+slug = "the-ember"
+name = "The Ember"
+game = "masks"
+description = "An original fixture."
+stats = { danger = 1 }
+moves = []
+momentOfTruth = "You become the hero the city needs."
+[editorial.opening]
+heading = "Opening"
+paragraphs = ["Original fixture."]
+[editorial.playAdvice]
+heading = "Advice"
+paragraphs = ["Play bravely."]
+[editorial.identity]
+heading = "Identity"
+paragraphs = ["Choose a name."]
+[editorial.progression]
+heading = "Progression"
+paragraphs = ["Mark Potential."]

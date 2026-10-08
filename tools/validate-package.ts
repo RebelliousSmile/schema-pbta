@@ -92,6 +92,7 @@ import {
   parseFrontToml,
   parseGameDefinitionToml,
   parseMoveToml,
+  parseMasksNpcToml,
   parseMasksPlaybookToml,
   parseMonsterOfTheWeekPlaybookToml,
   parseMonsterheartsPlaybookToml,
@@ -104,7 +105,12 @@ import {
   PBTA_MONSTERHEARTS_APPEARANCE,
   PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION,
   PBTA_URBAN_SHADOWS_APPEARANCE,
+  PBTA_MASKS_PLAYBOOK_PRESENTATION,
+  PBTA_MASKS_NPC_PRESENTATION,
+  PBTA_MASKS_APPEARANCE,
   PBTA_PACK_CALLOUTS,
+  getPbtaMasksPlaybookPresentation,
+  getPbtaMasksNpcPresentation,
   getPbtaMonsterheartsPlaybookPresentation,
   getPbtaUrbanShadowsPlaybookPresentation,
 } from "schema-pbta";
@@ -123,12 +129,13 @@ assert.deepEqual(
   PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
 );
 assert.deepEqual(Object.keys(PBTA_DOCUMENT_CODECS).sort(), [
-  "front", "game-definition", "masks-playbook", "monster-of-the-week-playbook", "monsterhearts-playbook", "move", "npc", "playbook", "salvage-run-playbook", "the-sprawl-playbook", "urban-shadows-playbook",
+  "front", "game-definition", "masks-npc", "masks-playbook", "monster-of-the-week-playbook", "monsterhearts-playbook", "move", "npc", "playbook", "salvage-run-playbook", "the-sprawl-playbook", "urban-shadows-playbook",
 ]);
 for (const parser of [
   parseFrontToml,
   parseGameDefinitionToml,
   parseMoveToml,
+  parseMasksNpcToml,
   parseMasksPlaybookToml,
   parseMonsterOfTheWeekPlaybookToml,
   parseMonsterheartsPlaybookToml,
@@ -139,9 +146,9 @@ for (const parser of [
   parseSalvageRunPlaybookToml,
 ]) assert.equal(typeof parser, "function");
 
-const schemaUrl = import.meta.resolve("schema-pbta/schemas/v10/monsterhearts/monsterhearts-playbook.schema.json");
+const schemaUrl = import.meta.resolve("schema-pbta/schemas/v11/monsterhearts/monsterhearts-playbook.schema.json");
 const schema = JSON.parse(fs.readFileSync(new URL(schemaUrl), "utf8"));
-assert.match(schema.$id, /\\/v10\\.0\\.0\\/schemas\\/v10\\/monsterhearts\\/monsterhearts-playbook\\.schema\\.json$/);
+assert.match(schema.$id, /\\/v11\\.0\\.0\\/schemas\\/v11\\/monsterhearts\\/monsterhearts-playbook\\.schema\\.json$/);
 assert.throws(
   () => import.meta.resolve("schema-pbta/schemas/monsterhearts/monsterhearts-playbook.schema.json"),
   { code: "ERR_PACKAGE_PATH_NOT_EXPORTED" },
@@ -190,6 +197,28 @@ for (const resource of [
 assert.ok(
   PBTA_PACK_CALLOUTS.some((entry) => entry.pack === "urban-shadows"),
   "the package publishes the Urban Shadows callouts",
+);
+
+assert.deepEqual(getPbtaMasksPlaybookPresentation("masks-playbook"), PBTA_MASKS_PLAYBOOK_PRESENTATION);
+assert.deepEqual(getPbtaMasksNpcPresentation("masks-npc"), PBTA_MASKS_NPC_PRESENTATION);
+for (const [file, expected] of [
+  ["presentation-contract.json", PBTA_MASKS_PLAYBOOK_PRESENTATION],
+  ["npc-presentation-contract.json", PBTA_MASKS_NPC_PRESENTATION],
+  ["appearance-contract.json", PBTA_MASKS_APPEARANCE],
+]) {
+  assert.deepEqual(
+    JSON.parse(fs.readFileSync(new URL(import.meta.resolve("schema-pbta/packs/masks/" + file)), "utf8")),
+    expected,
+    "the Masks " + file + " artifact must equal its ESM export",
+  );
+}
+for (const resource of PBTA_MASKS_APPEARANCE.resources.stylesheets) {
+  assert.ok(fs.statSync(new URL(import.meta.resolve("schema-pbta/packs/masks/" + resource))).isFile(), "missing exported appearance resource " + resource);
+}
+assert.equal(
+  PBTA_PACK_CALLOUTS.filter((entry) => entry.pack === "masks").length,
+  7,
+  "the package publishes the seven Masks callouts",
 );
 
 const corpusUrl = import.meta.resolve("schema-pbta/corpus/valid/playbook-minimal.toml");

@@ -2,6 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { PBTA_PACK_CALLOUTS } from "../src/presentation/callouts.js";
 import { validateInstallableHandbookSource } from "./validate-handbook-packs.js";
 
 type Data = Record<string, any>;
@@ -39,16 +40,20 @@ if (baseline.length > 0) throw new Error(`valid catalogue was rejected: ${baseli
   try {
     fs.copyFileSync(path.join(projectRoot, "handbook.json"), path.join(temporary, "handbook.json"));
     fs.cpSync(path.join(projectRoot, "handbook"), path.join(temporary, "handbook"), { recursive: true });
-    const file = path.join(temporary, "handbook", "masks", "pack.json");
+    /* A pack with no booklet geometry of its own: it needs only the callouts it publishes. */
+    const game = "the-sprawl";
+    const file = path.join(temporary, "handbook", game, "pack.json");
     const manifest = readJson(file);
     manifest.pack.assets.stylesheets = ["styles/callouts.css"];
     writeJson(file, manifest);
-    const stylesheet = path.join(temporary, "handbook", "masks", "assets", "styles", "callouts.css");
+    const stylesheet = path.join(temporary, "handbook", game, "assets", "styles", "callouts.css");
     fs.mkdirSync(path.dirname(stylesheet), { recursive: true });
-    fs.writeFileSync(stylesheet, `body.brumes--masks .callout:is(${[
+    fs.writeFileSync(stylesheet, `body.brumes--${game} .callout:is(${[
       "pbta-rule", "pbta-trigger", "pbta-choice", "pbta-result",
       "pbta-clock", "pbta-move", "pbta-npc-reaction", "pbta-playbook-change",
-    ].map((id) => `[data-brumes-callout-style="${id}"]`).join(",")}) { color: inherit; }\n`);
+      ...PBTA_PACK_CALLOUTS.filter((entry) => (entry.pack as string) === game).map((entry) => entry.id),
+    ].map((id) => `[data-brumes-callout-style="${id}"]`).join(",")}) { color: inherit; }
+`);
     const issues = validateInstallableHandbookSource(temporary);
     if (issues.length > 0) throw new Error(`valid stylesheet was rejected: ${issues.join(" | ")}`);
   } finally {
@@ -149,5 +154,58 @@ fixture("duplicate stylesheet", (root) => {
   manifest.pack.assets.stylesheets = ["styles/callouts.css", "styles/callouts.css"];
   writeJson(file, manifest);
 }, "duplicate stylesheet");
+
+/* The Masks pack: its fonts, scope, hooks and print rules are checked against what the npm contracts publish. */
+const masksSheet = (root: string, name: string): string => path.join(root, "handbook", "masks", "assets", "styles", name);
+
+fixture("masks font without licence", (root) => {
+  fs.rmSync(path.join(root, "handbook", "masks", "assets", "fonts", "OFL-JosefinSans.txt"));
+}, "masks: Josefin Sans must ship its licence OFL-JosefinSans.txt");
+
+fixture("masks unscoped selector", (root) => {
+  fs.appendFileSync(masksSheet(root, "page.css"), "\n.callout { color: inherit; }\n");
+}, "masks: styles/page.css has the unscoped selector .callout");
+
+fixture("masks unscoped selector after a comma", (root) => {
+  fs.appendFileSync(masksSheet(root, "layout.css"), "\nbody.brumes--masks [data-region], .markdown-rendered p { margin: 0; }\n");
+}, "masks: styles/layout.css has the unscoped selector .markdown-rendered p");
+
+fixture("masks unknown region", (root) => {
+  fs.appendFileSync(masksSheet(root, "layout.css"), '\nbody.brumes--masks [data-region="masks-unknown"] { margin: 0; }\n');
+}, "targets an unpublished data-region masks-unknown");
+
+fixture("masks unknown primitive", (root) => {
+  fs.appendFileSync(masksSheet(root, "layout.css"), '\nbody.brumes--masks [data-primitive="gauge"] { margin: 0; }\n');
+}, "targets an unpublished data-primitive gauge");
+
+fixture("masks unknown face", (root) => {
+  fs.appendFileSync(masksSheet(root, "layout.css"), '\nbody.brumes--masks [data-face="spine"] { margin: 0; }\n');
+}, "targets an unpublished data-face spine");
+
+fixture("masks written colour", (root) => {
+  fs.appendFileSync(masksSheet(root, "layout.css"), "\nbody.brumes--masks [data-row] { color: #123456; }\n");
+}, "must take its colours from the tokens");
+
+fixture("masks no page break between faces", (root) => {
+  const file = masksSheet(root, "layout.css");
+  fs.writeFileSync(file, fs.readFileSync(file, "utf8").replace("break-before: page;", ""));
+}, "must break the page between the two faces in print");
+
+fixture("masks no canonical print order", (root) => {
+  const file = masksSheet(root, "layout.css");
+  fs.writeFileSync(file, fs.readFileSync(file, "utf8").replace("order: var(--pbta-region-order);", ""));
+}, "must print the regions in canonical order");
+
+fixture("masks callout without a rule", (root) => {
+  const file = masksSheet(root, "callouts.css");
+  fs.writeFileSync(file, fs.readFileSync(file, "utf8").replaceAll("masks-chapter", "masks-other"));
+}, "callout stylesheet misses its published callout masks-chapter");
+
+fixture("masks code token missing", (root) => {
+  const file = path.join(root, "handbook", "masks", "pack.json");
+  const manifest = readJson(file);
+  delete manifest.pack.style.light.note["--code-normal"];
+  writeJson(file, manifest);
+}, "masks: missing native token --code-normal");
 
 console.log("✅ Handbook catalogue rejection fixtures passed validation.");

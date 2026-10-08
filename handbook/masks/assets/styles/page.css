@@ -1,0 +1,75 @@
+/* The light page: navy condensed titles, gold sub-headings, star list marks, ruled tables and game terms. */
+body.brumes--masks .markdown-rendered h2 {
+  letter-spacing: 0.06em;
+}
+body.brumes--masks .markdown-rendered h3 {
+  letter-spacing: 0.08em;
+}
+/* Star list marks. Reading view draws them on the item itself: the host bullet is a float whose
+   mark can end up under a column, so it is hidden. Editing keeps the host bullet, redrawn in the
+   pack colour. Only lines of the editor: a callout in Live Preview is a reading-view widget and
+   draws its marks like reading view. */
+body.brumes--masks .markdown-rendered ul > li:not(.task-list-item) {
+  position: relative;
+}
+body.brumes--masks .markdown-rendered ul > li:not(.task-list-item) > .list-bullet {
+  display: none;
+}
+body.brumes--masks .markdown-rendered ul > li:not(.task-list-item)::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: -1.25em;
+  inset-block-start: 0.3em;
+  width: 0.85em;
+  height: 0.85em;
+  background: var(--brumes-image-star-bullet, none) center / contain no-repeat;
+}
+body.brumes--masks :is(.is-live-preview, .markdown-source-view) .cm-line .list-bullet::after {
+  content: "" !important;
+  display: block !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--brumes-image-star-bullet, none) center / contain no-repeat !important;
+  width: 0.85em !important;
+  height: 0.85em !important;
+}
+/* A game term is written bold and italic: it reads upright, bold, in the accent. */
+body.brumes--masks .markdown-rendered :is(strong > em, em > strong) {
+  color: var(--color-accent);
+  font-style: normal;
+  font-weight: 700;
+}
+body.brumes--masks .markdown-rendered em {
+  font-family: "Crimson Pro Italic", var(--font-text-theme);
+}
+body.brumes--masks .markdown-rendered :is(strong > em, em > strong) {
+  font-family: var(--font-text-theme);
+}
+/* Tables: a navy head, gold rules, pale stripes. */
+body.brumes--masks .markdown-rendered table {
+  border-collapse: collapse;
+  font-size: 0.88em;
+}
+body.brumes--masks .markdown-rendered table th {
+  padding: 0.3em 0.6em;
+  border: 0;
+  background: var(--masks-navy, var(--color-accent));
+  color: var(--masks-on-navy, #fff);
+  font-family: var(--masks-heading-font, var(--font-header-theme));
+  font-size: 0.85em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: start;
+}
+body.brumes--masks .markdown-rendered table td {
+  padding: 0.4em 0.6em;
+  border: 0;
+  border-block-end: 1px solid var(--masks-gold, var(--background-modifier-border));
+  vertical-align: top;
+}
+body.brumes--masks .markdown-rendered table tbody tr:nth-child(odd) td {
+  background: var(--masks-gold-soft, var(--background-primary-alt));
+}
+body.brumes--masks .markdown-rendered table tbody tr:nth-child(even) td {
+  background: var(--masks-panel, var(--background-primary-alt));
+}

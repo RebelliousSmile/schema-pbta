@@ -38,6 +38,19 @@
     { "path": "invalid/the-sprawl-playbook-missing-editorial.toml", "target": "the-sprawl-playbook", "expect": "reject" },
     { "path": "invalid/salvage-run-playbook-unknown-field.toml", "target": "salvage-run-playbook", "expect": "reject" },
     { "path": "invalid/npc-unknown-field.toml", "target": "npc", "expect": "reject" },
-    { "path": "invalid/front-unknown-field.toml", "target": "front", "expect": "reject" }
+    { "path": "invalid/front-unknown-field.toml", "target": "front", "expect": "reject" },
+    { "path": "valid/masks-playbook-blank.toml", "target": "masks-playbook", "expect": "accept" },
+    { "path": "invalid/masks-playbook-potential-max-negative.toml", "target": "masks-playbook", "expect": "reject" },
+    { "path": "invalid/masks-playbook-stat-range-missing-max.toml", "target": "masks-playbook", "expect": "reject" },
+    { "path": "invalid/masks-playbook-condition-unknown-field.toml", "target": "masks-playbook", "expect": "reject" },
+    { "path": "invalid/masks-playbook-drive-empty-label.toml", "target": "masks-playbook", "expect": "reject" },
+    { "path": "invalid/masks-playbook-moment-unlocked-text.toml", "target": "masks-playbook", "expect": "reject" },
+    { "path": "valid/masks-npc-complete.toml", "target": "masks-npc", "expect": "accept" },
+    { "path": "valid/masks-npc-blank.toml", "target": "masks-npc", "expect": "accept" },
+    { "path": "invalid/masks-npc-missing-self.toml", "target": "masks-npc", "expect": "reject" },
+    { "path": "invalid/masks-npc-attributes-field.toml", "target": "masks-npc", "expect": "reject" },
+    { "path": "invalid/masks-npc-self-missing-value.toml", "target": "masks-npc", "expect": "reject" },
+    { "path": "invalid/masks-npc-condition-object.toml", "target": "masks-npc", "expect": "reject" },
+    { "path": "invalid/masks-npc-resistance-negative.toml", "target": "masks-npc", "expect": "reject" }
   ]
 }

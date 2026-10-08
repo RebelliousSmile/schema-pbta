@@ -1,0 +1,35 @@
+{
+  "target": "masks-npc",
+  "rejects": "too_big",
+  "set": {
+    "rows": [
+      [
+        [
+          "masks-npc-header"
+        ],
+        [
+          "masks-npc-identity"
+        ],
+        [
+          "masks-npc-resistance"
+        ],
+        [
+          "masks-npc-self"
+        ]
+      ],
+      [
+        [
+          "masks-npc-worst-self"
+        ],
+        [
+          "masks-npc-best-self"
+        ]
+      ],
+      [
+        [
+          "masks-npc-moves"
+        ]
+      ]
+    ]
+  }
+}

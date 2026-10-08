@@ -1,0 +1,134 @@
+{
+  "target": "masks-npc",
+  "regions": [
+    {
+      "id": "masks-npc-header",
+      "label": "En-tête",
+      "group": "card",
+      "primitive": "key-value",
+      "fields": [
+        "name",
+        "generation"
+      ]
+    },
+    {
+      "id": "masks-npc-identity",
+      "label": "Identité",
+      "group": "card",
+      "primitive": "key-value",
+      "fields": [
+        "realName",
+        "drive",
+        "abilities"
+      ]
+    },
+    {
+      "id": "masks-npc-resistance",
+      "label": "Résistance et Conditions",
+      "group": "card",
+      "primitive": "key-value",
+      "fields": [
+        "resistance",
+        "conditions"
+      ]
+    },
+    {
+      "id": "masks-npc-self",
+      "label": "Self",
+      "group": "card",
+      "primitive": "track",
+      "fields": [
+        "self"
+      ]
+    },
+    {
+      "id": "masks-npc-worst-self",
+      "label": "Pire soi",
+      "group": "card",
+      "primitive": "prose",
+      "fields": [
+        "worstSelf"
+      ]
+    },
+    {
+      "id": "masks-npc-best-self",
+      "label": "Meilleur soi",
+      "group": "card",
+      "primitive": "prose",
+      "fields": [
+        "bestSelf"
+      ]
+    },
+    {
+      "id": "masks-npc-moves",
+      "label": "Moves",
+      "group": "card",
+      "primitive": "list",
+      "fields": [
+        "moves"
+      ]
+    },
+    {
+      "id": "masks-npc-context",
+      "label": "Contexte",
+      "group": "context",
+      "primitive": "prose",
+      "fields": [
+        "description"
+      ]
+    }
+  ],
+  "canonicalOrder": [
+    "masks-npc-header",
+    "masks-npc-identity",
+    "masks-npc-resistance",
+    "masks-npc-self",
+    "masks-npc-worst-self",
+    "masks-npc-best-self",
+    "masks-npc-moves",
+    "masks-npc-context"
+  ],
+  "rows": [
+    [
+      [
+        "masks-npc-header"
+      ]
+    ],
+    [
+      [
+        "masks-npc-identity"
+      ]
+    ],
+    [
+      [
+        "masks-npc-resistance"
+      ]
+    ],
+    [
+      [
+        "masks-npc-self"
+      ]
+    ],
+    [
+      [
+        "masks-npc-worst-self"
+      ],
+      [
+        "masks-npc-best-self"
+      ]
+    ],
+    [
+      [
+        "masks-npc-moves"
+      ]
+    ]
+  ],
+  "outsideCard": [
+    "masks-npc-context"
+  ],
+  "fallbacks": {
+    "unplaced": "canonical-order",
+    "narrowPane": "canonical-flow",
+    "print": "canonical-flow"
+  }
+}

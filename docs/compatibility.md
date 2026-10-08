@@ -16,6 +16,7 @@ npm registry.
 | `6.0.x` candidate | `schemas/v6` | `v6.0.0` (not yet published) | `1.0.0` | requires consumer upgrade | requires consumer upgrade |
 | `9.0.x` candidate | `schemas/v9` | `v9.0.0` (not yet published) | `1.0.0` | requires consumer upgrade | requires consumer upgrade |
 | `10.0.x` candidate | `schemas/v10` | `v10.0.0` (not yet published) | `1.0.0` | requires consumer upgrade | requires consumer upgrade |
+| `11.0.x` candidate | `schemas/v11` | `v11.0.0` (not yet published) | `1.0.0` | requires consumer upgrade | requires consumer upgrade |
 
 The schema path groups compatible artifacts by contract major. Every `$id`
 uses its exact immutable release tag so it never depends on a movable major alias.
@@ -43,6 +44,18 @@ structured mechanics and the editorial regions rendered on the sheet. A single
 TOML document is the only canonical source for a character sheet. The portable
 `playbook` type remains available for cross-game interchange, but cannot satisfy
 a movement's `playbook` reference in the canonical corpus.
+
+## Specialized targets other than playbooks
+
+A target that belongs to one pack is named `<pack.id>-<type>`: `masks-playbook`
+and `masks-npc` are both owned by the `masks` pack, and a pack cannot document a
+target that carries another pack's prefix. `masks-npc` is the Masks non-player
+character card. It is a document of its own: it has no `attributes`, and its
+Conditions are names, not checkboxes. The generic `npc` is unchanged and the
+`masks-npc` codec rejects it, so a consumer resolves the two from the schema
+alone. A `masks-npc` slug never resolves a reference of type `npc`, and the
+reference check does not read the generic NPC attributes for it. No collection
+presentation is published for `masks-npc`, because no editor consumes one.
 
 ## Release and consumer integrity
 
