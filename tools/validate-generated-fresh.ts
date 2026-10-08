@@ -31,7 +31,8 @@ function snapshot(): Map<string, string> {
   const hashes = new Map<string, string>();
   for (const file of listFiles()) {
     const full = path.join(root, file);
-    if (!fs.existsSync(full)) continue;
+    // A nested checkout (the runner puts Handbook inside the workspace) is listed as a directory: it is not this repository's content.
+    if (!fs.existsSync(full) || fs.statSync(full).isDirectory()) continue;
     // A generator writes LF; a checkout with autocrlf holds CRLF. Only the content is compared.
     const content = fs.readFileSync(full).toString("latin1").replace(/\r\n/g, "\n");
     hashes.set(file, createHash("sha256").update(content, "latin1").digest("hex"));
