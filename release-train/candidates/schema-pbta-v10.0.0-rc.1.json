@@ -1,0 +1,13 @@
+{
+  "protocol": 1,
+  "candidate": {
+    "provider": "schema-pbta",
+    "releaseUrl": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v10.0.0-rc.1/schema-pbta-10.0.0.tgz",
+    "sha256": "dba6c7992e9c02b6b70dbd87f2832d5510008eb4e0348554a95f7530bb325751",
+    "integrity": "sha512-gAaCOYX6+X4IdixeOhlw9t+RT0vxzGTnY6/P/Dn1QurueuLt3lV1ISFuWvNvFQcq8rJ2HghNUQM1X2CvDZRa3Q==",
+    "version": "10.0.0",
+    "stagingTag": "v10.0.0-rc.1",
+    "finalTag": "v10.0.0",
+    "providerCommit": "0285cc39da7aab22d601bd766a5103ebbf1e1e54"
+  }
+}
