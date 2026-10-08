@@ -272,12 +272,14 @@ body.brumes--masks [data-region="masks-labels"] {
 body.brumes--masks :is([data-region="masks-conditions"], [data-region="masks-advances"], [data-region="masks-drives"]) {
   border-block-start: 0;
 }
-/* Drives: a soft strip ruled in orange above and below, the title white on a navy tab at its left. */
+/* Drives: the whole region on a soft ground ruled in orange above and below, the title white on a navy tab at its left. */
 body.brumes--masks [data-region="masks-drives"] {
-  background:
-    linear-gradient(var(--masks-gold), var(--masks-gold)) 0 0 / 100% var(--masks-stroke) no-repeat,
-    linear-gradient(var(--masks-gold), var(--masks-gold)) 0 calc(1.8rem - var(--masks-stroke)) / 100% var(--masks-stroke) no-repeat,
-    linear-gradient(var(--masks-gold-soft), var(--masks-gold-soft)) 0 0 / 100% 1.8rem no-repeat;
+  padding: 0 0 0.5rem;
+  border-block: var(--masks-stroke) solid var(--masks-gold);
+  background: var(--masks-gold-soft);
+}
+body.brumes--masks [data-region="masks-drives"] > :not(h3) {
+  margin-inline: 0.5rem;
 }
 body.brumes--masks [data-region="masks-drives"] > h3 {
   display: flex;
@@ -309,6 +311,7 @@ body.brumes--masks [data-region="masks-moves"] > h3 {
   color: var(--masks-navy);
 }
 body.brumes--masks [data-region="masks-moves"] li > span {
+  flex: 0 1 auto;
   border-block-end: var(--masks-stroke) solid var(--masks-gold);
   color: var(--text-normal);
   font-weight: 700;
