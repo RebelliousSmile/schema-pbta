@@ -2,7 +2,7 @@
 
 Trois familles libres (SIL Open Font License 1.1), livrées au format WOFF2, chacune avec sa licence à côté :
 
-- **Anton** — titres (`OFL-Anton.txt`).
+- **Londrina Solid** (Black, converti en WOFF2 sans autre modification) — titres, le plus proche libre de 3rd Man (`OFL-LondrinaSolid.txt`).
 - **Barlow Condensed** — sous-titres et étiquettes, en capitales (`OFL-BarlowCondensed.txt`). La famille `Barlow Condensed` est la graisse 600 ; `Barlow Condensed Regular` et `Barlow Condensed Italic` portent la graisse 400.
 - **Crimson Pro** — texte courant, police variable, romain et italique (`OFL-CrimsonPro.txt`).
 

@@ -19,7 +19,7 @@ body.brumes--monster-of-the-week .markdown-rendered :is(h1, h2, h3) :is(em, i) {
 }
 /* A game term is written bold and italic: it reads upright, bold, in the accent. */
 body.brumes--monster-of-the-week .markdown-rendered :is(strong > em, em > strong) {
-  color: var(--color-accent);
+  color: var(--motw-ink);
   font-family: var(--motw-body-font);
   font-style: normal;
   font-weight: 700;
@@ -59,4 +59,14 @@ body.brumes--monster-of-the-week .markdown-rendered blockquote {
   margin-inline: 1.5rem 0;
   padding: 0 0 0 0.5rem;
   border: 0;
+}
+
+/* Black on white, like the printed book: code, links and ticks take the ink. */
+body.brumes--monster-of-the-week .markdown-rendered :is(code, .cm-inline-code) {
+  background: var(--code-background);
+  color: var(--motw-ink);
+}
+body.brumes--monster-of-the-week .markdown-rendered a {
+  color: var(--motw-ink);
+  text-decoration: underline;
 }

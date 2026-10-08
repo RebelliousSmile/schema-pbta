@@ -40,10 +40,10 @@ export const PBTA_MONSTER_OF_THE_WEEK_APPEARANCE: PbtaMonsterOfTheWeekAppearance
   },
   variants: [
     { id: "base", tokens: {
-      "--motw-title-font": "'Anton', 'League Gothic', 'Arial Narrow', sans-serif",
+      "--motw-title-font": "'Londrina Solid', 'Anton', 'Arial Narrow', sans-serif",
       "--motw-heading-font": "'Barlow Condensed', 'Arial Narrow', sans-serif",
       "--motw-body-font": "'Crimson Pro', Georgia, serif",
-      "--motw-accent": "#a53628",
+      "--motw-accent": "#20231f",
     } },
   ],
 });

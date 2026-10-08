@@ -475,7 +475,7 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
       /* Three faces, each with the licence of its family beside it. */
       const motwFonts = data(assets.fonts);
       for (const [family, licence] of [
-        ["Anton", "OFL-Anton.txt"],
+        ["Londrina Solid", "OFL-LondrinaSolid.txt"],
         ["Barlow Condensed", "OFL-BarlowCondensed.txt"],
         ["Crimson Pro", "OFL-CrimsonPro.txt"],
       ]) {
