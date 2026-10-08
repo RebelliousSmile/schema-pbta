@@ -256,6 +256,18 @@ body.brumes--masks [data-primitive="portrait"] figure[data-empty="true"] {
   color: var(--text-muted);
 }
 
+/* Too narrow for six notches: only the value the document holds is drawn. */
+body.brumes--masks [data-region="masks-labels"] {
+  container-type: inline-size;
+}
+@container (max-width: 22rem) {
+  body.brumes--masks [data-primitive="track"] ol > li:not([data-marked="true"]) {
+    display: none;
+  }
+  body.brumes--masks [data-primitive="track"] ol {
+    justify-content: flex-end;
+  }
+}
 /* Banners: navy bands with gold capitals, like the printed sheet. */
 body.brumes--masks :is([data-region="masks-conditions"], [data-region="masks-advances"], [data-region="masks-drives"]) {
   border-block-start: 0;
@@ -266,7 +278,7 @@ body.brumes--masks :is([data-region="masks-conditions"], [data-region="masks-adv
   color: var(--masks-gold);
 }
 /* Boxes: no bullet beside a box; the name takes the rest of the line. */
-body.brumes--masks [data-primitive="boxes"] li::before,
+body.brumes--masks .markdown-rendered [data-primitive="boxes"] ul > li:not(.task-list-item)::before,
 body.brumes--masks [data-primitive="boxes"] li::marker {
   content: none;
 }
@@ -284,7 +296,7 @@ body.brumes--masks [data-region="masks-moves"] li > em {
 }
 /* Conditions: a tinted band per line, the rule beside its name. */
 body.brumes--masks [data-region="masks-conditions"] li {
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: center;
   margin-block-end: 0.25rem;
   padding: 0.25rem 0.5rem;
@@ -297,7 +309,7 @@ body.brumes--masks [data-region="masks-conditions"] li > span {
   font-size: 1.2rem;
 }
 body.brumes--masks [data-region="masks-conditions"] li > em {
-  flex: 1 1 0;
+  flex: 1 1 8rem;
   padding-inline-start: 0;
   font-size: 0.8em;
 }
@@ -330,27 +342,25 @@ body.brumes--masks [data-region="masks-moment-of-truth"] > p {
 }
 /* Advances: the potential boxes on the banner, the advances under it. */
 body.brumes--masks [data-region="masks-advances"] {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
+  flex-wrap: wrap;
   align-items: stretch;
 }
 body.brumes--masks [data-region="masks-advances"] > h3 {
-  grid-row: 1;
-  grid-column: 1;
+  flex: 1 1 8rem;
   margin: 0;
 }
 body.brumes--masks [data-region="masks-advances"] > .handbook-masks-potential {
-  grid-row: 1;
-  grid-column: 2;
+  order: 2;
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  padding-inline: 0.5rem;
+  padding: 0.2rem 0.5rem;
   background: var(--masks-navy);
 }
 body.brumes--masks [data-region="masks-advances"] > ul {
-  grid-row: 2;
-  grid-column: 1 / -1;
+  order: 3;
+  flex: 0 0 100%;
   margin-block: 0.4rem 0;
 }
 /* The header: the name and the playbook on one line. */
