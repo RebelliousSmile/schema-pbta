@@ -272,7 +272,25 @@ body.brumes--masks [data-region="masks-labels"] {
 body.brumes--masks :is([data-region="masks-conditions"], [data-region="masks-advances"], [data-region="masks-drives"]) {
   border-block-start: 0;
 }
-body.brumes--masks :is([data-region="masks-conditions"], [data-region="masks-advances"], [data-region="masks-drives"]) > h3 {
+/* Drives: a soft strip ruled in orange above and below, the title white on a navy tab at its left. */
+body.brumes--masks [data-region="masks-drives"] {
+  background:
+    linear-gradient(var(--masks-gold), var(--masks-gold)) 0 0 / 100% var(--masks-stroke) no-repeat,
+    linear-gradient(var(--masks-gold), var(--masks-gold)) 0 calc(1.8rem - var(--masks-stroke)) / 100% var(--masks-stroke) no-repeat,
+    linear-gradient(var(--masks-gold-soft), var(--masks-gold-soft)) 0 0 / 100% 1.8rem no-repeat;
+}
+body.brumes--masks [data-region="masks-drives"] > h3 {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: fit-content;
+  height: 1.8rem;
+  margin: 0 0 0.4rem;
+  padding: 0 0.75rem;
+  background: var(--masks-navy);
+  color: var(--masks-on-navy);
+}
+body.brumes--masks :is([data-region="masks-conditions"], [data-region="masks-advances"]) > h3 {
   padding: 0.2rem 0.5rem;
   background: var(--masks-navy);
   color: var(--masks-gold);
@@ -286,8 +304,13 @@ body.brumes--masks [data-primitive="boxes"] li > span {
   flex: 1 1 0;
   min-width: 0;
 }
-body.brumes--masks [data-region="masks-moves"] li > span {
+/* Moves: a navy title, then each move named in black over an orange rule. */
+body.brumes--masks [data-region="masks-moves"] > h3 {
   color: var(--masks-navy);
+}
+body.brumes--masks [data-region="masks-moves"] li > span {
+  border-block-end: var(--masks-stroke) solid var(--masks-gold);
+  color: var(--text-normal);
   font-weight: 700;
   text-transform: uppercase;
 }
