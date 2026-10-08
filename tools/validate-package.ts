@@ -4,6 +4,10 @@ import os from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { buildSync as buildWithEsbuild } from "esbuild";
+import {
+  PBTA_CONTRACT_SCHEMA_TAG as DECLARED_SCHEMA_TAG,
+  PBTA_CONTRACT_VERSION as DECLARED_CONTRACT_VERSION,
+} from "../src/contract-version";
 
 const root = process.cwd();
 const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "schema-pbta-package-"));
@@ -105,8 +109,9 @@ import {
   getPbtaUrbanShadowsPlaybookPresentation,
 } from "schema-pbta";
 
-assert.equal(PBTA_CONTRACT_VERSION, 10);
-assert.equal(PBTA_CONTRACT_SCHEMA_TAG, "v10.0.0");
+// The package exports what the source declares: a release moves both, and no figure is written here.
+assert.equal(PBTA_CONTRACT_VERSION, ${DECLARED_CONTRACT_VERSION});
+assert.equal(PBTA_CONTRACT_SCHEMA_TAG, ${JSON.stringify(DECLARED_SCHEMA_TAG)});
 assert.equal(PBTA_TOML_VERSION, "1.0.0");
 assert.equal(
   "PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS" in schemaPbta,
@@ -275,7 +280,7 @@ await assert.rejects(
   const commonJsSource = `
 import assert from "node:assert/strict";
 import { PBTA_CONTRACT_VERSION } from "schema-pbta";
-assert.equal(PBTA_CONTRACT_VERSION, 10);
+assert.equal(PBTA_CONTRACT_VERSION, ${DECLARED_CONTRACT_VERSION});
 `;
   const commonJsEntry = path.join(consumerRoot, "commonjs-entry.js");
   const commonJsBundle = path.join(consumerRoot, "commonjs-bundle.cjs");
@@ -333,7 +338,7 @@ document.body.innerHTML = urls.map((url) => '<img src="' + url + '">').join("");
 
   const major = Number(packageJson.version.split(".")[0]);
   if (major >= 1) {
-    assert.equal(major, 10, "stable package major must equal PBTA_CONTRACT_VERSION");
+    assert.equal(major, DECLARED_CONTRACT_VERSION, "stable package major must equal PBTA_CONTRACT_VERSION");
   }
 
   console.log(

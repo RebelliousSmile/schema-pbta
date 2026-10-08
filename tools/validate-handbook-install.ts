@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
+import { MINIMUM_HANDBOOK_VERSION } from "./handbook-minimum-host.js";
 
 type StoredValue = string | ArrayBuffer;
 
@@ -251,7 +252,7 @@ const manifests = new Map<string, PackManifest>();
 const expectedAssets: ExpectedAsset[] = [];
 for (const entry of catalogue.packs) {
   const manifest = readJson<PackManifest>(localPath(entry.path));
-  assert.equal(manifest.minimumHandbookVersion, "2.8.0", `${entry.id} minimum host`);
+  assert.equal(manifest.minimumHandbookVersion, MINIMUM_HANDBOOK_VERSION, `${entry.id} minimum host`);
   assert.deepEqual(manifest.requires, expectedCapabilities, `${entry.id} portable capabilities`);
   manifests.set(entry.id, manifest);
   expectedAssets.push(...assetFiles(entry, manifest));
@@ -272,7 +273,7 @@ await assert.rejects(
     source,
     resolvedSource("0".repeat(40), 0),
   ),
-  /requires Handbook 2\.8\.0 or newer/,
+  new RegExp(`requires Handbook ${MINIMUM_HANDBOOK_VERSION.replace(/\./g, "\\.")} or newer`),
 );
 
 const unknownManifest = structuredClone(manifests.get("masks"));
