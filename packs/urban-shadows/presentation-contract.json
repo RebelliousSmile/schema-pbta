@@ -226,26 +226,21 @@
       ],
       [
         "urban-shadows-advancement",
-        "urban-shadows-let-it-out"
+        "urban-shadows-let-it-out",
+        "urban-shadows-end-move",
+        "urban-shadows-intimacy",
+        "urban-shadows-corruption"
       ],
       [
-        "urban-shadows-end-move"
+        "urban-shadows-debts",
+        "urban-shadows-mortal-relationships",
+        "urban-shadows-extras",
+        "urban-shadows-play"
       ]
     ],
     [
       [
-        "urban-shadows-creation",
-        "urban-shadows-debts"
-      ],
-      [
-        "urban-shadows-mortal-relationships",
-        "urban-shadows-extras",
-        "urban-shadows-intimacy"
-      ],
-      [
-        "gear",
-        "urban-shadows-corruption",
-        "urban-shadows-play"
+        "gear"
       ]
     ]
   ],
