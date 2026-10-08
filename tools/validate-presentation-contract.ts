@@ -131,8 +131,8 @@ assert.deepEqual(
 const urbanShadowsPlaced = new Set((urbanShadowsPresentation.rows ?? []).flat(2));
 assert.deepEqual(
   urbanShadowsPresentation.regions.filter((region) => !urbanShadowsPlaced.has(region.id)).map((region) => region.id),
-  ["game-identity"],
-  "only the heading region is left to the canonical fallback",
+  ["game-identity", "urban-shadows-creation"],
+  "only the heading region and the creation choices, picked once and not drawn on the sheet, are left to the canonical fallback",
 );
 
 /** Walk a dotted TOML path through a document schema; a wrapper never hides a key. */

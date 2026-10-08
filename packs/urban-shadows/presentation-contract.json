@@ -123,7 +123,7 @@
     {
       "id": "urban-shadows-debts",
       "label": "Dettes de départ",
-      "group": "verso",
+      "group": "recto",
       "primitive": "relationship-ledger",
       "fields": [
         "debts"
@@ -132,7 +132,7 @@
     {
       "id": "urban-shadows-mortal-relationships",
       "label": "Relations mortelles",
-      "group": "verso",
+      "group": "recto",
       "primitive": "relationship-ledger",
       "fields": [
         "mortalRelationships"
@@ -141,7 +141,7 @@
     {
       "id": "urban-shadows-extras",
       "label": "Cadres de l'archétype",
-      "group": "verso",
+      "group": "recto",
       "primitive": "editorial-copy",
       "fields": [
         "extras"
@@ -150,7 +150,7 @@
     {
       "id": "urban-shadows-intimacy",
       "label": "Intimité",
-      "group": "verso",
+      "group": "recto",
       "primitive": "editorial-copy",
       "fields": [
         "intimacy"
@@ -168,7 +168,7 @@
     {
       "id": "urban-shadows-corruption",
       "label": "Corruption",
-      "group": "verso",
+      "group": "recto",
       "primitive": "box-track",
       "fields": [
         "corruption"
@@ -177,7 +177,7 @@
     {
       "id": "urban-shadows-play",
       "label": "Jouer l'archétype",
-      "group": "verso",
+      "group": "recto",
       "primitive": "editorial-copy",
       "fields": [
         "editorial.playAdvice"
