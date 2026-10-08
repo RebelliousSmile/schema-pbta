@@ -110,6 +110,41 @@ body.brumes--masks [data-primitive="track"] {
 body.brumes--masks [data-primitive="track"] > :is(h2, h3) {
   flex: 1 0 100%;
 }
+/* One Label per line: its name, then its notches side by side; the one the document holds is filled. */
+body.brumes--masks [data-primitive="track"] > div {
+  flex: 1 0 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+body.brumes--masks [data-primitive="track"] ol {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.brumes--masks [data-primitive="track"] ol > li {
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  min-width: 1.9rem;
+  margin: 0;
+  padding: 0.1rem 0.2rem;
+  border: var(--masks-stroke) solid var(--masks-navy);
+  border-radius: 999px;
+  line-height: 1.3;
+}
+body.brumes--masks [data-primitive="track"] ol > li::marker,
+body.brumes--masks [data-primitive="track"] ol > li::before {
+  content: none;
+}
+body.brumes--masks [data-primitive="track"] ol > li[data-marked="true"] {
+  background: var(--masks-navy);
+  color: var(--masks-on-navy);
+  font-weight: 700;
+}
 /* The ticks of the booklet: boxes to cross, one box measure for every one of them. */
 body.brumes--masks [data-region] input[type="checkbox"] {
   --checkbox-size: var(--masks-box);
@@ -130,6 +165,14 @@ body.brumes--masks :is([data-primitive="boxes"], [data-primitive="list"]) :is(li
 body.brumes--masks [data-primitive="boxes"] ul {
   padding: 0;
   list-style: none;
+}
+/* A line with a note: the box and its name on one line, the note under them. */
+body.brumes--masks [data-primitive="boxes"] li {
+  flex-wrap: wrap;
+}
+body.brumes--masks [data-primitive="boxes"] li > em {
+  flex: 0 0 100%;
+  padding-inline-start: calc(var(--masks-box) + 0.5rem);
 }
 body.brumes--masks [data-primitive="list"] ul {
   padding-inline-start: 1.25rem;
