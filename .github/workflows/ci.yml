@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: RebelliousSmile/obsidian-handbook
-          ref: ecda27a43df0aaf12ee7e794599a0a67596be5fd
+          ref: 4118148006925479f51747182b49705ffa90b2fa
           path: obsidian-handbook
       - run: npx --yes pnpm@10 install --dir obsidian-handbook --frozen-lockfile
       - run: npm run check
