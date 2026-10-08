@@ -177,21 +177,26 @@ body.brumes--masks [data-primitive="boxes"] li > em {
 body.brumes--masks [data-primitive="list"] ul {
   padding-inline-start: 1.25rem;
 }
-/* Key and value on one ruled line: the blank to fill in is the rule under the value. */
-body.brumes--masks [data-primitive="key-value"] :is(dl, p) {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem;
+/* Key and value on one line, the key in capitals: one line per field, a rule under the group. */
+body.brumes--masks [data-primitive="key-value"] dl {
   margin: 0;
   padding: 0.25rem 0;
   border-block-end: var(--masks-stroke) solid var(--masks-gold);
 }
+body.brumes--masks [data-primitive="key-value"] dl > div {
+  display: block;
+  margin: 0 0 0.25rem;
+}
+body.brumes--masks [data-primitive="key-value"] dt {
+  display: inline;
+  margin-inline-end: 0.35rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--masks-navy);
+}
 body.brumes--masks [data-primitive="key-value"] dd {
-  flex: 1;
+  display: inline;
   margin: 0;
-  min-height: 1.4em;
-  text-align: end;
 }
 body.brumes--masks [data-primitive="prose"] p {
   margin: 0 0 0.4rem;
