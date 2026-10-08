@@ -41,3 +41,10 @@ body.brumes--monster-of-the-week .markdown-rendered table td {
 body.brumes--monster-of-the-week .markdown-rendered table tbody tr:last-child td {
   border-block-end: 2px solid var(--motw-ink, var(--text-normal));
 }
+
+/* An example, as in the book: indented italic text, no bar and no frame. */
+body.brumes--monster-of-the-week .markdown-rendered blockquote {
+  margin-inline: 1.5rem 0;
+  padding: 0 0 0 0.5rem;
+  border: 0;
+}

@@ -37,9 +37,11 @@
           "--motw-heading-font": "'Barlow Condensed', 'Arial Narrow', sans-serif",
           "--motw-body-font": "'Crimson Pro', Georgia, serif",
           "--pbta-column-gap": "1.75rem",
-          "--blockquote-border-color": "#a53628",
+          "--blockquote-border-thickness": "0px",
+          "--blockquote-font-style": "italic",
+          "--blockquote-border-color": "#20231f",
           "--blockquote-background-color": "transparent",
-          "--list-marker-color": "#a53628",
+          "--list-marker-color": "#20231f",
           "--hr-color": "#20231f",
           "--hr-thickness": "2px"
         }
