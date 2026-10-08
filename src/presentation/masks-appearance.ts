@@ -37,8 +37,8 @@ export const PBTA_MASKS_APPEARANCE: PbtaMasksAppearance = masksAppearanceSchema.
       "--masks-title-font": "'Staatliches', 'League Gothic', 'Arial Narrow', sans-serif",
       "--masks-heading-font": "'Josefin Sans', 'Trebuchet MS', sans-serif",
       "--masks-body-font": "'Crimson Pro', Georgia, serif",
-      "--masks-accent": "#3b5688",
-      "--masks-gold": "#c09a47",
+      "--masks-accent": "#005084",
+      "--masks-gold": "#eb8923",
     } },
   ],
 });

@@ -53,20 +53,20 @@ html[data-game="masks"] {
   --hb-paper-alt: #e4e9f2;
   --hb-ink: #23283a;
   --hb-muted: #5d6577;
-  --hb-accent: #3b5688;
-  --hb-accent-2: #c09a47;
+  --hb-accent: #005084;
+  --hb-accent-2: #eb8923;
   --hb-radius: .35rem;
   --hb-display: "Staatliches", "League Gothic", "Arial Narrow", sans-serif;
   --hb-heading: "Josefin Sans", "Trebuchet MS", sans-serif;
   --hb-texture: url("../assets/images/skyline-band.svg");
   /* The tokens the pack layout reads in a note, given here for the standalone preview. */
   --background-primary: #fcfbf7;
-  --masks-navy: #3b5688;
-  --masks-gold: #c09a47;
+  --masks-navy: #005084;
+  --masks-gold: #eb8923;
   --masks-panel: #e4e9f2;
   --masks-crisis: #5b4c8c;
   --masks-on-navy: #ffffff;
-  --masks-rule: #c09a47;
+  --masks-rule: #eb8923;
   --masks-title-font: "Staatliches", "League Gothic", "Arial Narrow", sans-serif;
   --masks-heading-font: "Josefin Sans", "Trebuchet MS", sans-serif;
 }

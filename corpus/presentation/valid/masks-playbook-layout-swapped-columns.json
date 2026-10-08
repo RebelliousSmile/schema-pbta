@@ -1,7 +1,7 @@
 {
   "target": "masks-playbook",
   "set": {
-    "faces.0.columns": [
+    "faces.1.columns": [
       [
         "masks-moves",
         "masks-drives"

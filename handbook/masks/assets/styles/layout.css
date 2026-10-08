@@ -202,13 +202,23 @@ body.brumes--masks [data-primitive="prose"] p {
   margin: 0 0 0.4rem;
   line-height: 1.38;
 }
-/* The illustration column of the verso. */
-body.brumes--masks [data-primitive="portrait"] img {
-  display: block;
+/* The illustration column of the verso: a framed picture, or a blank frame to fill in. */
+body.brumes--masks [data-primitive="portrait"] figure {
+  display: grid;
+  place-items: center;
   box-sizing: border-box;
-  max-width: 100%;
+  min-height: 16rem;
+  margin: 0;
   border: 0.3rem solid var(--masks-gold);
   outline: 1px solid var(--masks-navy);
+}
+body.brumes--masks [data-primitive="portrait"] img {
+  display: block;
+  max-width: 100%;
+}
+body.brumes--masks [data-primitive="portrait"] figure[data-empty="true"] {
+  border-style: dashed;
+  color: var(--text-muted);
 }
 
 /* The verso follows the recto on the next sheet; the recto keeps its own. */

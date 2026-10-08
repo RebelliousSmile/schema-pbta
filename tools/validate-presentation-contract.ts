@@ -251,7 +251,7 @@ assert.deepEqual(
 );
 assert.deepEqual(
   masksPlaybookPresentation.faces.map((face) => [face.id, face.header]),
-  [["recto", "masks-header"], ["verso", "masks-header"]],
+  [["verso", "masks-header"], ["recto", "masks-header"]],
   "both faces share the header region",
 );
 const masksNpcPresentation = PBTA_MASKS_NPC_PRESENTATION;

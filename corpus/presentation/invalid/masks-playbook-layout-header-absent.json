@@ -2,7 +2,7 @@
   "target": "masks-playbook",
   "rejects": "Invalid option",
   "set": {
-    "faces.1": {
+    "faces.0": {
       "id": "verso",
       "label": "Verso",
       "columns": [

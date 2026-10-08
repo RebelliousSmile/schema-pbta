@@ -89,6 +89,11 @@ export const PBTA_MASKS_PLAYBOOK_PRESENTATION: PbtaMasksPlaybookPresentation = m
   target: "masks-playbook",
   regions: [
     { id: "masks-header", label: "En-tête", group: "recto", primitive: "prose", fields: ["name", "heroName", "description"] },
+    { id: "masks-identity", label: "Identité", group: "verso", primitive: "key-value", fields: ["realName", "abilities", "demeanor"] },
+    { id: "masks-backstory", label: "Passé", group: "verso", primitive: "prose", fields: ["backstory"] },
+    { id: "masks-relationships", label: "Relations", group: "verso", primitive: "list", fields: ["relationships"] },
+    { id: "masks-influence", label: "Influence", group: "verso", primitive: "list", fields: ["influence"] },
+    { id: "masks-illustration", label: "Illustration", group: "verso", primitive: "portrait", fields: ["playbookImage"] },
     { id: "masks-labels", label: "Labels", group: "recto", primitive: "track", fields: ["stats", "statRanges"] },
     { id: "masks-conditions", label: "Conditions", group: "recto", primitive: "boxes", fields: ["conditions"] },
     { id: "masks-moment-of-truth", label: "Moment de vérité", group: "recto", primitive: "prose", fields: ["momentOfTruth", "momentUnlocked"] },
@@ -96,27 +101,14 @@ export const PBTA_MASKS_PLAYBOOK_PRESENTATION: PbtaMasksPlaybookPresentation = m
     { id: "masks-advances", label: "Progressions et Potentiel", group: "recto", primitive: "boxes", fields: ["advancement", "potential", "potentialMax"] },
     { id: "masks-moves", label: "Moves", group: "recto", primitive: "boxes", fields: ["moves"] },
     { id: "masks-drives", label: "Drives", group: "recto", primitive: "boxes", fields: ["drives.intro", "drives.options"] },
-    { id: "masks-identity", label: "Identité", group: "verso", primitive: "key-value", fields: ["realName", "abilities", "demeanor"] },
-    { id: "masks-backstory", label: "Passé", group: "verso", primitive: "prose", fields: ["backstory"] },
-    { id: "masks-relationships", label: "Relations", group: "verso", primitive: "list", fields: ["relationships"] },
-    { id: "masks-influence", label: "Influence", group: "verso", primitive: "list", fields: ["influence"] },
-    { id: "masks-illustration", label: "Illustration", group: "verso", primitive: "portrait", fields: ["playbookImage"] },
   ],
   canonicalOrder: [
-    "masks-header", "masks-labels", "masks-conditions", "masks-moment-of-truth", "masks-influence-options", "masks-advances",
-    "masks-moves", "masks-drives",
+    "masks-header",
     "masks-identity", "masks-backstory", "masks-relationships", "masks-influence", "masks-illustration",
+    "masks-labels", "masks-conditions", "masks-moment-of-truth", "masks-influence-options", "masks-advances",
+    "masks-moves", "masks-drives",
   ],
   faces: [
-    {
-      id: "recto",
-      label: "Recto",
-      header: "masks-header",
-      columns: [
-        ["masks-labels", "masks-conditions", "masks-moment-of-truth", "masks-influence-options", "masks-advances"],
-        ["masks-moves", "masks-drives"],
-      ],
-    },
     {
       id: "verso",
       label: "Verso",
@@ -124,6 +116,15 @@ export const PBTA_MASKS_PLAYBOOK_PRESENTATION: PbtaMasksPlaybookPresentation = m
       columns: [
         ["masks-identity", "masks-backstory", "masks-relationships", "masks-influence"],
         ["masks-illustration"],
+      ],
+    },
+    {
+      id: "recto",
+      label: "Recto",
+      header: "masks-header",
+      columns: [
+        ["masks-labels", "masks-conditions", "masks-moment-of-truth", "masks-influence-options", "masks-advances"],
+        ["masks-moves", "masks-drives"],
       ],
     },
   ],

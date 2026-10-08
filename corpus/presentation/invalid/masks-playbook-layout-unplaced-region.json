@@ -2,7 +2,7 @@
   "target": "masks-playbook",
   "rejects": "region left unplaced: masks-influence",
   "set": {
-    "faces.1.columns": [
+    "faces.0.columns": [
       [
         "masks-identity",
         "masks-backstory",
