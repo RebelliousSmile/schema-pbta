@@ -24,8 +24,14 @@ export function validatePbtaCollectionItemEditor(
   }
 }
 
+export type PbtaCollectionTarget =
+  | Extract<PbtaDocumentTarget, `${string}-playbook`>
+  | "monster-of-the-week-team"
+  | "monster-of-the-week-monster"
+  | "monster-of-the-week-threat";
+
 export interface PbtaCollectionPresentation {
-  target: Extract<PbtaDocumentTarget, `${string}-playbook`>;
+  target: PbtaCollectionTarget;
   path: string;
   label: string;
   itemEditor: PbtaCollectionItemEditor;
@@ -80,6 +86,27 @@ export const PBTA_COLLECTION_PRESENTATIONS: readonly PbtaCollectionPresentation[
   collection("masks-playbook", ["backstory", "Backstory", "pbta-text", "text"]),
   collection("masks-playbook", ["relationships", "Relationships", "pbta-text", "text"]),
   collection("monster-of-the-week-playbook", ["improvements", "Improvements", "pbta-advancement", "object"], ["checked"]),
+  collection("monster-of-the-week-playbook", ["statChoices", "Stat choices", "pbta-advancement", "object"], ["checked"]),
+  collection("monster-of-the-week-playbook", ["advancements", "Advancements", "pbta-advancement", "object"], ["checked"]),
+  collection("monster-of-the-week-playbook", ["look", "Look", "pbta-text", "text"]),
+  collection("monster-of-the-week-playbook", ["introductions", "Introductions", "pbta-text", "text"]),
+  collection("monster-of-the-week-playbook", ["history", "History", "pbta-text", "text"]),
+  collection("monster-of-the-week-playbook", ["notes", "Notes", "pbta-text", "text"]),
+  collection("monster-of-the-week-team", ["gettingStarted", "Getting started", "pbta-text", "text"]),
+  collection("monster-of-the-week-team", ["setup", "Setup", "pbta-text", "text"]),
+  collection("monster-of-the-week-team", ["enemies", "Enemies", "pbta-advancement", "object"], ["checked"]),
+  collection("monster-of-the-week-team", ["allies", "Allies", "pbta-advancement", "object"], ["checked"]),
+  collection("monster-of-the-week-team", ["maneuvers", "Maneuvers", "pbta-advancement", "object"], ["checked"]),
+  collection("monster-of-the-week-team", ["assets", "Assets", "pbta-advancement", "object"], ["checked"]),
+  collection("monster-of-the-week-team", ["improvement", "Improvement", "pbta-advancement", "object"], ["checked"]),
+  collection("monster-of-the-week-team", ["style", "Style", "pbta-advancement", "object"], ["checked"]),
+  collection("monster-of-the-week-monster", ["powers", "Powers", "pbta-text", "text"]),
+  collection("monster-of-the-week-monster", ["attacks", "Attacks", "pbta-text", "text"]),
+  collection("monster-of-the-week-monster", ["weaknesses", "Weaknesses", "pbta-text", "text"]),
+  collection("monster-of-the-week-threat", ["stages", "Stages", "pbta-advancement", "object"], ["checked"]),
+  collection("monster-of-the-week-threat", ["powers", "Powers", "pbta-text", "text"]),
+  collection("monster-of-the-week-threat", ["attacks", "Attacks", "pbta-text", "text"]),
+  collection("monster-of-the-week-threat", ["weaknesses", "Weaknesses", "pbta-text", "text"]),
   collection("monsterhearts-playbook", ["ascendants", "Ascendants", "pbta-ascendant", "object"]),
   collection("monsterhearts-playbook", ["conditions", "Conditions", "pbta-condition", "object"]),
   collection("monsterhearts-playbook", ["backstory", "Backstory", "pbta-text", "text"]),

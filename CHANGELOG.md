@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking
 
+- New schema major `12.0.0` (`schemas/v12`, immutable tag `v12.0.0`, `PBTA_CONTRACT_VERSION` 12). `schemas/v11` stays as committed and joins the archived majors checked against their tag. The Monster of the Week playbook gains the rubrics of its printed sheet (hunter name, Luck, harm and experience boxes, special weapon, stat choices, look, introductions, history, advancements, notes), and three new documents describe the team playbook (`monster-of-the-week-team`), the monster sheet (`monster-of-the-week-monster`) and the threat page (`monster-of-the-week-threat`); every new playbook field is optional, so a v11 document is still accepted. Pack manifests and `cross-tool-provider.json` declare `contractVersion` 12.
+
 - New schema major `11.0.0` (`schemas/v11`, immutable tag `v11.0.0`, `PBTA_CONTRACT_VERSION` 11). `schemas/v10` stays as committed and joins the archived majors checked against their tag. The Masks playbook gains the rubrics of both faces of its printed sheet and a new `masks-npc` document describes the Masks non-player character card; every new `masks-playbook` field is optional, so a v10 document is still accepted. Pack manifests and `cross-tool-provider.json` declare `contractVersion` 11.
 
 - New schema major `10.0.0` (`schemas/v10`, immutable tag `v10.0.0`, `PBTA_CONTRACT_VERSION` 10). `schemas/v9` stays as committed and joins the archived majors checked against their tag. The Urban Shadows playbook gains the rubrics of both faces of its printed sheet; every new field is optional, so a v9 document is still accepted. Pack manifests and `cross-tool-provider.json` declare `contractVersion` 10.

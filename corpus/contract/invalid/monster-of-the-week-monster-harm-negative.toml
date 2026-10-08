@@ -1,0 +1,6 @@
+slug = "the-hollow-bell"
+name = "The Hollow Bell"
+game = "monster-of-the-week"
+monsterType = "Original type"
+motivation = "To be heard once more."
+harmCapacity = -1

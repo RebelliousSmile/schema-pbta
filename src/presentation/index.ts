@@ -53,3 +53,38 @@ export { getPbtaMasksAppearance, masksAppearanceSchema, PBTA_MASKS_APPEARANCE } 
 export type { PbtaMasksAppearance } from "./masks-appearance.js";
 export { PBTA_PACK_CALLOUTS, PBTA_VISUAL_CALLOUTS } from "./callouts.js";
 export type { PbtaPackCallout, PbtaVisualCallout } from "./callouts.js";
+export {
+  getPbtaMonsterOfTheWeekPlaybookPresentation,
+  monsterOfTheWeekPlaybookPresentationSchema,
+  PBTA_MONSTER_OF_THE_WEEK_PLAYBOOK_PRESENTATION,
+} from "./monster-of-the-week-playbook.js";
+export type {
+  PbtaMonsterOfTheWeekPlaybookPresentation,
+  PbtaMonsterOfTheWeekPlaybookPrimitive,
+  PbtaMonsterOfTheWeekPlaybookRegionId,
+} from "./monster-of-the-week-playbook.js";
+export {
+  getPbtaMonsterOfTheWeekTeamPresentation,
+  monsterOfTheWeekTeamPresentationSchema,
+  PBTA_MONSTER_OF_THE_WEEK_TEAM_PRESENTATION,
+} from "./monster-of-the-week-team.js";
+export type { PbtaMonsterOfTheWeekTeamPresentation, PbtaMonsterOfTheWeekTeamRegionId } from "./monster-of-the-week-team.js";
+export {
+  getPbtaMonsterOfTheWeekMonsterPresentation,
+  monsterOfTheWeekMonsterPresentationSchema,
+  PBTA_MONSTER_OF_THE_WEEK_MONSTER_PRESENTATION,
+} from "./monster-of-the-week-monster.js";
+export type { PbtaMonsterOfTheWeekMonsterPresentation, PbtaMonsterOfTheWeekMonsterRegionId } from "./monster-of-the-week-monster.js";
+export {
+  getPbtaMonsterOfTheWeekThreatPresentation,
+  monsterOfTheWeekThreatPresentationSchema,
+  PBTA_MONSTER_OF_THE_WEEK_THREAT_PRESENTATION,
+} from "./monster-of-the-week-threat.js";
+export type { PbtaMonsterOfTheWeekThreatPresentation, PbtaMonsterOfTheWeekThreatRegionId } from "./monster-of-the-week-threat.js";
+export {
+  getPbtaMonsterOfTheWeekAppearance,
+  monsterOfTheWeekAppearanceSchema,
+  PBTA_MONSTER_OF_THE_WEEK_APPEARANCE,
+} from "./monster-of-the-week-appearance.js";
+export type { PbtaMonsterOfTheWeekAppearance } from "./monster-of-the-week-appearance.js";
+export type { PbtaMonsterOfTheWeekPrimitive } from "./monster-of-the-week-card.js";

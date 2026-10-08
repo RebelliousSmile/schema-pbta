@@ -1,12 +1,12 @@
 {
   "providerVersion": 1,
   "provider": "schema-pbta",
-  "contractVersion": 11,
+  "contractVersion": 12,
   "corpus": "corpus/contract/cases.json",
   "packManifest": "packs/*/pack-contract.json",
   "capabilities": {
     "lantern": ["edit:pbta", "presentation:pbta-layout"],
-    "handbook": ["block:pbta-playbook", "block:pbta-npc", "block:pbta-move", "style:pbta", "presentation:pbta-layout"]
+    "handbook": ["block:pbta-playbook", "block:pbta-npc", "block:pbta-team", "block:pbta-monster", "block:pbta-threat", "block:pbta-move", "style:pbta", "presentation:pbta-layout"]
   },
   "commands": { "validatePack": ["npm", "run", "validate:pack", "--"] }
 }

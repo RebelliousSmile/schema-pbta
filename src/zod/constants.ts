@@ -9,6 +9,9 @@ import { monsterheartsPlaybookSchema } from "./monsterhearts-playbook.js";
 import { masksPlaybookSchema } from "./masks-playbook.js";
 import { masksNpcSchema } from "./masks-npc.js";
 import { monsterOfTheWeekPlaybookSchema } from "./monster-of-the-week-playbook.js";
+import { monsterOfTheWeekTeamSchema } from "./monster-of-the-week-team.js";
+import { monsterOfTheWeekMonsterSchema } from "./monster-of-the-week-monster.js";
+import { monsterOfTheWeekThreatSchema } from "./monster-of-the-week-threat.js";
 import { theSprawlPlaybookSchema } from "./the-sprawl-playbook.js";
 import { salvageRunPlaybookSchema } from "./salvage-run-playbook.js";
 
@@ -146,6 +149,9 @@ export const TARGETS: Array<SchemaTarget> = [
     game: GAMES.motw,
   },
   { name: "monster-of-the-week-playbook", zod: monsterOfTheWeekPlaybookSchema, game: GAMES.motw },
+  { name: "monster-of-the-week-team", zod: monsterOfTheWeekTeamSchema, game: GAMES.motw },
+  { name: "monster-of-the-week-monster", zod: monsterOfTheWeekMonsterSchema, game: GAMES.motw },
+  { name: "monster-of-the-week-threat", zod: monsterOfTheWeekThreatSchema, game: GAMES.motw },
 ];
 
 /**

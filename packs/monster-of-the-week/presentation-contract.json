@@ -1,0 +1,147 @@
+{
+  "target": "monster-of-the-week-playbook",
+  "regions": [
+    {
+      "id": "motw-header",
+      "label": "En-tête",
+      "group": "recto",
+      "primitive": "prose",
+      "fields": [
+        "name",
+        "heroName",
+        "description"
+      ]
+    },
+    {
+      "id": "motw-ratings",
+      "label": "Caractéristiques",
+      "group": "recto",
+      "primitive": "track",
+      "fields": [
+        "stats",
+        "ratings",
+        "statChoices"
+      ]
+    },
+    {
+      "id": "motw-tracks",
+      "label": "Chance, blessures et expérience",
+      "group": "recto",
+      "primitive": "boxes",
+      "fields": [
+        "luckMax",
+        "luckMarked",
+        "harmMax",
+        "harmMarked",
+        "unstable",
+        "experienceMax",
+        "experienceMarked"
+      ]
+    },
+    {
+      "id": "motw-weapon",
+      "label": "Arme spéciale",
+      "group": "recto",
+      "primitive": "prose",
+      "fields": [
+        "specialWeapon"
+      ]
+    },
+    {
+      "id": "motw-moves",
+      "label": "Moves",
+      "group": "recto",
+      "primitive": "boxes",
+      "fields": [
+        "moves",
+        "startingMoves"
+      ]
+    },
+    {
+      "id": "motw-look",
+      "label": "Apparence",
+      "group": "verso",
+      "primitive": "list",
+      "fields": [
+        "look"
+      ]
+    },
+    {
+      "id": "motw-introductions",
+      "label": "Présentations et histoire",
+      "group": "verso",
+      "primitive": "list",
+      "fields": [
+        "introductions",
+        "history"
+      ]
+    },
+    {
+      "id": "motw-improvements",
+      "label": "Améliorations",
+      "group": "verso",
+      "primitive": "boxes",
+      "fields": [
+        "improvements",
+        "advancements"
+      ]
+    },
+    {
+      "id": "motw-notes",
+      "label": "Notes",
+      "group": "verso",
+      "primitive": "list",
+      "fields": [
+        "notes"
+      ]
+    }
+  ],
+  "canonicalOrder": [
+    "motw-header",
+    "motw-ratings",
+    "motw-tracks",
+    "motw-weapon",
+    "motw-moves",
+    "motw-look",
+    "motw-introductions",
+    "motw-improvements",
+    "motw-notes"
+  ],
+  "faces": [
+    {
+      "id": "recto",
+      "label": "Recto",
+      "header": "motw-header",
+      "columns": [
+        [
+          "motw-ratings",
+          "motw-tracks",
+          "motw-weapon"
+        ],
+        [
+          "motw-moves"
+        ]
+      ]
+    },
+    {
+      "id": "verso",
+      "label": "Verso",
+      "header": "motw-header",
+      "columns": [
+        [
+          "motw-look",
+          "motw-introductions",
+          "motw-notes"
+        ],
+        [
+          "motw-improvements"
+        ]
+      ]
+    }
+  ],
+  "fallbacks": {
+    "unplaced": "canonical-order",
+    "narrowPane": "canonical-flow",
+    "print": "canonical-flow"
+  }
+}

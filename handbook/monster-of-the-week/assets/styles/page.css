@@ -1,0 +1,43 @@
+/* The light page: condensed capitals for titles and sub-headings, a serif body, ruled tables and game terms. */
+body.brumes--monster-of-the-week .markdown-rendered h1 {
+  letter-spacing: 0.03em;
+}
+body.brumes--monster-of-the-week .markdown-rendered :is(h2, h3) {
+  letter-spacing: 0.08em;
+}
+/* A game term is written bold and italic: it reads upright, bold, in the accent. */
+body.brumes--monster-of-the-week .markdown-rendered :is(strong > em, em > strong) {
+  color: var(--color-accent);
+  font-family: var(--font-text-theme);
+  font-style: normal;
+  font-weight: 700;
+}
+body.brumes--monster-of-the-week .markdown-rendered em {
+  font-family: "Crimson Pro Italic", var(--font-text-theme);
+}
+/* Tables: an ink head, accent rules, pale stripes. */
+body.brumes--monster-of-the-week .markdown-rendered table {
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+body.brumes--monster-of-the-week .markdown-rendered table th {
+  padding: 0.3em 0.6em;
+  border: 0;
+  background: var(--motw-ink, var(--color-accent));
+  color: var(--motw-on-ink, var(--background-primary));
+  font-family: var(--motw-heading-font, var(--font-header-theme));
+  font-size: 0.85em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-align: start;
+  text-transform: uppercase;
+}
+body.brumes--monster-of-the-week .markdown-rendered table td {
+  padding: 0.4em 0.6em;
+  border: 0;
+  border-block-end: 1px solid var(--motw-rule, var(--background-modifier-border));
+  vertical-align: top;
+}
+body.brumes--monster-of-the-week .markdown-rendered table tbody tr:nth-child(even) td {
+  background: var(--motw-panel, var(--background-primary-alt));
+}

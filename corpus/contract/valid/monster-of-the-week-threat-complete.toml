@@ -1,0 +1,14 @@
+slug = "the-quiet-choir"
+name = "The Quiet Choir"
+game = "monster-of-the-week"
+threatType = "Original threat type"
+mystery = "An original mystery."
+motivation = "To finish the song."
+description = "An original description."
+stages = [{ label = "An original first step.", checked = true }, { label = "An original second step." }]
+powers = ["An original power."]
+attacks = ["An original attack (1-harm, far)."]
+harmCapacity = 10
+harmMarked = 0
+armour = 0
+weaknesses = ["An original weakness."]

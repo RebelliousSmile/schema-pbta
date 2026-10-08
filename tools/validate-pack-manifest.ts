@@ -8,6 +8,11 @@ import { PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION } from "../src/presentation/mo
 import { PBTA_MASKS_APPEARANCE } from "../src/presentation/masks-appearance.js";
 import { PBTA_MASKS_NPC_PRESENTATION } from "../src/presentation/masks-npc.js";
 import { PBTA_MASKS_PLAYBOOK_PRESENTATION } from "../src/presentation/masks-playbook.js";
+import {
+  PBTA_MONSTER_OF_THE_WEEK_APPEARANCE, PBTA_MONSTER_OF_THE_WEEK_MONSTER_PRESENTATION,
+  PBTA_MONSTER_OF_THE_WEEK_PLAYBOOK_PRESENTATION, PBTA_MONSTER_OF_THE_WEEK_TEAM_PRESENTATION,
+  PBTA_MONSTER_OF_THE_WEEK_THREAT_PRESENTATION,
+} from "../src/presentation/index.js";
 import { PBTA_URBAN_SHADOWS_APPEARANCE } from "../src/presentation/urban-shadows-appearance.js";
 import { PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION } from "../src/presentation/urban-shadows-playbook.js";
 
@@ -51,6 +56,22 @@ const published = [
     pack: "masks", presentation: PBTA_MASKS_NPC_PRESENTATION, appearance: PBTA_MASKS_APPEARANCE,
     artifact: "npc-presentation-contract.json", appearanceArtifact: "appearance-contract.json",
   },
+  {
+    pack: "monster-of-the-week", presentation: PBTA_MONSTER_OF_THE_WEEK_PLAYBOOK_PRESENTATION, appearance: PBTA_MONSTER_OF_THE_WEEK_APPEARANCE,
+    artifact: "presentation-contract.json", appearanceArtifact: "appearance-contract.json",
+  },
+  {
+    pack: "monster-of-the-week", presentation: PBTA_MONSTER_OF_THE_WEEK_TEAM_PRESENTATION, appearance: PBTA_MONSTER_OF_THE_WEEK_APPEARANCE,
+    artifact: "team-presentation-contract.json", appearanceArtifact: "appearance-contract.json",
+  },
+  {
+    pack: "monster-of-the-week", presentation: PBTA_MONSTER_OF_THE_WEEK_MONSTER_PRESENTATION, appearance: PBTA_MONSTER_OF_THE_WEEK_APPEARANCE,
+    artifact: "monster-presentation-contract.json", appearanceArtifact: "appearance-contract.json",
+  },
+  {
+    pack: "monster-of-the-week", presentation: PBTA_MONSTER_OF_THE_WEEK_THREAT_PRESENTATION, appearance: PBTA_MONSTER_OF_THE_WEEK_APPEARANCE,
+    artifact: "threat-presentation-contract.json", appearanceArtifact: "appearance-contract.json",
+  },
 ].filter((entry) => entry.pack === manifest.pack.id);
 assert.deepEqual(
   manifest.presentation,
@@ -79,7 +100,7 @@ for (const entry of manifest.presentation ?? []) {
     );
   }
 }
-if ((manifest.presentation ?? []).some((entry) => entry.target.startsWith("masks-"))) {
+if ((manifest.presentation ?? []).some((entry) => entry.target.startsWith("masks-") || entry.target.startsWith("monster-of-the-week-"))) {
   /* A pack that lays out a sheet asks Handbook for the layout; Lantern does not render it. */
   assert.ok(manifest.requirements.handbook.includes("presentation:pbta-layout"), "masks: handbook must require presentation:pbta-layout");
   assert.ok(!manifest.requirements.lantern.includes("presentation:pbta-layout"), "masks: lantern must not require presentation:pbta-layout");

@@ -1,0 +1,209 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Stable kebab-case identifier of the team playbook."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable name of the team playbook."
+    },
+    "game": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Folder slug of the game this team playbook belongs to."
+    },
+    "quote": {
+      "description": "Epigraph printed under the team name.",
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "description": "Introduction of the team playbook.",
+      "type": "string",
+      "minLength": 1
+    },
+    "gettingStarted": {
+      "description": "Steps printed under Getting started.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "setup": {
+      "description": "Paragraphs and prompts that set the organisation of the team up.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "enemies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable advancement option."
+          },
+          "checked": {
+            "description": "Whether this advancement has been acquired.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "additionalProperties": false,
+        "description": "One advancement option and its optional acquisition state."
+      },
+      "description": "Chief enemies offered to the team, with the one chosen."
+    },
+    "allies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable advancement option."
+          },
+          "checked": {
+            "description": "Whether this advancement has been acquired.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "additionalProperties": false,
+        "description": "One advancement option and its optional acquisition state."
+      },
+      "description": "Allies offered to the team, with the ones chosen."
+    },
+    "maneuvers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable advancement option."
+          },
+          "checked": {
+            "description": "Whether this advancement has been acquired.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "additionalProperties": false,
+        "description": "One advancement option and its optional acquisition state."
+      },
+      "description": "Team moves offered to the team, with the ones chosen."
+    },
+    "assets": {
+      "description": "Assets offered to the team, with the ones earned.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable advancement option."
+          },
+          "checked": {
+            "description": "Whether this advancement has been acquired.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "additionalProperties": false,
+        "description": "One advancement option and its optional acquisition state."
+      }
+    },
+    "improvementMax": {
+      "description": "Number of improvement boxes printed.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    },
+    "improvementMarked": {
+      "description": "Number of improvement boxes marked.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    },
+    "improvement": {
+      "description": "Improvements offered when the improvement track is full.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable advancement option."
+          },
+          "checked": {
+            "description": "Whether this advancement has been acquired.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "additionalProperties": false,
+        "description": "One advancement option and its optional acquisition state."
+      }
+    },
+    "style": {
+      "description": "Team styles offered, with the one chosen.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable advancement option."
+          },
+          "checked": {
+            "description": "Whether this advancement has been acquired.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "additionalProperties": false,
+        "description": "One advancement option and its optional acquisition state."
+      }
+    }
+  },
+  "required": [
+    "slug",
+    "name",
+    "game",
+    "enemies",
+    "allies",
+    "maneuvers"
+  ],
+  "additionalProperties": false,
+  "title": "Monster of the Week team",
+  "description": "Portable representation of a Monster of the Week team playbook.",
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v12.0.0/schemas/v12/monster-of-the-week/monster-of-the-week-team.schema.json"
+}

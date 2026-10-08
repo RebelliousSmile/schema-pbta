@@ -1,6 +1,6 @@
 {
   "manifestVersion": 1,
-  "version": "0.2.1",
+  "version": "0.3.0",
   "minimumHandbookVersion": "2.8.0",
   "requires": ["block:pbta-playbook", "block:pbta-move", "style:pbta"],
   "pack": {
@@ -9,36 +9,111 @@
     "style": {
       "base": {
         "note": {
-          "--font-text-theme": "Georgia, serif",
-          "--font-header-theme": "Courier New, monospace",
-          "--h1-font": "Courier New, monospace",
-          "--h2-font": "Courier New, monospace",
-          "--h3-font": "Courier New, monospace",
+          "--font-text-theme": "'Crimson Pro', Georgia, serif",
+          "--font-header-theme": "'Barlow Condensed', 'Arial Narrow', sans-serif",
+          "--font-text-size": "16px",
+          "--line-height-normal": "1.4",
+          "--inline-title-font": "'Anton', 'League Gothic', 'Arial Narrow', sans-serif",
+          "--inline-title-weight": "400",
+          "--inline-title-text-transform": "uppercase",
+          "--h1-font": "'Anton', 'League Gothic', 'Arial Narrow', sans-serif",
+          "--h1-size": "2.4em",
+          "--h1-weight": "400",
+          "--h1-line-height": "1",
           "--h1-text-transform": "uppercase",
-          "--h2-text-transform": "uppercase"
+          "--h2-font": "'Barlow Condensed', 'Arial Narrow', sans-serif",
+          "--h2-size": "1.4em",
+          "--h2-weight": "600",
+          "--h2-line-height": "1.1",
+          "--h2-text-transform": "uppercase",
+          "--h3-font": "'Barlow Condensed', 'Arial Narrow', sans-serif",
+          "--h3-size": "1.15em",
+          "--h3-weight": "600",
+          "--h3-line-height": "1.15",
+          "--h3-text-transform": "uppercase",
+          "--h4-font": "'Barlow Condensed', 'Arial Narrow', sans-serif",
+          "--h4-weight": "600",
+          "--motw-title-font": "'Anton', 'League Gothic', 'Arial Narrow', sans-serif",
+          "--motw-heading-font": "'Barlow Condensed', 'Arial Narrow', sans-serif",
+          "--motw-body-font": "'Crimson Pro', Georgia, serif",
+          "--pbta-column-gap": "1.75rem",
+          "--blockquote-border-color": "#a53628",
+          "--blockquote-background-color": "transparent",
+          "--list-marker-color": "#a53628",
+          "--hr-color": "#20231f",
+          "--hr-thickness": "2px"
         }
       },
       "light": {
         "note": {
-          "--background-primary": "#eee7d5",
-          "--background-primary-alt": "#d9d0ba",
+          "--background-primary": "#fcfaf4",
+          "--background-primary-alt": "#eee7d5",
           "--text-normal": "#20231f",
           "--text-muted": "#5d625b",
           "--color-accent": "#a53628",
           "--interactive-accent": "#a53628",
           "--link-color": "#a53628",
           "--link-color-hover": "#20231f",
-          "--h1-color": "#a53628",
-          "--h2-color": "#20231f",
+          "--h1-color": "#20231f",
+          "--h2-color": "#a53628",
+          "--h3-color": "#a53628",
+          "--h4-color": "#20231f",
+          "--bold-color": "#20231f",
+          "--italic-color": "#20231f",
           "--tag-color": "#20231f",
           "--tag-background": "#d9a441",
-          "--checkbox-color": "#a53628"
+          "--checkbox-color": "#a53628",
+          "--code-normal": "#20231f",
+          "--code-background": "#eee7d5",
+          "--motw-accent": "#a53628",
+          "--motw-ink": "#20231f",
+          "--motw-on-ink": "#fcfaf4",
+          "--motw-gold": "#d9a441",
+          "--motw-panel": "#eee7d5",
+          "--motw-rule": "#b9ad92"
         }
       }
     },
     "polarities": ["light"],
     "assets": {
-      "stylesheets": ["styles/callouts.css","styles/headings.css"],
+      "fonts": {
+        "Anton": {
+          "file": "fonts/anton-400-normal.woff2",
+          "weight": "400",
+          "style": "normal"
+        },
+        "Barlow Condensed": {
+          "file": "fonts/barlow-condensed-600-normal.woff2",
+          "weight": "600",
+          "style": "normal"
+        },
+        "Barlow Condensed Regular": {
+          "file": "fonts/barlow-condensed-400-normal.woff2",
+          "weight": "400",
+          "style": "normal"
+        },
+        "Barlow Condensed Italic": {
+          "file": "fonts/barlow-condensed-400-italic.woff2",
+          "weight": "400",
+          "style": "italic"
+        },
+        "Crimson Pro": {
+          "file": "fonts/crimson-pro-wght-normal.woff2",
+          "weight": "200 900",
+          "style": "normal"
+        },
+        "Crimson Pro Italic": {
+          "file": "fonts/crimson-pro-wght-italic.woff2",
+          "weight": "200 900",
+          "style": "italic"
+        }
+      },
+      "stylesheets": [
+        "styles/callouts.css",
+        "styles/page.css",
+        "styles/layout.css",
+        "styles/headings.css"
+      ],
       "images": {
         "game-mark": "images/watch-mark.svg"
       }

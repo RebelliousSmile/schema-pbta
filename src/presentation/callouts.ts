@@ -26,6 +26,8 @@ export const PBTA_PACK_CALLOUTS = [
   { pack: "masks", id: "masks-caption", label: "Légende d'image Masks", template: "title-body", capability: "style:pbta" },
   { pack: "masks", id: "masks-portrait", label: "Vignette de portrait Masks (cadre doré)", template: "title-body", capability: "style:pbta" },
   { pack: "masks", id: "masks-chapter", label: "Titre de chapitre Masks", template: "title-body", capability: "style:pbta" },
+  { pack: "monster-of-the-week", id: "motw-case-file", label: "Dossier d'enquête Monster of the Week", template: "title-body", capability: "style:pbta" },
+  { pack: "monster-of-the-week", id: "motw-sidebar", label: "Encadré Monster of the Week", template: "title-body", capability: "style:pbta" },
 ] as const;
 
 export type PbtaPackCallout = typeof PBTA_PACK_CALLOUTS[number];

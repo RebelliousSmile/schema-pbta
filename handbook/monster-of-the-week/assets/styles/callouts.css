@@ -20,3 +20,53 @@ body.brumes--monster-of-the-week .callout[data-brumes-callout-style^="pbta-"] .c
 body.brumes--monster-of-the-week .callout[data-brumes-callout-style="pbta-clock"] { border-inline-start-style: dashed; }
 body.brumes--monster-of-the-week .callout[data-brumes-callout-style="pbta-npc-reaction"] { background: #efe6d2; }
 body.brumes--monster-of-the-week .callout[data-brumes-callout-style="pbta-playbook-change"] { border-block-start: 2px solid var(--color-accent); }
+
+/* The case file: a typed-sheet panel under an accent bar, the heading in capitals. */
+body.brumes--monster-of-the-week .callout[data-brumes-callout-style="motw-case-file"] {
+  padding: 0.7em 1.1em;
+  border: 1px solid var(--motw-ink, var(--background-modifier-border));
+  border-block-start: 0.35rem solid var(--motw-accent, var(--color-accent));
+  border-radius: 0;
+  background: var(--motw-panel, var(--background-primary-alt));
+  box-shadow: none;
+}
+body.brumes--monster-of-the-week .callout[data-brumes-callout-style="motw-case-file"] .callout-icon {
+  display: none;
+}
+body.brumes--monster-of-the-week .callout[data-brumes-callout-style="motw-case-file"] .callout-title {
+  padding: 0;
+  color: var(--motw-accent, var(--text-muted));
+  font-family: var(--motw-heading-font, var(--font-header-theme));
+  font-size: 0.9em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+body.brumes--monster-of-the-week .callout[data-brumes-callout-style="motw-case-file"] .callout-content {
+  padding: 0;
+}
+
+/* The sidebar: an ink band for the title, the text on the page colour under it. */
+body.brumes--monster-of-the-week .callout[data-brumes-callout-style="motw-sidebar"] {
+  padding: 0;
+  border: 1px solid var(--motw-ink, var(--background-modifier-border));
+  border-radius: 0;
+  background: var(--background-primary);
+  box-shadow: none;
+}
+body.brumes--monster-of-the-week .callout[data-brumes-callout-style="motw-sidebar"] .callout-icon {
+  display: none;
+}
+body.brumes--monster-of-the-week .callout[data-brumes-callout-style="motw-sidebar"] .callout-title {
+  padding: 0.3em 0.8em;
+  background: var(--motw-ink, var(--text-normal));
+  color: var(--motw-on-ink, var(--background-primary));
+  font-family: var(--motw-heading-font, var(--font-header-theme));
+  font-size: 0.9em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+body.brumes--monster-of-the-week .callout[data-brumes-callout-style="motw-sidebar"] .callout-content {
+  padding: 0.6em 0.8em;
+}

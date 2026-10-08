@@ -1,0 +1,27 @@
+{
+  "targets": [
+    "monster-of-the-week-playbook",
+    "monster-of-the-week-team",
+    "monster-of-the-week-monster",
+    "monster-of-the-week-threat"
+  ],
+  "appearanceVersion": 1,
+  "resources": {
+    "fonts": {},
+    "stylesheets": [
+      "styles/theme-tokens.css"
+    ],
+    "assets": {}
+  },
+  "variants": [
+    {
+      "id": "base",
+      "tokens": {
+        "--motw-title-font": "'Anton', 'League Gothic', 'Arial Narrow', sans-serif",
+        "--motw-heading-font": "'Barlow Condensed', 'Arial Narrow', sans-serif",
+        "--motw-body-font": "'Crimson Pro', Georgia, serif",
+        "--motw-accent": "#a53628"
+      }
+    }
+  ]
+}

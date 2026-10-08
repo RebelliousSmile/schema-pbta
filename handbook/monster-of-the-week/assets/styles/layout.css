@@ -1,0 +1,278 @@
+/* The booklet (two faces), the team sheet and the monster and threat cards. Handbook renders the
+   regions and the hooks the presentation contracts name (data-face, data-column, data-row,
+   data-region, data-primitive); every measure is here and every colour comes from the tokens of the pack. */
+
+/* One measure for the whole sheet, written once. */
+body.brumes--monster-of-the-week :is([data-face], [data-row]) {
+  --motw-box: 1.2rem;
+  --motw-stroke: 0.12rem;
+  --motw-gap: 1rem;
+  min-width: 0;
+}
+
+/* The two faces of the booklet: two columns each, the header across both. */
+body.brumes--monster-of-the-week [data-face] {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--motw-gap) var(--pbta-column-gap, 1.75rem);
+  padding: var(--motw-gap);
+  border: var(--motw-stroke) solid var(--motw-ink);
+  background: var(--background-primary);
+}
+body.brumes--monster-of-the-week [data-face] > [data-region="motw-header"] {
+  grid-column: 1 / -1;
+  padding-block-end: 0.5rem;
+  border-block-end: 0.25rem solid var(--motw-accent);
+}
+body.brumes--monster-of-the-week [data-column] {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: var(--motw-gap);
+}
+
+/* The team sheet, the monster card and the threat card: a framed stack of bands, one to three columns each. */
+body.brumes--monster-of-the-week [data-row] {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: var(--motw-gap);
+  padding: 0.5rem 0.75rem;
+  border: var(--motw-stroke) solid var(--motw-ink);
+  background: var(--motw-panel);
+}
+body.brumes--monster-of-the-week [data-row] + [data-row] {
+  margin-block-start: calc(var(--motw-stroke) * -1);
+}
+body.brumes--monster-of-the-week [data-row]:has([data-region$="-header"]) {
+  background: var(--motw-ink);
+}
+body.brumes--monster-of-the-week [data-region$="-header"]:not([data-region="motw-header"]) {
+  color: var(--motw-on-ink);
+  font-family: var(--motw-title-font);
+  border-block-start: 0;
+}
+/* The context is written under the card, not in it. */
+body.brumes--monster-of-the-week [data-region$="-context"] {
+  margin-block-start: var(--motw-gap);
+  border: 0;
+  background: transparent;
+}
+
+/* A region: ruled above, never split across two pages. */
+body.brumes--monster-of-the-week [data-region] {
+  min-width: 0;
+  padding-block: 0.3rem 0.5rem;
+  border-block-start: 1px solid var(--motw-rule);
+  break-inside: avoid;
+}
+body.brumes--monster-of-the-week [data-region] > :is(h2, h3) {
+  margin: 0 0 0.35rem;
+  color: var(--motw-accent);
+  font-family: var(--motw-heading-font);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+body.brumes--monster-of-the-week [data-region="motw-header"] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.75rem;
+  border-block-start: 0;
+}
+body.brumes--monster-of-the-week [data-region="motw-header"] > h2 {
+  margin: 0;
+  color: var(--motw-ink);
+  font-family: var(--motw-title-font);
+  font-size: 2.3rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+body.brumes--monster-of-the-week [data-region="motw-header"] > span {
+  color: var(--motw-accent);
+  font-family: var(--motw-heading-font);
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* The ratings: five rows, the notches side by side, the one the document holds filled. */
+body.brumes--monster-of-the-week [data-primitive="track"] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+body.brumes--monster-of-the-week [data-primitive="track"] > :is(h2, h3) {
+  flex: 1 0 100%;
+}
+body.brumes--monster-of-the-week [data-primitive="track"] > div {
+  flex: 1 0 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+body.brumes--monster-of-the-week [data-primitive="track"] > div > span {
+  min-width: 5.5rem;
+  color: var(--motw-ink);
+  font-family: var(--motw-title-font);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+body.brumes--monster-of-the-week [data-primitive="track"] ol {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.brumes--monster-of-the-week [data-primitive="track"] ol > li {
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  min-width: 1.9rem;
+  margin: 0;
+  padding: 0.1rem 0.2rem;
+  border: 1px solid var(--motw-rule);
+  line-height: 1.3;
+}
+body.brumes--monster-of-the-week [data-primitive="track"] ol > li::marker,
+body.brumes--monster-of-the-week [data-primitive="track"] ol > li::before {
+  content: none;
+}
+body.brumes--monster-of-the-week [data-primitive="track"] ol > li[data-marked="true"] {
+  background: var(--motw-ink);
+  color: var(--motw-on-ink);
+  font-weight: 700;
+}
+
+/* The ticks of the booklet: boxes to cross, one box measure for every one of them. */
+body.brumes--monster-of-the-week [data-region] input[type="checkbox"] {
+  --checkbox-size: var(--motw-box);
+  box-sizing: border-box;
+  flex: 0 0 var(--motw-box);
+  width: var(--motw-box);
+  height: var(--motw-box);
+  margin: calc((1lh - var(--motw-box)) / 2) 0 0;
+  font: inherit;
+  border: var(--motw-stroke) solid var(--motw-ink);
+  border-radius: 0;
+}
+body.brumes--monster-of-the-week :is([data-primitive="boxes"], [data-primitive="list"]) :is(li, label, p) {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+body.brumes--monster-of-the-week [data-primitive="boxes"] ul {
+  padding: 0;
+  list-style: none;
+}
+/* Boxes: no bullet beside a box; the name takes the rest of the line. */
+body.brumes--monster-of-the-week .markdown-rendered [data-primitive="boxes"] ul > li:not(.task-list-item)::before,
+body.brumes--monster-of-the-week [data-primitive="boxes"] li::marker {
+  content: none;
+}
+body.brumes--monster-of-the-week [data-primitive="boxes"] li > span {
+  flex: 1 1 0;
+  min-width: 0;
+}
+/* A line with a note: the box and its name on one line, the note under them. */
+body.brumes--monster-of-the-week [data-primitive="boxes"] li {
+  flex-wrap: wrap;
+}
+body.brumes--monster-of-the-week [data-primitive="boxes"] li > em {
+  flex: 0 0 100%;
+  padding-inline-start: calc(var(--motw-box) + 0.5rem);
+}
+body.brumes--monster-of-the-week [data-primitive="list"] ul {
+  padding-inline-start: 1.25rem;
+}
+/* Moves: each move named in capitals, its text upright under it, as on the printed sheet. */
+body.brumes--monster-of-the-week [data-region="motw-moves"] li > span {
+  flex: 1 1 0;
+  color: var(--text-normal);
+  font-family: var(--motw-heading-font);
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+body.brumes--monster-of-the-week .markdown-rendered [data-region="motw-moves"] li > em {
+  padding-inline-start: 0;
+  font-style: normal;
+  color: var(--text-normal);
+}
+/* The special weapon is a framed line. */
+body.brumes--monster-of-the-week [data-region="motw-weapon"] > p {
+  margin: 0;
+  padding: 0.4rem 0.6rem;
+  border: var(--motw-stroke) dashed var(--motw-ink);
+}
+/* Key and value on one line, the key in capitals: one line per field. */
+body.brumes--monster-of-the-week [data-primitive="key-value"] dl {
+  margin: 0;
+  padding: 0.25rem 0;
+}
+body.brumes--monster-of-the-week [data-primitive="key-value"] dl > div {
+  display: block;
+  margin: 0 0 0.25rem;
+}
+body.brumes--monster-of-the-week [data-primitive="key-value"] dt {
+  display: inline;
+  margin-inline-end: 0.35rem;
+  color: var(--motw-accent);
+  font-family: var(--motw-heading-font);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+body.brumes--monster-of-the-week [data-primitive="key-value"] dd {
+  display: inline;
+  margin: 0;
+}
+body.brumes--monster-of-the-week [data-primitive="prose"] p {
+  margin: 0 0 0.4rem;
+  line-height: 1.38;
+}
+/* The faces are one card: the header is written once, the second face continues the first without a seam. */
+body.brumes--monster-of-the-week [data-face]:has(+ [data-face]) {
+  border-block-end: 0;
+  padding-block-end: 0;
+}
+body.brumes--monster-of-the-week [data-face] + [data-face] {
+  margin-block-start: 0;
+  border-block-start: 0;
+  padding-block-start: var(--motw-gap);
+}
+body.brumes--monster-of-the-week [data-face] + [data-face] > [data-region="motw-header"] {
+  display: none;
+}
+
+/* A narrow pane flows every face and every band in one column, in canonical order. */
+@media screen and (max-width: 640px) {
+  body.brumes--monster-of-the-week [data-face] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  body.brumes--monster-of-the-week [data-row] {
+    grid-auto-flow: row;
+  }
+}
+
+/* Paper: one column in canonical order, no page break between the faces. */
+@media print {
+  body.brumes--monster-of-the-week [data-face] {
+    display: flex;
+    flex-direction: column;
+    border: 0;
+  }
+  body.brumes--monster-of-the-week [data-column] {
+    display: contents;
+  }
+  body.brumes--monster-of-the-week [data-region] {
+    order: var(--pbta-region-order);
+    break-inside: avoid;
+  }
+}

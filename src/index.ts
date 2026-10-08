@@ -14,6 +14,9 @@ export {
   parseMasksNpcToml,
   parseMasksPlaybookToml,
   parseMonsterOfTheWeekPlaybookToml,
+  parseMonsterOfTheWeekTeamToml,
+  parseMonsterOfTheWeekMonsterToml,
+  parseMonsterOfTheWeekThreatToml,
   parseTheSprawlPlaybookToml,
   parseSalvageRunPlaybookToml,
   parseUrbanShadowsPlaybookToml,
@@ -26,6 +29,9 @@ export {
   stringifyMasksNpcToml,
   stringifyMasksPlaybookToml,
   stringifyMonsterOfTheWeekPlaybookToml,
+  stringifyMonsterOfTheWeekTeamToml,
+  stringifyMonsterOfTheWeekMonsterToml,
+  stringifyMonsterOfTheWeekThreatToml,
   stringifyTheSprawlPlaybookToml,
   stringifySalvageRunPlaybookToml,
   stringifyUrbanShadowsPlaybookToml,
@@ -43,6 +49,9 @@ export type {
   MasksNpc,
   MasksPlaybook,
   MonsterOfTheWeekPlaybook,
+  MonsterOfTheWeekTeam,
+  MonsterOfTheWeekMonster,
+  MonsterOfTheWeekThreat,
   TheSprawlPlaybook,
   SalvageRunPlaybook,
   UrbanShadowsPlaybook,
@@ -62,6 +71,9 @@ export { monsterheartsPlaybookSchema } from "./zod/monsterhearts-playbook.js";
 export { masksPlaybookSchema } from "./zod/masks-playbook.js";
 export { masksNpcSchema } from "./zod/masks-npc.js";
 export { monsterOfTheWeekPlaybookSchema } from "./zod/monster-of-the-week-playbook.js";
+export { monsterOfTheWeekTeamSchema } from "./zod/monster-of-the-week-team.js";
+export { monsterOfTheWeekMonsterSchema } from "./zod/monster-of-the-week-monster.js";
+export { monsterOfTheWeekThreatSchema } from "./zod/monster-of-the-week-threat.js";
 export { theSprawlPlaybookSchema } from "./zod/the-sprawl-playbook.js";
 export { salvageRunPlaybookSchema } from "./zod/salvage-run-playbook.js";
 export {
@@ -125,3 +137,33 @@ export type {
 } from "./presentation/index.js";
 export { PBTA_PACK_CALLOUTS, PBTA_VISUAL_CALLOUTS } from "./presentation/index.js";
 export type { PbtaPackCallout, PbtaVisualCallout } from "./presentation/index.js";
+export {
+  getPbtaMonsterOfTheWeekAppearance,
+  getPbtaMonsterOfTheWeekMonsterPresentation,
+  getPbtaMonsterOfTheWeekPlaybookPresentation,
+  getPbtaMonsterOfTheWeekTeamPresentation,
+  getPbtaMonsterOfTheWeekThreatPresentation,
+  monsterOfTheWeekAppearanceSchema,
+  monsterOfTheWeekMonsterPresentationSchema,
+  monsterOfTheWeekPlaybookPresentationSchema,
+  monsterOfTheWeekTeamPresentationSchema,
+  monsterOfTheWeekThreatPresentationSchema,
+  PBTA_MONSTER_OF_THE_WEEK_APPEARANCE,
+  PBTA_MONSTER_OF_THE_WEEK_MONSTER_PRESENTATION,
+  PBTA_MONSTER_OF_THE_WEEK_PLAYBOOK_PRESENTATION,
+  PBTA_MONSTER_OF_THE_WEEK_TEAM_PRESENTATION,
+  PBTA_MONSTER_OF_THE_WEEK_THREAT_PRESENTATION,
+} from "./presentation/index.js";
+export type {
+  PbtaMonsterOfTheWeekAppearance,
+  PbtaMonsterOfTheWeekMonsterPresentation,
+  PbtaMonsterOfTheWeekMonsterRegionId,
+  PbtaMonsterOfTheWeekPlaybookPresentation,
+  PbtaMonsterOfTheWeekPlaybookPrimitive,
+  PbtaMonsterOfTheWeekPlaybookRegionId,
+  PbtaMonsterOfTheWeekPrimitive,
+  PbtaMonsterOfTheWeekTeamPresentation,
+  PbtaMonsterOfTheWeekTeamRegionId,
+  PbtaMonsterOfTheWeekThreatPresentation,
+  PbtaMonsterOfTheWeekThreatRegionId,
+} from "./presentation/index.js";

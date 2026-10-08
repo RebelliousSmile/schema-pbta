@@ -10,6 +10,11 @@ import { PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION } from "../src/presentation/ur
 import { PBTA_MASKS_APPEARANCE } from "../src/presentation/masks-appearance.js";
 import { PBTA_MASKS_NPC_PRESENTATION } from "../src/presentation/masks-npc.js";
 import { PBTA_MASKS_PLAYBOOK_PRESENTATION } from "../src/presentation/masks-playbook.js";
+import { PBTA_MONSTER_OF_THE_WEEK_APPEARANCE } from "../src/presentation/monster-of-the-week-appearance.js";
+import { PBTA_MONSTER_OF_THE_WEEK_MONSTER_PRESENTATION } from "../src/presentation/monster-of-the-week-monster.js";
+import { PBTA_MONSTER_OF_THE_WEEK_PLAYBOOK_PRESENTATION } from "../src/presentation/monster-of-the-week-playbook.js";
+import { PBTA_MONSTER_OF_THE_WEEK_TEAM_PRESENTATION } from "../src/presentation/monster-of-the-week-team.js";
+import { PBTA_MONSTER_OF_THE_WEEK_THREAT_PRESENTATION } from "../src/presentation/monster-of-the-week-threat.js";
 import { PBTA_PACK_CALLOUTS, PBTA_VISUAL_CALLOUTS } from "../src/presentation/callouts.js";
 
 type Data = Record<string, unknown>;
@@ -444,6 +449,94 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
         }
         if (!/order:\s*var\(--pbta-region-order\)/.test(print)) {
           issues.push(`masks: ${layoutSheet} must print the regions in canonical order`);
+        }
+      }
+    }
+    if (id === "monster-of-the-week") {
+      /* The pack installs what the npm contracts publish: the artifacts on disk are the exports. */
+      const motwPresentations: Array<{ regions: Array<{ id: string; primitive: string }> }> = [
+        PBTA_MONSTER_OF_THE_WEEK_PLAYBOOK_PRESENTATION,
+        PBTA_MONSTER_OF_THE_WEEK_TEAM_PRESENTATION,
+        PBTA_MONSTER_OF_THE_WEEK_MONSTER_PRESENTATION,
+        PBTA_MONSTER_OF_THE_WEEK_THREAT_PRESENTATION,
+      ];
+      for (const [file, exported] of [
+        ["presentation-contract.json", PBTA_MONSTER_OF_THE_WEEK_PLAYBOOK_PRESENTATION],
+        ["team-presentation-contract.json", PBTA_MONSTER_OF_THE_WEEK_TEAM_PRESENTATION],
+        ["monster-presentation-contract.json", PBTA_MONSTER_OF_THE_WEEK_MONSTER_PRESENTATION],
+        ["threat-presentation-contract.json", PBTA_MONSTER_OF_THE_WEEK_THREAT_PRESENTATION],
+        ["appearance-contract.json", PBTA_MONSTER_OF_THE_WEEK_APPEARANCE],
+      ] as const) {
+        const artifact = path.join(root, "packs", "monster-of-the-week", file);
+        if (!fs.existsSync(artifact) || JSON.stringify(JSON.parse(fs.readFileSync(artifact, "utf8"))) !== JSON.stringify(exported)) {
+          issues.push(`monster-of-the-week: source ${file} diverges from the npm export`);
+        }
+      }
+      /* Three faces, each with the licence of its family beside it. */
+      const motwFonts = data(assets.fonts);
+      for (const [family, licence] of [
+        ["Anton", "OFL-Anton.txt"],
+        ["Barlow Condensed", "OFL-BarlowCondensed.txt"],
+        ["Crimson Pro", "OFL-CrimsonPro.txt"],
+      ]) {
+        const face = data(motwFonts[family]);
+        if (typeof face.file !== "string") {
+          issues.push(`monster-of-the-week: ${family} must be supplied as a pack font asset`);
+          continue;
+        }
+        if (!fs.existsSync(path.join(manifestRoot, String(assetRoot), path.dirname(face.file), licence))) {
+          issues.push(`monster-of-the-week: ${family} must ship its licence ${licence}`);
+        }
+      }
+      for (const token of ["--code-normal", "--code-background", "--motw-accent", "--motw-ink", "--motw-on-ink", "--motw-panel", "--motw-rule"]) {
+        if (typeof native[token] !== "string") issues.push(`monster-of-the-week: missing native token ${token}`);
+      }
+      const motwBase = data(data(data(pack.style).base).note);
+      for (const token of ["--motw-title-font", "--motw-heading-font", "--motw-body-font"]) {
+        if (typeof motwBase[token] !== "string") issues.push(`monster-of-the-week: base theme must define ${token}`);
+      }
+      /* The appearance tokens the tarball names are the ones the pack writes. */
+      for (const [token, value] of Object.entries(PBTA_MONSTER_OF_THE_WEEK_APPEARANCE.variants[0].tokens)) {
+        const written = token === "--motw-accent" ? native[token] : motwBase[token];
+        if (written !== value) issues.push(`monster-of-the-week: ${token} diverges from the published appearance`);
+      }
+      /* Every sheet of the pack stays under the pack scope; the layout also stays free of colours and of unpublished hooks. */
+      for (const sheet of strings(assets.stylesheets)) {
+        const sheetFile = path.join(manifestRoot, String(assetRoot), sheet);
+        if (!fs.existsSync(sheetFile)) continue;
+        for (const selector of unscopedSelectors(fs.readFileSync(sheetFile, "utf8"), "body.brumes--monster-of-the-week")) {
+          issues.push(`monster-of-the-week: ${sheet} has the unscoped selector ${selector}`);
+        }
+      }
+      const layoutSheet = "styles/layout.css";
+      const layoutFile = path.join(manifestRoot, String(assetRoot), layoutSheet);
+      if (!strings(assets.stylesheets).includes(layoutSheet) || !fs.existsSync(layoutFile)) {
+        issues.push(`monster-of-the-week: the booklet geometry must be supplied as ${layoutSheet}`);
+      } else {
+        const layout = fs.readFileSync(layoutFile, "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
+        const regions = motwPresentations.flatMap((presentation) => presentation.regions);
+        const hooks: Array<[string, string[]]> = [
+          ["data-region", regions.map((region) => region.id)],
+          ["data-primitive", regions.map((region) => region.primitive)],
+          ["data-face", PBTA_MONSTER_OF_THE_WEEK_PLAYBOOK_PRESENTATION.faces.map((face) => face.id)],
+        ];
+        for (const [attribute, published] of hooks) {
+          for (const match of layout.matchAll(new RegExp(`\\[${attribute}="([^"]*)"\\]`, "g"))) {
+            if (!published.includes(match[1])) issues.push(`monster-of-the-week: ${layoutSheet} targets an unpublished ${attribute} ${match[1]}`);
+          }
+        }
+        if (/#[0-9a-fA-F]{3,8}\b|\b(?:rgb|hsl)a?\(/.test(layout)) {
+          issues.push(`monster-of-the-week: ${layoutSheet} must take its colours from the tokens, not write them`);
+        }
+        const print = layout.slice(layout.indexOf("@media print"));
+        if (!layout.includes("@media print") || /break-before:\s*page/.test(print)) {
+          issues.push(`monster-of-the-week: ${layoutSheet} must not break the page between the two faces: they are one card`);
+        }
+        if (!/\[data-region\]\s*\{[^}]*break-inside:\s*avoid/.test(layout)) {
+          issues.push(`monster-of-the-week: ${layoutSheet} must keep a region on one page`);
+        }
+        if (!/order:\s*var\(--pbta-region-order\)/.test(print)) {
+          issues.push(`monster-of-the-week: ${layoutSheet} must print the regions in canonical order`);
         }
       }
     }

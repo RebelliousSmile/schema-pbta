@@ -34,7 +34,7 @@ for (const entry of PBTA_COLLECTION_PRESENTATIONS) {
   assert.equal(entry.cardinality, "mutable", `${key}: PbtA collections default to mutable`);
   assert.equal(entry.reorder, true, `${key}: PbtA collections must be reorderable`);
   if (entry.itemCapabilities?.includes("checked")) {
-    assert.match(entry.path, /^(moves|advancement|advances|improvements|corruption\.advances|conditions|drives\.options)$/, `${key}: checked capability is not exported by this collection`);
+    assert.match(entry.path, /^(moves|advancement|advances|improvements|corruption\.advances|conditions|drives\.options|statChoices|advancements|enemies|allies|maneuvers|assets|improvement|style|stages)$/, `${key}: checked capability is not exported by this collection`);
   }
 }
 

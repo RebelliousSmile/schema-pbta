@@ -51,6 +51,24 @@
     { "path": "invalid/masks-npc-attributes-field.toml", "target": "masks-npc", "expect": "reject" },
     { "path": "invalid/masks-npc-self-missing-value.toml", "target": "masks-npc", "expect": "reject" },
     { "path": "invalid/masks-npc-condition-object.toml", "target": "masks-npc", "expect": "reject" },
-    { "path": "invalid/masks-npc-resistance-negative.toml", "target": "masks-npc", "expect": "reject" }
+    { "path": "invalid/masks-npc-resistance-negative.toml", "target": "masks-npc", "expect": "reject" },
+    { "path": "valid/monster-of-the-week-playbook-sheet.toml", "target": "monster-of-the-week-playbook", "expect": "accept" },
+    { "path": "valid/monster-of-the-week-team-complete.toml", "target": "monster-of-the-week-team", "expect": "accept" },
+    { "path": "valid/monster-of-the-week-team-blank.toml", "target": "monster-of-the-week-team", "expect": "accept" },
+    { "path": "valid/monster-of-the-week-monster-complete.toml", "target": "monster-of-the-week-monster", "expect": "accept" },
+    { "path": "valid/monster-of-the-week-monster-blank.toml", "target": "monster-of-the-week-monster", "expect": "accept" },
+    { "path": "valid/monster-of-the-week-threat-complete.toml", "target": "monster-of-the-week-threat", "expect": "accept" },
+    { "path": "valid/monster-of-the-week-threat-blank.toml", "target": "monster-of-the-week-threat", "expect": "accept" },
+    { "path": "invalid/monster-of-the-week-team-missing-enemies.toml", "target": "monster-of-the-week-team", "expect": "reject" },
+    { "path": "invalid/monster-of-the-week-team-entry-without-label.toml", "target": "monster-of-the-week-team", "expect": "reject" },
+    { "path": "invalid/monster-of-the-week-team-unknown-field.toml", "target": "monster-of-the-week-team", "expect": "reject" },
+    { "path": "invalid/monster-of-the-week-monster-missing-type.toml", "target": "monster-of-the-week-monster", "expect": "reject" },
+    { "path": "invalid/monster-of-the-week-monster-threat-type.toml", "target": "monster-of-the-week-monster", "expect": "reject" },
+    { "path": "invalid/monster-of-the-week-monster-harm-negative.toml", "target": "monster-of-the-week-monster", "expect": "reject" },
+    { "path": "invalid/monster-of-the-week-threat-missing-type.toml", "target": "monster-of-the-week-threat", "expect": "reject" },
+    { "path": "invalid/monster-of-the-week-threat-monster-type.toml", "target": "monster-of-the-week-threat", "expect": "reject" },
+    { "path": "invalid/monster-of-the-week-threat-stage-text.toml", "target": "monster-of-the-week-threat", "expect": "reject" },
+    { "path": "invalid/monster-of-the-week-playbook-luck-marked-text.toml", "target": "monster-of-the-week-playbook", "expect": "reject" },
+    { "path": "invalid/monster-of-the-week-playbook-stat-choice-text.toml", "target": "monster-of-the-week-playbook", "expect": "reject" }
   ]
 }

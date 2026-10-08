@@ -1,0 +1,15 @@
+slug = "the-night-shift"
+name = "The Night Shift"
+game = "monster-of-the-week"
+quote = "An original epigraph."
+description = "An original introduction."
+gettingStarted = ["An original first step.", "Another original step."]
+setup = ["An original organisation prompt."]
+enemies = [{ label = "An original chief enemy.", checked = true }, { label = "Another original enemy." }]
+allies = [{ label = "An original ally." }]
+maneuvers = [{ label = "An original team move.", checked = true }]
+assets = [{ label = "An original asset." }]
+improvementMax = 5
+improvementMarked = 2
+improvement = [{ label = "An original improvement." }]
+style = [{ label = "An original style.", checked = true }]

@@ -1,0 +1,34 @@
+slug = "the-lightkeeper"
+name = "The Lightkeeper"
+game = "monster-of-the-week"
+description = "An original fixture."
+heroName = "Original Hunter"
+stats = { charm = 1, cool = 0, sharp = 2, tough = -1, weird = 0 }
+moves = []
+luckMax = 7
+luckMarked = 2
+harmMax = 7
+harmMarked = 1
+unstable = false
+experienceMax = 5
+experienceMarked = 3
+specialWeapon = "An original special weapon."
+statChoices = [{ label = "Charm +1, Sharp +2", checked = true }, { label = "Cool +1, Sharp +1" }]
+look = ["An original look line."]
+introductions = ["An original introduction prompt."]
+history = ["An original history prompt."]
+advancements = [{ label = "An original advanced improvement." }]
+notes = ["An original note line."]
+improvements = [{ label = "Take a move.", checked = true }]
+[editorial.opening]
+heading = "Opening"
+paragraphs = ["Original fixture."]
+[editorial.playAdvice]
+heading = "Advice"
+paragraphs = ["Keep watch."]
+[editorial.identity]
+heading = "Identity"
+paragraphs = ["Choose a road."]
+[editorial.progression]
+heading = "Progression"
+paragraphs = ["Take a move."]
