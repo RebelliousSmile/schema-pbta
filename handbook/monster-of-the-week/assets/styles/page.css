@@ -5,15 +5,27 @@ body.brumes--monster-of-the-week .markdown-rendered h1 {
 body.brumes--monster-of-the-week .markdown-rendered :is(h2, h3) {
   letter-spacing: 0.08em;
 }
+/* The theme sets its own body font on the body: the serif of the book is written on the note itself. */
+body.brumes--monster-of-the-week .markdown-rendered {
+  font-family: var(--motw-body-font);
+}
+/* The display face has no italic: a heading never slants, whatever it holds. */
+body.brumes--monster-of-the-week .markdown-rendered :is(h1, h2, h3) {
+  font-synthesis: none;
+}
+body.brumes--monster-of-the-week .markdown-rendered :is(h1, h2, h3) :is(em, i) {
+  font-family: inherit;
+  font-style: normal;
+}
 /* A game term is written bold and italic: it reads upright, bold, in the accent. */
 body.brumes--monster-of-the-week .markdown-rendered :is(strong > em, em > strong) {
   color: var(--color-accent);
-  font-family: var(--font-text-theme);
+  font-family: var(--motw-body-font);
   font-style: normal;
   font-weight: 700;
 }
 body.brumes--monster-of-the-week .markdown-rendered em {
-  font-family: "Crimson Pro Italic", var(--font-text-theme);
+  font-family: "Crimson Pro Italic", var(--motw-body-font);
 }
 /* Tables: black on white like the printed book, an ink head, ruled rows, no stripes. */
 body.brumes--monster-of-the-week .markdown-rendered table {
