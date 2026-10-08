@@ -221,9 +221,18 @@ body.brumes--masks [data-primitive="portrait"] figure[data-empty="true"] {
   color: var(--text-muted);
 }
 
-/* The verso follows the recto on the next sheet; the recto keeps its own. */
-body.brumes--masks [data-face="verso"] {
-  margin-block-start: 1.5rem;
+/* The faces are one card: the header is written once, the second face continues the first without a seam. */
+body.brumes--masks [data-face]:has(+ [data-face]) {
+  border-block-end: 0;
+  padding-block-end: 0;
+}
+body.brumes--masks [data-face] + [data-face] {
+  margin-block-start: 0;
+  border-block-start: 0;
+  padding-block-start: var(--masks-gap);
+}
+body.brumes--masks [data-face] + [data-face] > [data-region="masks-header"] {
+  display: none;
 }
 
 /* A narrow pane flows every face and every band in one column, in canonical order. */
@@ -236,7 +245,7 @@ body.brumes--masks [data-face="verso"] {
   }
 }
 
-/* Paper: one column in canonical order, one face a page. */
+/* Paper: one column in canonical order, no page break between the faces. */
 @media print {
   body.brumes--masks [data-face] {
     display: flex;
@@ -245,10 +254,6 @@ body.brumes--masks [data-face="verso"] {
   }
   body.brumes--masks [data-column] {
     display: contents;
-  }
-  body.brumes--masks [data-face] + [data-face] {
-    break-before: page;
-    margin-block-start: 0;
   }
   body.brumes--masks [data-region] {
     order: var(--pbta-region-order);

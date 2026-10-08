@@ -186,10 +186,9 @@ fixture("masks written colour", (root) => {
   fs.appendFileSync(masksSheet(root, "layout.css"), "\nbody.brumes--masks [data-row] { color: #123456; }\n");
 }, "must take its colours from the tokens");
 
-fixture("masks no page break between faces", (root) => {
-  const file = masksSheet(root, "layout.css");
-  fs.writeFileSync(file, fs.readFileSync(file, "utf8").replace("break-before: page;", ""));
-}, "must break the page between the two faces in print");
+fixture("masks page break between faces", (root) => {
+  fs.appendFileSync(masksSheet(root, "layout.css"), "\n@media print { body.brumes--masks [data-face] + [data-face] { break-before: page; } }\n");
+}, "must not break the page between the two faces");
 
 fixture("masks no canonical print order", (root) => {
   const file = masksSheet(root, "layout.css");

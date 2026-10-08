@@ -436,8 +436,8 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
           issues.push(`masks: ${layoutSheet} must take its colours from the tokens, not write them`);
         }
         const print = layout.slice(layout.indexOf("@media print"));
-        if (!layout.includes("@media print") || !/\[data-face\] \+ \[data-face\]\s*\{[^}]*break-before:\s*page/.test(print)) {
-          issues.push(`masks: ${layoutSheet} must break the page between the two faces in print`);
+        if (!layout.includes("@media print") || /break-before:\s*page/.test(print)) {
+          issues.push(`masks: ${layoutSheet} must not break the page between the two faces: they are one card`);
         }
         if (!/\[data-region\]\s*\{[^}]*break-inside:\s*avoid/.test(layout)) {
           issues.push(`masks: ${layoutSheet} must keep a region on one page`);
