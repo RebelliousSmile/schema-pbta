@@ -259,6 +259,16 @@ body.brumes--the-sprawl [data-primitive="key-value"] dt {
   font-weight: 600;
   text-transform: uppercase;
 }
+/* On the ink band of a card header the key is a subtitle on its own line, in the paper colour. */
+body.brumes--the-sprawl [data-region$="-header"]:not([data-region="sprawl-header"]) [data-primitive="key-value"] dt {
+  display: block;
+  margin: 0.35rem 0 0.1rem;
+  color: var(--the-sprawl-on-ink);
+  letter-spacing: 0.08em;
+}
+body.brumes--the-sprawl [data-region$="-header"]:not([data-region="sprawl-header"]) [data-primitive="key-value"] dd {
+  display: block;
+}
 body.brumes--the-sprawl [data-primitive="key-value"] dd {
   display: inline;
   margin: 0;
