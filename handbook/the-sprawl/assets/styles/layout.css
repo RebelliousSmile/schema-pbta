@@ -181,6 +181,9 @@ body.brumes--the-sprawl [data-primitive="cut-corner-card"] {
   color: var(--the-sprawl-on-ink);
   clip-path: polygon(0.9rem 0, 100% 0, 100% calc(100% - 0.9rem), calc(100% - 0.9rem) 100%, 0 100%, 0 0.9rem);
 }
+body.brumes--the-sprawl [data-primitive="cut-corner-card"] li::marker {
+  color: var(--the-sprawl-on-ink);
+}
 body.brumes--the-sprawl [data-primitive="cut-corner-card"] > :is(h2, h3) {
   margin: 0;
   color: var(--the-sprawl-on-ink);
@@ -260,13 +263,13 @@ body.brumes--the-sprawl [data-primitive="key-value"] dt {
   text-transform: uppercase;
 }
 /* On the ink band of a card header the key is a subtitle on its own line, in the paper colour. */
-body.brumes--the-sprawl [data-region$="-header"]:not([data-region="sprawl-header"]) [data-primitive="key-value"] dt {
+body.brumes--the-sprawl [data-region$="-header"]:not([data-region="sprawl-header"]) dt {
   display: block;
   margin: 0.35rem 0 0.1rem;
   color: var(--the-sprawl-on-ink);
   letter-spacing: 0.08em;
 }
-body.brumes--the-sprawl [data-region$="-header"]:not([data-region="sprawl-header"]) [data-primitive="key-value"] dd {
+body.brumes--the-sprawl [data-region$="-header"]:not([data-region="sprawl-header"]) dd {
   display: block;
 }
 body.brumes--the-sprawl [data-primitive="key-value"] dd {
