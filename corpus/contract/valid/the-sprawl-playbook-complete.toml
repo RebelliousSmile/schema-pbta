@@ -2,9 +2,18 @@ slug = "le-veilleur"
 name = "Le Veilleur"
 game = "the-sprawl"
 description = "An original fixture."
+characterName = "Original runner"
 stats = { edge = 1 }
 moves = []
 directives = ["Protect people."]
+directiveChoices = [{ label = "Protect people.", checked = true }, { label = "Break nothing." }]
+cyberware = [{ label = "Original implant", checked = true }]
+look = [{ label = "Eyes", value = "Pale" }, { label = "Outfit" }]
+xp = 2
+xpMax = 5
+hoursMarked = 1
+links = [{ name = "Dax", value = 1 }, { value = -1 }]
+contacts = ["A fixer"]
 [editorial.opening]
 heading = "Opening"
 paragraphs = ["Original fixture."]

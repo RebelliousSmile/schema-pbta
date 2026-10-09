@@ -129,7 +129,7 @@ assert.deepEqual(
   PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
 );
 assert.deepEqual(Object.keys(PBTA_DOCUMENT_CODECS).sort(), [
-  "front", "game-definition", "masks-npc", "masks-playbook", "monster-of-the-week-monster", "monster-of-the-week-playbook", "monster-of-the-week-team", "monster-of-the-week-threat", "monsterhearts-playbook", "move", "npc", "playbook", "salvage-run-playbook", "the-sprawl-playbook", "urban-shadows-playbook",
+  "front", "game-definition", "masks-npc", "masks-playbook", "monster-of-the-week-monster", "monster-of-the-week-playbook", "monster-of-the-week-team", "monster-of-the-week-threat", "monsterhearts-playbook", "move", "npc", "playbook", "salvage-run-playbook", "the-sprawl-corporation", "the-sprawl-matrix", "the-sprawl-mission", "the-sprawl-playbook", "the-sprawl-resource", "the-sprawl-threat", "urban-shadows-playbook",
 ]);
 for (const parser of [
   parseFrontToml,
@@ -146,9 +146,9 @@ for (const parser of [
   parseSalvageRunPlaybookToml,
 ]) assert.equal(typeof parser, "function");
 
-const schemaUrl = import.meta.resolve("schema-pbta/schemas/v12/monsterhearts/monsterhearts-playbook.schema.json");
+const schemaUrl = import.meta.resolve("schema-pbta/schemas/v13/monsterhearts/monsterhearts-playbook.schema.json");
 const schema = JSON.parse(fs.readFileSync(new URL(schemaUrl), "utf8"));
-assert.match(schema.$id, /\\/v12\\.0\\.0\\/schemas\\/v12\\/monsterhearts\\/monsterhearts-playbook\\.schema\\.json$/);
+assert.match(schema.$id, /\\/v13\\.0\\.0\\/schemas\\/v13\\/monsterhearts\\/monsterhearts-playbook\\.schema\\.json$/);
 assert.throws(
   () => import.meta.resolve("schema-pbta/schemas/monsterhearts/monsterhearts-playbook.schema.json"),
   { code: "ERR_PACKAGE_PATH_NOT_EXPORTED" },

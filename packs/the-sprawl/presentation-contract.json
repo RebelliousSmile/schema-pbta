@@ -1,0 +1,175 @@
+{
+  "target": "the-sprawl-playbook",
+  "regions": [
+    {
+      "id": "sprawl-header",
+      "label": "En-tête",
+      "group": "recto",
+      "primitive": "prose",
+      "fields": [
+        "name",
+        "characterName",
+        "description"
+      ]
+    },
+    {
+      "id": "sprawl-look",
+      "label": "Apparence",
+      "group": "recto",
+      "primitive": "key-value",
+      "fields": [
+        "look"
+      ]
+    },
+    {
+      "id": "sprawl-gear",
+      "label": "Équipement",
+      "group": "recto",
+      "primitive": "boxes",
+      "fields": [
+        "gear",
+        "missionGear",
+        "cred"
+      ]
+    },
+    {
+      "id": "sprawl-cyberware",
+      "label": "Cybernétique",
+      "group": "recto",
+      "primitive": "boxes",
+      "fields": [
+        "cyberware"
+      ]
+    },
+    {
+      "id": "sprawl-moves",
+      "label": "Manœuvres",
+      "group": "verso",
+      "primitive": "boxes",
+      "fields": [
+        "moves",
+        "startingMoves"
+      ]
+    },
+    {
+      "id": "sprawl-stats",
+      "label": "Stats",
+      "group": "verso",
+      "primitive": "hexagon",
+      "fields": [
+        "stats"
+      ]
+    },
+    {
+      "id": "sprawl-cred-xp",
+      "label": "Cred et XP",
+      "group": "verso",
+      "primitive": "hexagon",
+      "fields": [
+        "cred",
+        "xp",
+        "xpMax"
+      ]
+    },
+    {
+      "id": "sprawl-directives",
+      "label": "Directives",
+      "group": "verso",
+      "primitive": "boxes",
+      "fields": [
+        "directives",
+        "directiveChoices"
+      ]
+    },
+    {
+      "id": "sprawl-advancement",
+      "label": "Avancement",
+      "group": "verso",
+      "primitive": "boxes",
+      "fields": [
+        "advancement"
+      ]
+    },
+    {
+      "id": "sprawl-links",
+      "label": "Liens",
+      "group": "verso",
+      "primitive": "hexagon",
+      "fields": [
+        "links"
+      ]
+    },
+    {
+      "id": "sprawl-contacts",
+      "label": "Contacts",
+      "group": "verso",
+      "primitive": "list",
+      "fields": [
+        "contacts"
+      ]
+    },
+    {
+      "id": "sprawl-harm",
+      "label": "Blessure",
+      "group": "verso",
+      "primitive": "hour-track",
+      "fields": [
+        "hoursMarked"
+      ]
+    }
+  ],
+  "canonicalOrder": [
+    "sprawl-header",
+    "sprawl-look",
+    "sprawl-gear",
+    "sprawl-cyberware",
+    "sprawl-moves",
+    "sprawl-stats",
+    "sprawl-cred-xp",
+    "sprawl-directives",
+    "sprawl-advancement",
+    "sprawl-links",
+    "sprawl-contacts",
+    "sprawl-harm"
+  ],
+  "faces": [
+    {
+      "id": "recto",
+      "label": "Recto",
+      "header": "sprawl-header",
+      "columns": [
+        [
+          "sprawl-look",
+          "sprawl-gear"
+        ],
+        [
+          "sprawl-cyberware"
+        ]
+      ]
+    },
+    {
+      "id": "verso",
+      "label": "Verso",
+      "header": "sprawl-header",
+      "columns": [
+        [
+          "sprawl-moves",
+          "sprawl-directives",
+          "sprawl-advancement"
+        ],
+        [
+          "sprawl-stats",
+          "sprawl-cred-xp",
+          "sprawl-links",
+          "sprawl-contacts",
+          "sprawl-harm"
+        ]
+      ]
+    }
+  ],
+  "fallbacks": {
+    "unplaced": "canonical-order",
+    "narrowPane": "canonical-flow",
+    "print": "canonical-flow"
+  }
+}

@@ -5,6 +5,7 @@ import { PBTA_MONSTERHEARTS_APPEARANCE, monsterheartsAppearanceSchema } from "..
 import { PBTA_MONSTERHEARTS_APPEARANCE_ASSET_URLS } from "../src/presentation/monsterhearts-appearance-assets.js";
 import { PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION } from "../src/presentation/monsterhearts-playbook.js";
 import { masksAppearanceSchema, PBTA_MASKS_APPEARANCE } from "../src/presentation/masks-appearance.js";
+import { PBTA_THE_SPRAWL_APPEARANCE, theSprawlAppearanceSchema } from "../src/presentation/the-sprawl-appearance.js";
 import { PBTA_URBAN_SHADOWS_APPEARANCE, urbanShadowsAppearanceSchema } from "../src/presentation/urban-shadows-appearance.js";
 import { PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION } from "../src/presentation/urban-shadows-playbook.js";
 
@@ -142,4 +143,33 @@ for (const name of ["masks-appearance-base.json"]) {
   assert.deepEqual(masks.resources.assets, fixture.assets, `${name}: asset resolution differs`);
 }
 
-console.log("✓ validated Monsterhearts, Urban Shadows and Masks appearance artifacts, resources, and consumer fixtures");
+/* The Sprawl publishes one appearance for its six targets; the Handbook pack carries the fonts. */
+const sprawlRoot = path.join(process.cwd(), "packs", "the-sprawl");
+const sprawl = theSprawlAppearanceSchema.parse(JSON.parse(fs.readFileSync(path.join(sprawlRoot, "appearance-contract.json"), "utf8")));
+assert.deepEqual(sprawl, PBTA_THE_SPRAWL_APPEARANCE, "The Sprawl appearance artifact must be generated from the ESM source");
+for (const resource of [
+  ...Object.values(sprawl.resources.fonts),
+  ...sprawl.resources.stylesheets,
+  ...Object.values(sprawl.resources.assets),
+]) {
+  const absolute = path.resolve(sprawlRoot, resource);
+  assert.ok(absolute.startsWith(`${sprawlRoot}${path.sep}`), `resource escapes pack: ${resource}`);
+  assert.ok(fs.statSync(absolute).isFile(), `missing appearance resource: ${resource}`);
+}
+for (const variant of sprawl.variants) {
+  for (const family of ["Michroma", "Jura", "Exo 2"]) {
+    assert.ok(
+      Object.values(variant.tokens).some((value) => value.includes(`'${family}'`)),
+      `${variant.id}: no token names the ${family} family`,
+    );
+  }
+}
+for (const name of ["the-sprawl-appearance-base.json"]) {
+  const fixture = JSON.parse(fs.readFileSync(path.join(process.cwd(), "corpus", "presentation", "valid", name), "utf8")) as Fixture;
+  const variant = sprawl.variants.find((entry) => entry.id === fixture.variant);
+  assert.ok(variant, `${name}: unknown variant`);
+  assert.deepEqual(variant.tokens, fixture.tokens, `${name}: token resolution differs`);
+  assert.deepEqual(sprawl.resources.assets, fixture.assets, `${name}: asset resolution differs`);
+}
+
+console.log("✓ validated Monsterhearts, Urban Shadows, Masks and The Sprawl appearance artifacts, resources, and consumer fixtures");

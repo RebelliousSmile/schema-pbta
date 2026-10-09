@@ -1,0 +1,71 @@
+{
+  "target": "the-sprawl-threat",
+  "regions": [
+    {
+      "id": "sprawl-threat-header",
+      "label": "En-tête",
+      "group": "card",
+      "primitive": "key-value",
+      "fields": [
+        "name",
+        "threatType"
+      ]
+    },
+    {
+      "id": "sprawl-threat-objective",
+      "label": "Objectif",
+      "group": "card",
+      "primitive": "prose",
+      "fields": [
+        "objective"
+      ]
+    },
+    {
+      "id": "sprawl-threat-clock",
+      "label": "Compte à rebours",
+      "group": "card",
+      "primitive": "hour-track",
+      "fields": [
+        "hoursMarked"
+      ]
+    },
+    {
+      "id": "sprawl-threat-context",
+      "label": "Description",
+      "group": "context",
+      "primitive": "prose",
+      "fields": [
+        "description"
+      ]
+    }
+  ],
+  "canonicalOrder": [
+    "sprawl-threat-header",
+    "sprawl-threat-objective",
+    "sprawl-threat-clock",
+    "sprawl-threat-context"
+  ],
+  "rows": [
+    [
+      [
+        "sprawl-threat-header"
+      ]
+    ],
+    [
+      [
+        "sprawl-threat-objective"
+      ],
+      [
+        "sprawl-threat-clock"
+      ]
+    ]
+  ],
+  "outsideCard": [
+    "sprawl-threat-context"
+  ],
+  "fallbacks": {
+    "unplaced": "canonical-order",
+    "narrowPane": "canonical-flow",
+    "print": "canonical-flow"
+  }
+}

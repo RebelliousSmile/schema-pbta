@@ -1,0 +1,19 @@
+slug = "the-glass-vault"
+name = "The Glass Vault"
+game = "the-sprawl"
+getTheJob = "A fixer offers an original job."
+involvedParties = [ "An original corporation.", "A rival crew." ]
+whatIsGoingOn = "An original explanation."
+twist = "An original twist."
+security = [ "Cameras everywhere.", "A single guard." ]
+missionDirectives = [ "Leave no trace." ]
+getPaid = "Half up front, half on delivery."
+
+[investigation]
+hoursMarked = 2
+steps = [ "First clue.", "Second clue." ]
+
+[action]
+hoursMarked = 1
+steps = [ "The alarm trips." ]
+

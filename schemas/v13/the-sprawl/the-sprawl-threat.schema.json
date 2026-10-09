@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Stable kebab-case identifier of the threat."
+    },
+    "game": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Folder slug of the game this threat belongs to."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable name of the card."
+    },
+    "description": {
+      "description": "Prose describing the card.",
+      "type": "string",
+      "minLength": 1
+    },
+    "threatType": {
+      "type": "string",
+      "enum": [
+        "group",
+        "lone",
+        "place",
+        "current-event"
+      ],
+      "description": "Kind of threat: group, lone wolf, place or current event."
+    },
+    "objective": {
+      "description": "What the threat wants.",
+      "type": "string",
+      "minLength": 1
+    },
+    "hoursMarked": {
+      "description": "Number of segments of the six-segment hour track currently marked.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 6
+    }
+  },
+  "required": [
+    "slug",
+    "game",
+    "name",
+    "threatType"
+  ],
+  "additionalProperties": false,
+  "title": "The Sprawl threat",
+  "description": "Portable representation of a The Sprawl threat card.",
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v13.0.0/schemas/v13/the-sprawl/the-sprawl-threat.schema.json"
+}

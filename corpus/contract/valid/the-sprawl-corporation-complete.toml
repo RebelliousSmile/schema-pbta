@@ -1,0 +1,8 @@
+slug = "halcyon-dynamics"
+name = "Halcyon Dynamics"
+game = "the-sprawl"
+description = "An original corporation."
+expertise = [ "Logistics", "Surveillance" ]
+customMoves = [ "When you cross them, they know first." ]
+hoursMarked = 4
+

@@ -1,0 +1,58 @@
+{
+  "target": "the-sprawl-resource",
+  "regions": [
+    {
+      "id": "sprawl-resource-header",
+      "label": "Ressource",
+      "group": "card",
+      "primitive": "cut-corner-card",
+      "fields": [
+        "name",
+        "tags"
+      ]
+    },
+    {
+      "id": "sprawl-resource-skills",
+      "label": "Compétences et historique",
+      "group": "card",
+      "primitive": "list",
+      "fields": [
+        "skills"
+      ]
+    },
+    {
+      "id": "sprawl-resource-context",
+      "label": "Description",
+      "group": "context",
+      "primitive": "prose",
+      "fields": [
+        "description"
+      ]
+    }
+  ],
+  "canonicalOrder": [
+    "sprawl-resource-header",
+    "sprawl-resource-skills",
+    "sprawl-resource-context"
+  ],
+  "rows": [
+    [
+      [
+        "sprawl-resource-header"
+      ]
+    ],
+    [
+      [
+        "sprawl-resource-skills"
+      ]
+    ]
+  ],
+  "outsideCard": [
+    "sprawl-resource-context"
+  ],
+  "fallbacks": {
+    "unplaced": "canonical-order",
+    "narrowPane": "canonical-flow",
+    "print": "canonical-flow"
+  }
+}

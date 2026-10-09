@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Stable kebab-case identifier of the threat."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable threat name."
+    },
+    "game": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Folder slug of the game this threat belongs to."
+    },
+    "threatType": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Type of the threat, as printed under its name."
+    },
+    "mystery": {
+      "description": "Mystery the threat belongs to, as printed on the page.",
+      "type": "string",
+      "minLength": 1
+    },
+    "stages": {
+      "description": "Steps of the plan of the threat, with the ones reached.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable advancement option."
+          },
+          "checked": {
+            "description": "Whether this advancement has been acquired.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "additionalProperties": false,
+        "description": "One advancement option and its optional acquisition state."
+      }
+    },
+    "motivation": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Motivation of the creature, as printed beside its type."
+    },
+    "description": {
+      "description": "Prose describing the creature.",
+      "type": "string",
+      "minLength": 1
+    },
+    "powers": {
+      "description": "Lines of the powers of the creature.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "attacks": {
+      "description": "Lines of the attacks of the creature, with their harm and tags.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "harmCapacity": {
+      "description": "Number of harm boxes printed for the creature.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    },
+    "harmMarked": {
+      "description": "Number of harm boxes currently marked.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    },
+    "armour": {
+      "description": "Armour value of the creature.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    },
+    "armourNote": {
+      "description": "What gives the armour or what it does not stop.",
+      "type": "string",
+      "minLength": 1
+    },
+    "weaknesses": {
+      "description": "Lines of the weaknesses of the creature.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "slug",
+    "name",
+    "game",
+    "threatType",
+    "motivation"
+  ],
+  "additionalProperties": false,
+  "title": "Monster of the Week threat",
+  "description": "Portable representation of a Monster of the Week threat page.",
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v13.0.0/schemas/v13/monster-of-the-week/monster-of-the-week-threat.schema.json"
+}

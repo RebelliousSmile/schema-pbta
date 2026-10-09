@@ -1,0 +1,11 @@
+{
+  "variant": "base",
+  "tokens": {
+    "--the-sprawl-title-font": "'Michroma', 'Eurostile', 'Arial', sans-serif",
+    "--the-sprawl-heading-font": "'Jura', 'Arial Narrow', sans-serif",
+    "--the-sprawl-body-font": "'Exo 2', 'Segoe UI', sans-serif",
+    "--the-sprawl-accent": "#1b2a49",
+    "--the-sprawl-accent-alt": "#2a8db5"
+  },
+  "assets": {}
+}

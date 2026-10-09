@@ -15,6 +15,13 @@ import { PBTA_MONSTER_OF_THE_WEEK_MONSTER_PRESENTATION } from "../src/presentati
 import { PBTA_MONSTER_OF_THE_WEEK_PLAYBOOK_PRESENTATION } from "../src/presentation/monster-of-the-week-playbook.js";
 import { PBTA_MONSTER_OF_THE_WEEK_TEAM_PRESENTATION } from "../src/presentation/monster-of-the-week-team.js";
 import { PBTA_MONSTER_OF_THE_WEEK_THREAT_PRESENTATION } from "../src/presentation/monster-of-the-week-threat.js";
+import { PBTA_THE_SPRAWL_APPEARANCE } from "../src/presentation/the-sprawl-appearance.js";
+import { PBTA_THE_SPRAWL_CORPORATION_PRESENTATION } from "../src/presentation/the-sprawl-corporation.js";
+import { PBTA_THE_SPRAWL_MATRIX_PRESENTATION } from "../src/presentation/the-sprawl-matrix.js";
+import { PBTA_THE_SPRAWL_MISSION_PRESENTATION } from "../src/presentation/the-sprawl-mission.js";
+import { PBTA_THE_SPRAWL_PLAYBOOK_PRESENTATION } from "../src/presentation/the-sprawl-playbook.js";
+import { PBTA_THE_SPRAWL_RESOURCE_PRESENTATION } from "../src/presentation/the-sprawl-resource.js";
+import { PBTA_THE_SPRAWL_THREAT_PRESENTATION } from "../src/presentation/the-sprawl-threat.js";
 import { PBTA_PACK_CALLOUTS, PBTA_VISUAL_CALLOUTS } from "../src/presentation/callouts.js";
 
 type Data = Record<string, unknown>;
@@ -25,9 +32,10 @@ const errors: string[] = [];
 const expectedGames = Object.values(GAMES).map(({ folder }) => folder);
 const expectedMinimumHandbookVersion = MINIMUM_HANDBOOK_VERSION;
 const expectedCapabilities = ["block:pbta-playbook", "block:pbta-move", "style:pbta"];
-/* A pack that publishes its own card blocks activates them here: Handbook turns a block on only for a capability the manifest declares. */
+/* A pack that publishes its own blocks activates them here: Handbook turns a block on only for a capability the manifest declares. */
 const packBlockCapabilities: Record<string, string[]> = {
   "monster-of-the-week": ["block:pbta-team", "block:pbta-monster", "block:pbta-threat"],
+  "the-sprawl": ["block:sprawl-matrix", "block:sprawl-mission", "block:sprawl-card"],
 };
 const expectedCapabilitiesOf = (id: string): string[] => [...expectedCapabilities, ...(packBlockCapabilities[id] ?? [])];
 const semver = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
@@ -542,6 +550,98 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
         }
         if (!/order:\s*var\(--pbta-region-order\)/.test(print)) {
           issues.push(`monster-of-the-week: ${layoutSheet} must print the regions in canonical order`);
+        }
+      }
+    }
+    if (id === "the-sprawl") {
+      /* The pack installs what the npm contracts publish: the artifacts on disk are the exports. */
+      const sprawlPresentations: Array<{ regions: Array<{ id: string; primitive: string }> }> = [
+        PBTA_THE_SPRAWL_PLAYBOOK_PRESENTATION,
+        PBTA_THE_SPRAWL_MATRIX_PRESENTATION,
+        PBTA_THE_SPRAWL_MISSION_PRESENTATION,
+        PBTA_THE_SPRAWL_THREAT_PRESENTATION,
+        PBTA_THE_SPRAWL_CORPORATION_PRESENTATION,
+        PBTA_THE_SPRAWL_RESOURCE_PRESENTATION,
+      ];
+      for (const [file, exported] of [
+        ["presentation-contract.json", PBTA_THE_SPRAWL_PLAYBOOK_PRESENTATION],
+        ["matrix-presentation-contract.json", PBTA_THE_SPRAWL_MATRIX_PRESENTATION],
+        ["mission-presentation-contract.json", PBTA_THE_SPRAWL_MISSION_PRESENTATION],
+        ["threat-presentation-contract.json", PBTA_THE_SPRAWL_THREAT_PRESENTATION],
+        ["corporation-presentation-contract.json", PBTA_THE_SPRAWL_CORPORATION_PRESENTATION],
+        ["resource-presentation-contract.json", PBTA_THE_SPRAWL_RESOURCE_PRESENTATION],
+        ["appearance-contract.json", PBTA_THE_SPRAWL_APPEARANCE],
+      ] as const) {
+        const artifact = path.join(root, "packs", "the-sprawl", file);
+        if (!fs.existsSync(artifact) || JSON.stringify(JSON.parse(fs.readFileSync(artifact, "utf8"))) !== JSON.stringify(exported)) {
+          issues.push(`the-sprawl: source ${file} diverges from the npm export`);
+        }
+      }
+      /* Three families, each with the licence of its family beside it. */
+      const sprawlFonts = data(assets.fonts);
+      for (const [family, licence] of [
+        ["Michroma", "OFL-Michroma.txt"],
+        ["Jura", "OFL-Jura.txt"],
+        ["Exo 2", "OFL-Exo2.txt"],
+      ]) {
+        const face = data(sprawlFonts[family]);
+        if (typeof face.file !== "string") {
+          issues.push(`the-sprawl: ${family} must be supplied as a pack font asset`);
+          continue;
+        }
+        if (!fs.existsSync(path.join(manifestRoot, String(assetRoot), path.dirname(face.file), licence))) {
+          issues.push(`the-sprawl: ${family} must ship its licence ${licence}`);
+        }
+      }
+      for (const token of ["--code-normal", "--code-background", "--the-sprawl-accent", "--the-sprawl-accent-alt", "--the-sprawl-ink", "--the-sprawl-on-ink", "--the-sprawl-panel", "--the-sprawl-rule"]) {
+        if (typeof native[token] !== "string") issues.push(`the-sprawl: missing native token ${token}`);
+      }
+      const sprawlBase = data(data(data(pack.style).base).note);
+      for (const token of ["--the-sprawl-title-font", "--the-sprawl-heading-font", "--the-sprawl-body-font"]) {
+        if (typeof sprawlBase[token] !== "string") issues.push(`the-sprawl: base theme must define ${token}`);
+      }
+      /* The appearance tokens the tarball names are the ones the pack writes. */
+      for (const [token, value] of Object.entries(PBTA_THE_SPRAWL_APPEARANCE.variants[0].tokens)) {
+        const written = token === "--the-sprawl-accent" || token === "--the-sprawl-accent-alt" ? native[token] : sprawlBase[token];
+        if (written !== value) issues.push(`the-sprawl: ${token} diverges from the published appearance`);
+      }
+      /* Every sheet of the pack stays under the pack scope; the layout also stays free of colours and of unpublished hooks. */
+      for (const sheet of strings(assets.stylesheets)) {
+        const sheetFile = path.join(manifestRoot, String(assetRoot), sheet);
+        if (!fs.existsSync(sheetFile)) continue;
+        for (const selector of unscopedSelectors(fs.readFileSync(sheetFile, "utf8"), "body.brumes--the-sprawl")) {
+          issues.push(`the-sprawl: ${sheet} has the unscoped selector ${selector}`);
+        }
+      }
+      const layoutSheet = "styles/layout.css";
+      const layoutFile = path.join(manifestRoot, String(assetRoot), layoutSheet);
+      if (!strings(assets.stylesheets).includes(layoutSheet) || !fs.existsSync(layoutFile)) {
+        issues.push(`the-sprawl: the booklet geometry must be supplied as ${layoutSheet}`);
+      } else {
+        const layout = fs.readFileSync(layoutFile, "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
+        const regions = sprawlPresentations.flatMap((presentation) => presentation.regions);
+        const hooks: Array<[string, string[]]> = [
+          ["data-region", regions.map((region) => region.id)],
+          ["data-primitive", regions.map((region) => region.primitive)],
+          ["data-face", PBTA_THE_SPRAWL_PLAYBOOK_PRESENTATION.faces.map((face) => face.id)],
+        ];
+        for (const [attribute, published] of hooks) {
+          for (const match of layout.matchAll(new RegExp(`\\[${attribute}="([^"]*)"\\]`, "g"))) {
+            if (!published.includes(match[1])) issues.push(`the-sprawl: ${layoutSheet} targets an unpublished ${attribute} ${match[1]}`);
+          }
+        }
+        if (/#[0-9a-fA-F]{3,8}\b|\b(?:rgb|hsl)a?\(/.test(layout)) {
+          issues.push(`the-sprawl: ${layoutSheet} must take its colours from the tokens, not write them`);
+        }
+        const print = layout.slice(layout.indexOf("@media print"));
+        if (!layout.includes("@media print") || /break-before:\s*page/.test(print)) {
+          issues.push(`the-sprawl: ${layoutSheet} must not break the page between the two faces: they are one card`);
+        }
+        if (!/\[data-region\]\s*\{[^}]*break-inside:\s*avoid/.test(layout)) {
+          issues.push(`the-sprawl: ${layoutSheet} must keep a region on one page`);
+        }
+        if (!/order:\s*var\(--pbta-region-order\)/.test(print)) {
+          issues.push(`the-sprawl: ${layoutSheet} must print the regions in canonical order`);
         }
       }
     }

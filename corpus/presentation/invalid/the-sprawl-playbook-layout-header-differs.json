@@ -1,0 +1,10 @@
+{
+  "target": "the-sprawl-playbook",
+  "rejects": "every face must name the same header region",
+  "set": {
+    "faces": [
+      { "id": "recto", "label": "Recto", "header": "sprawl-header", "columns": [["sprawl-look", "sprawl-gear"], ["sprawl-cyberware"]] },
+      { "id": "verso", "label": "Verso", "header": "sprawl-look", "columns": [["sprawl-moves", "sprawl-directives", "sprawl-advancement"], ["sprawl-stats", "sprawl-cred-xp", "sprawl-links", "sprawl-contacts", "sprawl-harm"]] }
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+slug = "the-glass-vault"
+name = "Vault"
+game = "the-sprawl"
+
+[investigation]
+hoursMarked = 7
+

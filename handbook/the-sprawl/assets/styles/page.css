@@ -1,0 +1,40 @@
+/* The light page: wide capitals for titles, a clean sans body, ruled tables and game terms. */
+body.brumes--the-sprawl .markdown-rendered h1 {
+  letter-spacing: 0.03em;
+}
+body.brumes--the-sprawl .markdown-rendered :is(h2, h3) {
+  letter-spacing: 0.08em;
+}
+/* A game term is written bold and italic: it reads upright, bold, in the accent. */
+body.brumes--the-sprawl .markdown-rendered :is(strong > em, em > strong) {
+  color: var(--color-accent);
+  font-family: var(--font-text-theme);
+  font-style: normal;
+  font-weight: 700;
+}
+/* Tables: an ink head, accent rules, pale stripes. */
+body.brumes--the-sprawl .markdown-rendered table {
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+body.brumes--the-sprawl .markdown-rendered table th {
+  padding: 0.3em 0.6em;
+  border: 0;
+  background: var(--the-sprawl-ink, var(--color-accent));
+  color: var(--the-sprawl-on-ink, var(--background-primary));
+  font-family: var(--the-sprawl-heading-font, var(--font-header-theme));
+  font-size: 0.85em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-align: start;
+  text-transform: uppercase;
+}
+body.brumes--the-sprawl .markdown-rendered table td {
+  padding: 0.4em 0.6em;
+  border: 0;
+  border-block-end: 1px solid var(--the-sprawl-rule, var(--background-modifier-border));
+  vertical-align: top;
+}
+body.brumes--the-sprawl .markdown-rendered table tbody tr:nth-child(even) td {
+  background: var(--the-sprawl-panel, var(--background-primary-alt));
+}

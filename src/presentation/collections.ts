@@ -28,7 +28,12 @@ export type PbtaCollectionTarget =
   | Extract<PbtaDocumentTarget, `${string}-playbook`>
   | "monster-of-the-week-team"
   | "monster-of-the-week-monster"
-  | "monster-of-the-week-threat";
+  | "monster-of-the-week-threat"
+  | "the-sprawl-matrix"
+  | "the-sprawl-mission"
+  | "the-sprawl-threat"
+  | "the-sprawl-corporation"
+  | "the-sprawl-resource";
 
 export interface PbtaCollectionPresentation {
   target: PbtaCollectionTarget;
@@ -116,6 +121,17 @@ export const PBTA_COLLECTION_PRESENTATIONS: readonly PbtaCollectionPresentation[
   collection("monsterhearts-playbook", ["editorial.play.paragraphs", "Paragraphes de « Jouer la mue »", "pbta-text", "text"]),
   collection("the-sprawl-playbook", ["directives", "Directives", "pbta-text", "text"]),
   collection("the-sprawl-playbook", ["missionGear", "Mission gear", "pbta-text", "text"]),
+  collection("the-sprawl-playbook", ["directiveChoices", "Directive choices", "pbta-advancement", "object"], ["checked"]),
+  collection("the-sprawl-playbook", ["cyberware", "Cyberware", "pbta-advancement", "object"], ["checked"]),
+  collection("the-sprawl-playbook", ["contacts", "Contacts", "pbta-text", "text"]),
+  collection("the-sprawl-matrix", ["programs", "Programs", "pbta-advancement", "object"], ["checked"]),
+  collection("the-sprawl-mission", ["involvedParties", "Involved parties", "pbta-text", "text"]),
+  collection("the-sprawl-mission", ["security", "Security", "pbta-text", "text"]),
+  collection("the-sprawl-mission", ["missionDirectives", "Mission directives", "pbta-text", "text"]),
+  collection("the-sprawl-corporation", ["expertise", "Expertise", "pbta-text", "text"]),
+  collection("the-sprawl-corporation", ["customMoves", "Custom moves", "pbta-text", "text"]),
+  collection("the-sprawl-resource", ["tags", "Tags", "pbta-text", "text"]),
+  collection("the-sprawl-resource", ["skills", "Skills", "pbta-text", "text"]),
   collection("urban-shadows-playbook", ["mortalRelationships", "Mortal relationships", "pbta-relationship", "object"]),
   collection("urban-shadows-playbook", ["scars", "Scars", "pbta-scar", "object"]),
   collection("urban-shadows-playbook", ["corruption.advances", "Corruption advances", "pbta-advancement", "object"], ["checked"]),

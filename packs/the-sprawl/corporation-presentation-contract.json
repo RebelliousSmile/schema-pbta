@@ -1,0 +1,85 @@
+{
+  "target": "the-sprawl-corporation",
+  "regions": [
+    {
+      "id": "sprawl-corporation-header",
+      "label": "En-tête",
+      "group": "card",
+      "primitive": "key-value",
+      "fields": [
+        "name"
+      ]
+    },
+    {
+      "id": "sprawl-corporation-clock",
+      "label": "Compte à rebours",
+      "group": "card",
+      "primitive": "hour-track",
+      "fields": [
+        "hoursMarked"
+      ]
+    },
+    {
+      "id": "sprawl-corporation-expertise",
+      "label": "Domaines d'expertise",
+      "group": "card",
+      "primitive": "list",
+      "fields": [
+        "expertise"
+      ]
+    },
+    {
+      "id": "sprawl-corporation-moves",
+      "label": "Manœuvres personnalisées",
+      "group": "card",
+      "primitive": "list",
+      "fields": [
+        "customMoves"
+      ]
+    },
+    {
+      "id": "sprawl-corporation-context",
+      "label": "Description",
+      "group": "context",
+      "primitive": "prose",
+      "fields": [
+        "description"
+      ]
+    }
+  ],
+  "canonicalOrder": [
+    "sprawl-corporation-header",
+    "sprawl-corporation-clock",
+    "sprawl-corporation-expertise",
+    "sprawl-corporation-moves",
+    "sprawl-corporation-context"
+  ],
+  "rows": [
+    [
+      [
+        "sprawl-corporation-header"
+      ]
+    ],
+    [
+      [
+        "sprawl-corporation-clock"
+      ]
+    ],
+    [
+      [
+        "sprawl-corporation-expertise"
+      ],
+      [
+        "sprawl-corporation-moves"
+      ]
+    ]
+  ],
+  "outsideCard": [
+    "sprawl-corporation-context"
+  ],
+  "fallbacks": {
+    "unplaced": "canonical-order",
+    "narrowPane": "canonical-flow",
+    "print": "canonical-flow"
+  }
+}

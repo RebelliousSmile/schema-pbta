@@ -41,7 +41,7 @@ if (baseline.length > 0) throw new Error(`valid catalogue was rejected: ${baseli
     fs.copyFileSync(path.join(projectRoot, "handbook.json"), path.join(temporary, "handbook.json"));
     fs.cpSync(path.join(projectRoot, "handbook"), path.join(temporary, "handbook"), { recursive: true });
     /* A pack with no booklet geometry of its own: it needs only the callouts it publishes. */
-    const game = "the-sprawl";
+    const game = "salvage-run";
     const file = path.join(temporary, "handbook", game, "pack.json");
     const manifest = readJson(file);
     manifest.pack.assets.stylesheets = ["styles/callouts.css"];

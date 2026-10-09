@@ -1,0 +1,7 @@
+slug = "the-fence"
+name = "The Fence"
+game = "the-sprawl"
+description = "An original resource."
+tags = [ "contact", "black-market" ]
+skills = [ "Appraisal", "Discretion" ]
+

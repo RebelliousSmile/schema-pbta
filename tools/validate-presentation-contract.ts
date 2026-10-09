@@ -23,6 +23,20 @@ import { PBTA_MASKS_APPEARANCE } from "../src/presentation/masks-appearance.js";
 import { masksPlaybookSchema } from "../src/zod/masks-playbook.js";
 import { masksNpcSchema } from "../src/zod/masks-npc.js";
 
+import { PBTA_THE_SPRAWL_PLAYBOOK_PRESENTATION, theSprawlPlaybookPresentationSchema } from "../src/presentation/the-sprawl-playbook.js";
+import { PBTA_THE_SPRAWL_MATRIX_PRESENTATION, theSprawlMatrixPresentationSchema } from "../src/presentation/the-sprawl-matrix.js";
+import { PBTA_THE_SPRAWL_MISSION_PRESENTATION, theSprawlMissionPresentationSchema } from "../src/presentation/the-sprawl-mission.js";
+import { PBTA_THE_SPRAWL_THREAT_PRESENTATION, theSprawlThreatPresentationSchema } from "../src/presentation/the-sprawl-threat.js";
+import { PBTA_THE_SPRAWL_CORPORATION_PRESENTATION, theSprawlCorporationPresentationSchema } from "../src/presentation/the-sprawl-corporation.js";
+import { PBTA_THE_SPRAWL_RESOURCE_PRESENTATION, theSprawlResourcePresentationSchema } from "../src/presentation/the-sprawl-resource.js";
+import { PBTA_THE_SPRAWL_APPEARANCE } from "../src/presentation/the-sprawl-appearance.js";
+import { theSprawlPlaybookSchema } from "../src/zod/the-sprawl-playbook.js";
+import { theSprawlMatrixSchema } from "../src/zod/the-sprawl-matrix.js";
+import { theSprawlMissionSchema } from "../src/zod/the-sprawl-mission.js";
+import { theSprawlThreatSchema } from "../src/zod/the-sprawl-threat.js";
+import { theSprawlCorporationSchema } from "../src/zod/the-sprawl-corporation.js";
+import { theSprawlResourceSchema } from "../src/zod/the-sprawl-resource.js";
+
 const keys = new Set<string>();
 
 for (const entry of PBTA_COLLECTION_PRESENTATIONS) {
@@ -34,7 +48,7 @@ for (const entry of PBTA_COLLECTION_PRESENTATIONS) {
   assert.equal(entry.cardinality, "mutable", `${key}: PbtA collections default to mutable`);
   assert.equal(entry.reorder, true, `${key}: PbtA collections must be reorderable`);
   if (entry.itemCapabilities?.includes("checked")) {
-    assert.match(entry.path, /^(moves|advancement|advances|improvements|corruption\.advances|conditions|drives\.options|statChoices|advancements|enemies|allies|maneuvers|assets|improvement|style|stages)$/, `${key}: checked capability is not exported by this collection`);
+    assert.match(entry.path, /^(moves|advancement|advances|improvements|corruption\.advances|conditions|drives\.options|statChoices|advancements|enemies|allies|maneuvers|assets|improvement|style|stages|directiveChoices|cyberware|programs)$/, `${key}: checked capability is not exported by this collection`);
   }
 }
 
@@ -279,6 +293,68 @@ for (const [presentation, schema, label] of [
 }
 assert.deepEqual(PBTA_MASKS_APPEARANCE.targets, ["masks-playbook", "masks-npc"], "the Masks appearance serves both targets");
 
+/* The Sprawl: the booklet and five sheets; the same fixture mechanics as Masks. */
+const sprawlLayouts = {
+  "the-sprawl-playbook": { base: PBTA_THE_SPRAWL_PLAYBOOK_PRESENTATION, schema: theSprawlPlaybookPresentationSchema, content: theSprawlPlaybookSchema },
+  "the-sprawl-matrix": { base: PBTA_THE_SPRAWL_MATRIX_PRESENTATION, schema: theSprawlMatrixPresentationSchema, content: theSprawlMatrixSchema },
+  "the-sprawl-mission": { base: PBTA_THE_SPRAWL_MISSION_PRESENTATION, schema: theSprawlMissionPresentationSchema, content: theSprawlMissionSchema },
+  "the-sprawl-threat": { base: PBTA_THE_SPRAWL_THREAT_PRESENTATION, schema: theSprawlThreatPresentationSchema, content: theSprawlThreatSchema },
+  "the-sprawl-corporation": { base: PBTA_THE_SPRAWL_CORPORATION_PRESENTATION, schema: theSprawlCorporationPresentationSchema, content: theSprawlCorporationSchema },
+  "the-sprawl-resource": { base: PBTA_THE_SPRAWL_RESOURCE_PRESENTATION, schema: theSprawlResourcePresentationSchema, content: theSprawlResourceSchema },
+} as const;
+for (const kind of ["valid", "invalid"] as const) {
+  const names = fs.readdirSync(new URL(`../corpus/presentation/${kind}`, import.meta.url)).filter((name) => name.startsWith("the-sprawl-") && name.includes("-layout-"));
+  assert.ok(names.length > 0, `the ${kind} presentation corpus covers The Sprawl`);
+  for (const name of names) {
+    const fixture = layoutFixture(`${kind}/${name}`) as unknown as PresentationFixture;
+    const layout = sprawlLayouts[fixture.target as keyof typeof sprawlLayouts];
+    assert.ok(layout, `${name}: unknown The Sprawl target ${fixture.target}`);
+    const candidate = applyFixture(layout.base, fixture);
+    if (kind === "valid") {
+      assert.doesNotThrow(() => layout.schema.parse(candidate), `presentation corpus accepts ${name}`);
+    } else {
+      assert.ok(fixture.rejects, `${name}: a reject names the defect it carries`);
+      const outcome = layout.schema.safeParse(candidate);
+      assert.ok(!outcome.success, `presentation corpus rejects ${name}`);
+      assert.ok(
+        JSON.stringify(outcome.error.issues).includes(fixture.rejects),
+        `${name}: expected the defect "${fixture.rejects}", got ${JSON.stringify(outcome.error.issues.map((issue) => issue.message))}`,
+      );
+    }
+  }
+}
+for (const [target, layout] of Object.entries(sprawlLayouts)) {
+  assert.equal(layout.base.target, target, `${target}: the presentation names its own target`);
+  assert.deepEqual(
+    [...layout.base.canonicalOrder].sort(),
+    layout.base.regions.map((region) => region.id as string).sort(),
+    `${target}: the canonical order names every region once`,
+  );
+  for (const region of layout.base.regions) {
+    assert.ok(/[A-Za-zÀ-ÿ]/.test(region.label), `${region.id}: every region carries a label`);
+    for (const field of region.fields) assert.ok(declares(layout.content, field), `${region.id}: ${field} is not a field of ${target}`);
+  }
+}
+assert.equal(PBTA_THE_SPRAWL_PLAYBOOK_PRESENTATION.regions.length, 12, "The Sprawl publishes every region of the booklet");
+assert.deepEqual(
+  PBTA_THE_SPRAWL_PLAYBOOK_PRESENTATION.faces.map((face) => [face.id, face.header]),
+  [["recto", "sprawl-header"], ["verso", "sprawl-header"]],
+  "both faces share the header region",
+);
+for (const target of ["the-sprawl-matrix", "the-sprawl-mission", "the-sprawl-threat", "the-sprawl-corporation", "the-sprawl-resource"] as const) {
+  const card = sprawlLayouts[target].base as { regions: { id: string; group: string }[]; outsideCard: string[] };
+  assert.deepEqual(
+    card.regions.filter((region) => region.group === "context").map((region) => region.id),
+    card.outsideCard,
+    `${target}: the regions named outside the sheet are the context ones`,
+  );
+}
+assert.deepEqual(
+  PBTA_THE_SPRAWL_APPEARANCE.targets,
+  ["the-sprawl-playbook", "the-sprawl-matrix", "the-sprawl-mission", "the-sprawl-threat", "the-sprawl-corporation", "the-sprawl-resource"],
+  "the Sprawl appearance serves the six targets",
+);
+
 const unknownItemEditorFixture = JSON.parse(
   fs.readFileSync(
     new URL("../corpus/presentation/invalid/unknown-item-editor.json", import.meta.url),
@@ -291,4 +367,4 @@ assert.throws(
   "presentation corpus rejects an unknown collection item editor",
 );
 
-console.log(`✓ validated ${PBTA_COLLECTION_PRESENTATIONS.length} PbtA collection presentations, Monsterhearts, Urban Shadows and Masks layout semantics`);
+console.log(`✓ validated ${PBTA_COLLECTION_PRESENTATIONS.length} PbtA collection presentations, Monsterhearts, Urban Shadows, Masks and The Sprawl layout semantics`);

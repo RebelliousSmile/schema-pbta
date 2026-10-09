@@ -1,0 +1,302 @@
+/* The booklet (two faces) and the matrix, mission, threat, corporation and resource cards. Handbook renders the
+   regions and the hooks the presentation contracts name (data-face, data-column, data-row,
+   data-region, data-primitive); every measure is here and every colour comes from the tokens of the pack. */
+
+/* One measure for the whole sheet, written once. */
+body.brumes--the-sprawl :is([data-face], [data-row]) {
+  --the-sprawl-box: 1.2rem;
+  --the-sprawl-stroke: 0.12rem;
+  --the-sprawl-gap: 1rem;
+  min-width: 0;
+}
+
+/* The two faces of the booklet: two columns each, the header across both. */
+body.brumes--the-sprawl [data-face] {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--the-sprawl-gap) var(--pbta-column-gap, 1.75rem);
+  padding: var(--the-sprawl-gap);
+  border: var(--the-sprawl-stroke) solid var(--the-sprawl-ink);
+  background: var(--background-primary);
+}
+body.brumes--the-sprawl [data-face] > [data-region="sprawl-header"] {
+  grid-column: 1 / -1;
+  padding-block-end: 0.5rem;
+  border-block-end: 0.25rem solid var(--the-sprawl-accent);
+}
+body.brumes--the-sprawl [data-column] {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: var(--the-sprawl-gap);
+}
+
+/* The team sheet, the monster card and the threat card: a framed stack of bands, one to three columns each. */
+body.brumes--the-sprawl [data-row] {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: var(--the-sprawl-gap);
+  padding: 0.5rem 0.75rem;
+  border: var(--the-sprawl-stroke) solid var(--the-sprawl-ink);
+  background: var(--the-sprawl-panel);
+}
+body.brumes--the-sprawl [data-row] + [data-row] {
+  margin-block-start: calc(var(--the-sprawl-stroke) * -1);
+}
+body.brumes--the-sprawl [data-row]:has([data-region$="-header"]) {
+  background: var(--the-sprawl-ink);
+}
+body.brumes--the-sprawl [data-region$="-header"]:not([data-region="sprawl-header"]) {
+  color: var(--the-sprawl-on-ink);
+  font-family: var(--the-sprawl-title-font);
+  border-block-start: 0;
+}
+/* The context is written under the card, not in it. */
+body.brumes--the-sprawl [data-region$="-context"] {
+  margin-block-start: var(--the-sprawl-gap);
+  border: 0;
+  background: transparent;
+}
+
+/* A region: ruled above, never split across two pages. */
+body.brumes--the-sprawl [data-region] {
+  min-width: 0;
+  padding-block: 0.3rem 0.5rem;
+  border-block-start: 1px solid var(--the-sprawl-rule);
+  break-inside: avoid;
+}
+body.brumes--the-sprawl [data-region] > :is(h2, h3) {
+  margin: 0 0 0.35rem;
+  color: var(--the-sprawl-accent);
+  font-family: var(--the-sprawl-heading-font);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+body.brumes--the-sprawl [data-region="sprawl-header"] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.75rem;
+  border-block-start: 0;
+}
+body.brumes--the-sprawl [data-region="sprawl-header"] > h2 {
+  margin: 0;
+  color: var(--the-sprawl-ink);
+  font-family: var(--the-sprawl-title-font);
+  font-size: 2.3rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+body.brumes--the-sprawl [data-region="sprawl-header"] > span {
+  color: var(--the-sprawl-accent);
+  font-family: var(--the-sprawl-heading-font);
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Hexagon: the ratings, the credit and the links, one cell per entry, cut by a clip-path. */
+body.brumes--the-sprawl [data-primitive="hexagon"] ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.brumes--the-sprawl [data-primitive="hexagon"] li {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  box-sizing: border-box;
+  min-width: 4.6rem;
+  aspect-ratio: 1.15;
+  margin: 0;
+  padding: 0.3rem 0.6rem;
+  background: var(--the-sprawl-ink);
+  color: var(--the-sprawl-on-ink);
+  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+  text-align: center;
+}
+body.brumes--the-sprawl [data-primitive="hexagon"] li::marker,
+body.brumes--the-sprawl [data-primitive="hexagon"] li::before {
+  content: none;
+}
+body.brumes--the-sprawl [data-primitive="hexagon"] li > span {
+  font-family: var(--the-sprawl-heading-font);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+body.brumes--the-sprawl [data-primitive="hexagon"] li > strong {
+  font-family: var(--the-sprawl-title-font);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* Hour track: six hours of the clock, the ones the document marks filled. */
+body.brumes--the-sprawl [data-primitive="hour-track"] ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.brumes--the-sprawl [data-primitive="hour-track"] ol > li {
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  min-width: 2.2rem;
+  height: 2.2rem;
+  margin: 0;
+  border: var(--the-sprawl-stroke) solid var(--the-sprawl-ink);
+  border-radius: 50%;
+  font-family: var(--the-sprawl-heading-font);
+  font-size: 0.8rem;
+}
+body.brumes--the-sprawl [data-primitive="hour-track"] ol > li::marker,
+body.brumes--the-sprawl [data-primitive="hour-track"] ol > li::before {
+  content: none;
+}
+body.brumes--the-sprawl [data-primitive="hour-track"] ol > li[data-marked="true"] {
+  background: var(--the-sprawl-accent);
+  border-color: var(--the-sprawl-accent);
+  color: var(--the-sprawl-on-ink);
+}
+
+/* Cut-corner card: the header of a card, two opposite corners cut. */
+body.brumes--the-sprawl [data-primitive="cut-corner-card"] {
+  padding: 0.5rem 1.25rem;
+  background: var(--the-sprawl-ink);
+  color: var(--the-sprawl-on-ink);
+  clip-path: polygon(0.9rem 0, 100% 0, 100% calc(100% - 0.9rem), calc(100% - 0.9rem) 100%, 0 100%, 0 0.9rem);
+}
+body.brumes--the-sprawl [data-primitive="cut-corner-card"] > :is(h2, h3) {
+  margin: 0;
+  color: var(--the-sprawl-on-ink);
+  font-family: var(--the-sprawl-title-font);
+}
+
+/* The ticks of the booklet: boxes to cross, one box measure for every one of them. */
+body.brumes--the-sprawl [data-region] input[type="checkbox"] {
+  --checkbox-size: var(--the-sprawl-box);
+  box-sizing: border-box;
+  flex: 0 0 var(--the-sprawl-box);
+  width: var(--the-sprawl-box);
+  height: var(--the-sprawl-box);
+  margin: calc((1lh - var(--the-sprawl-box)) / 2) 0 0;
+  font: inherit;
+  border: var(--the-sprawl-stroke) solid var(--the-sprawl-ink);
+  border-radius: 0;
+}
+body.brumes--the-sprawl :is([data-primitive="boxes"], [data-primitive="list"]) :is(li, label, p) {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+body.brumes--the-sprawl [data-primitive="boxes"] ul {
+  padding: 0;
+  list-style: none;
+}
+/* Boxes: no bullet beside a box; the name takes the rest of the line. */
+body.brumes--the-sprawl .markdown-rendered [data-primitive="boxes"] ul > li:not(.task-list-item)::before,
+body.brumes--the-sprawl [data-primitive="boxes"] li::marker {
+  content: none;
+}
+body.brumes--the-sprawl [data-primitive="boxes"] li > span {
+  flex: 1 1 0;
+  min-width: 0;
+}
+/* A line with a note: the box and its name on one line, the note under them. */
+body.brumes--the-sprawl [data-primitive="boxes"] li {
+  flex-wrap: wrap;
+}
+body.brumes--the-sprawl [data-primitive="boxes"] li > em {
+  flex: 0 0 100%;
+  padding-inline-start: calc(var(--the-sprawl-box) + 0.5rem);
+}
+body.brumes--the-sprawl [data-primitive="list"] ul {
+  padding-inline-start: 1.25rem;
+}
+/* Moves: each move named in capitals, its text upright under it, as on the printed sheet. */
+body.brumes--the-sprawl [data-region="sprawl-moves"] li > span {
+  flex: 1 1 0;
+  color: var(--text-normal);
+  font-family: var(--the-sprawl-heading-font);
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+body.brumes--the-sprawl .markdown-rendered [data-region="sprawl-moves"] li > em {
+  padding-inline-start: 0;
+  font-style: normal;
+  color: var(--text-normal);
+}
+/* Key and value on one line, the key in capitals: one line per field. */
+body.brumes--the-sprawl [data-primitive="key-value"] dl {
+  margin: 0;
+  padding: 0.25rem 0;
+}
+body.brumes--the-sprawl [data-primitive="key-value"] dl > div {
+  display: block;
+  margin: 0 0 0.25rem;
+}
+body.brumes--the-sprawl [data-primitive="key-value"] dt {
+  display: inline;
+  margin-inline-end: 0.35rem;
+  color: var(--the-sprawl-accent);
+  font-family: var(--the-sprawl-heading-font);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+body.brumes--the-sprawl [data-primitive="key-value"] dd {
+  display: inline;
+  margin: 0;
+}
+body.brumes--the-sprawl [data-primitive="prose"] p {
+  margin: 0 0 0.4rem;
+  line-height: 1.38;
+}
+/* The faces are one card: the header is written once, the second face continues the first without a seam. */
+body.brumes--the-sprawl [data-face]:has(+ [data-face]) {
+  border-block-end: 0;
+  padding-block-end: 0;
+}
+body.brumes--the-sprawl [data-face] + [data-face] {
+  margin-block-start: 0;
+  border-block-start: 0;
+  padding-block-start: var(--the-sprawl-gap);
+}
+body.brumes--the-sprawl [data-face] + [data-face] > [data-region="sprawl-header"] {
+  display: none;
+}
+
+/* A narrow pane flows every face and every band in one column, in canonical order. */
+@media screen and (max-width: 640px) {
+  body.brumes--the-sprawl [data-face] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  body.brumes--the-sprawl [data-row] {
+    grid-auto-flow: row;
+  }
+}
+
+/* Paper: one column in canonical order, no page break between the faces. */
+@media print {
+  body.brumes--the-sprawl [data-face] {
+    display: flex;
+    flex-direction: column;
+    border: 0;
+  }
+  body.brumes--the-sprawl [data-column] {
+    display: contents;
+  }
+  body.brumes--the-sprawl [data-region] {
+    order: var(--pbta-region-order);
+    break-inside: avoid;
+  }
+}

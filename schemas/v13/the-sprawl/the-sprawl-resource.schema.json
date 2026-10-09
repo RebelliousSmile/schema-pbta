@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Stable kebab-case identifier of the resource."
+    },
+    "game": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Folder slug of the game this resource belongs to."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable name of the card."
+    },
+    "description": {
+      "description": "Prose describing the card.",
+      "type": "string",
+      "minLength": 1
+    },
+    "tags": {
+      "description": "Tags of the resource.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "skills": {
+      "description": "Skills and background of the resource.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "slug",
+    "game",
+    "name"
+  ],
+  "additionalProperties": false,
+  "title": "The Sprawl resource",
+  "description": "Portable representation of a The Sprawl resource card.",
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v13.0.0/schemas/v13/the-sprawl/the-sprawl-resource.schema.json"
+}

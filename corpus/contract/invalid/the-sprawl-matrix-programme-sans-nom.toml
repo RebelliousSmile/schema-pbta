@@ -1,0 +1,7 @@
+slug = "ghost-in-the-lattice"
+name = "Ghost"
+game = "the-sprawl"
+
+[[programs]]
+checked = true
+

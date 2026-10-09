@@ -1,0 +1,8 @@
+slug = "the-quiet-choir"
+name = "The Quiet Choir"
+game = "the-sprawl"
+threatType = "group"
+description = "An original description."
+objective = "To finish the song."
+hoursMarked = 3
+

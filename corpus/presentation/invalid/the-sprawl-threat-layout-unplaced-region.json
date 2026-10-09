@@ -1,0 +1,10 @@
+{
+  "target": "the-sprawl-threat",
+  "rejects": "region left unplaced",
+  "set": {
+    "rows": [
+      [["sprawl-threat-header"]],
+      [["sprawl-threat-objective"]]
+    ]
+  }
+}

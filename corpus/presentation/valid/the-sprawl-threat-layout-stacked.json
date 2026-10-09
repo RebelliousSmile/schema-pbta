@@ -1,0 +1,10 @@
+{
+  "target": "the-sprawl-threat",
+  "set": {
+    "rows": [
+      [["sprawl-threat-header"]],
+      [["sprawl-threat-objective"]],
+      [["sprawl-threat-clock"]]
+    ]
+  }
+}

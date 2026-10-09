@@ -13,6 +13,11 @@ import { monsterOfTheWeekTeamSchema } from "./monster-of-the-week-team.js";
 import { monsterOfTheWeekMonsterSchema } from "./monster-of-the-week-monster.js";
 import { monsterOfTheWeekThreatSchema } from "./monster-of-the-week-threat.js";
 import { theSprawlPlaybookSchema } from "./the-sprawl-playbook.js";
+import { theSprawlMatrixSchema } from "./the-sprawl-matrix.js";
+import { theSprawlMissionSchema } from "./the-sprawl-mission.js";
+import { theSprawlThreatSchema } from "./the-sprawl-threat.js";
+import { theSprawlCorporationSchema } from "./the-sprawl-corporation.js";
+import { theSprawlResourceSchema } from "./the-sprawl-resource.js";
 import { salvageRunPlaybookSchema } from "./salvage-run-playbook.js";
 
 type Game = {
@@ -96,6 +101,11 @@ export const TARGETS: Array<SchemaTarget> = [
   { name: "move", zod: moveSchema, game: GAMES["the-sprawl"] },
   { name: "playbook", zod: playbookSchema, game: GAMES["the-sprawl"] },
   { name: "the-sprawl-playbook", zod: theSprawlPlaybookSchema, game: GAMES["the-sprawl"] },
+  { name: "the-sprawl-matrix", zod: theSprawlMatrixSchema, game: GAMES["the-sprawl"] },
+  { name: "the-sprawl-mission", zod: theSprawlMissionSchema, game: GAMES["the-sprawl"] },
+  { name: "the-sprawl-threat", zod: theSprawlThreatSchema, game: GAMES["the-sprawl"] },
+  { name: "the-sprawl-corporation", zod: theSprawlCorporationSchema, game: GAMES["the-sprawl"] },
+  { name: "the-sprawl-resource", zod: theSprawlResourceSchema, game: GAMES["the-sprawl"] },
   {
     name: "game-definition",
     zod: gameDefinitionSchema,

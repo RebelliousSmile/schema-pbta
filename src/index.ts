@@ -18,6 +18,11 @@ export {
   parseMonsterOfTheWeekMonsterToml,
   parseMonsterOfTheWeekThreatToml,
   parseTheSprawlPlaybookToml,
+  parseTheSprawlMatrixToml,
+  parseTheSprawlMissionToml,
+  parseTheSprawlThreatToml,
+  parseTheSprawlCorporationToml,
+  parseTheSprawlResourceToml,
   parseSalvageRunPlaybookToml,
   parseUrbanShadowsPlaybookToml,
   parseMonsterheartsPlaybookToml,
@@ -33,6 +38,11 @@ export {
   stringifyMonsterOfTheWeekMonsterToml,
   stringifyMonsterOfTheWeekThreatToml,
   stringifyTheSprawlPlaybookToml,
+  stringifyTheSprawlMatrixToml,
+  stringifyTheSprawlMissionToml,
+  stringifyTheSprawlThreatToml,
+  stringifyTheSprawlCorporationToml,
+  stringifyTheSprawlResourceToml,
   stringifySalvageRunPlaybookToml,
   stringifyUrbanShadowsPlaybookToml,
   stringifyMonsterheartsPlaybookToml,
@@ -53,6 +63,11 @@ export type {
   MonsterOfTheWeekMonster,
   MonsterOfTheWeekThreat,
   TheSprawlPlaybook,
+  TheSprawlMatrix,
+  TheSprawlMission,
+  TheSprawlThreat,
+  TheSprawlCorporation,
+  TheSprawlResource,
   SalvageRunPlaybook,
   UrbanShadowsPlaybook,
   MonsterheartsPlaybook,
@@ -75,6 +90,11 @@ export { monsterOfTheWeekTeamSchema } from "./zod/monster-of-the-week-team.js";
 export { monsterOfTheWeekMonsterSchema } from "./zod/monster-of-the-week-monster.js";
 export { monsterOfTheWeekThreatSchema } from "./zod/monster-of-the-week-threat.js";
 export { theSprawlPlaybookSchema } from "./zod/the-sprawl-playbook.js";
+export { theSprawlMatrixSchema } from "./zod/the-sprawl-matrix.js";
+export { theSprawlMissionSchema } from "./zod/the-sprawl-mission.js";
+export { theSprawlThreatSchema } from "./zod/the-sprawl-threat.js";
+export { theSprawlCorporationSchema } from "./zod/the-sprawl-corporation.js";
+export { theSprawlResourceSchema } from "./zod/the-sprawl-resource.js";
 export { salvageRunPlaybookSchema } from "./zod/salvage-run-playbook.js";
 export {
   getPbtaCollectionPresentation,
@@ -166,4 +186,43 @@ export type {
   PbtaMonsterOfTheWeekTeamRegionId,
   PbtaMonsterOfTheWeekThreatPresentation,
   PbtaMonsterOfTheWeekThreatRegionId,
+} from "./presentation/index.js";
+export {
+  getPbtaTheSprawlAppearance,
+  getPbtaTheSprawlCorporationPresentation,
+  getPbtaTheSprawlMatrixPresentation,
+  getPbtaTheSprawlMissionPresentation,
+  getPbtaTheSprawlPlaybookPresentation,
+  getPbtaTheSprawlResourcePresentation,
+  getPbtaTheSprawlThreatPresentation,
+  PBTA_THE_SPRAWL_APPEARANCE,
+  PBTA_THE_SPRAWL_CORPORATION_PRESENTATION,
+  PBTA_THE_SPRAWL_MATRIX_PRESENTATION,
+  PBTA_THE_SPRAWL_MISSION_PRESENTATION,
+  PBTA_THE_SPRAWL_PLAYBOOK_PRESENTATION,
+  PBTA_THE_SPRAWL_RESOURCE_PRESENTATION,
+  PBTA_THE_SPRAWL_THREAT_PRESENTATION,
+  theSprawlAppearanceSchema,
+  theSprawlCorporationPresentationSchema,
+  theSprawlMatrixPresentationSchema,
+  theSprawlMissionPresentationSchema,
+  theSprawlPlaybookPresentationSchema,
+  theSprawlResourcePresentationSchema,
+  theSprawlThreatPresentationSchema,
+} from "./presentation/index.js";
+export type {
+  PbtaTheSprawlAppearance,
+  PbtaTheSprawlCorporationPresentation,
+  PbtaTheSprawlCorporationRegionId,
+  PbtaTheSprawlMatrixPresentation,
+  PbtaTheSprawlMatrixRegionId,
+  PbtaTheSprawlMissionPresentation,
+  PbtaTheSprawlMissionRegionId,
+  PbtaTheSprawlPlaybookPresentation,
+  PbtaTheSprawlPlaybookRegionId,
+  PbtaTheSprawlPrimitive,
+  PbtaTheSprawlResourcePresentation,
+  PbtaTheSprawlResourceRegionId,
+  PbtaTheSprawlThreatPresentation,
+  PbtaTheSprawlThreatRegionId,
 } from "./presentation/index.js";

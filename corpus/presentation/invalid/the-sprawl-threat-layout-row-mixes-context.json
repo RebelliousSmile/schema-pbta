@@ -1,0 +1,11 @@
+{
+  "target": "the-sprawl-threat",
+  "rejects": "a row mixes the sheet with its context",
+  "set": {
+    "rows": [
+      [["sprawl-threat-header"]],
+      [["sprawl-threat-objective"], ["sprawl-threat-clock"], ["sprawl-threat-context"]]
+    ],
+    "outsideCard": []
+  }
+}

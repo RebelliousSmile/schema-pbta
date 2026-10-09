@@ -88,3 +88,46 @@ export {
 } from "./monster-of-the-week-appearance.js";
 export type { PbtaMonsterOfTheWeekAppearance } from "./monster-of-the-week-appearance.js";
 export type { PbtaMonsterOfTheWeekPrimitive } from "./monster-of-the-week-card.js";
+export {
+  getPbtaTheSprawlPlaybookPresentation,
+  PBTA_THE_SPRAWL_PLAYBOOK_PRESENTATION,
+  theSprawlPlaybookPresentationSchema,
+} from "./the-sprawl-playbook.js";
+export type { PbtaTheSprawlPlaybookPresentation, PbtaTheSprawlPlaybookRegionId } from "./the-sprawl-playbook.js";
+export {
+  getPbtaTheSprawlMatrixPresentation,
+  PBTA_THE_SPRAWL_MATRIX_PRESENTATION,
+  theSprawlMatrixPresentationSchema,
+} from "./the-sprawl-matrix.js";
+export type { PbtaTheSprawlMatrixPresentation, PbtaTheSprawlMatrixRegionId } from "./the-sprawl-matrix.js";
+export {
+  getPbtaTheSprawlMissionPresentation,
+  PBTA_THE_SPRAWL_MISSION_PRESENTATION,
+  theSprawlMissionPresentationSchema,
+} from "./the-sprawl-mission.js";
+export type { PbtaTheSprawlMissionPresentation, PbtaTheSprawlMissionRegionId } from "./the-sprawl-mission.js";
+export {
+  getPbtaTheSprawlThreatPresentation,
+  PBTA_THE_SPRAWL_THREAT_PRESENTATION,
+  theSprawlThreatPresentationSchema,
+} from "./the-sprawl-threat.js";
+export type { PbtaTheSprawlThreatPresentation, PbtaTheSprawlThreatRegionId } from "./the-sprawl-threat.js";
+export {
+  getPbtaTheSprawlCorporationPresentation,
+  PBTA_THE_SPRAWL_CORPORATION_PRESENTATION,
+  theSprawlCorporationPresentationSchema,
+} from "./the-sprawl-corporation.js";
+export type { PbtaTheSprawlCorporationPresentation, PbtaTheSprawlCorporationRegionId } from "./the-sprawl-corporation.js";
+export {
+  getPbtaTheSprawlResourcePresentation,
+  PBTA_THE_SPRAWL_RESOURCE_PRESENTATION,
+  theSprawlResourcePresentationSchema,
+} from "./the-sprawl-resource.js";
+export type { PbtaTheSprawlResourcePresentation, PbtaTheSprawlResourceRegionId } from "./the-sprawl-resource.js";
+export {
+  getPbtaTheSprawlAppearance,
+  PBTA_THE_SPRAWL_APPEARANCE,
+  theSprawlAppearanceSchema,
+} from "./the-sprawl-appearance.js";
+export type { PbtaTheSprawlAppearance } from "./the-sprawl-appearance.js";
+export type { PbtaTheSprawlPrimitive } from "./the-sprawl-card.js";

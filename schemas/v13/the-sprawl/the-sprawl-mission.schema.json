@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Stable kebab-case identifier of the mission."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Name of the mission."
+    },
+    "game": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Folder slug of the game this mission belongs to."
+    },
+    "getTheJob": {
+      "description": "How the crew gets the job.",
+      "type": "string",
+      "minLength": 1
+    },
+    "investigation": {
+      "description": "Countdown of the investigation page.",
+      "type": "object",
+      "properties": {
+        "hoursMarked": {
+          "description": "Number of segments of the six-segment hour track currently marked.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6
+        },
+        "steps": {
+          "description": "What happens at each printed hour of the countdown.",
+          "maxItems": 7,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "action": {
+      "description": "Countdown of the action page.",
+      "type": "object",
+      "properties": {
+        "hoursMarked": {
+          "description": "Number of segments of the six-segment hour track currently marked.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6
+        },
+        "steps": {
+          "description": "What happens at each printed hour of the countdown.",
+          "maxItems": 7,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "involvedParties": {
+      "description": "Parties involved in the mission.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "whatIsGoingOn": {
+      "description": "What is going on behind the job.",
+      "type": "string",
+      "minLength": 1
+    },
+    "twist": {
+      "description": "The twist that waits for the crew.",
+      "type": "string",
+      "minLength": 1
+    },
+    "security": {
+      "description": "Lines of the security of the target.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "missionDirectives": {
+      "description": "Directives of the mission.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "getPaid": {
+      "description": "How the crew gets paid.",
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "slug",
+    "name",
+    "game"
+  ],
+  "additionalProperties": false,
+  "title": "The Sprawl mission",
+  "description": "Portable representation of a The Sprawl mission sheet.",
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v13.0.0/schemas/v13/the-sprawl/the-sprawl-mission.schema.json"
+}

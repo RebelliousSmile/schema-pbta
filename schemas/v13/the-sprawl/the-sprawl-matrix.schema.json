@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Stable kebab-case identifier of the matrix sheet."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Name of the avatar."
+    },
+    "game": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Folder slug of the game this sheet belongs to."
+    },
+    "avatarDescription": {
+      "description": "How the avatar looks in the matrix.",
+      "type": "string",
+      "minLength": 1
+    },
+    "avatarImage": {
+      "description": "Vault path or link of the image of the avatar.",
+      "type": "string",
+      "minLength": 1
+    },
+    "resistance": {
+      "description": "Value of Resistance on the cybernetic console.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 6
+    },
+    "firewall": {
+      "description": "Value of Firewall on the cybernetic console.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 6
+    },
+    "stealth": {
+      "description": "Value of Stealth on the cybernetic console.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 6
+    },
+    "processor": {
+      "description": "Value of Processor on the cybernetic console.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 6
+    },
+    "holds": {
+      "description": "Holds currently kept.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    },
+    "programs": {
+      "description": "Programs of the avatar.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Name of the program."
+          },
+          "checked": {
+            "description": "Whether the program is loaded.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "additionalProperties": false,
+        "description": "A program of the avatar."
+      }
+    }
+  },
+  "required": [
+    "slug",
+    "name",
+    "game"
+  ],
+  "additionalProperties": false,
+  "title": "The Sprawl matrix sheet",
+  "description": "Portable representation of a The Sprawl matrix sheet.",
+  "$id": "https://raw.githubusercontent.com/RebelliousSmile/schema-pbta/v13.0.0/schemas/v13/the-sprawl/the-sprawl-matrix.schema.json"
+}

@@ -1,0 +1,9 @@
+{
+  "target": "the-sprawl-playbook",
+  "set": {
+    "faces": [
+      { "id": "recto", "label": "Recto", "header": "sprawl-header", "columns": [["sprawl-cyberware"], ["sprawl-look", "sprawl-gear"]] },
+      { "id": "verso", "label": "Verso", "header": "sprawl-header", "columns": [["sprawl-moves", "sprawl-directives", "sprawl-advancement"], ["sprawl-stats", "sprawl-cred-xp", "sprawl-links", "sprawl-contacts", "sprawl-harm"]] }
+    ]
+  }
+}

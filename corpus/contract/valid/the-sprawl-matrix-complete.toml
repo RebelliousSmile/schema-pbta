@@ -1,0 +1,18 @@
+slug = "ghost-in-the-lattice"
+name = "Ghost in the Lattice"
+game = "the-sprawl"
+avatarDescription = "A pale figure stitched from static."
+avatarImage = "attachments/ghost.png"
+resistance = 2
+firewall = 1
+stealth = 3
+processor = 2
+holds = 1
+
+[[programs]]
+label = "Original program"
+checked = true
+
+[[programs]]
+label = "Another original program"
+

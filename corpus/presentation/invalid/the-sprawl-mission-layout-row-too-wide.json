@@ -1,0 +1,12 @@
+{
+  "target": "the-sprawl-mission",
+  "rejects": "too_big",
+  "set": {
+    "rows": [
+      [["sprawl-mission-header"], ["sprawl-mission-investigation"], ["sprawl-mission-action"], ["sprawl-mission-parties"]],
+      [["sprawl-mission-security"]],
+      [["sprawl-mission-going-on"], ["sprawl-mission-twist"]],
+      [["sprawl-mission-directives"]]
+    ]
+  }
+}
