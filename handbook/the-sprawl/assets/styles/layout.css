@@ -75,6 +75,12 @@ body.brumes--the-sprawl [data-region] > :is(h2, h3) {
   line-height: 1.1;
   text-transform: uppercase;
 }
+/* A title on the ink band of a card header: the paper colour, never the accent or the ink of the page. */
+body.brumes--the-sprawl [data-region$="-header"]:not([data-region="sprawl-header"]) :is(h1, h2, h3, h4),
+body.brumes--the-sprawl [data-row]:has([data-region$="-header"]) :is(h1, h2, h3, h4) {
+  color: var(--the-sprawl-on-ink);
+  background-image: repeating-linear-gradient(135deg, var(--the-sprawl-on-ink) 0 1px, transparent 1px 3px);
+}
 body.brumes--the-sprawl [data-region="sprawl-header"] {
   display: flex;
   flex-wrap: wrap;
