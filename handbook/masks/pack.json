@@ -1,6 +1,6 @@
 {
   "manifestVersion": 1,
-  "version": "0.3.0",
+  "version": "0.4.0",
   "minimumHandbookVersion": "2.8.0",
   "requires": ["block:pbta-playbook", "block:pbta-move", "style:pbta"],
   "pack": {
@@ -89,18 +89,18 @@
           "style": "normal"
         },
         "Josefin Sans": {
-          "file": "fonts/josefin-sans-wght-normal.woff2",
-          "weight": "100 700",
+          "file": "fonts/josefin-sans-latin-400-normal.woff2",
+          "weight": "400",
           "style": "normal"
         },
         "Crimson Pro": {
-          "file": "fonts/crimson-pro-wght-normal.woff2",
-          "weight": "200 900",
+          "file": "fonts/crimson-pro-latin-400-normal.woff2",
+          "weight": "400",
           "style": "normal"
         },
         "Crimson Pro Italic": {
-          "file": "fonts/crimson-pro-wght-italic.woff2",
-          "weight": "200 900",
+          "file": "fonts/crimson-pro-latin-400-italic.woff2",
+          "weight": "400",
           "style": "italic"
         },
         "Comic Neue": {
@@ -115,6 +115,7 @@
         }
       },
       "stylesheets": [
+        "fonts/faces.css",
         "styles/callouts.css",
         "styles/page.css",
         "styles/layout.css",
@@ -124,7 +125,29 @@
         "game-mark": "images/hero-burst.svg",
         "star-bullet": "images/star-bullet.svg",
         "skyline-band": "images/skyline-band.svg"
-      }
+      },
+      "resources": [
+        "fonts/josefin-sans-latin-100-normal.woff2",
+        "fonts/josefin-sans-latin-200-normal.woff2",
+        "fonts/josefin-sans-latin-300-normal.woff2",
+        "fonts/josefin-sans-latin-500-normal.woff2",
+        "fonts/josefin-sans-latin-600-normal.woff2",
+        "fonts/josefin-sans-latin-700-normal.woff2",
+        "fonts/crimson-pro-latin-200-normal.woff2",
+        "fonts/crimson-pro-latin-300-normal.woff2",
+        "fonts/crimson-pro-latin-500-normal.woff2",
+        "fonts/crimson-pro-latin-600-normal.woff2",
+        "fonts/crimson-pro-latin-700-normal.woff2",
+        "fonts/crimson-pro-latin-800-normal.woff2",
+        "fonts/crimson-pro-latin-900-normal.woff2",
+        "fonts/crimson-pro-latin-200-italic.woff2",
+        "fonts/crimson-pro-latin-300-italic.woff2",
+        "fonts/crimson-pro-latin-500-italic.woff2",
+        "fonts/crimson-pro-latin-600-italic.woff2",
+        "fonts/crimson-pro-latin-700-italic.woff2",
+        "fonts/crimson-pro-latin-800-italic.woff2",
+        "fonts/crimson-pro-latin-900-italic.woff2"
+      ]
     }
   }
 }

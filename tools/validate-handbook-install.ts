@@ -55,6 +55,7 @@ interface PackManifest {
       images?: Record<string, string>;
       fonts?: Record<string, string | AssetFace>;
       stylesheets?: string[];
+      resources?: string[];
     };
   };
 }
@@ -226,7 +227,8 @@ function assetFiles(entry: CatalogueEntry, manifest: PackManifest): ExpectedAsse
     typeof face === "string" ? face : face.file,
   );
   const styleFiles = manifest.pack.assets?.stylesheets ?? [];
-  return [...imageFiles, ...fontFiles, ...styleFiles].map((file) => ({
+  const resourceFiles = manifest.pack.assets?.resources ?? [];
+  return [...imageFiles, ...fontFiles, ...styleFiles, ...resourceFiles].map((file) => ({
     source: `${manifestRoot}/${assetRoot}/${file}`,
     installed: `packs/${entry.id}/${assetRoot}/${file}`,
   }));

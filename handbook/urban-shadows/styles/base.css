@@ -10,9 +10,65 @@
 
 @font-face {
   font-family: "Urban Shadows Text";
-  src: url("../assets/fonts/source-serif-4-latin-wght-normal.woff2") format("woff2");
+  src: url("../assets/fonts/source-serif-4-latin-200-normal.woff2") format("woff2");
   font-style: normal;
-  font-weight: 200 900;
+  font-weight: 200;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Urban Shadows Text";
+  src: url("../assets/fonts/source-serif-4-latin-300-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Urban Shadows Text";
+  src: url("../assets/fonts/source-serif-4-latin-400-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Urban Shadows Text";
+  src: url("../assets/fonts/source-serif-4-latin-500-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Urban Shadows Text";
+  src: url("../assets/fonts/source-serif-4-latin-600-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Urban Shadows Text";
+  src: url("../assets/fonts/source-serif-4-latin-700-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Urban Shadows Text";
+  src: url("../assets/fonts/source-serif-4-latin-800-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Urban Shadows Text";
+  src: url("../assets/fonts/source-serif-4-latin-900-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 900;
   font-display: swap;
 }
 

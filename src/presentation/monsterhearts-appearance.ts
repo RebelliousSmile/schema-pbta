@@ -35,7 +35,7 @@ export const PBTA_MONSTERHEARTS_APPEARANCE: PbtaMonsterheartsAppearance = monste
   resources: {
     fonts: {
       "Yellow Magician": "assets/fonts/yellow-magician-latin-400-normal.woff2",
-      "El Messiri": "assets/fonts/el-messiri-latin-400-700-normal.woff2",
+      "El Messiri": "assets/fonts/el-messiri-latin-400-normal.woff2",
       "Averia Serif Libre": "assets/fonts/averia-serif-libre-latin-700-normal.woff2",
       "Alice": "assets/fonts/alice-latin-400-normal.woff2",
       "IM Fell Double Pica": "assets/fonts/im-fell-double-pica-latin-400-italic.woff2",

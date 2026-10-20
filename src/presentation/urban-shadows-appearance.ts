@@ -35,7 +35,7 @@ export const PBTA_URBAN_SHADOWS_APPEARANCE: PbtaUrbanShadowsAppearance = urbanSh
   resources: {
     fonts: {
       "Urban Shadows Display": "assets/fonts/league-gothic-latin-400-normal.woff2",
-      "Urban Shadows Text": "assets/fonts/source-serif-4-latin-wght-normal.woff2",
+      "Urban Shadows Text": "assets/fonts/source-serif-4-latin-400-normal.woff2",
       "Urban Shadows Brush": "assets/fonts/caveat-brush-400-normal.woff2",
     },
     stylesheets: ["styles/theme-tokens.css"],

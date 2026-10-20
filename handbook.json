@@ -7,35 +7,35 @@
   "packs": [
     {
       "id": "masks",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "path": "handbook/masks/pack.json",
       "label": "Masks: A New Generation",
       "description": "Navy and gold presentation for young superhero stories."
     },
     {
       "id": "monster-of-the-week",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "path": "handbook/monster-of-the-week/pack.json",
       "label": "Monster of the Week",
       "description": "Field-file presentation for contemporary monster hunting."
     },
     {
       "id": "monsterhearts",
-      "version": "0.4.0",
+      "version": "0.5.0",
       "path": "handbook/monsterhearts/pack.json",
       "label": "Monsterhearts",
       "description": "Intimate gothic editorial presentation, light only."
     },
     {
       "id": "urban-shadows",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "path": "handbook/urban-shadows/pack.json",
       "label": "Urban Shadows",
       "description": "Occult urban presentation: violet headings on pale paper, with a night section."
     },
     {
       "id": "the-sprawl",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "path": "handbook/the-sprawl/pack.json",
       "label": "The Sprawl",
       "description": "Light neon presentation for corporate cyberpunk missions, on white paper."

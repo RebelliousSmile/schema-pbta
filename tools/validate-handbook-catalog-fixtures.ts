@@ -207,4 +207,30 @@ fixture("masks code token missing", (root) => {
   writeJson(file, manifest);
 }, "masks: missing native token --code-normal");
 
+/* A variable font reaches a Chromium PDF export as Type3 glyph procedures (obsidian-handbook#116):
+   the smallest sfnt directory that carries an fvar table stands for one. */
+const variableFont = (): Buffer => {
+  const bytes = Buffer.alloc(28);
+  bytes.writeUInt32BE(0x00010000, 0);
+  bytes.writeUInt16BE(1, 4);
+  bytes.write("fvar", 12, "latin1");
+  return bytes;
+};
+
+fixture("variable declared font", (root) => {
+  fs.writeFileSync(path.join(root, "handbook", "masks", "assets", "fonts", "josefin-sans-latin-400-normal.woff2"), variableFont());
+}, "variable font fonts/josefin-sans-latin-400-normal.woff2");
+
+fixture("variable resource font", (root) => {
+  fs.writeFileSync(path.join(root, "handbook", "masks", "assets", "fonts", "crimson-pro-latin-700-normal.woff2"), variableFont());
+}, "variable font fonts/crimson-pro-latin-700-normal.woff2");
+
+fixture("stylesheet import", (root) => {
+  fs.appendFileSync(path.join(root, "handbook", "masks", "assets", "fonts", "faces.css"), '\n@import url("other.css");\n');
+}, "fonts/faces.css must not @import");
+
+fixture("stylesheet undeclared url", (root) => {
+  fs.appendFileSync(path.join(root, "handbook", "masks", "assets", "fonts", "faces.css"), '\n@font-face { font-family: "X"; src: url("missing.woff2"); }\n');
+}, "fonts/faces.css loads the undeclared URL missing.woff2");
+
 console.log("✅ Handbook catalogue rejection fixtures passed validation.");

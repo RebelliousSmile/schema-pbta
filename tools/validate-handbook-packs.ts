@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { GAMES } from "../src/zod/constants.js";
 import { loadData } from "./read-data.js";
 import { MINIMUM_HANDBOOK_VERSION } from "./handbook-minimum-host.js";
+import { PBTA_MONSTERHEARTS_APPEARANCE } from "../src/presentation/monsterhearts-appearance.js";
 import { PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION } from "../src/presentation/monsterhearts-playbook.js";
 import { PBTA_URBAN_SHADOWS_APPEARANCE } from "../src/presentation/urban-shadows-appearance.js";
 import { PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION } from "../src/presentation/urban-shadows-playbook.js";
@@ -52,7 +53,61 @@ const styleFields = ["base", "light", "dark", "section"];
 const layerFields = ["note", "workspace"];
 /* A section is a stretch of one note: it has no workspace to paint. */
 const sectionFields = ["note"];
-const assetFields = ["root", "images", "fonts", "stylesheets"];
+const assetFields = ["root", "images", "fonts", "stylesheets", "resources"];
+/* WOFF2 known-table index (W3C WOFF2, table 5.1): the directory names a table by its position. */
+const woff2KnownTags = (
+  "cmap head hhea hmtx maxp name OS/2 post cvt_ fpgm glyf loca prep CFF_ VORG EBDT EBLC gasp "
+  + "hdmx kern LTSH PCLT VDMX vhea vmtx BASE GDEF GPOS GSUB EBSC JSTF MATH CBDT CBLC COLR CPAL "
+  + "SVG_ sbix acnt avar bdat bloc bsln cvar fdsc feat fmtx fvar gvar hsty just lcar mort morx "
+  + "opbd prop trak Zapf Silf Glat Gloc Feat Sill"
+).split(" ").map((tag) => tag.replace("_", " "));
+
+/** Table tags of a font file, read from its directory: sfnt (TTF/OTF), WOFF and WOFF2. */
+export function fontTables(bytes: Buffer): string[] {
+  const signature = bytes.toString("latin1", 0, 4);
+  const tags: string[] = [];
+  if (signature === "wOF2") {
+    let offset = 48;
+    const readBase128 = (): void => {
+      for (let index = 0; index < 5; index += 1) {
+        const byte = bytes[offset];
+        offset += 1;
+        if ((byte & 0x80) === 0) return;
+      }
+      throw new Error("malformed WOFF2 table directory");
+    };
+    for (let table = 0; table < bytes.readUInt16BE(12); table += 1) {
+      const flags = bytes[offset];
+      offset += 1;
+      const known = flags & 0x3f;
+      let tag: string;
+      if (known === 63) {
+        tag = bytes.toString("latin1", offset, offset + 4);
+        offset += 4;
+      } else tag = woff2KnownTags[known] ?? `#${known}`;
+      readBase128();
+      const transform = flags >> 6;
+      const glyphData = tag === "glyf" || tag === "loca";
+      if ((glyphData && transform === 0) || (!glyphData && transform !== 0)) readBase128();
+      tags.push(tag);
+    }
+    return tags;
+  }
+  const woff = signature === "wOFF";
+  const count = bytes.readUInt16BE(woff ? 12 : 4);
+  const start = woff ? 44 : 12;
+  const size = woff ? 20 : 16;
+  for (let table = 0; table < count; table += 1) {
+    tags.push(bytes.toString("latin1", start + table * size, start + table * size + 4));
+  }
+  return tags;
+}
+
+/* Chromium writes every weight and size of a variable font into a PDF export as Type3 glyph
+   procedures, and printers refuse such files (obsidian-handbook#116): one static file per weight. */
+function requireStaticFont(file: string, declared: string, issues: string[], context: string): void {
+  if (fontTables(fs.readFileSync(file)).includes("fvar")) issues.push(`${context}: variable font ${declared}, publish one static file per weight`);
+}
 
 function data(value: unknown): Data {
   return value && typeof value === "object" && !Array.isArray(value) ? value as Data : {};
@@ -271,6 +326,48 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
       }
       const fontAsset = path.join(manifestRoot, String(assetRoot), fontFile);
       if (!fs.existsSync(fontAsset)) issues.push(`${id}: missing font asset ${fontFile}`);
+      else requireStaticFont(fontAsset, fontFile, issues, id);
+    }
+    /* Further weights of a family: files a stylesheet loads, never applied on their own. */
+    if (assets.resources !== undefined && strings(assets.resources).length !== (Array.isArray(assets.resources) ? assets.resources.length : -1)) {
+      issues.push(`${id}: resources must be an array of paths`);
+    }
+    const seenResources = new Set<string>();
+    for (const resource of strings(assets.resources)) {
+      if (!safeRelativePath(resource) || !safeFontExtensions.has(path.extname(resource).toLowerCase())) {
+        issues.push(`${id}: unsafe or unsupported resource ${resource}`);
+        continue;
+      }
+      if (seenResources.has(resource)) issues.push(`${id}: duplicate resource ${resource}`);
+      seenResources.add(resource);
+      const resourceAsset = path.join(manifestRoot, String(assetRoot), resource);
+      if (!fs.existsSync(resourceAsset)) issues.push(`${id}: missing resource ${resource}`);
+      else requireStaticFont(resourceAsset, resource, issues, id);
+    }
+    /* What Handbook checks before it loads a sheet (src/games/assets.ts: validatePackCss,
+       rewritePackUrls): no @import, and every url() a declared asset beside the sheet. */
+    const declaredAssets = new Set<string>([
+      ...Object.values(data(assets.images)).filter((value): value is string => typeof value === "string"),
+      ...Object.values(data(assets.fonts)).map((face) => typeof face === "string" ? face : String(data(face).file)),
+      ...seenResources,
+    ]);
+    for (const stylesheet of strings(assets.stylesheets)) {
+      const sheetFile = path.join(manifestRoot, String(assetRoot), stylesheet);
+      if (!safeRelativePath(stylesheet) || !fs.existsSync(sheetFile)) continue;
+      const source = fs.readFileSync(sheetFile, "utf8");
+      if (/@import\b/i.test(source)) issues.push(`${id}: ${stylesheet} must not @import`);
+      const folder = stylesheet.includes("/") ? stylesheet.slice(0, stylesheet.lastIndexOf("/")) : "";
+      for (const match of source.matchAll(/url\(\s*(['"]?)([^'"\s)]+)\1\s*\)/gi)) {
+        const value = match[2];
+        if (/^data:/i.test(value)) continue;
+        if (/^(?:[a-z][a-z0-9+.-]*:|\/|\\)/i.test(value)) {
+          issues.push(`${id}: ${stylesheet} has the unsafe URL ${value}`);
+          continue;
+        }
+        if (!declaredAssets.has(folder ? `${folder}/${value}` : value)) {
+          issues.push(`${id}: ${stylesheet} loads the undeclared URL ${value}`);
+        }
+      }
     }
     for (const [role, declared] of Object.entries(data(assets.images))) {
       if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(role) || !safeRelativePath(declared)) {
@@ -295,7 +392,8 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
         issues.push("monsterhearts: Yellow Magician must be supplied as a pack font asset");
       }
       const monsterheartsHeadingFont = data(data(assets.fonts)["El Messiri"]);
-      if (monsterheartsHeadingFont.file !== "fonts/el-messiri-latin-400-700-normal.woff2") {
+      const publishedHeadingFont = PBTA_MONSTERHEARTS_APPEARANCE.resources.fonts["El Messiri"];
+      if (monsterheartsHeadingFont.file !== publishedHeadingFont.replace(/^assets\//, "")) {
         issues.push("monsterhearts: El Messiri must be supplied as a pack font asset");
       }
       const monsterheartsBoldFont = data(data(assets.fonts)["Averia Serif Libre"]);

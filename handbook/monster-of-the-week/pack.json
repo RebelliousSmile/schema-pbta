@@ -1,6 +1,6 @@
 {
   "manifestVersion": 1,
-  "version": "0.3.0",
+  "version": "0.4.0",
   "minimumHandbookVersion": "2.8.0",
   "requires": ["block:pbta-playbook", "block:pbta-move", "style:pbta", "block:pbta-team", "block:pbta-monster", "block:pbta-threat"],
   "pack": {
@@ -100,17 +100,18 @@
           "style": "italic"
         },
         "Crimson Pro": {
-          "file": "fonts/crimson-pro-wght-normal.woff2",
-          "weight": "200 900",
+          "file": "fonts/crimson-pro-latin-400-normal.woff2",
+          "weight": "400",
           "style": "normal"
         },
         "Crimson Pro Italic": {
-          "file": "fonts/crimson-pro-wght-italic.woff2",
-          "weight": "200 900",
+          "file": "fonts/crimson-pro-latin-400-italic.woff2",
+          "weight": "400",
           "style": "italic"
         }
       },
       "stylesheets": [
+        "fonts/faces.css",
         "styles/callouts.css",
         "styles/page.css",
         "styles/layout.css",
@@ -118,7 +119,23 @@
       ],
       "images": {
         "game-mark": "images/watch-mark.svg"
-      }
+      },
+      "resources": [
+        "fonts/crimson-pro-latin-200-normal.woff2",
+        "fonts/crimson-pro-latin-300-normal.woff2",
+        "fonts/crimson-pro-latin-500-normal.woff2",
+        "fonts/crimson-pro-latin-600-normal.woff2",
+        "fonts/crimson-pro-latin-700-normal.woff2",
+        "fonts/crimson-pro-latin-800-normal.woff2",
+        "fonts/crimson-pro-latin-900-normal.woff2",
+        "fonts/crimson-pro-latin-200-italic.woff2",
+        "fonts/crimson-pro-latin-300-italic.woff2",
+        "fonts/crimson-pro-latin-500-italic.woff2",
+        "fonts/crimson-pro-latin-600-italic.woff2",
+        "fonts/crimson-pro-latin-700-italic.woff2",
+        "fonts/crimson-pro-latin-800-italic.woff2",
+        "fonts/crimson-pro-latin-900-italic.woff2"
+      ]
     }
   }
 }

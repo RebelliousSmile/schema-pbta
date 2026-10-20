@@ -5,7 +5,7 @@ const yellowMagician = new URL(
   import.meta.url,
 ).href;
 const elMessiri = new URL(
-  "../../packs/monsterhearts/assets/fonts/el-messiri-latin-400-700-normal.woff2",
+  "../../packs/monsterhearts/assets/fonts/el-messiri-latin-400-normal.woff2",
   import.meta.url,
 ).href;
 const averiaSerifLibre = new URL(

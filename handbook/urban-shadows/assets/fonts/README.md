@@ -8,7 +8,10 @@ maquette imprimée d’Urban Shadows :
 - **Caveat Brush** pour les titres au pinceau de la section de nuit.
 
 League Gothic et Source Serif 4 proviennent des paquets Fontsource 5.3.0
-([`OFL-1.1.txt`](./OFL-1.1.txt)). Caveat Brush est convertie en WOFF2, sans
+([`OFL-1.1.txt`](./OFL-1.1.txt)). Source Serif 4 est publiée en instances
+statiques de 200 à 900, une par graisse (la 400 dans `assets.fonts`, les autres
+dans `faces.css`) : une police variable arrive dans un export PDF de Chromium
+sous forme de glyphes Type3, que les imprimantes refusent. Caveat Brush est convertie en WOFF2, sans
 sous-ensemblage, depuis `CaveatBrush-Regular.ttf` du dépôt `google/fonts`
 (`ofl/caveatbrush`) ; sa licence est conservée dans
 [`OFL-CaveatBrush-1.1.txt`](./OFL-CaveatBrush-1.1.txt). Les trois familles sont
