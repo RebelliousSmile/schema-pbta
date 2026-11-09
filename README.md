@@ -104,8 +104,8 @@ than overloading `itemEditor`.
 
 `PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION` is the producer-owned description of
 the complete Monsterhearts sheet. It names consumer-neutral regions, their
-portable field bindings, compact primitives, canonical order, optional ordered
-columns, narrow-pane/print fallback, and pack-scoped tokens, assets and visual
+portable field bindings, compact primitives, canonical order, required ordered
+rows of three columns, narrow-pane/print fallback, and pack-scoped tokens, assets and visual
 variants (a single presentation-only `base`). `getPbtaMonsterheartsPlaybookPresentation("monsterhearts-playbook")`
 returns the same descriptor.
 

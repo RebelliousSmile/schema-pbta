@@ -82,7 +82,7 @@ assert.equal(getPbtaStatRangePresentation("urban-shadows-playbook"), undefined, 
 
 const monsterheartsPresentation = PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION;
 assert.equal(monsterheartsPresentation.regions.length, 13, "Monsterhearts publishes every complete-playbook region");
-assert.deepEqual(monsterheartsPresentation.rows?.[0]?.[1], ["playbook-portrait"], "portrait alone occupies the first row's middle column");
+assert.deepEqual(monsterheartsPresentation.rows[0]?.[1], ["playbook-portrait"], "portrait alone occupies the first row's middle column");
 assert.deepEqual(
   monsterheartsPresentation.canonicalOrder,
   monsterheartsPresentation.regions.map((region) => region.id),
@@ -124,11 +124,13 @@ const unplaced = monsterheartsPlaybookPresentationSchema.parse({
   ...monsterheartsPresentation,
   ...layoutFixture("valid/monsterhearts-layout-unplaced.json"),
 });
-assert.deepEqual(unplaced.columns, [["game-identity"]], "unplaced regions are valid and retain canonical fallback");
+assert.deepEqual(unplaced.rows, [[["monsterhearts-opening"], ["character-identity"], ["stat-profiles"]]], "unplaced regions are valid and retain canonical fallback");
+assert.equal(unplaced.rows.length, 1, "the unplaced fixture places a single row");
 for (const invalid of [
   "invalid/monsterhearts-layout-unknown-region.json",
   "invalid/monsterhearts-layout-duplicate-region.json",
   "invalid/monsterhearts-layout-empty-column.json",
+  "invalid/monsterhearts-layout-legacy-columns.json",
 ]) {
   assert.throws(
     () => monsterheartsPlaybookPresentationSchema.parse({ ...monsterheartsPresentation, ...layoutFixture(invalid) }),
@@ -151,7 +153,7 @@ assert.deepEqual(
   ["recto", "verso"],
   "Urban Shadows regions list the front face, then the back",
 );
-const urbanShadowsPlaced = new Set((urbanShadowsPresentation.rows ?? []).flat(2));
+const urbanShadowsPlaced = new Set(urbanShadowsPresentation.rows.flat(2));
 assert.deepEqual(
   urbanShadowsPresentation.regions.filter((region) => !urbanShadowsPlaced.has(region.id)).map((region) => region.id),
   ["game-identity", "urban-shadows-creation"],
@@ -205,7 +207,7 @@ const urbanShadowsUnplaced = urbanShadowsPlaybookPresentationSchema.parse({
   ...urbanShadowsPresentation,
   ...layoutFixture("valid/urban-shadows-layout-unplaced.json"),
 });
-assert.equal(urbanShadowsUnplaced.rows?.length, 1, "unplaced regions are valid and retain canonical fallback");
+assert.equal(urbanShadowsUnplaced.rows.length, 1, "unplaced regions are valid and retain canonical fallback");
 for (const invalid of [
   "invalid/urban-shadows-layout-unknown-region.json",
   "invalid/urban-shadows-layout-mixed-faces.json",
@@ -214,6 +216,16 @@ for (const invalid of [
     () => urbanShadowsPlaybookPresentationSchema.parse({ ...urbanShadowsPresentation, ...layoutFixture(invalid) }),
     `presentation corpus rejects ${invalid}`,
   );
+}
+
+/* The grid is required: a presentation built without the `rows` key is refused for both games. A JSON fixture cannot remove a key, so the object is built here. */
+for (const [game, schema, presentation] of [
+  ["Monsterhearts", monsterheartsPlaybookPresentationSchema, monsterheartsPresentation],
+  ["Urban Shadows", urbanShadowsPlaybookPresentationSchema, urbanShadowsPresentation],
+] as const) {
+  const withoutRows: Record<string, unknown> = { ...presentation };
+  delete withoutRows.rows;
+  assert.equal(schema.safeParse(withoutRows).success, false, `${game}: a presentation without rows is refused`);
 }
 
 /* Masks: two layouts, one per target. A fixture names the paths it overrides and, for a reject, the defect it must name. */

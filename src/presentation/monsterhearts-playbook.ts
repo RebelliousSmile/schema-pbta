@@ -34,8 +34,7 @@ export const monsterheartsPlaybookPresentationSchema = z.strictObject({
     fields: z.array(fieldPath).min(1),
   })).length(regionIds.length),
   canonicalOrder: z.array(regionId).length(regionIds.length),
-  columns: z.array(z.array(regionId).min(1)).min(1).optional(),
-  rows: z.array(z.array(z.array(regionId).min(1)).length(3)).min(1).optional(),
+  rows: z.array(z.array(z.array(regionId).min(1)).length(3)).min(1),
   fallbacks: z.strictObject({
     unplaced: z.literal("canonical-order"),
     narrowPane: z.literal("canonical-flow"),
@@ -59,10 +58,9 @@ export const monsterheartsPlaybookPresentationSchema = z.strictObject({
   if (canonical.size !== layout.canonicalOrder.length || canonical.size !== distinct.size || [...canonical].some((id) => !distinct.has(id))) {
     context.addIssue({ code: "custom", message: "canonicalOrder must contain every declared region exactly once" });
   }
-  for (const placed of [layout.columns?.flat() ?? [], layout.rows?.flat(2) ?? []]) {
-    if (new Set(placed).size !== placed.length) context.addIssue({ code: "custom", message: "layout contains a duplicate region" });
-    if (placed.some((id) => !canonical.has(id))) context.addIssue({ code: "custom", message: "layout contains an unknown region" });
-  }
+  const placed = layout.rows.flat(2);
+  if (new Set(placed).size !== placed.length) context.addIssue({ code: "custom", message: "layout contains a duplicate region" });
+  if (placed.some((id) => !canonical.has(id))) context.addIssue({ code: "custom", message: "layout contains an unknown region" });
   if (layout.pack.variants[0]?.id !== "base") context.addIssue({ code: "custom", message: "the only pack variant is base" });
 });
 
