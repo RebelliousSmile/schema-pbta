@@ -24,7 +24,7 @@
     {
       "role": "lantern",
       "repository": "RebelliousSmile/lantern",
-      "ref": "d6ddc4dbb0818fd990a0a936231de57cce46b682",
+      "ref": "254662c845ef1847d9118b58c34bb8c87017a550",
       "path": "lantern",
       "proof": {
         "interface": "npm-run-release-train-assert",
