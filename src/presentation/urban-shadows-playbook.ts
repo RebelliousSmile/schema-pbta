@@ -96,7 +96,7 @@ export const PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION: PbtaUrbanShadowsPlaybookP
     { id: "urban-shadows-stats", label: "Caractéristiques", group: "recto", primitive: "stat-spread", fields: ["stats", "statsDetail"] },
     { id: "urban-shadows-circles", label: "Cercles", group: "recto", primitive: "circle-status", fields: ["stats", "statuses"] },
     { id: "playbook-moves", label: "Mouvements d'archétype", group: "recto", primitive: "action-list", fields: ["moves", "startingMoves"] },
-    { id: "urban-shadows-advancement", label: "Progression", group: "recto", primitive: "progression-list", fields: ["editorial.progression", "advancementCircles", "advancement", "laterAdvancement"] },
+    { id: "urban-shadows-advancement", label: "Progression", group: "recto", primitive: "progression-list", fields: ["editorial.progression", "advancementCircles", "markedCircles", "advancement", "laterAdvancement"] },
     { id: "harm-tracker", label: "Dégâts", group: "recto", primitive: "condition-harm-tracker", fields: ["harm"] },
     { id: "urban-shadows-scars", label: "Cicatrices", group: "recto", primitive: "check-list", fields: ["scars"] },
     { id: "urban-shadows-let-it-out", label: "Laisse sortir", group: "recto", primitive: "check-list", fields: ["letItOut"] },

@@ -68,6 +68,7 @@
       "fields": [
         "editorial.progression",
         "advancementCircles",
+        "markedCircles",
         "advancement",
         "laterAdvancement"
       ]

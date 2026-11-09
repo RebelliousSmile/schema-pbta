@@ -284,6 +284,10 @@ max = 1
     ),
   );
   fs.writeFileSync(
+    path.join(urbanShadowsPlaybookDirectory, "fixture-unmarked-circle.toml"),
+    awareFixture.replace('markedCircles = ["mortalis"]', 'markedCircles = ["mortalis", "heart"]'),
+  );
+  fs.writeFileSync(
     path.join(urbanShadowsPlaybookDirectory, "fixture-duplicate-frame.toml"),
     awareFixture.replace('key = "day-job"', 'key = "notebook"'),
   );
@@ -291,6 +295,7 @@ max = 1
   const frameDiagnostics = validateReferences(temporaryRoot);
   for (const [fileName, key, message] of [
     ["fixture-unknown-circle.toml", "advancementCircles[1]", 'unknown Circle "dusk"'],
+    ["fixture-unmarked-circle.toml", "markedCircles[1]", 'Circle "heart" carries no advancement mark'],
     ["fixture-duplicate-frame.toml", "extras[1].key", 'duplicate frame key "notebook"'],
   ]) {
     assert.ok(

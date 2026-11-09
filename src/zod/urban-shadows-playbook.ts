@@ -50,6 +50,7 @@ export const urbanShadowsPlaybookSchema = playbookSchema.extend({
   endMove: nonEmptyString.meta({ description: "Move resolved when the character dies or retires." }),
   editorial: playbookEditorialSchema.meta({ description: "Complete editorial copy rendered with the playbook." }),
   advancementCircles: z.array(nonEmptyString).optional().meta({ description: "Circles carrying an advancement mark, as keys of `stats`, in printed order." }),
+  markedCircles: z.array(nonEmptyString).optional().meta({ description: "Circles marked on the advancement track since the last advance, as keys of `advancementCircles`; play state, cleared when the character advances." }),
   laterAdvancement: z.array(advancementEntrySchema).optional().meta({ description: "Advancement options offered once the first list has been drawn on enough." }),
   letItOut: z.array(nonEmptyString).optional().meta({ description: "Abilities the playbook gains when it lets it out." }),
   intimacy: nonEmptyString.optional().meta({ description: "Plain text of the playbook's intimacy move." }),

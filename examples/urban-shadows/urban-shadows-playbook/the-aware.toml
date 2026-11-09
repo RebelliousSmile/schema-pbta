@@ -6,6 +6,7 @@ statsDetail = "Blood 0, Heart 1, Mind -1, Spirit 1."
 advancement = [{ label = "Take a new Aware move." }, { label = "Open a new mortal relationship.", checked = true }]
 endMove = "When you die, ask another PC to look after up to three mortal relationships."
 advancementCircles = ["mortalis", "night", "power", "wild"]
+markedCircles = ["mortalis"]
 laterAdvancement = [{ label = "Retire the character to safety." }, { label = "Change to another playbook." }]
 letItOut = ["Walk away from a scene unnoticed.", "Name the person who knows the answer."]
 intimacy = "When you share a moment of intimacy with someone, tell them one thing you fear losing."

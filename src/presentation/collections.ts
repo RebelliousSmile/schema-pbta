@@ -138,6 +138,7 @@ export const PBTA_COLLECTION_PRESENTATIONS: readonly PbtaCollectionPresentation[
   collection("urban-shadows-playbook", ["corruption.moves", "Corruption moves", "pbta-text", "text"]),
   collection("urban-shadows-playbook", ["laterAdvancement", "Later advancement", "pbta-advancement", "object"]),
   collection("urban-shadows-playbook", ["advancementCircles", "Advancement Circles", "pbta-text", "text"]),
+  collection("urban-shadows-playbook", ["markedCircles", "Marked Circles", "pbta-text", "text"]),
   collection("urban-shadows-playbook", ["letItOut", "Let it out", "pbta-text", "text"]),
   collection("urban-shadows-playbook", ["debts", "Starting debts", "pbta-text", "text"]),
   collection("urban-shadows-playbook", ["extras[].items", "Frame lines", "pbta-text", "text"]),

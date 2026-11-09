@@ -447,6 +447,15 @@ function checkGame(game: Game, root: string) {
           `unknown Circle "${circle}"; the playbook declares: ${list(playbookStats)}`
         );
       }
+      const marked = Array.isArray(data.markedCircles) ? data.markedCircles : [];
+      for (const [index, circle] of marked.entries()) {
+        if (typeof circle !== "string" || circles.includes(circle)) continue;
+        error(
+          file,
+          `markedCircles[${index}]`,
+          `Circle "${circle}" carries no advancement mark; the playbook marks: ${list(circles.filter((entry): entry is string => typeof entry === "string"))}`
+        );
+      }
       const extraKeys = new Set<string>();
       const extras = Array.isArray(data.extras) ? data.extras : [];
       for (const [index, extra] of extras.entries()) {

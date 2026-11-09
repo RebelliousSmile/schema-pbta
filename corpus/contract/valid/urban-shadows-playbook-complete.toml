@@ -6,6 +6,7 @@ stats = { blood = 0, heart = 1, mind = -1, spirit = 1, mortalis = 1, night = 0, 
 moves = [{ name = "I Know a Guy", moveType = "playbook", description = "Find help through your Circle." }]
 endMove = "Entrust your mortal relationships to another character."
 advancementCircles = ["mortalis", "night", "power", "wild"]
+markedCircles = ["mortalis"]
 laterAdvancement = [{ label = "Retire the character to safety." }, { label = "Change to another playbook." }]
 letItOut = ["Walk away from a scene unnoticed.", "Name the person who knows the answer."]
 intimacy = "When you share a moment of intimacy with someone, tell them one thing you fear losing."

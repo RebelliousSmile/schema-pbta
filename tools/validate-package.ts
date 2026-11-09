@@ -146,9 +146,9 @@ for (const parser of [
   parseSalvageRunPlaybookToml,
 ]) assert.equal(typeof parser, "function");
 
-const schemaUrl = import.meta.resolve("schema-pbta/schemas/v13/monsterhearts/monsterhearts-playbook.schema.json");
+const schemaUrl = import.meta.resolve("schema-pbta/schemas/v14/monsterhearts/monsterhearts-playbook.schema.json");
 const schema = JSON.parse(fs.readFileSync(new URL(schemaUrl), "utf8"));
-assert.match(schema.$id, /\\/v13\\.0\\.0\\/schemas\\/v13\\/monsterhearts\\/monsterhearts-playbook\\.schema\\.json$/);
+assert.match(schema.$id, /\\/v14\\.0\\.0\\/schemas\\/v14\\/monsterhearts\\/monsterhearts-playbook\\.schema\\.json$/);
 assert.throws(
   () => import.meta.resolve("schema-pbta/schemas/monsterhearts/monsterhearts-playbook.schema.json"),
   { code: "ERR_PACKAGE_PATH_NOT_EXPORTED" },
