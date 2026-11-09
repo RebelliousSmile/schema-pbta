@@ -12,7 +12,8 @@
     "stylesheets": [
       "styles/theme-tokens.css",
       "styles/base.css",
-      "assets/styles/callouts.css"
+      "assets/styles/callouts.css",
+      "assets/styles/playbook.css"
     ],
     "assets": {
       "game-mark": "assets/images/thorn-heart.svg"

@@ -1,0 +1,425 @@
+/*
+ * Monsterhearts playbook — host-neutral dressing of the pbta-playbook block.
+ *
+ * Read by every host that renders the Handbook DOM (`monsterheartsLayout.ts`):
+ * Obsidian Handbook loads it from the installed pack, Lantern imports it from
+ * the npm package. Every selector starts at the document root
+ * `.handbook-monsterhearts-playbook`; no host selector or host variable is used.
+ * Each value goes through a `--monsterhearts-*` token whose fallback is the
+ * value measured on the original booklet (La Selkie, French edition).
+ */
+
+.handbook-monsterhearts-playbook {
+	container-type: inline-size;
+	display: grid;
+	gap: 0.8rem;
+	padding: clamp(0.75rem, 2vw, 1.5rem);
+	border: 0;
+	background: var(--monsterhearts-paper, #ffffff);
+	color: var(--monsterhearts-ink, #171416);
+	font-family: var(--monsterhearts-body-font, 'Alice', 'Averia Serif Libre', Georgia, serif);
+	line-height: 1.3;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-layout-row {
+	min-width: 0;
+	display: grid;
+	gap: var(--pbta-column-gap, 2.4rem);
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-column {
+	min-width: 0;
+	display: grid;
+	align-content: start;
+	gap: 1rem;
+}
+
+/* Sections: no rule, no card — the booklet only separates them by space. */
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region {
+	min-width: 0;
+	padding: 0.4rem 0.55rem 0.65rem;
+	border: 0;
+	break-inside: avoid;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region > h3 {
+	margin: 0 0 0.45rem;
+	padding: 0;
+	border: 0;
+	font-family: var(--monsterhearts-title-font, 'Yellow Magician', 'El Messiri', Garamond, Georgia, serif);
+	font-size: 1.4em;
+	font-weight: 400;
+	line-height: 1.05;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--monsterhearts-title-ink, #292326);
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region h4 {
+	margin: 0.55rem 0 0.2rem;
+	font-size: 1em;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region p {
+	margin: 0 0 0.4rem;
+	line-height: 1.3;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region ul {
+	margin: 0.2rem 0;
+	padding-inline-start: 1.2rem;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region dl {
+	margin: 0.35rem 0;
+}
+
+/* Opening: calligraphic italic, a little larger than the body, flush left. */
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="monsterhearts-opening"] {
+	font-family: var(--monsterhearts-script-font, 'IM Fell Double Pica', Garamond, Georgia, serif);
+	font-style: italic;
+	font-weight: 400;
+	font-feature-settings: "kern" 1, "liga" 1, "dlig" 1, "calt" 1, "swsh" 1;
+	font-kerning: normal;
+	text-rendering: optimizeLegibility;
+	font-size: 1.15em;
+	line-height: 1.15;
+	text-align: left;
+	hyphens: manual;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="monsterhearts-opening"] p {
+	margin: 0 0 0.5rem;
+	line-height: 1.15;
+}
+
+/* Play: centred title, justified body slightly smaller than the text. */
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="monsterhearts-play"] > h3 {
+	text-align: center;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="monsterhearts-play"] p {
+	font-size: 0.92em;
+	text-align: justify;
+	hyphens: auto;
+}
+
+/* Portrait: full column picture, the playbook name in script beneath it. */
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="playbook-portrait"] {
+	padding: 0;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-portrait {
+	display: grid;
+	grid-template-rows: minmax(0, 1fr) auto;
+	aspect-ratio: 4 / 5;
+	margin: 0;
+	overflow: hidden;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-portrait img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	min-height: 0;
+	object-fit: contain;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-portrait--empty > span {
+	display: grid;
+	place-items: center;
+	border: 1px dashed var(--monsterhearts-faint-rule, #b9b2b4);
+	color: var(--monsterhearts-muted-ink, #5f5758);
+	font-style: italic;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-portrait-name {
+	margin-top: 0.2rem;
+	font-family: var(--monsterhearts-script-font, 'IM Fell Double Pica', Garamond, Georgia, serif);
+	font-style: italic;
+	font-size: 3em;
+	line-height: 1.05;
+	letter-spacing: 0;
+	text-transform: none;
+	text-align: center;
+	color: var(--monsterhearts-title-ink, #292326);
+}
+
+/* Identity: bold capital labels, two columns when there is room. */
+.handbook-monsterhearts-playbook .handbook-monsterhearts-identity-fields {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+	gap: 0 1.2rem;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-identity-fields p {
+	display: flex;
+	align-items: baseline;
+	gap: 0.4rem;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-label {
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-fill {
+	display: inline-block;
+	min-width: 4rem;
+	width: 60%;
+	height: 1em;
+	border-bottom: 1px solid var(--monsterhearts-faint-rule, #b9b2b4);
+	vertical-align: baseline;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-identity-fields .handbook-monsterhearts-fill {
+	flex: 1;
+	width: auto;
+}
+
+.handbook-monsterhearts-playbook h4 + .handbook-monsterhearts-fill {
+	display: block;
+	width: 100%;
+	height: 2.2em;
+}
+
+/* Stats: small capitals at body size, profiles side by side, values right. */
+.handbook-monsterhearts-playbook .handbook-monsterhearts-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+	gap: 0 1.6rem;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-stats dl {
+	margin: 0;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-row {
+	display: flex;
+	justify-content: space-between;
+	gap: 0.5rem;
+	padding: 0.15rem 0;
+	border-bottom: 1px solid var(--monsterhearts-faint-rule, #b9b2b4);
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-row dt {
+	font-size: 1em;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-row dd {
+	margin: 0;
+	text-align: end;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-stats .handbook-monsterhearts-row {
+	border-bottom: 0;
+	padding: 0.1rem 0;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-stats dt {
+	font-size: 1em;
+	font-variant: small-caps;
+	/* The stat keys come lowercase: the PDF capitalises the first letter ("Sexy"). */
+	text-transform: capitalize;
+	letter-spacing: 0.04em;
+}
+
+/* Moves: shell bullet (filled when granted), bold sans-serif name, no indent, no rule. */
+.handbook-monsterhearts-playbook .handbook-monsterhearts-move {
+	margin: 0 0 0.6rem;
+	padding: 0;
+	border: 0;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-move h4 {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.45rem;
+	margin: 0 0 0.15rem;
+	font-family: var(--monsterhearts-move-name-font, 'Helvetica Neue', Arial, sans-serif);
+	font-size: 1.05em;
+	font-weight: 700;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-move p {
+	margin-inline-start: 0;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-move-symbol {
+	box-sizing: border-box;
+	display: inline-block;
+	flex: 0 0 0.9em;
+	width: 0.9em;
+	height: 0.9em;
+	margin: calc((1lh - 0.9em) / 2) 0 0;
+	border: 1.5px solid var(--monsterhearts-mark-ink, #292326);
+	border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+	background: transparent;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-move[data-acquired="true"] .handbook-monsterhearts-move-symbol {
+	background: var(--monsterhearts-mark-ink, #292326);
+}
+
+/* Every other tick (harm, advances): a small square box drawn the same in every host. */
+.handbook-monsterhearts-playbook input[type="checkbox"] {
+	appearance: none;
+	-webkit-appearance: none;
+	box-sizing: border-box;
+	display: inline-block;
+	flex: 0 0 0.8em;
+	width: 0.8em;
+	height: 0.8em;
+	margin: calc((1lh - 0.8em) / 2) 0 0;
+	padding: 0;
+	border: 1px solid var(--monsterhearts-mark-ink, #292326);
+	border-radius: 0;
+	background: transparent;
+	box-shadow: none;
+	cursor: default;
+}
+
+.handbook-monsterhearts-playbook input[type="checkbox"]:checked {
+	background: var(--monsterhearts-mark-ink, #292326);
+}
+
+.handbook-monsterhearts-playbook input[type="checkbox"]::after,
+.handbook-monsterhearts-playbook input[type="checkbox"]::before {
+	content: none;
+}
+
+/* Harm: four boxes in a row right after the title, at title size. */
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="harm-tracker"] {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.6rem;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="harm-tracker"] > h3 {
+	margin: 0;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-harm {
+	display: flex;
+	gap: 0.3rem;
+	font-size: 1.4em;
+}
+
+/* Progression: the advances heading carries five experience boxes; small boxes, no indent. */
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="monsterhearts-progression"] h4 {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	margin-top: 0.7rem;
+	font-family: var(--monsterhearts-title-font, 'Yellow Magician', 'El Messiri', Garamond, Georgia, serif);
+	font-size: 1.2em;
+	font-weight: 400;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--monsterhearts-title-ink, #292326);
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="monsterhearts-progression"] h4::after {
+	content: "";
+	flex: 0 0 auto;
+	width: calc(5 * 0.8em + 4 * 0.3em);
+	height: 0.8em;
+	/* Ink lines drawn in the background, the gaps between boxes cut out by the mask. */
+	background:
+		repeating-linear-gradient(to right,
+			var(--monsterhearts-mark-ink, #292326) 0 1px,
+			transparent 1px calc(0.8em - 1px),
+			var(--monsterhearts-mark-ink, #292326) calc(0.8em - 1px) 0.8em,
+			transparent 0.8em 1.1em),
+		linear-gradient(var(--monsterhearts-mark-ink, #292326), var(--monsterhearts-mark-ink, #292326)) top / 100% 1px no-repeat,
+		linear-gradient(var(--monsterhearts-mark-ink, #292326), var(--monsterhearts-mark-ink, #292326)) bottom / 100% 1px no-repeat;
+	-webkit-mask: repeating-linear-gradient(to right, #000 0 0.8em, transparent 0.8em 1.1em);
+	mask: repeating-linear-gradient(to right, #000 0 0.8em, transparent 0.8em 1.1em);
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="monsterhearts-progression"] .handbook-monsterhearts-move h4 {
+	margin-top: 0;
+	font-family: var(--monsterhearts-move-name-font, 'Helvetica Neue', Arial, sans-serif);
+	font-size: 1.05em;
+	font-weight: 700;
+	letter-spacing: 0;
+	text-transform: none;
+	color: inherit;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="monsterhearts-progression"] .handbook-monsterhearts-move h4::after {
+	content: none;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="monsterhearts-progression"] ul {
+	padding-inline-start: 0;
+	font-size: 0.85em;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="monsterhearts-progression"] li {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.45rem;
+	margin: 0 0 0.15rem;
+	list-style: none;
+}
+
+/* Strings and conditions: centred title over a thin frame with room to write. */
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="ascendants-and-conditions"] > h3 {
+	text-align: center;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="ascendants-and-conditions"] > :not(h3) {
+	margin-inline: 0;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="ascendants-and-conditions"]::after {
+	content: "";
+	display: block;
+	min-height: 6rem;
+	margin-top: 0.3rem;
+	border: 1px solid var(--monsterhearts-frame-ink, #171416);
+}
+
+@container (min-width: 840px) {
+	.handbook-monsterhearts-playbook .handbook-monsterhearts-layout-row {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+@container (max-width: 839px) {
+	.handbook-monsterhearts-playbook .handbook-monsterhearts-layout-row,
+	.handbook-monsterhearts-playbook .handbook-monsterhearts-column {
+		display: contents;
+	}
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="monsterhearts-opening"] { order: 1; }
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="character-identity"] { order: 2; }
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="stat-profiles"] { order: 3; }
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="playbook-portrait"] { order: 4; }
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="playbook-moves"] { order: 5; }
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="ascendants-and-conditions"] { order: 6; }
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="gear"] { order: 7; }
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="monsterhearts-darkest-self"] { order: 8; }
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="monsterhearts-sex-move"] { order: 9; }
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="monsterhearts-play"] { order: 10; }
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="monsterhearts-progression"] { order: 11; }
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="harm-tracker"] { order: 12; }
+
+@media print {
+	.handbook-monsterhearts-playbook {
+		display: grid;
+		grid-template-columns: 1fr;
+		background: #ffffff;
+	}
+
+	.handbook-monsterhearts-playbook .handbook-monsterhearts-layout-row,
+	.handbook-monsterhearts-playbook .handbook-monsterhearts-column {
+		display: contents;
+	}
+}

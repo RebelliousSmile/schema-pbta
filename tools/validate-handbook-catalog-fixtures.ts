@@ -233,4 +233,39 @@ fixture("stylesheet undeclared url", (root) => {
   fs.appendFileSync(path.join(root, "handbook", "masks", "assets", "fonts", "faces.css"), '\n@font-face { font-family: "X"; src: url("missing.woff2"); }\n');
 }, "fonts/faces.css loads the undeclared URL missing.woff2");
 
+/* The shared playbook dressing: one host-neutral sheet per game, copied byte for byte into the npm package. */
+const playbookSheet = (root: string, game: string): string => path.join(root, "handbook", game, "assets", "styles", "playbook.css");
+
+fixture("playbook sheet not declared", (root) => {
+  const file = path.join(root, "handbook", "monsterhearts", "pack.json");
+  const manifest = readJson(file);
+  manifest.pack.assets.stylesheets = manifest.pack.assets.stylesheets.filter((sheet: string) => sheet !== "styles/playbook.css");
+  writeJson(file, manifest);
+}, "monsterhearts: the playbook dressing must be supplied as styles/playbook.css");
+
+fixture("playbook copy diverges", (root) => {
+  fs.appendFileSync(playbookSheet(root, "urban-shadows"), "\n.handbook-urban-shadows-playbook p { margin: 0; }\n");
+}, "urban-shadows: packs/urban-shadows/assets/styles/playbook.css must be a byte copy of the handbook sheet");
+
+fixture("playbook selector outside its root", (root) => {
+  fs.appendFileSync(playbookSheet(root, "monsterhearts"), "\n.markdown-rendered p { margin: 0; }\n");
+}, "monsterhearts: styles/playbook.css has a selector outside .handbook-monsterhearts-playbook: .markdown-rendered p");
+
+fixture("playbook host selector", (root) => {
+  fs.appendFileSync(playbookSheet(root, "urban-shadows"), "\n.handbook-urban-shadows-playbook .theme-dark p { margin: 0; }\n");
+}, "urban-shadows: styles/playbook.css names a host selector");
+
+fixture("playbook host variable", (root) => {
+  fs.appendFileSync(playbookSheet(root, "monsterhearts"), "\n.handbook-monsterhearts-playbook p { color: var(--text-normal); }\n");
+}, "monsterhearts: styles/playbook.css uses the host variable --text-normal");
+
+fixture("playbook unknown region", (root) => {
+  fs.appendFileSync(playbookSheet(root, "urban-shadows"), '\n.handbook-urban-shadows-playbook [data-region="urban-shadows-unknown"] { margin: 0; }\n');
+}, "urban-shadows: styles/playbook.css targets an unpublished data-region urban-shadows-unknown");
+
+fixture("playbook without paper layout", (root) => {
+  const file = playbookSheet(root, "urban-shadows");
+  fs.writeFileSync(file, fs.readFileSync(file, "utf8").replace("break-before: page;", ""));
+}, "urban-shadows: styles/playbook.css must break the page between the two faces in print");
+
 console.log("✅ Handbook catalogue rejection fixtures passed validation.");

@@ -21,7 +21,7 @@ affiche la section sur le papier clair. Rien de cette couche ne s’imprime.
 | `styles/callouts.css` | encadrés partagés `pbta-*` et encadrés du pack |
 | `styles/page.css` | page claire : titres, puces en losange, termes de jeu (gras italique) |
 | `styles/section.css` | ce qu’un jeton ne dit pas dans la section de nuit |
-| `styles/layout.css` | géométrie du livret : faces, rangées, colonnes, marques, cases ; ordre canonique en volet étroit, une face par page à l’impression |
+| `styles/playbook.css` | habillage du livret, sans hôte : faces, rangées, colonnes, marques, cases, encarts, d’après le livret d’origine ; ordre canonique en volet étroit, une face par page à l’impression. Copie octet pour octet dans `packs/urban-shadows/assets/styles/`, que lit Lantern |
 
 ## Encadrés
 

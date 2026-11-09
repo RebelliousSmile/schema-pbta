@@ -21,14 +21,14 @@
     },
     {
       "id": "monsterhearts",
-      "version": "0.5.0",
+      "version": "0.6.0",
       "path": "handbook/monsterhearts/pack.json",
       "label": "Monsterhearts",
       "description": "Intimate gothic editorial presentation, light only."
     },
     {
       "id": "urban-shadows",
-      "version": "0.4.0",
+      "version": "0.5.0",
       "path": "handbook/urban-shadows/pack.json",
       "label": "Urban Shadows",
       "description": "Occult urban presentation: violet headings on pale paper, with a night section."

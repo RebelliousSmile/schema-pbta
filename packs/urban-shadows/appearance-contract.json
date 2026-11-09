@@ -8,7 +8,8 @@
       "Urban Shadows Brush": "assets/fonts/caveat-brush-400-normal.woff2"
     },
     "stylesheets": [
-      "styles/theme-tokens.css"
+      "styles/theme-tokens.css",
+      "assets/styles/playbook.css"
     ],
     "assets": {
       "game-mark": "assets/images/city-sigil.svg"

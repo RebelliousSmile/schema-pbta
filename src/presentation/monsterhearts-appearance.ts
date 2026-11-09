@@ -40,7 +40,7 @@ export const PBTA_MONSTERHEARTS_APPEARANCE: PbtaMonsterheartsAppearance = monste
       "Alice": "assets/fonts/alice-latin-400-normal.woff2",
       "IM Fell Double Pica": "assets/fonts/im-fell-double-pica-latin-400-italic.woff2",
     },
-    stylesheets: ["styles/theme-tokens.css", "styles/base.css", "assets/styles/callouts.css"],
+    stylesheets: ["styles/theme-tokens.css", "styles/base.css", "assets/styles/callouts.css", "assets/styles/playbook.css"],
     assets: {
       "game-mark": "assets/images/thorn-heart.svg",
     },

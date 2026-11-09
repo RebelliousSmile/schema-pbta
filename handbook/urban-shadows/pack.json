@@ -1,6 +1,6 @@
 {
   "manifestVersion": 1,
-  "version": "0.4.0",
+  "version": "0.5.0",
   "minimumHandbookVersion": "2.8.0",
   "requires": [
     "block:pbta-playbook",
@@ -132,7 +132,7 @@
         "styles/callouts.css",
         "styles/page.css",
         "styles/section.css",
-        "styles/layout.css"
+        "styles/playbook.css"
       ],
       "images": {
         "game-mark": "images/city-sigil.svg",

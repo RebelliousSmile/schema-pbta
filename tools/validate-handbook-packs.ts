@@ -440,6 +440,7 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
         }
       }
       if (/drowned-lake/.test(JSON.stringify(manifest))) issues.push("monsterhearts: the drowned-lake variant is retired");
+      validatePlaybookSheet(id, path.join(manifestRoot, String(assetRoot)), strings(assets.stylesheets), PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION.regions, issues);
     }
     if (id === "urban-shadows") {
       /* The pack installs the faces and the accent the npm appearance publishes. */
@@ -458,32 +459,15 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
       for (const token of ["--code-normal", "--code-background"]) {
         if (typeof native[token] !== "string") issues.push(`urban-shadows: missing native token ${token}`);
       }
-      /* The booklet geometry is the pack's: Handbook only renders the hooks the contract names. */
-      const layoutSheet = "styles/layout.css";
-      const layoutFile = path.join(manifestRoot, String(assetRoot), layoutSheet);
-      if (!strings(assets.stylesheets).includes(layoutSheet) || !fs.existsSync(layoutFile)) {
-        issues.push(`urban-shadows: the booklet geometry must be supplied as ${layoutSheet}`);
-      } else {
-        const layout = fs.readFileSync(layoutFile, "utf8");
-        const regions = PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION.regions;
-        const hooks: Array<[string, string[]]> = [
-          ["data-region", regions.map((region) => region.id)],
-          ["data-primitive", regions.map((region) => region.primitive)],
-        ];
-        for (const [attribute, published] of hooks) {
-          for (const match of layout.matchAll(new RegExp(`\\[${attribute}="([^"]*)"\\]`, "g"))) {
-            if (!published.includes(match[1])) issues.push(`urban-shadows: ${layoutSheet} targets an unpublished ${attribute} ${match[1]}`);
-          }
-        }
-        const print = layout.slice(layout.indexOf("@media print"));
-        if (!layout.includes("@media print") || !/-face \+ [^{]*-face\s*\{[^}]*break-before:\s*page/.test(print)) {
-          issues.push(`urban-shadows: ${layoutSheet} must break the page between the two faces in print`);
-        }
-        if (!/-region\s*\{[^}]*break-inside:\s*avoid/.test(layout)) {
-          issues.push(`urban-shadows: ${layoutSheet} must keep a region on one page`);
+      /* The booklet dressing is the pack's, host-neutral: Handbook and Lantern read the same sheet. */
+      const sheet = validatePlaybookSheet(id, path.join(manifestRoot, String(assetRoot)), strings(assets.stylesheets), PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION.regions, issues);
+      if (sheet !== null) {
+        const print = sheet.slice(sheet.indexOf("@media print"));
+        if (!sheet.includes("@media print") || !/-face \+ [^{]*-face\s*\{[^}]*break-before:\s*page/.test(print)) {
+          issues.push(`urban-shadows: ${PLAYBOOK_SHEET} must break the page between the two faces in print`);
         }
         if (!/order:\s*var\(--pbta-region-order\)/.test(print)) {
-          issues.push(`urban-shadows: ${layoutSheet} must print the regions in canonical order`);
+          issues.push(`urban-shadows: ${PLAYBOOK_SHEET} must print the regions in canonical order`);
         }
       }
     }
@@ -745,6 +729,61 @@ export function validateInstallableHandbookSource(sourceRoot: string): string[] 
     }
   }
   return issues;
+}
+
+/** The playbook dressing a pack publishes for every host: one sheet, copied byte for byte into the npm package. */
+const PLAYBOOK_SHEET = "styles/playbook.css";
+/** Selectors only a host owns: a shared sheet never names them. */
+const HOST_SELECTOR = /(^|[\s>+~,(])(body|html)\b|\.(brumes-|theme-|markdown-|workspace|cm-|is-mobile|view-content)/;
+/** Variables only a host defines: a shared sheet reads its own tokens. */
+const HOST_VARIABLE = /--(text-[a-z-]+|background-[a-z-]+|font-[a-z-]+-theme|interactive-[a-z-]+|color-accent[a-z-]*)\b/;
+
+function validatePlaybookSheet(
+  id: string,
+  assetFolder: string,
+  stylesheets: string[],
+  regions: ReadonlyArray<{ id: string; primitive: string }>,
+  issues: string[],
+): string | null {
+  const file = path.join(assetFolder, PLAYBOOK_SHEET);
+  if (!stylesheets.includes(PLAYBOOK_SHEET) || !fs.existsSync(file)) {
+    issues.push(`${id}: the playbook dressing must be supplied as ${PLAYBOOK_SHEET}`);
+    return null;
+  }
+  const css = fs.readFileSync(file, "utf8");
+  const published = path.join(root, "packs", id, "assets", PLAYBOOK_SHEET);
+  if (!fs.existsSync(published) || !fs.readFileSync(published).equals(fs.readFileSync(file))) {
+    issues.push(`${id}: packs/${id}/assets/${PLAYBOOK_SHEET} must be a byte copy of the handbook sheet`);
+  }
+  const scope = `.handbook-${id}-playbook`;
+  for (const selector of unscopedSelectors(css, scope)) {
+    issues.push(`${id}: ${PLAYBOOK_SHEET} has a selector outside ${scope}: ${selector}`);
+  }
+  const text = css.replace(/\/\*[\s\S]*?\*\//g, "");
+  for (const rule of text.matchAll(/([^{}]+)\{/g)) {
+    const head = rule[1].trim();
+    if (!head.startsWith("@") && HOST_SELECTOR.test(head)) issues.push(`${id}: ${PLAYBOOK_SHEET} names a host selector in ${head}`);
+  }
+  for (const variable of text.matchAll(new RegExp(HOST_VARIABLE.source, "g"))) {
+    issues.push(`${id}: ${PLAYBOOK_SHEET} uses the host variable ${variable[0]}`);
+  }
+  if (!new RegExp(`\\.handbook-${id}-playbook\\s*\\{[^}]*container-type:\\s*inline-size`).test(text)) {
+    issues.push(`${id}: ${PLAYBOOK_SHEET} must make ${scope} the container of its queries`);
+  }
+  const hooks: Array<[string, string[]]> = [
+    ["data-region", regions.map((region) => region.id)],
+    ["data-primitive", regions.map((region) => region.primitive)],
+  ];
+  for (const [attribute, names] of hooks) {
+    for (const match of text.matchAll(new RegExp(`\\[${attribute}="([^"]*)"\\]`, "g"))) {
+      if (!names.includes(match[1])) issues.push(`${id}: ${PLAYBOOK_SHEET} targets an unpublished ${attribute} ${match[1]}`);
+    }
+  }
+  if (!/-region\s*\{[^}]*break-inside:\s*avoid/.test(text)) {
+    issues.push(`${id}: ${PLAYBOOK_SHEET} must keep a region on one page`);
+  }
+  if (!text.includes("@media print")) issues.push(`${id}: ${PLAYBOOK_SHEET} must lay the booklet out for paper`);
+  return text;
 }
 
 function requirePath(file: string, context: string): boolean {
