@@ -199,8 +199,7 @@
 	display: flex;
 	justify-content: space-between;
 	gap: 0.5rem;
-	padding: 0.15rem 0;
-	border-bottom: 1px solid var(--monsterhearts-faint-rule, #b9b2b4);
+	padding: 0.1rem 0;
 }
 
 .handbook-monsterhearts-playbook .handbook-monsterhearts-row dt {
@@ -210,11 +209,6 @@
 .handbook-monsterhearts-playbook .handbook-monsterhearts-row dd {
 	margin: 0;
 	text-align: end;
-}
-
-.handbook-monsterhearts-playbook .handbook-monsterhearts-stats .handbook-monsterhearts-row {
-	border-bottom: 0;
-	padding: 0.1rem 0;
 }
 
 .handbook-monsterhearts-playbook .handbook-monsterhearts-stats dt {
@@ -368,21 +362,35 @@
 	list-style: none;
 }
 
-/* Strings and conditions: centred title over a thin frame with room to write. */
+/*
+ * Strings and conditions: the booklet frames the whole area, its centred title
+ * inside, and leaves the rest of the frame blank to write in. Sub-headings take
+ * the bold sans-serif of the move names; each condition is one line, its name
+ * in bold.
+ */
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="ascendants-and-conditions"] {
+	min-height: 10rem;
+	padding: 0.45rem 0.7rem 0.7rem;
+	border: 1px solid var(--monsterhearts-frame-ink, #171416);
+}
+
 .handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="ascendants-and-conditions"] > h3 {
 	text-align: center;
 }
 
-.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="ascendants-and-conditions"] > :not(h3) {
-	margin-inline: 0;
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="ascendants-and-conditions"] h4 {
+	margin: 0.6rem 0 0.15rem;
+	font-family: var(--monsterhearts-move-name-font, 'Helvetica Neue', Arial, sans-serif);
+	font-size: 0.95em;
+	font-weight: 700;
 }
 
-.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="ascendants-and-conditions"]::after {
-	content: "";
-	display: block;
-	min-height: 6rem;
-	margin-top: 0.3rem;
-	border: 1px solid var(--monsterhearts-frame-ink, #171416);
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="ascendants-and-conditions"] p {
+	margin: 0 0 0.25rem;
+}
+
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="ascendants-and-conditions"] strong {
+	font-weight: 700;
 }
 
 @container (min-width: 840px) {
