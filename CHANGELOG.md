@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Urban Shadows presentation contract: the booklet regions are spread across three balanced columns, the presentation source (`src/presentation/urban-shadows-playbook.ts`) now declares those rows (a row holds one to three columns), the regions placed beside the moves belong to the first face so a row still keeps to one face, and the stylesheet aligns checkboxes on the first line of their text.
 
+## [15.0.1] - 2026-11-20
+
+### Fixed
+
+- Urban Shadows playbook dressing: the checkbox in front of each move title is centred on the title. Its margin was computed with `1lh`, which the input resolves against its own default line height rather than the display capitals of the title, so the box sat about 4 px above the text. In a move title the box now has no margin and the title centres its items. The same bytes change in `packs/urban-shadows/assets/styles/playbook.css` (read by Lantern from the npm package) and `handbook/urban-shadows/assets/styles/playbook.css`; Handbook pack Urban Shadows `0.5.1`.
+
 ## [Unreleased]
 
 ### Breaking

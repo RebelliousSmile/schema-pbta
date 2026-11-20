@@ -364,7 +364,7 @@
 
 .handbook-urban-shadows-playbook .handbook-urban-shadows-move h4 {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.4rem;
   margin: 0.5rem 0 0.1rem;
   font-family: var(--us-title);
@@ -373,6 +373,12 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--us-text);
+}
+
+/* The box is centred on the title, not on its own line box: 1lh in the shared box rule is the input's
+   default line height, far below the display capitals, which left the box above the text. */
+.handbook-urban-shadows-playbook .handbook-urban-shadows-move h4 input[type="checkbox"] {
+  margin: 0;
 }
 
 .handbook-urban-shadows-playbook .handbook-urban-shadows-move h4 .handbook-urban-shadows-fill {
