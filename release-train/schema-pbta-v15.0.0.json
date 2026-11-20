@@ -1,0 +1,35 @@
+{
+  "protocol": 1,
+  "candidate": {
+    "provider": "schema-pbta",
+    "releaseUrl": "https://github.com/RebelliousSmile/schema-pbta/releases/download/v15.0.0-rc.1/schema-pbta-15.0.0.tgz",
+    "sha256": "7a7bbc023c94bbf3f75cc53bbacd3f822dc2ca6445c9ec65aa25c9d3a55474dd",
+    "integrity": "sha512-FxHUh1Nl92mN0qfvE76QkNbgQTyHHP+py+CJ8kKM2+B1x/xP0rGHknob+XThEGeNjfW52JsVTdOTzHl3ebvgUA==",
+    "version": "15.0.0",
+    "stagingTag": "v15.0.0-rc.1",
+    "finalTag": "v15.0.0",
+    "providerCommit": "7a1f9dd933765835ececd6b51899bee3f8554987"
+  },
+  "consumers": [
+    {
+      "role": "handbook",
+      "repository": "RebelliousSmile/obsidian-handbook",
+      "ref": "333171d682a568dbc27678d4329c23aa3398f698",
+      "path": "handbook",
+      "proof": {
+        "interface": "npm-run-release-train-assert",
+        "manifest": "release-train.manifest.json"
+      }
+    },
+    {
+      "role": "lantern",
+      "repository": "RebelliousSmile/lantern",
+      "ref": "48647f7fd1f91c24d261d417d501e44ca9a01c76",
+      "path": "lantern",
+      "proof": {
+        "interface": "npm-run-release-train-assert",
+        "manifest": "release-train.manifest.json"
+      }
+    }
+  ]
+}
