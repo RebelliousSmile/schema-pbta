@@ -10,7 +10,6 @@ the repository's MIT license.
 | Masks | `game-mark` | `handbook/masks/assets/images/hero-burst.svg` |
 | Masks | `star-bullet` | `handbook/masks/assets/images/star-bullet.svg` |
 | Masks | `skyline-band` | `handbook/masks/assets/images/skyline-band.svg` |
-| Monster of the Week | `game-mark` | `handbook/monster-of-the-week/assets/images/watch-mark.svg` |
 | Monsterhearts | `game-mark` | `handbook/monsterhearts/assets/images/thorn-heart.svg`; `packs/monsterhearts/assets/images/thorn-heart.svg` |
 | The Sprawl | `game-mark` | `handbook/the-sprawl/assets/images/network-grid.svg` |
 | Urban Shadows | `game-mark` | `handbook/urban-shadows/assets/images/city-sigil.svg`; `packs/urban-shadows/assets/images/city-sigil.svg` |
@@ -21,7 +20,7 @@ official logo, illustration, layout, or game text is included in these files.
 
 ## Fonts
 
-The Masks, Monster of the Week, Monsterhearts, The Sprawl and Urban Shadows presentation packs include open typefaces
+The Masks, Monsterhearts, The Sprawl and Urban Shadows presentation packs include open typefaces
 as WOFF2 files, from Fontsource or from `google/fonts`. Every file is a static
 instance, one per weight: a variable font reaches a Chromium PDF export as Type3
 glyph procedures, which printers refuse (obsidian-handbook#116).
@@ -38,7 +37,7 @@ glyph procedures, which printers refuse (obsidian-handbook#116).
 | Caveat Brush | `handbook/urban-shadows/assets/fonts/caveat-brush-400-normal.woff2`; `packs/urban-shadows/assets/fonts/caveat-brush-400-normal.woff2` | `google/fonts` (`ofl/caveatbrush`, `CaveatBrush-Regular.ttf`, converted to WOFF2 without subsetting) | SIL Open Font License 1.1 (`OFL-CaveatBrush-1.1.txt`) |
 | Staatliches | `handbook/masks/assets/fonts/staatliches-400-normal.woff2` | `google/fonts` (`ofl/staatliches`, `Staatliches-Regular.ttf`, converted to WOFF2 without subsetting) | SIL Open Font License 1.1 (`OFL-Staatliches.txt`) |
 | Josefin Sans | `handbook/masks/assets/fonts/josefin-sans-latin-<100…700>-normal.woff2` | `@fontsource/josefin-sans@5.3.0` (static instances, latin subset, unmodified) | SIL Open Font License 1.1 (`OFL-JosefinSans.txt`) |
-| Crimson Pro | `handbook/masks/assets/fonts/crimson-pro-latin-<200…900>-<normal\|italic>.woff2`; `handbook/monster-of-the-week/assets/fonts/crimson-pro-latin-<200…900>-<normal\|italic>.woff2` | `@fontsource/crimson-pro@5.3.0` (static instances, latin subset, unmodified) | SIL Open Font License 1.1 (`OFL-CrimsonPro.txt`) |
+| Crimson Pro | `handbook/masks/assets/fonts/crimson-pro-latin-<200…900>-<normal\|italic>.woff2` | `@fontsource/crimson-pro@5.3.0` (static instances, latin subset, unmodified) | SIL Open Font License 1.1 (`OFL-CrimsonPro.txt`) |
 | Jura | `handbook/the-sprawl/assets/fonts/jura-latin-<300…700>-normal.woff2` | `@fontsource/jura@5.3.0` (static instances, latin subset, unmodified) | SIL Open Font License 1.1 (`OFL-Jura.txt`) |
 | Exo 2 | `handbook/the-sprawl/assets/fonts/exo-2-latin-<100…900>-<normal\|italic>.woff2` | `@fontsource/exo-2@5.3.0` (static instances, latin subset, unmodified) | SIL Open Font License 1.1 (`OFL-Exo2.txt`) |
 | Comic Neue | `handbook/masks/assets/fonts/comic-neue-400-normal.woff2`; `handbook/masks/assets/fonts/comic-neue-700-normal.woff2` | `google/fonts` (`ofl/comicneue`, `ComicNeue-Regular.ttf` and `ComicNeue-Bold.ttf`, converted to WOFF2 without subsetting) | SIL Open Font License 1.1 (`OFL-ComicNeue.txt`) |

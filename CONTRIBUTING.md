@@ -14,8 +14,8 @@ Thanks for helping make Powered by the Apocalypse tools interoperate!
 
      ```ts
      {
-        zod: ApocalypseWorldExampleSchema,
-        game: GAMES.aw,
+        zod: MasksExampleSchema,
+        game: GAMES.masks,
         name: "example",
      }
      ```

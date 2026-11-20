@@ -1,6 +1,6 @@
 # Schema PbtA
 
-Open, versioned data schemas for **Powered by the Apocalypse** games (Apocalypse World, Dungeon World, Monster of the Week, Masks, Monsterhearts, and others) so VTTs, builders, and other digital
+Open, versioned data schemas for **Powered by the Apocalypse** games (Masks, Monsterhearts, Urban Shadows, The Sprawl, and others) so VTTs, builders, and other digital
 tools can **share the same data**.
 
 Published examples are original fixtures. Local game books may be consulted to
@@ -15,7 +15,7 @@ for their specific needs.
 
 The portable contract is versioned and release-ready. Every published game has
 one specialized, single-TOML playbook schema: `masks-playbook`,
-`monster-of-the-week-playbook`, `monsterhearts-playbook`,
+`monsterhearts-playbook`,
 `urban-shadows-playbook`, or `the-sprawl-playbook`. Those documents carry the
 complete editorial and mechanical content of a character sheet. The generic
 `playbook` schema remains available for interchange, but is not a second
@@ -35,10 +35,10 @@ generated schema.
 
 ## Install in Handbook
 
-Handbook 2.8.0 or newer can install the five presentation packs from this one
+Handbook 2.8.0 or newer can install the four presentation packs from this one
 repository. In Handbook settings, add `RebelliousSmile/schema-pbta` as a schema
 source on the `main` branch, then install or reload the source. The operation
-installs or updates Masks, Monster of the Week, Monsterhearts, Urban Shadows and
+installs or updates Masks, Monsterhearts, Urban Shadows and
 The Sprawl together; use the source's Check action when you want to look for a
 new published version.
 
@@ -332,16 +332,6 @@ was copied.
   is neither reproduced nor licensed here, only the mechanical vocabulary a tool
   needs to render a sheet.
 
-- **Monster of the Week game definition:**
-  `examples/monster-of-the-week/game-definition/monster-of-the-week.toml`
-  transcribes the Monster of the Week sheet preset published by Asacolips on the
-  `pbta` system wiki, which is itself based on the rules written by Michael
-  Sands and published by Evil Hat Productions. Its `fronts` block has no
-  upstream counterpart: the countdown steps and the threat vocabularies are read
-  off the publisher's freely distributed mystery worksheet and Keeper reference
-  sheets. The game itself is neither reproduced nor licensed here.
-
 - **Trademark / community content notice:** to be written once the games this
-  repository covers are settled. Apocalypse World is published under its own
-  terms and several PbtA games carry their own licences; none of them is covered
-  by a notice copied from another project.
+  repository covers are settled. Several PbtA games carry their own licences;
+  none of them is covered by a notice copied from another project.

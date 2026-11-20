@@ -18,7 +18,7 @@ import { z } from "zod";
  *   `tools/validate-references.ts`.
  */
 
-/** kebab-case identifier: `the-ember`, `hold-the-line`, `monster-of-the-week`. */
+/** kebab-case identifier: `the-ember`, `hold-the-line`, `the-sprawl`. */
 export const slugSchema = z
   .string()
   .regex(
@@ -32,7 +32,7 @@ export const slugSchema = z
  * A plain slug, deliberately not an enum of the known games: restricting it
  * would make every game's JSON schema depend on the whole list, so adding a
  * game would rewrite every schema. Membership is checked in the cross pass,
- * against the `folder` of the GAMES entry — `monster-of-the-week`, not `motw`.
+ * against the `folder` of the GAMES entry — `folder`, never its key or abbr.
  */
 export const gameRefSchema = slugSchema;
 

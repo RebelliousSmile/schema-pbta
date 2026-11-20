@@ -11,7 +11,7 @@ try {
   const moveDirectory = path.join(
     temporaryRoot,
     "examples",
-    "monster-of-the-week",
+    "urban-shadows",
     "move",
   );
 
@@ -19,8 +19,8 @@ try {
     path.join(moveDirectory, "fixture-unknown-mc-type.toml"),
     `slug = "fixture-unknown-mc-type"
 name = "Unknown MC Type"
-game = "monster-of-the-week"
-moveType = "unknown-keeper-type"
+game = "urban-shadows"
+moveType = "unknown-mc-type"
 audience = "mc"
 description = "Fixture for reference validation."
 `,
@@ -29,8 +29,8 @@ description = "Fixture for reference validation."
     path.join(moveDirectory, "fixture-mc-audience-missing.toml"),
     `slug = "fixture-mc-audience-missing"
 name = "MC Audience Missing"
-game = "monster-of-the-week"
-moveType = "keeper"
+game = "urban-shadows"
+moveType = "mc"
 description = "Fixture for reference validation."
 `,
   );
@@ -357,27 +357,27 @@ max = 1
   const specialisedPlaybook = path.join(
     temporaryRoot,
     "examples",
-    "monster-of-the-week",
-    "monster-of-the-week-playbook",
-    "the-lightkeeper.toml",
+    "masks",
+    "masks-playbook",
+    "the-ember.toml",
   );
   const genericDirectory = path.join(
     temporaryRoot,
     "examples",
-    "monster-of-the-week",
+    "masks",
     "playbook",
   );
   fs.mkdirSync(genericDirectory, { recursive: true });
-  fs.copyFileSync(specialisedPlaybook, path.join(genericDirectory, "the-lightkeeper.toml"));
+  fs.copyFileSync(specialisedPlaybook, path.join(genericDirectory, "the-ember.toml"));
   fs.rmSync(specialisedPlaybook);
 
   const noFallbackDiagnostics = validateReferences(temporaryRoot);
   assert.ok(
     noFallbackDiagnostics.some(
       (diagnostic) =>
-        diagnostic.file.endsWith("read-the-water.toml") &&
+        diagnostic.file.endsWith("borrowed-nerve.toml") &&
         diagnostic.key === "playbook" &&
-        diagnostic.message.includes("monster-of-the-week-playbook") &&
+        diagnostic.message.includes("masks-playbook") &&
         diagnostic.severity === "error",
     ),
     "a generic playbook homonym must not satisfy a move reference",

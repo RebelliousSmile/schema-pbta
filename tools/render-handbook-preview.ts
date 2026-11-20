@@ -179,11 +179,6 @@ function renderSpecializedDetails(game: string, playbook: Data): string {
       + section("potential", "Potentiel", `<p>${escapeHtml(playbook.potential)}</p>`)
       + section("influence", "Influence", list(playbook.influence, "handbook-value-list"));
   }
-  if (game === "monster-of-the-week") {
-    return section("luck", "Chance", `<p>${escapeHtml(playbook.luck)}</p>`)
-      + section("ratings", "Réserves", labelledValues(playbook.ratings))
-      + section("improvements", "Améliorations", list(playbook.improvements, "handbook-advancement"));
-  }
   if (game === "the-sprawl") {
     return section("directives", "Directives", list(playbook.directives, "handbook-value-list"))
       + section("mission-gear", "Équipement de mission", list(playbook.missionGear, "handbook-value-list"))

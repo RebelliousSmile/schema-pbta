@@ -1,7 +1,0 @@
-slug = "the-lightkeeper"
-name = "The Lightkeeper"
-game = "monster-of-the-week"
-description = "Invalid fixture."
-stats = { charm = 1 }
-moves = []
-improvements = [{ label = "Take a move." }]

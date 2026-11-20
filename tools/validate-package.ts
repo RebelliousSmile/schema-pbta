@@ -94,13 +94,11 @@ import {
   parseMoveToml,
   parseMasksNpcToml,
   parseMasksPlaybookToml,
-  parseMonsterOfTheWeekPlaybookToml,
   parseMonsterheartsPlaybookToml,
   parseNpcToml,
   parsePlaybookToml,
   parseTheSprawlPlaybookToml,
   parseUrbanShadowsPlaybookToml,
-  parseSalvageRunPlaybookToml,
   PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
   PBTA_MONSTERHEARTS_APPEARANCE,
   PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION,
@@ -129,7 +127,7 @@ assert.deepEqual(
   PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION,
 );
 assert.deepEqual(Object.keys(PBTA_DOCUMENT_CODECS).sort(), [
-  "front", "game-definition", "masks-npc", "masks-playbook", "monster-of-the-week-monster", "monster-of-the-week-playbook", "monster-of-the-week-team", "monster-of-the-week-threat", "monsterhearts-playbook", "move", "npc", "playbook", "salvage-run-playbook", "the-sprawl-corporation", "the-sprawl-matrix", "the-sprawl-mission", "the-sprawl-playbook", "the-sprawl-resource", "the-sprawl-threat", "urban-shadows-playbook",
+  "front", "game-definition", "masks-npc", "masks-playbook", "monsterhearts-playbook", "move", "npc", "playbook", "the-sprawl-corporation", "the-sprawl-matrix", "the-sprawl-mission", "the-sprawl-playbook", "the-sprawl-resource", "the-sprawl-threat", "urban-shadows-playbook",
 ]);
 for (const parser of [
   parseFrontToml,
@@ -137,18 +135,16 @@ for (const parser of [
   parseMoveToml,
   parseMasksNpcToml,
   parseMasksPlaybookToml,
-  parseMonsterOfTheWeekPlaybookToml,
   parseMonsterheartsPlaybookToml,
   parseNpcToml,
   parsePlaybookToml,
   parseTheSprawlPlaybookToml,
   parseUrbanShadowsPlaybookToml,
-  parseSalvageRunPlaybookToml,
 ]) assert.equal(typeof parser, "function");
 
-const schemaUrl = import.meta.resolve("schema-pbta/schemas/v14/monsterhearts/monsterhearts-playbook.schema.json");
+const schemaUrl = import.meta.resolve("schema-pbta/schemas/v15/monsterhearts/monsterhearts-playbook.schema.json");
 const schema = JSON.parse(fs.readFileSync(new URL(schemaUrl), "utf8"));
-assert.match(schema.$id, /\\/v14\\.0\\.0\\/schemas\\/v14\\/monsterhearts\\/monsterhearts-playbook\\.schema\\.json$/);
+assert.match(schema.$id, /\\/v15\\.0\\.0\\/schemas\\/v15\\/monsterhearts\\/monsterhearts-playbook\\.schema\\.json$/);
 assert.throws(
   () => import.meta.resolve("schema-pbta/schemas/monsterhearts/monsterhearts-playbook.schema.json"),
   { code: "ERR_PACKAGE_PATH_NOT_EXPORTED" },

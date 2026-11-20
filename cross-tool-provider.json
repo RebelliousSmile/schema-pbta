@@ -1,7 +1,7 @@
 {
   "providerVersion": 1,
   "provider": "schema-pbta",
-  "contractVersion": 14,
+  "contractVersion": 15,
   "corpus": "corpus/contract/cases.json",
   "packManifest": "packs/*/pack-contract.json",
   "capabilities": {

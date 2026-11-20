@@ -8,17 +8,12 @@ import { urbanShadowsPlaybookSchema } from "./urban-shadows-playbook.js";
 import { monsterheartsPlaybookSchema } from "./monsterhearts-playbook.js";
 import { masksPlaybookSchema } from "./masks-playbook.js";
 import { masksNpcSchema } from "./masks-npc.js";
-import { monsterOfTheWeekPlaybookSchema } from "./monster-of-the-week-playbook.js";
-import { monsterOfTheWeekTeamSchema } from "./monster-of-the-week-team.js";
-import { monsterOfTheWeekMonsterSchema } from "./monster-of-the-week-monster.js";
-import { monsterOfTheWeekThreatSchema } from "./monster-of-the-week-threat.js";
 import { theSprawlPlaybookSchema } from "./the-sprawl-playbook.js";
 import { theSprawlMatrixSchema } from "./the-sprawl-matrix.js";
 import { theSprawlMissionSchema } from "./the-sprawl-mission.js";
 import { theSprawlThreatSchema } from "./the-sprawl-threat.js";
 import { theSprawlCorporationSchema } from "./the-sprawl-corporation.js";
 import { theSprawlResourceSchema } from "./the-sprawl-resource.js";
-import { salvageRunPlaybookSchema } from "./salvage-run-playbook.js";
 
 type Game = {
   name: string;
@@ -42,18 +37,13 @@ type SchemaTarget = {
  * and no file.
  *
  * Each entry carries three distinct strings. Content files and folder names
- * both use `folder` — `monster-of-the-week`, never the `motw` key or abbr.
+ * both use `folder`, never the key or the abbr.
  */
 export const GAMES: GameDictionary = {
   masks: {
     name: "Masks: A New Generation",
     folder: "masks",
     abbr: "masks",
-  },
-  motw: {
-    name: "Monster of the Week",
-    folder: "monster-of-the-week",
-    abbr: "motw",
   },
   monsterhearts: {
     name: "Monsterhearts",
@@ -70,13 +60,9 @@ export const GAMES: GameDictionary = {
     folder: "the-sprawl",
     abbr: "the-sprawl",
   },
-  "salvage-run": { name: "Salvage Run", folder: "salvage-run", abbr: "salvage-run" },
 };
 
 export const TARGETS: Array<SchemaTarget> = [
-  { name: "game-definition", zod: gameDefinitionSchema, game: GAMES["salvage-run"] },
-  { name: "move", zod: moveSchema, game: GAMES["salvage-run"] },
-  { name: "salvage-run-playbook", zod: salvageRunPlaybookSchema, game: GAMES["salvage-run"] },
   {
     name: "game-definition",
     zod: gameDefinitionSchema,
@@ -133,35 +119,6 @@ export const TARGETS: Array<SchemaTarget> = [
   },
   { name: "masks-playbook", zod: masksPlaybookSchema, game: GAMES.masks },
   { name: "masks-npc", zod: masksNpcSchema, game: GAMES.masks },
-  {
-    name: "game-definition",
-    zod: gameDefinitionSchema,
-    game: GAMES.motw,
-  },
-  {
-    name: "move",
-    zod: moveSchema,
-    game: GAMES.motw,
-  },
-  {
-    name: "playbook",
-    zod: playbookSchema,
-    game: GAMES.motw,
-  },
-  {
-    name: "npc",
-    zod: npcSchema,
-    game: GAMES.motw,
-  },
-  {
-    name: "front",
-    zod: frontSchema,
-    game: GAMES.motw,
-  },
-  { name: "monster-of-the-week-playbook", zod: monsterOfTheWeekPlaybookSchema, game: GAMES.motw },
-  { name: "monster-of-the-week-team", zod: monsterOfTheWeekTeamSchema, game: GAMES.motw },
-  { name: "monster-of-the-week-monster", zod: monsterOfTheWeekMonsterSchema, game: GAMES.motw },
-  { name: "monster-of-the-week-threat", zod: monsterOfTheWeekThreatSchema, game: GAMES.motw },
 ];
 
 /**
@@ -170,9 +127,7 @@ export const TARGETS: Array<SchemaTarget> = [
  * always resolved against this specialised target.
  */
 export const SPECIALIZED_PLAYBOOK_TARGET_BY_GAME: Readonly<Record<string, string>> = {
-  [GAMES["salvage-run"].folder]: "salvage-run-playbook",
   [GAMES.masks.folder]: "masks-playbook",
-  [GAMES.motw.folder]: "monster-of-the-week-playbook",
   [GAMES.monsterhearts.folder]: "monsterhearts-playbook",
   [GAMES["urban-shadows"].folder]: "urban-shadows-playbook",
   [GAMES["the-sprawl"].folder]: "the-sprawl-playbook",

@@ -40,12 +40,8 @@ if (baseline.length > 0) throw new Error(`valid catalogue was rejected: ${baseli
   try {
     fs.copyFileSync(path.join(projectRoot, "handbook.json"), path.join(temporary, "handbook.json"));
     fs.cpSync(path.join(projectRoot, "handbook"), path.join(temporary, "handbook"), { recursive: true });
-    /* A pack with no booklet geometry of its own: it needs only the callouts it publishes. */
-    const game = "salvage-run";
-    const file = path.join(temporary, "handbook", game, "pack.json");
-    const manifest = readJson(file);
-    manifest.pack.assets.stylesheets = ["styles/callouts.css"];
-    writeJson(file, manifest);
+    /* The callouts stylesheet is rewritten from the published list: it must stay valid with only what a pack publishes. */
+    const game = "urban-shadows";
     const stylesheet = path.join(temporary, "handbook", game, "assets", "styles", "callouts.css");
     fs.mkdirSync(path.dirname(stylesheet), { recursive: true });
     fs.writeFileSync(stylesheet, `body.brumes--${game} .callout:is(${[
@@ -69,7 +65,7 @@ fixture("catalogue version", (root) => {
 
 fixture("duplicate id", (root) => {
   const catalogue = readJson(path.join(root, "handbook.json"));
-  catalogue.packs[4].id = catalogue.packs[0].id;
+  catalogue.packs[catalogue.packs.length - 1].id = catalogue.packs[0].id;
   writeJson(path.join(root, "handbook.json"), catalogue);
 }, "duplicate id");
 

@@ -9,11 +9,6 @@ import { PBTA_MASKS_APPEARANCE } from "../src/presentation/masks-appearance.js";
 import { PBTA_MASKS_NPC_PRESENTATION } from "../src/presentation/masks-npc.js";
 import { PBTA_MASKS_PLAYBOOK_PRESENTATION } from "../src/presentation/masks-playbook.js";
 import {
-  PBTA_MONSTER_OF_THE_WEEK_APPEARANCE, PBTA_MONSTER_OF_THE_WEEK_MONSTER_PRESENTATION,
-  PBTA_MONSTER_OF_THE_WEEK_PLAYBOOK_PRESENTATION, PBTA_MONSTER_OF_THE_WEEK_TEAM_PRESENTATION,
-  PBTA_MONSTER_OF_THE_WEEK_THREAT_PRESENTATION,
-} from "../src/presentation/index.js";
-import {
   PBTA_THE_SPRAWL_APPEARANCE, PBTA_THE_SPRAWL_CORPORATION_PRESENTATION, PBTA_THE_SPRAWL_MATRIX_PRESENTATION,
   PBTA_THE_SPRAWL_MISSION_PRESENTATION, PBTA_THE_SPRAWL_PLAYBOOK_PRESENTATION, PBTA_THE_SPRAWL_RESOURCE_PRESENTATION,
   PBTA_THE_SPRAWL_THREAT_PRESENTATION,
@@ -60,22 +55,6 @@ const published = [
   {
     pack: "masks", presentation: PBTA_MASKS_NPC_PRESENTATION, appearance: PBTA_MASKS_APPEARANCE,
     artifact: "npc-presentation-contract.json", appearanceArtifact: "appearance-contract.json",
-  },
-  {
-    pack: "monster-of-the-week", presentation: PBTA_MONSTER_OF_THE_WEEK_PLAYBOOK_PRESENTATION, appearance: PBTA_MONSTER_OF_THE_WEEK_APPEARANCE,
-    artifact: "presentation-contract.json", appearanceArtifact: "appearance-contract.json",
-  },
-  {
-    pack: "monster-of-the-week", presentation: PBTA_MONSTER_OF_THE_WEEK_TEAM_PRESENTATION, appearance: PBTA_MONSTER_OF_THE_WEEK_APPEARANCE,
-    artifact: "team-presentation-contract.json", appearanceArtifact: "appearance-contract.json",
-  },
-  {
-    pack: "monster-of-the-week", presentation: PBTA_MONSTER_OF_THE_WEEK_MONSTER_PRESENTATION, appearance: PBTA_MONSTER_OF_THE_WEEK_APPEARANCE,
-    artifact: "monster-presentation-contract.json", appearanceArtifact: "appearance-contract.json",
-  },
-  {
-    pack: "monster-of-the-week", presentation: PBTA_MONSTER_OF_THE_WEEK_THREAT_PRESENTATION, appearance: PBTA_MONSTER_OF_THE_WEEK_APPEARANCE,
-    artifact: "threat-presentation-contract.json", appearanceArtifact: "appearance-contract.json",
   },
   {
     pack: "the-sprawl", presentation: PBTA_THE_SPRAWL_PLAYBOOK_PRESENTATION, appearance: PBTA_THE_SPRAWL_APPEARANCE,
@@ -129,7 +108,7 @@ for (const entry of manifest.presentation ?? []) {
     );
   }
 }
-if ((manifest.presentation ?? []).some((entry) => entry.target.startsWith("masks-") || entry.target.startsWith("the-sprawl-") || entry.target.startsWith("monster-of-the-week-"))) {
+if ((manifest.presentation ?? []).some((entry) => entry.target.startsWith("masks-") || entry.target.startsWith("the-sprawl-"))) {
   /* A pack that lays out a sheet asks Handbook for the layout; Lantern does not render it. */
   assert.ok(manifest.requirements.handbook.includes("presentation:pbta-layout"), "masks: handbook must require presentation:pbta-layout");
   assert.ok(!manifest.requirements.lantern.includes("presentation:pbta-layout"), "masks: lantern must not require presentation:pbta-layout");

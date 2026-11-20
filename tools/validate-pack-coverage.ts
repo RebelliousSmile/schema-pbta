@@ -10,13 +10,12 @@ const GENERIC_TARGETS = new Set<PbtaDocumentTarget>(["game-definition", "move", 
 
 /**
  * Specialised targets whose schema accepts the portable playbook unchanged. A consumer cannot resolve
- * them from a document alone, so they read as a generic `playbook`: Lantern groups exactly these under
- * its Apocalypse World pack, where the game is carried by the `game` field and not by the schema.
+ * them from a document alone, so they read as a generic `playbook`.
  *
- * Pinned rather than tolerated: a sixth pack that ships an indistinguishable target fails here, and
- * removing one of these codecs fails here too, so the list cannot outlive the anomaly it records.
+ * Empty today, and kept pinned rather than tolerated: a pack that ships an indistinguishable target
+ * fails here until it is either made distinguishable or listed, with its reason, in this set.
  */
-const KNOWN_ALIAS_TARGETS = new Set<PbtaDocumentTarget>(["salvage-run-playbook"]);
+const KNOWN_ALIAS_TARGETS = new Set<PbtaDocumentTarget>();
 
 type Provider = { providerVersion?: unknown; packManifest?: unknown };
 

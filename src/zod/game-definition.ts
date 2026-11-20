@@ -194,7 +194,7 @@ const mcSchema = z.strictObject({
 /**
  * A clock preset, named by the game rather than by the front that uses it.
  *
- * `segments` lists ordered labels, which is what lets Monster of the Week's
+ * `segments` lists ordered labels, which is what lets a game's
  * countdown land here without the front schema changing.
  */
 const clockPresetSchema = z.strictObject({

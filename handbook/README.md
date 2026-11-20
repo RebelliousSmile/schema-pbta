@@ -2,7 +2,7 @@
 
 Ce répertoire contient à la fois les packs déclaratifs installables par Handbook
 2.7.1 ou supérieur et leurs outils locaux de conception. Le catalogue racine
-`handbook.json` est la liste exhaustive des cinq packs distribués par cette
+`handbook.json` est la liste exhaustive des quatre packs distribués par cette
 source.
 
 ## Séparation des responsabilités

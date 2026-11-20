@@ -119,7 +119,6 @@ const pluginManifestUrl = pathToFileURL(
 const { readGamePluginManifest } = (await import(pluginManifestUrl)) as PluginManifestModule;
 const expectedCapabilities = ["block:pbta-playbook", "block:pbta-move", "style:pbta"];
 const packBlockCapabilities: Record<string, string[]> = {
-  "monster-of-the-week": ["block:pbta-team", "block:pbta-monster", "block:pbta-threat"],
   "the-sprawl": ["block:sprawl-matrix", "block:sprawl-mission", "block:sprawl-card"],
 };
 
