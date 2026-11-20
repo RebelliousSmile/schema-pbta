@@ -8,6 +8,6 @@
     "version": "15.0.0",
     "stagingTag": "v15.0.0-rc.1",
     "finalTag": "v15.0.0",
-    "providerCommit": "5821dff2b5a03d4db0be4b20b41584cf2714e18c"
+    "providerCommit": "7a1f9dd933765835ececd6b51899bee3f8554987"
   }
 }
