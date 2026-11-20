@@ -106,6 +106,9 @@ const gearSchema = z.strictObject({
   tags: z.array(nonEmptyString).optional().meta({ description: "Free-form tags attached to the gear." }),
 }).meta({ description: "A piece of starting or selectable gear." });
 
+/** What the session notes page holds, in characters. Read by the tools and by the consumers; never copied. */
+export const SESSION_NOTES_CAPACITY = 6000;
+
 export const playbookSchema = z.strictObject({
   slug: slugSchema.meta({ description: "Stable kebab-case identifier of the playbook." }),
   name: nonEmptyString.meta({ description: "Human-readable playbook name." }),
@@ -129,6 +132,10 @@ export const playbookSchema = z.strictObject({
   advancement: z.array(advancementEntrySchema).optional().meta({ description: "Advancement options offered by the playbook." }),
   creation: z.array(creationQuestionSchema).optional().meta({ description: "Questions asked during character creation." }),
   gear: z.array(gearSchema).optional().meta({ description: "Starting or selectable gear." }),
+  sessionNotes: z.string().max(SESSION_NOTES_CAPACITY).optional().meta({
+    description: "Session notes: free text the player writes down while playing, printed on a page of its own, always the last of the sheet. The text fits one page: beyond the capacity it is refused.",
+    examples: ["Session 3: the team leaves the warehouse through the roof.\n\nRemember: Claire lost her radio."],
+  }),
 }).meta({
   title: "PbtA playbook",
   description: "Portable representation of a Powered by the Apocalypse character playbook.",

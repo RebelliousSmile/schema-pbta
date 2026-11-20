@@ -96,3 +96,5 @@ export {
 } from "./the-sprawl-appearance.js";
 export type { PbtaTheSprawlAppearance } from "./the-sprawl-appearance.js";
 export type { PbtaTheSprawlPrimitive } from "./the-sprawl-card.js";
+export { getPbtaPlaybookPages, PBTA_PLAYBOOK_PAGES, playbookPageSchema, playbookPagesSchema } from "./playbook-pages.js";
+export type { PbtaPlaybookPage, PbtaPlaybookPagesTarget } from "./playbook-pages.js";

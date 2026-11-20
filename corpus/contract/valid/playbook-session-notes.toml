@@ -1,0 +1,9 @@
+slug = "quiet-spark"
+name = "Quiet Spark"
+game = "masks"
+description = "A playbook carrying session notes, used by the shared contract suite."
+moves = []
+sessionNotes = "Session 3: the team leaves the warehouse through the roof.\n\nRemember: Claire lost her radio."
+
+[stats]
+danger = 0

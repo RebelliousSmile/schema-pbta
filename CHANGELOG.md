@@ -46,6 +46,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Session notes page: optional `sessionNotes` on the playbook and on every game playbook (free text, at most `SESSION_NOTES_CAPACITY` characters, the capacity of one printed page), with a witness and a rejection one character over the capacity.
+- Printed pages of a playbook (`PBTA_PLAYBOOK_PAGES`, `getPbtaPlaybookPages`, `playbookPagesSchema`): Masks, The Sprawl and Urban Shadows print recto, verso and notes; Monsterhearts and the generic playbook print the sheet and notes. The notes page is unique, last, and owns no region; `validate:contract` checks the pages against the region groups, the schemas and the published capacity.
 - Masks playbook: optional `heroName`, `drives`, `conditions` with checked state, `statRanges`, `momentUnlocked`, `potentialMax`, `influenceOptions`, `backstory`, `relationships` and `editorial` rubrics, so the extended booklet (recto and verso) fits one TOML. None of them is required.
 - `masks-npc` document (`src/zod/masks-npc.ts`, `examples/masks/masks-npc/`): the Masks NPC card with Resistance, Conditions, Self range, worst and best Self, Drive and moves, with a positive and a negative corpus.
 - Masks playbook and NPC presentation (`PBTA_MASKS_PLAYBOOK_PRESENTATION`, `PBTA_MASKS_NPC_PRESENTATION`, `packs/masks/presentation-contract.json`, `packs/masks/npc-presentation-contract.json`): thirteen booklet regions over two faces and eight card regions over stacked rows, with French labels and the `boxes`, `track`, `list`, `key-value`, `prose` and `portrait` primitives.

@@ -36,6 +36,9 @@ import { theSprawlMissionSchema } from "../src/zod/the-sprawl-mission.js";
 import { theSprawlThreatSchema } from "../src/zod/the-sprawl-threat.js";
 import { theSprawlCorporationSchema } from "../src/zod/the-sprawl-corporation.js";
 import { theSprawlResourceSchema } from "../src/zod/the-sprawl-resource.js";
+import { monsterheartsPlaybookSchema } from "../src/zod/monsterhearts-playbook.js";
+import { playbookSchema, SESSION_NOTES_CAPACITY } from "../src/zod/playbook.js";
+import { PBTA_PLAYBOOK_PAGES, playbookPagesSchema } from "../src/presentation/playbook-pages.js";
 
 const keys = new Set<string>();
 
@@ -367,6 +370,56 @@ assert.deepEqual(
   "the Sprawl appearance serves the six targets",
 );
 
+/* The printed pages of a playbook: each page prints region groups that exist, the notes page owns no region. */
+{
+  const playbookPresentations = {
+    "masks-playbook": { regions: PBTA_MASKS_PLAYBOOK_PRESENTATION.regions, schema: masksPlaybookSchema, published: "masks" },
+    "the-sprawl-playbook": { regions: PBTA_THE_SPRAWL_PLAYBOOK_PRESENTATION.regions, schema: theSprawlPlaybookSchema, published: "the-sprawl" },
+    "urban-shadows-playbook": { regions: PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION.regions, schema: urbanShadowsPlaybookSchema, published: "urban-shadows" },
+    "monsterhearts-playbook": { regions: PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION.regions, schema: monsterheartsPlaybookSchema, published: "monsterhearts" },
+  } as const;
+  const readCapacity = (folder: string, name: string): unknown => {
+    const published = JSON.parse(
+      fs.readFileSync(new URL(`../schemas/v15/${folder}/${name}.schema.json`, import.meta.url), "utf8"),
+    ) as { properties: Record<string, { maxLength?: number }> };
+    return published.properties.sessionNotes?.maxLength;
+  };
+  for (const [target, pages] of Object.entries(PBTA_PLAYBOOK_PAGES)) {
+    assert.doesNotThrow(() => playbookPagesSchema.parse(pages), `${target}: the pages are well formed`);
+    const notesField = pages[pages.length - 1]!.notes_field!;
+    const layout = playbookPresentations[target as keyof typeof playbookPresentations];
+    const schema = layout ? layout.schema : playbookSchema;
+    assert.ok(declares(schema, notesField), `${target}: the notes field ${notesField} is not in the schema`);
+    if (!layout) continue;
+    const groups = new Set<string>(layout.regions.map((region) => region.group));
+    const printed = new Set<string>();
+    for (const page of pages) {
+      assert.ok(page.groups !== undefined || page.notes_field !== undefined, `${target}: page ${page.id} prints a layout of regions or is the notes page`);
+      for (const group of page.groups ?? []) {
+        assert.ok(groups.has(group), `${target}: page ${page.id} prints an unknown group ${group}`);
+        assert.ok(!printed.has(group), `${target}: group ${group} is printed on two pages`);
+        printed.add(group);
+      }
+    }
+    assert.deepEqual([...printed].sort(), [...groups].sort(), `${target}: every group of regions is printed on a page`);
+    assert.ok(
+      layout.regions.every((region) => !(region.fields as readonly string[]).includes(notesField)),
+      `${target}: no region prints the notes field`,
+    );
+    assert.equal(readCapacity(layout.published, target), SESSION_NOTES_CAPACITY, `${target}: the published capacity differs from SESSION_NOTES_CAPACITY`);
+  }
+  assert.equal(readCapacity("masks", "playbook"), SESSION_NOTES_CAPACITY, "playbook: the published capacity differs from SESSION_NOTES_CAPACITY");
+  const overCapacity = fs.readFileSync(
+    new URL("../corpus/contract/invalid/playbook-session-notes-over-capacity.toml", import.meta.url),
+    "utf8",
+  );
+  assert.equal(
+    (/^sessionNotes\s*=\s*"(a*)"/m.exec(overCapacity)?.[1] ?? "").length,
+    SESSION_NOTES_CAPACITY + 1,
+    "the refused notes must be one character over the capacity",
+  );
+}
+
 const unknownItemEditorFixture = JSON.parse(
   fs.readFileSync(
     new URL("../corpus/presentation/invalid/unknown-item-editor.json", import.meta.url),
@@ -379,4 +432,4 @@ assert.throws(
   "presentation corpus rejects an unknown collection item editor",
 );
 
-console.log(`✓ validated ${PBTA_COLLECTION_PRESENTATIONS.length} PbtA collection presentations, Monsterhearts, Urban Shadows, Masks and The Sprawl layout semantics`);
+console.log(`✓ validated ${PBTA_COLLECTION_PRESENTATIONS.length} PbtA collection presentations, Monsterhearts, Urban Shadows, Masks and The Sprawl layout semantics, and the printed pages of every playbook`);

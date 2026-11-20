@@ -632,6 +632,14 @@
         "description": "A piece of starting or selectable gear."
       }
     },
+    "sessionNotes": {
+      "description": "Session notes: free text the player writes down while playing, printed on a page of its own, always the last of the sheet. The text fits one page: beyond the capacity it is refused.",
+      "examples": [
+        "Session 3: the team leaves the warehouse through the roof.\n\nRemember: Claire lost her radio."
+      ],
+      "type": "string",
+      "maxLength": 6000
+    },
     "statuses": {
       "description": "Starting Circle status values keyed by Circle.",
       "type": "object",
