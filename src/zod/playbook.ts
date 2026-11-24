@@ -133,7 +133,7 @@ export const playbookSchema = z.strictObject({
   creation: z.array(creationQuestionSchema).optional().meta({ description: "Questions asked during character creation." }),
   gear: z.array(gearSchema).optional().meta({ description: "Starting or selectable gear." }),
   sessionNotes: z.string().max(SESSION_NOTES_CAPACITY).optional().meta({
-    description: "Session notes: free text the player writes down while playing, printed on a page of its own, always the last of the sheet. The text fits one page: beyond the capacity it is refused.",
+    description: "Session notes: free text the player writes down while playing, printed on the back of the sheet, or on a page of its own, the last of the sheet. The text fits one page: beyond the capacity it is refused.",
     examples: ["Session 3: the team leaves the warehouse through the roof.\n\nRemember: Claire lost her radio."],
   }),
 }).meta({

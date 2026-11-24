@@ -151,7 +151,8 @@ body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-sol
   color: #f4f1f8;
 }
 body.brumes--urban-shadows .callout[data-brumes-callout-style="urban-shadows-solid"] .callout-title {
-  font-family: "Urban Shadows Brush", "Caveat Brush", cursive;
+  font-family: "Urban Shadows Brush", "Protest Revolution", cursive;
+  font-style: italic;
   font-size: 1.6em;
   letter-spacing: 0;
   text-transform: none;

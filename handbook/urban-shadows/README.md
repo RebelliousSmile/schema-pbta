@@ -2,7 +2,7 @@
 
 Thème éditorial urbain : papier presque blanc, encre noire, violet `#682865`,
 titres condensés en capitales et corps serif dense. League Gothic, Source
-Serif 4 et Caveat Brush sont des alternatives libres choisies pour évoquer
+Serif 4 et Protest Revolution sont des alternatives libres choisies pour évoquer
 cette grammaire sans distribuer les polices du livre. Les trois dessins de
 `assets/images/` sont des créations propres au dépôt.
 

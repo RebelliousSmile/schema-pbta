@@ -1,16 +1,19 @@
 import { z } from "zod";
+import { localizedLabelSchema } from "./label.js";
 
 /**
  * The printed pages of a playbook sheet. A sheet that declares pages is exported page by page: one
  * image per page, one printed sheet per page. A page either prints the regions of the faces it
  * names (`groups`, the `group` of the regions of the target's presentation), or the whole sheet
  * when it names none (a sheet without a presentation), or it is the notes page (`notes_field`, the
- * field the player writes into), never both. The notes page is unique and always the last one.
+ * field the player writes into), never both. A booklet either ends with one notes page, or has none:
+ * Urban Shadows and Monsterhearts print their notes in a region of the back of the sheet, so they
+ * declare no notes page at all.
  *
  * The pages are declared apart from the region layout of each target: a page is a unit of
  * export, a region a unit of layout, and the notes page owns no region.
  */
-const label = z.strictObject({ fr: z.string().min(1), en: z.string().min(1) });
+const label = localizedLabelSchema;
 
 export const playbookPageSchema = z.strictObject({
   id: z.string().regex(/^[a-z0-9-]+$/),
@@ -24,8 +27,8 @@ export const playbookPagesSchema = z.array(playbookPageSchema).min(2).superRefin
     context.addIssue({ code: "custom", message: "pages contain a duplicate id" });
   }
   const notes = pages.filter((page) => page.notes_field !== undefined);
-  if (notes.length !== 1 || pages[pages.length - 1] !== notes[0]) {
-    context.addIssue({ code: "custom", message: "pages must end with exactly one notes page" });
+  if (notes.length > 1 || (notes.length === 1 && pages[pages.length - 1] !== notes[0])) {
+    context.addIssue({ code: "custom", message: "pages carry at most one notes page, and it is the last one" });
   }
   if (notes[0]?.groups !== undefined) {
     context.addIssue({ code: "custom", message: "the notes page prints no region" });
@@ -58,14 +61,15 @@ const FACE_PAGES = [
 export const PBTA_PLAYBOOK_PAGES: Readonly<Record<PbtaPlaybookPagesTarget, readonly PbtaPlaybookPage[]>> = {
   "masks-playbook": playbookPagesSchema.parse(FACE_PAGES),
   "the-sprawl-playbook": playbookPagesSchema.parse(FACE_PAGES),
-  "urban-shadows-playbook": playbookPagesSchema.parse(FACE_PAGES),
+  /* The notes are a region of the back of the sheet: no page of their own. */
+  "urban-shadows-playbook": playbookPagesSchema.parse(FACE_PAGES.slice(0, 2)),
   "monsterhearts-playbook": playbookPagesSchema.parse([
     {
-      id: "sheet",
-      label: { fr: "Fiche", en: "Sheet" },
+      id: "recto",
+      label: { fr: "Recto", en: "Front" },
       groups: ["identity", "playbook", "relationships", "state", "editorial"],
     },
-    NOTES_PAGE,
+    { id: "verso", label: { fr: "Verso", en: "Back" }, groups: ["notes"] },
   ]),
   playbook: playbookPagesSchema.parse([
     { id: "sheet", label: { fr: "Fiche", en: "Sheet" } },

@@ -3,7 +3,10 @@
   "regions": [
     {
       "id": "game-identity",
-      "label": "Présentation",
+      "label": {
+        "fr": "Présentation",
+        "en": "Overview"
+      },
       "group": "identity",
       "primitive": "identity",
       "fields": [
@@ -13,7 +16,10 @@
     },
     {
       "id": "monsterhearts-opening",
-      "label": "Introduction",
+      "label": {
+        "fr": "Introduction",
+        "en": "Introduction"
+      },
       "group": "editorial",
       "primitive": "editorial-copy",
       "fields": [
@@ -22,7 +28,10 @@
     },
     {
       "id": "character-identity",
-      "label": "Identité",
+      "label": {
+        "fr": "Identité",
+        "en": "Identity"
+      },
       "group": "identity",
       "primitive": "identity",
       "fields": [
@@ -33,7 +42,10 @@
     },
     {
       "id": "stat-profiles",
-      "label": "Caractéristiques",
+      "label": {
+        "fr": "Caractéristiques",
+        "en": "Stats"
+      },
       "group": "identity",
       "primitive": "stat-spread",
       "fields": [
@@ -44,7 +56,10 @@
     },
     {
       "id": "playbook-portrait",
-      "label": "Portrait",
+      "label": {
+        "fr": "Portrait",
+        "en": "Portrait"
+      },
       "group": "identity",
       "primitive": "portrait",
       "fields": [
@@ -53,7 +68,10 @@
     },
     {
       "id": "playbook-moves",
-      "label": "Actions",
+      "label": {
+        "fr": "Actions",
+        "en": "Moves"
+      },
       "group": "playbook",
       "primitive": "action-list",
       "fields": [
@@ -63,7 +81,10 @@
     },
     {
       "id": "ascendants-and-conditions",
-      "label": "Ascendants & conditions",
+      "label": {
+        "fr": "Ascendants & conditions",
+        "en": "Strings & conditions"
+      },
       "group": "relationships",
       "primitive": "relationship-ledger",
       "fields": [
@@ -74,7 +95,10 @@
     },
     {
       "id": "gear",
-      "label": "Équipement",
+      "label": {
+        "fr": "Équipement",
+        "en": "Gear"
+      },
       "group": "playbook",
       "primitive": "gear-list",
       "fields": [
@@ -83,7 +107,10 @@
     },
     {
       "id": "monsterhearts-darkest-self",
-      "label": "Démon intérieur",
+      "label": {
+        "fr": "Démon intérieur",
+        "en": "Darkest Self"
+      },
       "group": "editorial",
       "primitive": "editorial-copy",
       "fields": [
@@ -92,7 +119,10 @@
     },
     {
       "id": "monsterhearts-sex-move",
-      "label": "Action sexuelle",
+      "label": {
+        "fr": "Action sexuelle",
+        "en": "Sex move"
+      },
       "group": "editorial",
       "primitive": "editorial-copy",
       "fields": [
@@ -101,7 +131,10 @@
     },
     {
       "id": "monsterhearts-play",
-      "label": "Jouer la mue",
+      "label": {
+        "fr": "Jouer la mue",
+        "en": "Playing the skin"
+      },
       "group": "editorial",
       "primitive": "editorial-copy",
       "fields": [
@@ -110,7 +143,10 @@
     },
     {
       "id": "monsterhearts-progression",
-      "label": "Progressions",
+      "label": {
+        "fr": "Progressions",
+        "en": "Advances"
+      },
       "group": "state",
       "primitive": "progression-list",
       "fields": [
@@ -120,11 +156,26 @@
     },
     {
       "id": "harm-tracker",
-      "label": "Dégâts",
+      "label": {
+        "fr": "Dégâts",
+        "en": "Harm"
+      },
       "group": "state",
       "primitive": "condition-harm-tracker",
       "fields": [
         "harm"
+      ]
+    },
+    {
+      "id": "monsterhearts-notes",
+      "label": {
+        "fr": "Notes de partie",
+        "en": "Session notes"
+      },
+      "group": "notes",
+      "primitive": "notes",
+      "fields": [
+        "sessionNotes"
       ]
     }
   ],
@@ -141,7 +192,8 @@
     "monsterhearts-sex-move",
     "monsterhearts-play",
     "monsterhearts-progression",
-    "harm-tracker"
+    "harm-tracker",
+    "monsterhearts-notes"
   ],
   "rows": [
     [
@@ -170,6 +222,11 @@
       [
         "monsterhearts-progression",
         "harm-tracker"
+      ]
+    ],
+    [
+      [
+        "monsterhearts-notes"
       ]
     ]
   ],

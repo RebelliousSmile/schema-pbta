@@ -36,7 +36,7 @@ export const PBTA_URBAN_SHADOWS_APPEARANCE: PbtaUrbanShadowsAppearance = urbanSh
     fonts: {
       "Urban Shadows Display": "assets/fonts/league-gothic-latin-400-normal.woff2",
       "Urban Shadows Text": "assets/fonts/source-serif-4-latin-400-normal.woff2",
-      "Urban Shadows Brush": "assets/fonts/caveat-brush-400-normal.woff2",
+      "Urban Shadows Brush": "assets/fonts/protest-revolution-latin-400-normal.woff2",
     },
     stylesheets: ["styles/theme-tokens.css", "assets/styles/playbook.css"],
     assets: {
@@ -46,7 +46,7 @@ export const PBTA_URBAN_SHADOWS_APPEARANCE: PbtaUrbanShadowsAppearance = urbanSh
   variants: [
     { id: "base", tokens: {
       "--urban-shadows-title-font": "'Urban Shadows Display', 'League Gothic', 'Arial Narrow', sans-serif",
-      "--urban-shadows-brush-font": "'Urban Shadows Brush', 'Caveat Brush', cursive",
+      "--urban-shadows-brush-font": "'Urban Shadows Brush', 'Protest Revolution', cursive",
       "--urban-shadows-accent": "#682865",
       "--pbta-column-gap": "2rem",
       "--pbta-column-rule": "#682865",

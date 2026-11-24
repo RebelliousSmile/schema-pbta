@@ -321,7 +321,7 @@ function renderMonsterheartsPage(
       return `<section class="handbook-panel handbook-editorial handbook-editorial--${escapeHtml(name)}" data-region="monsterhearts-${escapeHtml(name)}"><h2>${escapeHtml(value.heading)}</h2>${Array.isArray(value.paragraphs) ? value.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("") : ""}</section>`;
     };
     const regionLabel = (id: string): string =>
-      PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION.regions.find((entry) => entry.id === id)?.label ?? id;
+      PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION.regions.find((entry) => entry.id === id)?.label.fr ?? id;
     const panel = (name: string, title: string, content: string): string =>
       `<section class="handbook-panel handbook-editorial handbook-editorial--${escapeHtml(name)}" data-region="${escapeHtml(name)}"><h2>${escapeHtml(title)}</h2>${content}</section>`;
     switch (region) {
@@ -350,6 +350,7 @@ function renderMonsterheartsPage(
       case "harm-tracker": return panel(region, regionLabel(region), `<p>${escapeHtml(playbook.harm ?? 0)} / 4</p>`);
       case "monsterhearts-play": return editorial.play === undefined ? "" : editorialRegion("play");
       case "gear": return panel(region, regionLabel(region), renderGear(playbook));
+      case "monsterhearts-notes": return panel(region, regionLabel(region), `<p class="handbook-session-notes">${escapeHtml(playbook.sessionNotes ?? "")}</p>`);
       case "monsterhearts-progression": {
         const progression = section("progression");
         const advances = Array.isArray(playbook.advances) ? `<ul class="handbook-advancement">${playbook.advances.map((raw) => {

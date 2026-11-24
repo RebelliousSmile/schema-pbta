@@ -42,6 +42,9 @@ const extraSchema = z.strictObject({
  * corruption. It intentionally remains a single TOML document.
  */
 export const urbanShadowsPlaybookSchema = playbookSchema.extend({
+  characterName: nonEmptyString.optional().meta({ description: "Name and pronouns written on the sheet by the player." }),
+  demeanor: nonEmptyString.optional().meta({ description: "Demeanor line of the header, written by the player." }),
+  look: nonEmptyString.optional().meta({ description: "Look line of the header, written by the player." }),
   statuses: z.record(z.string(), portableInteger).optional().meta({ description: "Starting Circle status values keyed by Circle." }),
   mortalRelationships: z.array(relationshipSchema).optional().meta({ description: "Editorial catalogue of mortal relationships available to the playbook." }),
   harm: harmSchema.optional().meta({ description: "Harm track configuration." }),

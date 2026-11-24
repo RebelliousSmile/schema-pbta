@@ -3,18 +3,26 @@
   "regions": [
     {
       "id": "game-identity",
-      "label": "Archétype",
+      "label": {
+        "fr": "Archétype",
+        "en": "Archetype"
+      },
       "group": "recto",
       "primitive": "identity",
       "fields": [
         "name",
-        "description",
-        "playbookImage"
+        "characterName",
+        "demeanor",
+        "look",
+        "description"
       ]
     },
     {
       "id": "urban-shadows-opening",
-      "label": "Introduction",
+      "label": {
+        "fr": "Introduction",
+        "en": "Introduction"
+      },
       "group": "recto",
       "primitive": "editorial-copy",
       "fields": [
@@ -23,7 +31,10 @@
     },
     {
       "id": "character-identity",
-      "label": "Identité",
+      "label": {
+        "fr": "Identité",
+        "en": "Identity"
+      },
       "group": "recto",
       "primitive": "identity",
       "fields": [
@@ -31,8 +42,23 @@
       ]
     },
     {
+      "id": "urban-shadows-illustration",
+      "label": {
+        "fr": "Illustration",
+        "en": "Illustration"
+      },
+      "group": "verso",
+      "primitive": "portrait",
+      "fields": [
+        "playbookImage"
+      ]
+    },
+    {
       "id": "urban-shadows-stats",
-      "label": "Caractéristiques",
+      "label": {
+        "fr": "Caractéristiques",
+        "en": "Stats"
+      },
       "group": "recto",
       "primitive": "stat-spread",
       "fields": [
@@ -42,7 +68,10 @@
     },
     {
       "id": "urban-shadows-circles",
-      "label": "Cercles",
+      "label": {
+        "fr": "Cercles",
+        "en": "Circles"
+      },
       "group": "recto",
       "primitive": "circle-status",
       "fields": [
@@ -52,7 +81,10 @@
     },
     {
       "id": "playbook-moves",
-      "label": "Mouvements d'archétype",
+      "label": {
+        "fr": "Actions d'archétype",
+        "en": "Playbook moves"
+      },
       "group": "recto",
       "primitive": "action-list",
       "fields": [
@@ -62,7 +94,10 @@
     },
     {
       "id": "urban-shadows-advancement",
-      "label": "Progression",
+      "label": {
+        "fr": "Progression",
+        "en": "Advancement"
+      },
       "group": "recto",
       "primitive": "progression-list",
       "fields": [
@@ -75,7 +110,10 @@
     },
     {
       "id": "harm-tracker",
-      "label": "Dégâts",
+      "label": {
+        "fr": "Blessures",
+        "en": "Harm"
+      },
       "group": "recto",
       "primitive": "condition-harm-tracker",
       "fields": [
@@ -84,7 +122,10 @@
     },
     {
       "id": "urban-shadows-scars",
-      "label": "Cicatrices",
+      "label": {
+        "fr": "Séquelles",
+        "en": "Scars"
+      },
       "group": "recto",
       "primitive": "check-list",
       "fields": [
@@ -93,7 +134,10 @@
     },
     {
       "id": "urban-shadows-let-it-out",
-      "label": "Laisse sortir",
+      "label": {
+        "fr": "Lâcher la Bête",
+        "en": "Let it out"
+      },
       "group": "recto",
       "primitive": "check-list",
       "fields": [
@@ -102,7 +146,10 @@
     },
     {
       "id": "urban-shadows-end-move",
-      "label": "Mouvement final",
+      "label": {
+        "fr": "Ultime action",
+        "en": "End move"
+      },
       "group": "recto",
       "primitive": "editorial-copy",
       "fields": [
@@ -111,7 +158,10 @@
     },
     {
       "id": "urban-shadows-creation",
-      "label": "Création du personnage",
+      "label": {
+        "fr": "Création du personnage",
+        "en": "Character creation"
+      },
       "group": "verso",
       "primitive": "editorial-copy",
       "fields": [
@@ -123,7 +173,10 @@
     },
     {
       "id": "urban-shadows-debts",
-      "label": "Dettes de départ",
+      "label": {
+        "fr": "Dettes de départ",
+        "en": "Starting debts"
+      },
       "group": "recto",
       "primitive": "relationship-ledger",
       "fields": [
@@ -132,7 +185,10 @@
     },
     {
       "id": "urban-shadows-mortal-relationships",
-      "label": "Relations mortelles",
+      "label": {
+        "fr": "Relations mortelles",
+        "en": "Mortal relationships"
+      },
       "group": "recto",
       "primitive": "relationship-ledger",
       "fields": [
@@ -141,7 +197,10 @@
     },
     {
       "id": "urban-shadows-extras",
-      "label": "Cadres de l'archétype",
+      "label": {
+        "fr": "Cadres de l'archétype",
+        "en": "Playbook frames"
+      },
       "group": "recto",
       "primitive": "editorial-copy",
       "fields": [
@@ -150,7 +209,10 @@
     },
     {
       "id": "urban-shadows-intimacy",
-      "label": "Intimité",
+      "label": {
+        "fr": "Intimité",
+        "en": "Intimacy"
+      },
       "group": "recto",
       "primitive": "editorial-copy",
       "fields": [
@@ -159,7 +221,10 @@
     },
     {
       "id": "gear",
-      "label": "Équipement & notes",
+      "label": {
+        "fr": "Équipement",
+        "en": "Gear"
+      },
       "group": "verso",
       "primitive": "gear-list",
       "fields": [
@@ -168,7 +233,10 @@
     },
     {
       "id": "urban-shadows-corruption",
-      "label": "Corruption",
+      "label": {
+        "fr": "Corruption",
+        "en": "Corruption"
+      },
       "group": "recto",
       "primitive": "box-track",
       "fields": [
@@ -177,11 +245,26 @@
     },
     {
       "id": "urban-shadows-play",
-      "label": "Jouer l'archétype",
+      "label": {
+        "fr": "Jouer l'archétype",
+        "en": "Playing the playbook"
+      },
       "group": "recto",
       "primitive": "editorial-copy",
       "fields": [
         "editorial.playAdvice"
+      ]
+    },
+    {
+      "id": "urban-shadows-notes",
+      "label": {
+        "fr": "Notes de partie",
+        "en": "Session notes"
+      },
+      "group": "verso",
+      "primitive": "notes",
+      "fields": [
+        "sessionNotes"
       ]
     }
   ],
@@ -189,6 +272,7 @@
     "game-identity",
     "urban-shadows-opening",
     "character-identity",
+    "urban-shadows-illustration",
     "urban-shadows-stats",
     "urban-shadows-circles",
     "playbook-moves",
@@ -204,7 +288,8 @@
     "urban-shadows-intimacy",
     "gear",
     "urban-shadows-corruption",
-    "urban-shadows-play"
+    "urban-shadows-play",
+    "urban-shadows-notes"
   ],
   "rows": [
     [
@@ -241,7 +326,11 @@
     ],
     [
       [
+        "urban-shadows-illustration",
         "gear"
+      ],
+      [
+        "urban-shadows-notes"
       ]
     ]
   ],

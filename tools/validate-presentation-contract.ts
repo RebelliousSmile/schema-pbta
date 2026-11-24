@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import { PBTA_CONTRACT_VERSION } from "../src/contract-version.js";
 import {
   PBTA_COLLECTION_PRESENTATIONS,
   type PbtaCollectionPresentation,
@@ -84,7 +85,7 @@ assert.deepEqual(masksStatRange.order, ["min", "current", "max"], "Masks stat ra
 assert.equal(getPbtaStatRangePresentation("urban-shadows-playbook"), undefined, "targets without display bounds publish no stat range");
 
 const monsterheartsPresentation = PBTA_MONSTERHEARTS_PLAYBOOK_PRESENTATION;
-assert.equal(monsterheartsPresentation.regions.length, 13, "Monsterhearts publishes every complete-playbook region");
+assert.equal(monsterheartsPresentation.regions.length, 14, "Monsterhearts publishes every complete-playbook region");
 assert.deepEqual(monsterheartsPresentation.rows[0]?.[1], ["playbook-portrait"], "portrait alone occupies the first row's middle column");
 assert.deepEqual(
   monsterheartsPresentation.canonicalOrder,
@@ -142,7 +143,7 @@ for (const invalid of [
 }
 
 const urbanShadowsPresentation = PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION;
-assert.equal(urbanShadowsPresentation.regions.length, 19, "Urban Shadows publishes every region of both faces");
+assert.equal(urbanShadowsPresentation.regions.length, 21, "Urban Shadows publishes every region of both faces");
 assert.deepEqual(
   urbanShadowsPresentation.canonicalOrder,
   urbanShadowsPresentation.regions.map((region) => region.id),
@@ -219,6 +220,29 @@ for (const invalid of [
     () => urbanShadowsPlaybookPresentationSchema.parse({ ...urbanShadowsPresentation, ...layoutFixture(invalid) }),
     `presentation corpus rejects ${invalid}`,
   );
+}
+
+/* Labels are printed in both languages, and the notes of the sheet are a region of its back: a label without `en`, or a notes region with no `group`, is refused. */
+{
+  const regions = urbanShadowsPresentation.regions;
+  const withLabel = (label: unknown) => ({ ...urbanShadowsPresentation, regions: regions.map((region, index) => (index === 0 ? { ...region, label } : region)) });
+  assert.equal(urbanShadowsPlaybookPresentationSchema.safeParse(withLabel({ fr: "Seulement" })).success, false, "a label without its English half is refused");
+  assert.equal(urbanShadowsPlaybookPresentationSchema.safeParse(withLabel("Plain string")).success, false, "a bare string label is refused");
+  const withoutGroup = (id: string) => ({
+    ...urbanShadowsPresentation,
+    regions: regions.map((region) => {
+      if (region.id !== id) return region;
+      const { group: _group, ...rest } = region;
+      return rest;
+    }),
+  });
+  assert.equal(urbanShadowsPlaybookPresentationSchema.safeParse(withoutGroup("urban-shadows-notes")).success, false, "the notes region of the back must name its group");
+  for (const target of ["urban-shadows-playbook", "monsterhearts-playbook"] as const) {
+    assert.ok(
+      PBTA_PLAYBOOK_PAGES[target].every((page) => page.notes_field === undefined),
+      `${target}: the notes are a region of the back of the sheet, never a page of their own`,
+    );
+  }
 }
 
 /* The grid is required: a presentation built without the `rows` key is refused for both games. A JSON fixture cannot remove a key, so the object is built here. */
@@ -304,7 +328,7 @@ for (const [presentation, schema, label] of [
       assert.ok(declares(schema, field), `${region.id}: ${field} is not a field of the ${label}`);
     }
   }
-  assert.ok(presentation.regions.every((region) => /[A-Za-zÀ-ÿ]/.test(region.label)), `${label}: every region carries a label`);
+  assert.ok(presentation.regions.every((region) => ((): string[] => { const label = region.label as string | { fr: string; en: string }; return typeof label === "string" ? [label] : [label.fr, label.en]; })().every((text) => /[A-Za-zÀ-ÿ]/.test(text))), `${label}: every region carries a label`);
 }
 assert.deepEqual(PBTA_MASKS_APPEARANCE.targets, ["masks-playbook", "masks-npc"], "the Masks appearance serves both targets");
 
@@ -380,13 +404,16 @@ assert.deepEqual(
   } as const;
   const readCapacity = (folder: string, name: string): unknown => {
     const published = JSON.parse(
-      fs.readFileSync(new URL(`../schemas/v15/${folder}/${name}.schema.json`, import.meta.url), "utf8"),
+      fs.readFileSync(new URL(`../schemas/v${PBTA_CONTRACT_VERSION}/${folder}/${name}.schema.json`, import.meta.url), "utf8"),
     ) as { properties: Record<string, { maxLength?: number }> };
     return published.properties.sessionNotes?.maxLength;
   };
   for (const [target, pages] of Object.entries(PBTA_PLAYBOOK_PAGES)) {
     assert.doesNotThrow(() => playbookPagesSchema.parse(pages), `${target}: the pages are well formed`);
-    const notesField = pages[pages.length - 1]!.notes_field!;
+    /* A booklet ends with a notes page, or prints its notes in one region of its back: the field is then `sessionNotes`. */
+    const notesPage = pages.find((page) => page.notes_field !== undefined);
+    assert.ok(notesPage === undefined || notesPage === pages[pages.length - 1], `${target}: the notes page is the last one`);
+    const notesField = notesPage?.notes_field ?? "sessionNotes";
     const layout = playbookPresentations[target as keyof typeof playbookPresentations];
     const schema = layout ? layout.schema : playbookSchema;
     assert.ok(declares(schema, notesField), `${target}: the notes field ${notesField} is not in the schema`);
@@ -402,10 +429,24 @@ assert.deepEqual(
       }
     }
     assert.deepEqual([...printed].sort(), [...groups].sort(), `${target}: every group of regions is printed on a page`);
-    assert.ok(
-      layout.regions.every((region) => !(region.fields as readonly string[]).includes(notesField)),
-      `${target}: no region prints the notes field`,
-    );
+    const notesRegions = layout.regions.filter((region) => (region.fields as readonly string[]).includes(notesField));
+    if (notesPage) {
+      assert.equal(notesRegions.length, 0, `${target}: no region prints the notes field`);
+    } else {
+      assert.equal(notesRegions.length, 1, `${target}: exactly one region prints the notes field`);
+      const region = notesRegions[0]!;
+      assert.equal(region.primitive, "notes", `${target}: the notes region draws the notes primitive`);
+      assert.deepEqual([...region.fields], [notesField], `${target}: the notes region prints only the notes`);
+      assert.ok(pages[pages.length - 1]!.groups?.includes(region.group), `${target}: the notes region sits on the last page`);
+      const face = layout.regions.filter((other) => other.group === region.group);
+      assert.equal(face[face.length - 1]?.id, region.id, `${target}: the notes close their face`);
+    }
+    for (const region of layout.regions) {
+      const label = (region as { label: unknown }).label;
+      if (typeof label === "string") continue;
+      const { fr, en } = label as { fr: string; en: string };
+      assert.ok(/[A-Za-zÀ-ÿ]/.test(fr) && /[A-Za-zÀ-ÿ]/.test(en), `${target}: region ${region.id} carries a label in both languages`);
+    }
     assert.equal(readCapacity(layout.published, target), SESSION_NOTES_CAPACITY, `${target}: the published capacity differs from SESSION_NOTES_CAPACITY`);
   }
   assert.equal(readCapacity("masks", "playbook"), SESSION_NOTES_CAPACITY, "playbook: the published capacity differs from SESSION_NOTES_CAPACITY");

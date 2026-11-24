@@ -1,0 +1,104 @@
+slug = "l-eveille"
+name = "L’Éveillé"
+characterName = "Alex (iel)"
+demeanor = "Aux aguets"
+look = "Manteau trempé de pluie, carnet à la main"
+sessionNotes = "Séance 1 : le marché de nuit, une faveur due à la Dîme."
+game = "urban-shadows"
+description = "Un mortel qui a vu ce que la ville cache et ne peut plus détourner le regard."
+statsDetail = "Sang 0, Cœur 1, Esprit -1, Âme 1."
+advancement = [{ label = "Prends un nouveau mouvement d’Éveillé." }, { label = "Ouvre une nouvelle relation mortelle.", checked = true }]
+endMove = "Quand tu meurs, demande à un autre PJ de veiller sur jusqu’à trois relations mortelles."
+advancementCircles = ["mortalis", "night", "power", "wild"]
+markedCircles = ["mortalis"]
+laterAdvancement = [{ label = "Mets le personnage à l’abri, il prend sa retraite." }, { label = "Passe à un autre archétype." }]
+letItOut = ["Quitte une scène sans te faire remarquer.", "Nomme la personne qui connaît la réponse."]
+intimacy = "Quand tu partages un moment d’intimité avec quelqu’un, dis-lui une chose que tu crains de perdre."
+debts = ["Quelqu’un t’a couvert au travail ; tu lui dois une faveur.", "Tu as gardé un secret pour quelqu’un ; il te doit une faveur."]
+
+[stats]
+blood = 0
+heart = 1
+mind = -1
+spirit = 1
+mortalis = 1
+night = 0
+power = 1
+wild = -1
+
+[statuses]
+mortalis = 1
+night = 0
+power = 0
+wild = 0
+
+[attributes]
+corruption = 0
+mortalRelationships = ["younger-sibling", "loyal-significant-other", "struggling-best-friend"]
+
+[harm]
+armor = 0
+faint = 1
+serious = 2
+critical = 2
+
+[corruption]
+trigger = "Quand tu négliges tes engagements ou tes relations mortelles pour t’occuper du surnaturel, marque une corruption."
+advances = [{ label = "Prends +1 dans une caractéristique." }, { label = "Prends un mouvement de corruption.", checked = true }, { label = "Retire le personnage, il devient une Menace." }]
+moves = ["Trop impliqué", "Électron libre"]
+track = 5
+
+[editorial.opening]
+heading = "Entre les mondes"
+paragraphs = ["Tu as vu ce que la ville cache et tu ne peux plus l’ignorer."]
+[editorial.playAdvice]
+heading = "Conseils de jeu"
+paragraphs = ["Fais compter chaque faveur et chaque relation mortelle."]
+[editorial.identity]
+heading = "Identité"
+paragraphs = ["Choisis les personnes qui te retiennent encore au monde ordinaire."]
+[editorial.progression]
+heading = "Progression"
+paragraphs = ["Tes choix de corruption et tes relations définissent ce que tu deviens."]
+
+[[moves]]
+name = "Je connais un type"
+moveType = "playbook"
+description = "Quand tu arpentes la rue pour obtenir ce qu’il te faut d’un membre de ton Cercle, lance avec Cœur à la place."
+
+[[mortalRelationships]]
+key = "younger-sibling"
+label = "Younger sibling"
+description = "Compte sur toi pour les trajets et les conseils."
+
+[[mortalRelationships]]
+key = "loyal-significant-other"
+label = "Loyal significant other"
+description = "Continue de te choisir même quand la ville rend cela dangereux."
+
+[[mortalRelationships]]
+key = "struggling-best-friend"
+label = "Struggling best friend"
+description = "Se retrouve toujours dans des altercations pénibles."
+
+[[scars]]
+name = "Brisé"
+stat = "blood"
+modifier = -1
+
+[[creation]]
+label = "Choisis trois relations mortelles."
+options = [{ value = "younger-sibling", label = "Younger sibling" }, { value = "loyal-significant-other", label = "Loyal significant other" }, { value = "struggling-best-friend", label = "Struggling best friend" }]
+selection = { min = 3, max = 3 }
+attribute = "mortalRelationships"
+
+[[extras]]
+key = "notebook"
+label = "Le carnet"
+text = "Là où tu écris ce que tu ne devrais pas savoir."
+items = ["Un nom barré deux fois.", "Une adresse où tu n’es jamais allé."]
+
+[[extras]]
+key = "day-job"
+label = "Emploi de jour"
+text = "Ce qui paie encore le loyer."

@@ -1,9 +1,11 @@
 import { z } from "zod";
+import { localizedLabelSchema } from "./label.js";
 
 const regionIds = [
   "game-identity",
   "urban-shadows-opening",
   "character-identity",
+  "urban-shadows-illustration",
   "urban-shadows-stats",
   "urban-shadows-circles",
   "playbook-moves",
@@ -20,13 +22,14 @@ const regionIds = [
   "gear",
   "urban-shadows-corruption",
   "urban-shadows-play",
+  "urban-shadows-notes",
 ] as const;
 
-/* The last three are proper to this sheet: a Circle with its status marks, a list of boxes to tick, a track of boxes. */
+/* The last five are proper to this sheet: a Circle with its status marks, a list of boxes to tick, a track of boxes, the picture of the playbook, and the lined area the player writes the notes of the game in. */
 const primitives = [
   "identity", "editorial-copy", "stat-spread", "action-list", "relationship-ledger",
   "condition-harm-tracker", "gear-list", "progression-list",
-  "circle-status", "check-list", "box-track",
+  "circle-status", "check-list", "box-track", "portrait", "notes",
 ] as const;
 
 const fieldPath = z.string().regex(/^[a-z][A-Za-z0-9]*(?:\.[a-z][A-Za-z0-9]*)*$/);
@@ -36,7 +39,8 @@ export const urbanShadowsPlaybookPresentationSchema = z.strictObject({
   target: z.literal("urban-shadows-playbook"),
   regions: z.array(z.strictObject({
     id: regionId,
-    label: z.string().min(1),
+    /** Printed in both languages: the consumer follows its own interface language. */
+    label: localizedLabelSchema,
     /** The face of the printed sheet the region belongs to. */
     group: z.enum(["recto", "verso"]),
     primitive: z.enum(primitives),
@@ -90,32 +94,34 @@ export type PbtaUrbanShadowsPrimitive = typeof primitives[number];
 export const PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION: PbtaUrbanShadowsPlaybookPresentation = urbanShadowsPlaybookPresentationSchema.parse({
   target: "urban-shadows-playbook",
   regions: [
-    { id: "game-identity", label: "Archétype", group: "recto", primitive: "identity", fields: ["name", "description", "playbookImage"] },
-    { id: "urban-shadows-opening", label: "Introduction", group: "recto", primitive: "editorial-copy", fields: ["editorial.opening"] },
-    { id: "character-identity", label: "Identité", group: "recto", primitive: "identity", fields: ["editorial.identity"] },
-    { id: "urban-shadows-stats", label: "Caractéristiques", group: "recto", primitive: "stat-spread", fields: ["stats", "statsDetail"] },
-    { id: "urban-shadows-circles", label: "Cercles", group: "recto", primitive: "circle-status", fields: ["stats", "statuses"] },
-    { id: "playbook-moves", label: "Mouvements d'archétype", group: "recto", primitive: "action-list", fields: ["moves", "startingMoves"] },
-    { id: "urban-shadows-advancement", label: "Progression", group: "recto", primitive: "progression-list", fields: ["editorial.progression", "advancementCircles", "markedCircles", "advancement", "laterAdvancement"] },
-    { id: "harm-tracker", label: "Dégâts", group: "recto", primitive: "condition-harm-tracker", fields: ["harm"] },
-    { id: "urban-shadows-scars", label: "Cicatrices", group: "recto", primitive: "check-list", fields: ["scars"] },
-    { id: "urban-shadows-let-it-out", label: "Laisse sortir", group: "recto", primitive: "check-list", fields: ["letItOut"] },
-    { id: "urban-shadows-end-move", label: "Mouvement final", group: "recto", primitive: "editorial-copy", fields: ["endMove"] },
-    { id: "urban-shadows-creation", label: "Création du personnage", group: "verso", primitive: "editorial-copy", fields: ["creation", "statProfiles", "choiceSets", "attributes"] },
-    { id: "urban-shadows-debts", label: "Dettes de départ", group: "recto", primitive: "relationship-ledger", fields: ["debts"] },
-    { id: "urban-shadows-mortal-relationships", label: "Relations mortelles", group: "recto", primitive: "relationship-ledger", fields: ["mortalRelationships"] },
-    { id: "urban-shadows-extras", label: "Cadres de l'archétype", group: "recto", primitive: "editorial-copy", fields: ["extras"] },
-    { id: "urban-shadows-intimacy", label: "Intimité", group: "recto", primitive: "editorial-copy", fields: ["intimacy"] },
-    { id: "gear", label: "Équipement & notes", group: "verso", primitive: "gear-list", fields: ["gear"] },
-    { id: "urban-shadows-corruption", label: "Corruption", group: "recto", primitive: "box-track", fields: ["corruption"] },
-    { id: "urban-shadows-play", label: "Jouer l'archétype", group: "recto", primitive: "editorial-copy", fields: ["editorial.playAdvice"] },
+    { id: "game-identity", label: { fr: "Archétype", en: "Archetype" }, group: "recto", primitive: "identity", fields: ["name", "characterName", "demeanor", "look", "description"] },
+    { id: "urban-shadows-opening", label: { fr: "Introduction", en: "Introduction" }, group: "recto", primitive: "editorial-copy", fields: ["editorial.opening"] },
+    { id: "character-identity", label: { fr: "Identité", en: "Identity" }, group: "recto", primitive: "identity", fields: ["editorial.identity"] },
+    { id: "urban-shadows-illustration", label: { fr: "Illustration", en: "Illustration" }, group: "verso", primitive: "portrait", fields: ["playbookImage"] },
+    { id: "urban-shadows-stats", label: { fr: "Caractéristiques", en: "Stats" }, group: "recto", primitive: "stat-spread", fields: ["stats", "statsDetail"] },
+    { id: "urban-shadows-circles", label: { fr: "Cercles", en: "Circles" }, group: "recto", primitive: "circle-status", fields: ["stats", "statuses"] },
+    { id: "playbook-moves", label: { fr: "Actions d'archétype", en: "Playbook moves" }, group: "recto", primitive: "action-list", fields: ["moves", "startingMoves"] },
+    { id: "urban-shadows-advancement", label: { fr: "Progression", en: "Advancement" }, group: "recto", primitive: "progression-list", fields: ["editorial.progression", "advancementCircles", "markedCircles", "advancement", "laterAdvancement"] },
+    { id: "harm-tracker", label: { fr: "Blessures", en: "Harm" }, group: "recto", primitive: "condition-harm-tracker", fields: ["harm"] },
+    { id: "urban-shadows-scars", label: { fr: "Séquelles", en: "Scars" }, group: "recto", primitive: "check-list", fields: ["scars"] },
+    { id: "urban-shadows-let-it-out", label: { fr: "Lâcher la Bête", en: "Let it out" }, group: "recto", primitive: "check-list", fields: ["letItOut"] },
+    { id: "urban-shadows-end-move", label: { fr: "Ultime action", en: "End move" }, group: "recto", primitive: "editorial-copy", fields: ["endMove"] },
+    { id: "urban-shadows-creation", label: { fr: "Création du personnage", en: "Character creation" }, group: "verso", primitive: "editorial-copy", fields: ["creation", "statProfiles", "choiceSets", "attributes"] },
+    { id: "urban-shadows-debts", label: { fr: "Dettes de départ", en: "Starting debts" }, group: "recto", primitive: "relationship-ledger", fields: ["debts"] },
+    { id: "urban-shadows-mortal-relationships", label: { fr: "Relations mortelles", en: "Mortal relationships" }, group: "recto", primitive: "relationship-ledger", fields: ["mortalRelationships"] },
+    { id: "urban-shadows-extras", label: { fr: "Cadres de l'archétype", en: "Playbook frames" }, group: "recto", primitive: "editorial-copy", fields: ["extras"] },
+    { id: "urban-shadows-intimacy", label: { fr: "Intimité", en: "Intimacy" }, group: "recto", primitive: "editorial-copy", fields: ["intimacy"] },
+    { id: "gear", label: { fr: "Équipement", en: "Gear" }, group: "verso", primitive: "gear-list", fields: ["gear"] },
+    { id: "urban-shadows-corruption", label: { fr: "Corruption", en: "Corruption" }, group: "recto", primitive: "box-track", fields: ["corruption"] },
+    { id: "urban-shadows-play", label: { fr: "Jouer l'archétype", en: "Playing the playbook" }, group: "recto", primitive: "editorial-copy", fields: ["editorial.playAdvice"] },
+    { id: "urban-shadows-notes", label: { fr: "Notes de partie", en: "Session notes" }, group: "verso", primitive: "notes", fields: ["sessionNotes"] },
   ],
   canonicalOrder: [
-    "game-identity", "urban-shadows-opening", "character-identity", "urban-shadows-stats", "urban-shadows-circles",
+    "game-identity", "urban-shadows-opening", "character-identity", "urban-shadows-illustration", "urban-shadows-stats", "urban-shadows-circles",
     "playbook-moves", "urban-shadows-advancement", "harm-tracker", "urban-shadows-scars",
     "urban-shadows-let-it-out", "urban-shadows-end-move",
     "urban-shadows-creation", "urban-shadows-debts", "urban-shadows-mortal-relationships", "urban-shadows-extras",
-    "urban-shadows-intimacy", "gear", "urban-shadows-corruption", "urban-shadows-play",
+    "urban-shadows-intimacy", "gear", "urban-shadows-corruption", "urban-shadows-play", "urban-shadows-notes",
   ],
   rows: [
     [
@@ -129,7 +135,8 @@ export const PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION: PbtaUrbanShadowsPlaybookP
       ["urban-shadows-debts", "urban-shadows-mortal-relationships", "urban-shadows-extras", "urban-shadows-play"],
     ],
     [
-      ["gear"],
+      ["urban-shadows-illustration", "gear"],
+      ["urban-shadows-notes"],
     ],
   ],
   fallbacks: { unplaced: "canonical-order", narrowPane: "canonical-flow", print: "canonical-flow" },

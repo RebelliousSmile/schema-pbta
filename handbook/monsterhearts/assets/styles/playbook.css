@@ -418,6 +418,7 @@
 .handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="monsterhearts-play"] { order: 10; }
 .handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="monsterhearts-progression"] { order: 11; }
 .handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="harm-tracker"] { order: 12; }
+.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="monsterhearts-notes"] { order: 13; }
 
 @media print {
 	.handbook-monsterhearts-playbook {
@@ -429,5 +430,10 @@
 	.handbook-monsterhearts-playbook .handbook-monsterhearts-layout-row,
 	.handbook-monsterhearts-playbook .handbook-monsterhearts-column {
 		display: contents;
+	}
+
+	/* The notes are the back of the sheet: they start their own page. */
+	.handbook-monsterhearts-playbook .handbook-monsterhearts-region[data-region="monsterhearts-notes"] {
+		break-before: page;
 	}
 }

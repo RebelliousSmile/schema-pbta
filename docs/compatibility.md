@@ -20,7 +20,8 @@ npm registry.
 | `12.0.x` | `schemas/v12` | `v12.0.0` | `1.0.0` | requires consumer upgrade | requires consumer upgrade |
 | `13.x` | `schemas/v13` | `v13.0.0` | `1.0.0` | requires consumer upgrade | requires consumer upgrade |
 | `14.0.x` | `schemas/v14` | `v14.0.0` | `1.0.0` | requires consumer upgrade | requires consumer upgrade |
-| `15.0.x` candidate | `schemas/v15` | `v15.0.0` (not yet published) | `1.0.0` | requires consumer upgrade | requires consumer upgrade |
+| `15.0.x` | `schemas/v15` | `v15.0.0` | `1.0.0` | requires consumer upgrade | requires consumer upgrade |
+| `16.0.x` candidate | `schemas/v16` | `v16.0.0` (not yet published) | `1.0.0` | requires consumer upgrade | requires consumer upgrade |
 
 The schema path groups compatible artifacts by contract major. Every `$id`
 uses its exact immutable release tag so it never depends on a movable major alias.
