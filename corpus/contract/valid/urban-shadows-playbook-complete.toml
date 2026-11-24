@@ -64,3 +64,27 @@ items = ["A name crossed out twice.", "An address you never visited."]
 key = "day-job"
 label = "Day job"
 text = "What still pays the rent."
+
+[[gear]]
+name = "9mm Beretta"
+harm = 2
+range = ["near"]
+tags = ["loud", "concealable"]
+
+[[gear]]
+name = "Taser"
+harm = "stun"
+range = ["hand"]
+
+[[gear]]
+name = "Kevlar vest"
+armor = { value = 1, mode = "base" }
+
+[[gear]]
+name = "Silver-lined gloves"
+armor = { value = 1, mode = "bonus" }
+tags = ["silver"]
+
+[[gear]]
+name = "A small apartment and a used car"
+description = "Prose only: no harm, armor or range."

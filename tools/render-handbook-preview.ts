@@ -263,12 +263,28 @@ function renderChoiceSets(playbook: Data, referencedMoves: Data[]): string {
   return `<section class="handbook-subsection handbook-choice-sets"><span class="handbook-kicker">Sélection</span><h2>Choix du livret</h2>${groups}</section>`;
 }
 
+/** Urban Shadows prints a weapon `2-harm near loud concealable` and armor `1-armor` or `armor+1`: the written line. */
+function gearStatLine(gear: Data): string {
+  const words: string[] = [];
+  if (gear.harm === "stun") words.push("s-harm");
+  else if (typeof gear.harm === "number") words.push(`${gear.harm}-harm`);
+  if (gear.armor && typeof gear.armor === "object" && !Array.isArray(gear.armor)) {
+    const armor = gear.armor as Data;
+    words.push(armor.mode === "bonus" ? `armor+${armor.value}` : `${armor.value}-armor`);
+  }
+  if (Array.isArray(gear.range)) words.push(...gear.range.map(String));
+  return words.join(" ");
+}
+
 function renderGear(playbook: Data): string {
   if (!Array.isArray(playbook.gear) || playbook.gear.length === 0) return "";
   const items = playbook.gear.map((rawGear) => {
     const gear = asData(rawGear, "gear");
     const quantity = typeof gear.quantity === "number" ? `<span class="handbook-gear__quantity">×${escapeHtml(gear.quantity)}</span>` : "";
-    return `<li class="handbook-gear" data-schema-block="gear"><div><strong>${escapeHtml(gear.name)}</strong>${gear.equipmentType ? `<small>${escapeHtml(gear.equipmentType)}</small>` : ""}</div>${quantity}${gear.description ? `<p>${escapeHtml(gear.description)}</p>` : ""}${tags(gear.tags)}</li>`;
+    const statLine = gearStatLine(gear);
+    const line = statLine ? [statLine, Array.isArray(gear.tags) ? gear.tags.map(String).join(" ") : ""].filter(Boolean).join(" ") : "";
+    const written = line ? `<small class="handbook-gear__line">${escapeHtml(line)}</small>` : "";
+    return `<li class="handbook-gear" data-schema-block="gear"><div><strong>${escapeHtml(gear.name)}</strong>${gear.equipmentType ? `<small>${escapeHtml(gear.equipmentType)}</small>` : ""}${written}</div>${quantity}${gear.description ? `<p>${escapeHtml(gear.description)}</p>` : ""}${statLine ? "" : tags(gear.tags)}</li>`;
   }).join("");
   return `<section class="handbook-subsection handbook-gear-list"><span class="handbook-kicker">Inventaire</span><h2>Équipement</h2><ul>${items}</ul></section>`;
 }

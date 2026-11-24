@@ -31,8 +31,15 @@ const editorialSchema = playbookEditorialSchema.omit({
   play: editorialSectionSchema.optional().meta({ description: "Optional advice for playing the skin (\"Jouer la X\")." }),
 }).meta({ description: "All editorial regions rendered as part of a Monsterhearts playbook." });
 
+/** Monsterhearts has no equipment system: an object worth noting (a Witch's fetish) is a name and what it does. */
+const gearSchema = z.strictObject({
+  name: nonEmptyString.meta({ description: "Human-readable name of the object." }),
+  description: nonEmptyString.optional().meta({ description: "Plain-text explanation of the object." }),
+}).meta({ description: "An object the skin notes on its sheet." });
+
 /** Monsterhearts skin data in one portable TOML document. */
-export const monsterheartsPlaybookSchema = playbookSchema.extend({
+export const monsterheartsPlaybookSchema = playbookSchema.omit({ startingMoves: true, gear: true }).extend({
+  gear: z.array(gearSchema).optional().meta({ description: "Objects the skin notes on its sheet, such as the fetishes of a Witch." }),
   moves: z.array(playbookMoveEntry).max(6).meta({ description: "Moves available to this skin; the booklet holds at most six." }),
   statRanges: z.record(z.string(), statRangeSchema).optional().meta({ description: "Optional display bounds keyed by Monsterhearts stat." }),
   strings: stringSchema.optional().meta({ description: "Starting String economy." }),

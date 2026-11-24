@@ -34,3 +34,10 @@ paragraphs = ["Choose a face that almost looks real."]
 [editorial.progression]
 heading = "Progression"
 paragraphs = ["Take a new skin move."]
+
+[[gear]]
+name = "The first fetish"
+description = "Decide what it is and who it belongs to."
+
+[[gear]]
+name = "A name only"

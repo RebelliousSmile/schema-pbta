@@ -102,3 +102,17 @@ items = ["Un nom barré deux fois.", "Une adresse où tu n’es jamais allé."]
 key = "day-job"
 label = "Emploi de jour"
 text = "Ce qui paie encore le loyer."
+
+[[gear]]
+name = "Un petit appartement"
+
+[[gear]]
+name = "Une voiture d’occasion"
+
+[[gear]]
+name = "Un smartphone"
+
+[[gear]]
+name = "Taser"
+harm = "stun"
+range = ["hand"]

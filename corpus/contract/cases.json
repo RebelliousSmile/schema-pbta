@@ -76,6 +76,18 @@
     { "path": "invalid/the-sprawl-corporation-heures-en-trop.toml", "target": "the-sprawl-corporation", "expect": "reject" },
     { "path": "invalid/the-sprawl-resource-sans-nom.toml", "target": "the-sprawl-resource", "expect": "reject" },
     { "path": "invalid/the-sprawl-resource-champ-inconnu.toml", "target": "the-sprawl-resource", "expect": "reject" },
-    { "path": "invalid/the-sprawl-resource-competence-vide.toml", "target": "the-sprawl-resource", "expect": "reject" }
+    { "path": "invalid/the-sprawl-resource-competence-vide.toml", "target": "the-sprawl-resource", "expect": "reject" },
+    { "path": "invalid/urban-shadows-playbook-starting-moves-removed.toml", "target": "urban-shadows-playbook", "expect": "reject" },
+    { "path": "invalid/urban-shadows-playbook-gear-equipment-type.toml", "target": "urban-shadows-playbook", "expect": "reject" },
+    { "path": "invalid/urban-shadows-playbook-gear-quantity.toml", "target": "urban-shadows-playbook", "expect": "reject" },
+    { "path": "invalid/urban-shadows-playbook-gear-stun-with-value.toml", "target": "urban-shadows-playbook", "expect": "reject" },
+    { "path": "invalid/urban-shadows-playbook-gear-armor-without-mode.toml", "target": "urban-shadows-playbook", "expect": "reject" },
+    { "path": "invalid/urban-shadows-playbook-gear-harm-unknown-word.toml", "target": "urban-shadows-playbook", "expect": "reject" },
+    { "path": "invalid/urban-shadows-playbook-gear-range-unknown.toml", "target": "urban-shadows-playbook", "expect": "reject" },
+    { "path": "invalid/urban-shadows-playbook-gear-range-empty.toml", "target": "urban-shadows-playbook", "expect": "reject" },
+    { "path": "invalid/monsterhearts-playbook-starting-moves-removed.toml", "target": "monsterhearts-playbook", "expect": "reject" },
+    { "path": "invalid/monsterhearts-playbook-gear-quantity.toml", "target": "monsterhearts-playbook", "expect": "reject" },
+    { "path": "invalid/monsterhearts-playbook-gear-equipment-type.toml", "target": "monsterhearts-playbook", "expect": "reject" },
+    { "path": "invalid/monsterhearts-playbook-gear-missing-name.toml", "target": "monsterhearts-playbook", "expect": "reject" }
   ]
 }

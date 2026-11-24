@@ -5,8 +5,8 @@ export type PbtaCollectionItemCapability = "checked";
 export type PbtaCollectionCreationVariant = "inline" | "object" | "text";
 export const PBTA_COLLECTION_ITEM_EDITORS = [
   "pbta-ascendant", "pbta-advancement", "pbta-choice-move", "pbta-choice-set",
-  "pbta-condition", "pbta-creation-option", "pbta-creation-question", "pbta-gear",
-  "pbta-move", "pbta-relationship", "pbta-scar", "pbta-stat-profile", "pbta-text",
+  "pbta-condition", "pbta-creation-option", "pbta-creation-question", "pbta-equipment", "pbta-gear",
+  "pbta-move", "pbta-named-object", "pbta-relationship", "pbta-scar", "pbta-stat-profile", "pbta-text",
 ] as const;
 export type PbtaCollectionItemEditor = typeof PBTA_COLLECTION_ITEM_EDITORS[number];
 
@@ -60,6 +60,7 @@ const common = [
   ["editorial.identity.paragraphs", "Identity paragraphs", "pbta-text", "text"],
   ["editorial.progression.paragraphs", "Progression paragraphs", "pbta-text", "text"],
 ] as const satisfies readonly CollectionEntry[];
+const gearlessStartingMoves = new Set<string>(["monsterhearts-playbook", "urban-shadows-playbook"]);
 const targets = [
   "masks-playbook",
   "monsterhearts-playbook",
@@ -78,6 +79,12 @@ function collection(
 export const PBTA_COLLECTION_PRESENTATIONS: readonly PbtaCollectionPresentation[] = [
   ...targets.flatMap((target) => common
     .filter(([path]) => target !== "monsterhearts-playbook" || path !== "editorial.playAdvice.paragraphs")
+    /* Urban Shadows and Monsterhearts hold what a move grants in `moves[].checked`: they have no `startingMoves`. */
+    .filter(([path]) => !gearlessStartingMoves.has(target) || path !== "startingMoves")
+    /* Their gear is not the generic one: the Urban Shadows booklet prints weapons, Monsterhearts prints objects. */
+    .map((entry): CollectionEntry => entry[0] === "gear" && target === "urban-shadows-playbook" ? ["gear", "Gear", "pbta-equipment", "object"]
+      : entry[0] === "gear" && target === "monsterhearts-playbook" ? ["gear", "Gear", "pbta-named-object", "object"]
+      : entry)
     .map((entry) => collection(target, entry, entry[0] === "moves" || entry[0] === "advancement" ? ["checked"] : undefined))),
   collection("masks-playbook", ["influence", "Influence", "pbta-text", "text"]),
   collection("masks-playbook", ["conditions", "Conditions", "pbta-condition", "object"], ["checked"]),

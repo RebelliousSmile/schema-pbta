@@ -88,8 +88,7 @@
       "group": "recto",
       "primitive": "action-list",
       "fields": [
-        "moves",
-        "startingMoves"
+        "moves"
       ]
     },
     {
@@ -334,6 +333,180 @@
       ]
     ]
   ],
+  "equipment": {
+    "ranges": [
+      {
+        "id": "hand",
+        "label": {
+          "fr": "hand",
+          "en": "hand"
+        }
+      },
+      {
+        "id": "close",
+        "label": {
+          "fr": "close",
+          "en": "close"
+        }
+      },
+      {
+        "id": "near",
+        "label": {
+          "fr": "near",
+          "en": "near"
+        }
+      },
+      {
+        "id": "far",
+        "label": {
+          "fr": "far",
+          "en": "far"
+        }
+      }
+    ],
+    "tags": [
+      {
+        "id": "anchored",
+        "label": {
+          "fr": "ancré",
+          "en": "anchored"
+        }
+      },
+      {
+        "id": "ap",
+        "label": {
+          "fr": "perforant",
+          "en": "ap"
+        }
+      },
+      {
+        "id": "area",
+        "label": {
+          "fr": "zone",
+          "en": "area"
+        }
+      },
+      {
+        "id": "autofire",
+        "label": {
+          "fr": "tir automatique",
+          "en": "autofire"
+        }
+      },
+      {
+        "id": "booby-trapped",
+        "label": {
+          "fr": "piégé",
+          "en": "booby-trapped"
+        }
+      },
+      {
+        "id": "cherished",
+        "label": {
+          "fr": "chéri",
+          "en": "cherished"
+        }
+      },
+      {
+        "id": "cold iron",
+        "label": {
+          "fr": "fer froid",
+          "en": "cold iron"
+        }
+      },
+      {
+        "id": "concealable",
+        "label": {
+          "fr": "dissimulable",
+          "en": "concealable"
+        }
+      },
+      {
+        "id": "exhausting",
+        "label": {
+          "fr": "épuisant",
+          "en": "exhausting"
+        }
+      },
+      {
+        "id": "fire",
+        "label": {
+          "fr": "feu",
+          "en": "fire"
+        }
+      },
+      {
+        "id": "fragile",
+        "label": {
+          "fr": "fragile",
+          "en": "fragile"
+        }
+      },
+      {
+        "id": "holy",
+        "label": {
+          "fr": "sacré",
+          "en": "holy"
+        }
+      },
+      {
+        "id": "loud",
+        "label": {
+          "fr": "bruyant",
+          "en": "loud"
+        }
+      },
+      {
+        "id": "messy",
+        "label": {
+          "fr": "salissant",
+          "en": "messy"
+        }
+      },
+      {
+        "id": "mythic",
+        "label": {
+          "fr": "mythique",
+          "en": "mythic"
+        }
+      },
+      {
+        "id": "reload",
+        "label": {
+          "fr": "rechargement",
+          "en": "reload"
+        }
+      },
+      {
+        "id": "reputation",
+        "label": {
+          "fr": "réputation",
+          "en": "reputation"
+        }
+      },
+      {
+        "id": "silver",
+        "label": {
+          "fr": "argent",
+          "en": "silver"
+        }
+      },
+      {
+        "id": "smoke",
+        "label": {
+          "fr": "fumée",
+          "en": "smoke"
+        }
+      },
+      {
+        "id": "stun",
+        "label": {
+          "fr": "étourdissant",
+          "en": "stun"
+        }
+      }
+    ]
+  },
   "fallbacks": {
     "unplaced": "canonical-order",
     "narrowPane": "canonical-flow",

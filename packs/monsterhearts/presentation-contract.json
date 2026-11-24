@@ -75,8 +75,7 @@
       "group": "playbook",
       "primitive": "action-list",
       "fields": [
-        "moves",
-        "startingMoves"
+        "moves"
       ]
     },
     {

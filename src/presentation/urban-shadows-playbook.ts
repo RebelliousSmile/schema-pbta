@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { URBAN_SHADOWS_EQUIPMENT_RANGES } from "../zod/urban-shadows-playbook.js";
 import { localizedLabelSchema } from "./label.js";
 
 const regionIds = [
@@ -48,6 +49,11 @@ export const urbanShadowsPlaybookPresentationSchema = z.strictObject({
   })).length(regionIds.length),
   canonicalOrder: z.array(regionId).length(regionIds.length),
   rows: z.array(z.array(z.array(regionId).min(1)).min(1).max(3)).min(1),
+  /** The gear vocabulary the editor offers. Open: a tag written outside it is valid. */
+  equipment: z.strictObject({
+    ranges: z.array(z.strictObject({ id: z.enum(URBAN_SHADOWS_EQUIPMENT_RANGES), label: localizedLabelSchema })).length(URBAN_SHADOWS_EQUIPMENT_RANGES.length),
+    tags: z.array(z.strictObject({ id: z.string().regex(/^[a-z]+(?: [a-z]+)*(?:-[a-z]+)*$/), label: localizedLabelSchema })).min(1),
+  }),
   fallbacks: z.strictObject({
     unplaced: z.literal("canonical-order"),
     narrowPane: z.literal("canonical-flow"),
@@ -100,7 +106,7 @@ export const PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION: PbtaUrbanShadowsPlaybookP
     { id: "urban-shadows-illustration", label: { fr: "Illustration", en: "Illustration" }, group: "verso", primitive: "portrait", fields: ["playbookImage"] },
     { id: "urban-shadows-stats", label: { fr: "Caractéristiques", en: "Stats" }, group: "recto", primitive: "stat-spread", fields: ["stats", "statsDetail"] },
     { id: "urban-shadows-circles", label: { fr: "Cercles", en: "Circles" }, group: "recto", primitive: "circle-status", fields: ["stats", "statuses"] },
-    { id: "playbook-moves", label: { fr: "Actions d'archétype", en: "Playbook moves" }, group: "recto", primitive: "action-list", fields: ["moves", "startingMoves"] },
+    { id: "playbook-moves", label: { fr: "Actions d'archétype", en: "Playbook moves" }, group: "recto", primitive: "action-list", fields: ["moves"] },
     { id: "urban-shadows-advancement", label: { fr: "Progression", en: "Advancement" }, group: "recto", primitive: "progression-list", fields: ["editorial.progression", "advancementCircles", "markedCircles", "advancement", "laterAdvancement"] },
     { id: "harm-tracker", label: { fr: "Blessures", en: "Harm" }, group: "recto", primitive: "condition-harm-tracker", fields: ["harm"] },
     { id: "urban-shadows-scars", label: { fr: "Séquelles", en: "Scars" }, group: "recto", primitive: "check-list", fields: ["scars"] },
@@ -139,6 +145,36 @@ export const PBTA_URBAN_SHADOWS_PLAYBOOK_PRESENTATION: PbtaUrbanShadowsPlaybookP
       ["urban-shadows-notes"],
     ],
   ],
+  equipment: {
+    ranges: [
+      { id: "hand", label: { fr: "hand", en: "hand" } },
+      { id: "close", label: { fr: "close", en: "close" } },
+      { id: "near", label: { fr: "near", en: "near" } },
+      { id: "far", label: { fr: "far", en: "far" } },
+    ],
+    tags: [
+      { id: "anchored", label: { fr: "ancré", en: "anchored" } },
+      { id: "ap", label: { fr: "perforant", en: "ap" } },
+      { id: "area", label: { fr: "zone", en: "area" } },
+      { id: "autofire", label: { fr: "tir automatique", en: "autofire" } },
+      { id: "booby-trapped", label: { fr: "piégé", en: "booby-trapped" } },
+      { id: "cherished", label: { fr: "chéri", en: "cherished" } },
+      { id: "cold iron", label: { fr: "fer froid", en: "cold iron" } },
+      { id: "concealable", label: { fr: "dissimulable", en: "concealable" } },
+      { id: "exhausting", label: { fr: "épuisant", en: "exhausting" } },
+      { id: "fire", label: { fr: "feu", en: "fire" } },
+      { id: "fragile", label: { fr: "fragile", en: "fragile" } },
+      { id: "holy", label: { fr: "sacré", en: "holy" } },
+      { id: "loud", label: { fr: "bruyant", en: "loud" } },
+      { id: "messy", label: { fr: "salissant", en: "messy" } },
+      { id: "mythic", label: { fr: "mythique", en: "mythic" } },
+      { id: "reload", label: { fr: "rechargement", en: "reload" } },
+      { id: "reputation", label: { fr: "réputation", en: "reputation" } },
+      { id: "silver", label: { fr: "argent", en: "silver" } },
+      { id: "smoke", label: { fr: "fumée", en: "smoke" } },
+      { id: "stun", label: { fr: "étourdissant", en: "stun" } },
+    ],
+  },
   fallbacks: { unplaced: "canonical-order", narrowPane: "canonical-flow", print: "canonical-flow" },
   pack: {
     id: "urban-shadows",

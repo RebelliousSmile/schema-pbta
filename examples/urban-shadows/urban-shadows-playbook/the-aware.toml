@@ -102,3 +102,18 @@ items = ["A name crossed out twice.", "An address you never visited."]
 key = "day-job"
 label = "Day job"
 text = "What still pays the rent."
+
+[[gear]]
+name = "A small apartment"
+
+[[gear]]
+name = "A used car"
+
+[[gear]]
+name = "A smartphone"
+
+[[gear]]
+name = "9mm Beretta"
+harm = 2
+range = ["near"]
+tags = ["loud", "concealable"]

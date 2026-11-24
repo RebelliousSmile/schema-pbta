@@ -36,12 +36,36 @@ const extraSchema = z.strictObject({
   items: z.array(nonEmptyString).optional().meta({ description: "Ordered lines listed in the frame." }),
 }).meta({ description: "One titled frame printed only on this playbook." });
 
+/** The four range tags of the book's tag table: the reach of a weapon, written once, in print order. */
+export const URBAN_SHADOWS_EQUIPMENT_RANGES = ["hand", "close", "near", "far"] as const;
+
+/**
+ * One piece of Urban Shadows gear, written as the booklet prints it:
+ * `9mm Beretta (2-harm near loud concealable)`. Only `name` is required: a line of prose
+ * ("a used car") is a bare name. There is no `equipmentType` and no `quantity`.
+ * `harm` is either a count (`n-harm`) or the word `stun` (`s-harm`, which carries no value),
+ * and `armor` carries both its value and its mode, so neither "s-harm with a value" nor
+ * "armor without a mode" can be written.
+ */
+const equipmentSchema = z.strictObject({
+  name: nonEmptyString.meta({ description: "Human-readable name of the piece of gear, or a line of prose such as `A used car`." }),
+  description: nonEmptyString.optional().meta({ description: "Plain-text explanation of the gear." }),
+  harm: z.union([portableCount, z.literal("stun")]).optional().meta({ description: "Harm the gear inflicts: a count for `n-harm`, or `stun` for `s-harm` (stun harm has no value)." }),
+  armor: z.strictObject({
+    value: portableCount.meta({ description: "Armor value." }),
+    mode: z.enum(["base", "bonus"]).meta({ description: "`base` is `x-armor` (does not stack); `bonus` is `armor+x` (stacks)." }),
+  }).optional().meta({ description: "Armor the gear grants, written `x-armor` or `armor+x`." }),
+  range: z.array(z.enum(URBAN_SHADOWS_EQUIPMENT_RANGES)).min(1).optional().meta({ description: "Range tags of the gear, in printed order (`hand`, `close`, `near`, `far`)." }),
+  tags: z.array(nonEmptyString).optional().meta({ description: "Item tags such as `loud` or `concealable`. The vocabulary published with the playbook presentation is open: a tag outside it is valid." }),
+}).meta({ description: "A piece of Urban Shadows gear, written as the booklet prints it." });
+
 /**
  * Urban Shadows extends the portable PbtA playbook with mechanics that are
  * meaningless to the other games: mortal ties, status, harm, scars and
  * corruption. It intentionally remains a single TOML document.
  */
-export const urbanShadowsPlaybookSchema = playbookSchema.extend({
+export const urbanShadowsPlaybookSchema = playbookSchema.omit({ startingMoves: true, gear: true }).extend({
+  gear: z.array(equipmentSchema).optional().meta({ description: "Starting gear: one element per object held, not the list of choices the booklet prints." }),
   characterName: nonEmptyString.optional().meta({ description: "Name and pronouns written on the sheet by the player." }),
   demeanor: nonEmptyString.optional().meta({ description: "Demeanor line of the header, written by the player." }),
   look: nonEmptyString.optional().meta({ description: "Look line of the header, written by the player." }),
